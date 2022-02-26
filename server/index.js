@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3001;
 const path = require('path');
 
 let socketList = {};
-
+let currUser = undefined;
 app.use(express.static(path.join(__dirname, 'public')));
 
 if (process.env.NODE_ENV === 'production') {
@@ -37,13 +37,19 @@ io.on('connection', (socket) => {
    */
   socket.on('BE-join-room', ({ roomId, user }) => {
     // Socket Join RoomName
+    if (currUser) {
+      socket.emit('FE-duplicate-user');
+      return;
+    }
     socket.join(roomId);
-    socketList[socket.id] = { user, video: true, audio: true };
+    currUser = user;
+    socketList[currUser.mobile] = { user, video: true, audio: true };
 
     // Set User List
-    socket
-      .to(roomId)
-      .emit('FE-user-join', { userId: socket.id, info: socketList[socket.id] });
+    socket.to(roomId).emit('FE-user-join', {
+      userId: socket.id,
+      info: socketList[currUser.mobile],
+    });
     // io.sockets.in(roomId).emit('FE-user-join', users);
   });
 
@@ -51,7 +57,7 @@ io.on('connection', (socket) => {
     io.to(userToCall).emit('FE-receive-call', {
       signal,
       from,
-      info: socketList[socket.id],
+      info: socketList[currUser.mobile],
     });
   });
 
@@ -66,19 +72,17 @@ io.on('connection', (socket) => {
     io.in(roomId).emit('FE-receive-message', { msg, sender });
   });
 
-  socket.on('BE-leave-room', ({ roomId, leaver }) => {
-    delete socketList[socket.id];
-    socket
-      .to(roomId)
-      .emit('FE-user-leave', { userId: socket.id });
+  socket.on('BE-leave-room', ({ roomId }) => {
+    delete socketList[currUser.mobile];
+    socket.to(roomId).emit('FE-user-leave', { userId: socket.id });
     socket.leave(roomId);
   });
 
   socket.on('BE-toggle-camera-audio', ({ roomId, switchTarget }) => {
     if (switchTarget === 'video') {
-      socketList[socket.id].video = !socketList[socket.id].video;
+      socketList[currUser.mobile].video = !socketList[currUser.mobile].video;
     } else {
-      socketList[socket.id].audio = !socketList[socket.id].audio;
+      socketList[currUser.mobile].audio = !socketList[currUser.mobile].audio;
     }
     socket
       .to(roomId)

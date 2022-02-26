@@ -91,8 +91,6 @@ const openpopup = () => {
   document.execCommand('Copy');
 };
 const Room = (props) => {
-
-
   const [peers, setPeers] = useState([]);
   const [userVideoAudio, setUserVideoAudio] = useState({
     localUser: { video: true, audio: true },
@@ -106,7 +104,7 @@ const Room = (props) => {
   const screenTrackRef = useRef();
   const userStream = useRef();
   const roomId = props.match.params.roomId;
-  const tempuser = localStorage.getItem("user");
+  const tempuser = localStorage.getItem('user');
   const user = JSON.parse(tempuser);
   // const user.name = user.name;
 
@@ -129,15 +127,11 @@ const Room = (props) => {
 
         socket.emit('BE-join-room', { roomId, user });
 
-        socket.on('FE-user-join', ({userId,info}) => {
+        socket.on('FE-user-join', ({ userId, info }) => {
           // all users
           const peers = [];
-          let {user:newUser, video, audio } = info;
-          // let { userId } = user;
-          console.log(user.mobile,newUser.mobile)
-          if(user.mobile===newUser.mobile)return
+          let { user: newUser, video, audio } = info;
 
-          console.log()
           const peer = createPeer(userId, socket.id, stream);
           peer.userName = newUser.name;
           peer.peerID = userId;
@@ -145,7 +139,7 @@ const Room = (props) => {
           peersRef.current.push({
             peerID: userId,
             peer,
-            userName:newUser.name,
+            userName: newUser.name,
             audio,
           });
 
@@ -158,13 +152,14 @@ const Room = (props) => {
             };
           });
           setPeers(peers);
-        
+        });
+
+        socket.on('FE-duplicate-user', () => {
+          window.location.href = '/home';
         });
 
         socket.on('FE-receive-call', ({ signal, from, info }) => {
-
-          let { user:newUser, video, audio } = info;
-          if(user.mobile===newUser.mobile)return
+          let { user: newUser, video, audio } = info;
           const peerIdx = findPeer(from);
 
           if (!peerIdx) {
@@ -184,15 +179,12 @@ const Room = (props) => {
               return [...users, peer];
             });
             setUserVideoAudio((preList) => {
-
               return {
                 ...preList,
                 [peer.userName]: { video, audio },
               };
             });
-
           }
-
         });
 
         socket.on('FE-call-accepted', ({ signal, answerId }) => {
@@ -200,7 +192,7 @@ const Room = (props) => {
           peerIdx.peer.signal(signal);
         });
 
-        socket.on('FE-user-leave', ({ userId}) => {
+        socket.on('FE-user-leave', ({ userId }) => {
           const peerIdx = findPeer(userId);
           peerIdx.peer.destroy();
           setPeers((users) => {
@@ -215,10 +207,8 @@ const Room = (props) => {
 
     socket.on('FE-toggle-camera', ({ userId, switchTarget }) => {
       const peerIdx = findPeer(userId);
-      console.log(userId,peerIdx)
-if(peerIdx===undefined)return
-      setUserVideoAudio((preList) => {
 
+      setUserVideoAudio((preList) => {
         let video = preList[peerIdx.userName].video;
         let audio = preList[peerIdx.userName].audio;
 
@@ -243,11 +233,8 @@ if(peerIdx===undefined)return
   }, []);
 
   if (tempuser === null) {
-    return (
-      <Redirect to="/" />
-    );
+    return <Redirect to='/' />;
   }
-
 
   function createPeer(userId, caller, stream) {
     const peer = new Peer({
@@ -296,7 +283,6 @@ if(peerIdx===undefined)return
   }
 
   function createUserVideo(peer, index, arr) {
-
     return (
       <div
         className={`width-peer${peers.length > 8 ? '' : peers.length} vid-item`}
@@ -337,7 +323,7 @@ if(peerIdx===undefined)return
   // BackButton
   const goToBack = (e) => {
     e.preventDefault();
-    socket.emit('BE-leave-room', { roomId, leaver: user.name });
+    socket.emit('BE-leave-room', { roomId });
     sessionStorage.removeItem('user');
     window.location.href = '/home';
   };
@@ -539,8 +525,9 @@ if(peerIdx===undefined)return
                 </div>
                 <div className='vid-item'>
                   <div
-                    className={`width-peer${peers.length > 8 ? '' : peers.length
-                      }`}
+                    className={`width-peer${
+                      peers.length > 8 ? '' : peers.length
+                    }`}
                   >
                     <i className='fas fa-expand' />
                     <video
