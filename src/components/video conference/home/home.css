@@ -1,0 +1,378 @@
+.home{
+    display: flex;
+    background-color: rgba(22,27,33,255);
+    overflow: hidden;
+    height: 100vh;
+}
+i{
+    cursor: pointer;
+}
+.home .main-side{
+    width: 100% ;
+    height:auto;
+}
+.navbar{
+    background-color: rgba(24,31,39,255);
+    padding: 0 !important;
+    margin: 0 !important;
+}
+/* .home .main-side .vi .icon-opts ul{
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+    margin-left: 10px;
+} */
+.home .main-side ul{
+    list-style: none;
+}
+
+.home .main-side ul li{
+    display:inline-block;
+        margin: 25px 3px
+}
+
+.home .main-side .navbar .logo{
+    width:10%;
+}
+.home .main-side .navbar .logo i{
+    font-size: 45px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.home .main-side .navbar .title{
+    flex:1;
+}
+.home  .navbar input{
+    width: 65%;
+    background-color: #272530    ;
+    border: none !important;
+    border-radius: 10px;
+    color: white !important;
+}
+.home  .navbar input::placeholder{
+    color: white !important;
+}
+.home  .navbar input::placeholder{
+    color: #615f6c;
+}
+.home .navbar  img{
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+}
+.home .navbar  span{
+ color: white;
+ border-bottom: 2px solid white;
+ font-size: 18px;
+ font-weight: bold;
+}
+.home .navbar .fa-phone-alt{
+    font-size: 23px;
+    background-color: rgb(40, 57, 207);
+    color: #f8fff3
+    ;
+    padding: 7px;
+    border-radius: 6px;
+    margin: 0px;
+}
+
+.home .navbar .fa-video{
+    font-size: 23px;
+    background-color: red;
+    padding: 7px;
+    border-radius: 6px;
+    margin: 11px;
+    color: #f8fff3
+    ;
+}
+.home .main-side .navbar .grid-show {
+    padding: 22px 0px;
+}
+.home .main-side .vi{
+    display: flex;
+    background-color: rgba(22,27,33,255)
+    ;
+}
+.home .main-side .vi .caption{
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 5px;
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+    
+}
+
+.home .main-side .vi .icon-opts ul i{
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.home .main-side .vi .vid-stream {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 15px 0px 0px 0px;
+    margin-top: 15px;
+   
+    background-color: #1f232c;
+    margin-left: 37px;
+}
+.home .main-side .vi .vid-stream .lst{
+    width: 100%;
+    padding-left: 43px;
+    text-align: center;
+    color: white;
+    padding-top: 26px;
+    
+}
+.home .main-side .vi .vid-stream .lst a{
+    color: white !important;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 15px;
+    font-weight: bold
+}
+.home .main-side .vi .vid-stream .lst .direct{
+display:none;
+}
+.home .main-side .vi .vid-stream .lst .direct:target{
+    display: block;
+}
+.home .main-side .vi .vid-stream .lst .archive{
+display: none;
+}
+.home .main-side .vi .vid-stream .lst .archive:target .direct{
+    display: none;
+}
+.home .main-side .vi .vid-stream .lst .archive:target{
+    display: block;
+ 
+}
+.home .main-side .vi .vid-stream .lst .group{
+display: none;
+}
+.home .main-side .vi .vid-stream .lst .group:target .direct{
+    display: none;
+}
+.home .main-side .vi .vid-stream .lst .group:target{
+    display: block;
+}
+.home .main-side .vi .vid-stream .lst .cont{
+    justify-content: space-between;
+    display: flex;
+    margin-top: 20px;
+    background-color: #272530;
+    padding: 10px;
+    border-radius: 10px;
+
+}
+.home .main-side .vi .vid-stream .lst img{
+    height: 29px;
+    width: 29px;
+    border-radius: 50%
+}
+.home .main-side .vi .vid-stream .lst span{
+    margin-top: 5px;
+    color: #59585f;
+}
+
+.home .main-side .vi .vid-stream .prof{
+    padding: 15px;
+    position: relative;
+    opacity: 1;
+    display: block;
+}
+
+ .dots{
+     display: none !important;
+ }
+.home .main-side .vi .vid-stream .prof h3{
+    color: white;
+    font-weight: bold;
+    border-bottom: 2px solid #fff;
+    width: fit-content;
+    margin-bottom: 15px;
+}
+.home .main-side .vi .vid-stream .prof .pic{
+    width: 100%;
+    border: 2px solid #531863;
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.home .main-side .vi .vid-stream .prof .pic img{
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+.home .main-side .vi .vid-stream .dailymeeting{
+    position: relative;
+    width: 100%;
+    background-color: #272530;
+    border-radius:20px ;
+    padding: 10px;
+}
+.home .main-side .vi .vid-stream .dailymeeting i{
+    position: absolute;
+    right: 10px;
+    border: 2px solid #43414c    ;
+    border-radius: 50%;
+    padding: 1px;
+    color: #43414c
+    ;
+}
+.home .main-side .vi .vid-stream .dailymeeting h4{
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+.home .main-side .vi .vid-stream .dailymeeting ul{
+    list-style: circle;
+    margin-bottom: 0px !important;
+    color: white;
+    margin-left: 0px !important;
+    padding-left: 3px !important;
+   margin-bottom: 30px !important;
+}
+.home .main-side .vi .vid-stream .dailymeeting li{
+    display: block;
+    margin: 5px !important;
+    color: #585661;
+}
+.home .main-side .vi .vid-stream .dailymeeting .im{
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.home .main-side .vi .vid-stream .dailymeeting span{
+    color: #585661;
+}
+.home .main-side .vi .vid-stream .dailymeeting .im img{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin: -5px;
+}
+.act{
+    border-bottom: 1px solid #fff !important;
+}
+@media only screen and (max-width: 800px) {
+    .home .main-side .navbar .logo{
+        width:fit-content;
+        font-size: 15px !important;
+    }
+    .home .main-side .navbar .title{
+        width: 100%;
+        display: flex;
+    }
+    .home .navbar input{
+      width: 83%;
+    }
+    .home .navbar .fa-phone-alt{
+        font-size: 23px;
+        background-color: rgb(40, 57, 207);
+        color: #f8fff3;
+        padding: 7px;
+        border-radius: 6px;
+        height: fit-content;
+        margin: 15px 5px !important;
+    }
+    
+    .home .navbar .fa-video{
+        font-size: 23px;
+        background-color: red;
+        padding: 7px;
+        border-radius: 6px;
+        color: #f8fff3;
+        height: fit-content;
+        margin: 15px 5px !important;
+    }
+    .home .main-side .vi .vid-stream {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border-radius: 15px;
+        background-color: #1f232c;
+        margin: 61px 15px 15px 15px !important;  
+      }
+    .home .main-side .vi .vid-stream .dailymeeting {
+        margin-bottom: 10px;
+    }
+    .home .main-side .vi .vid-stream .lst {
+        width: 100%;
+        text-align: center;
+        color: white;
+        padding: 15px;
+        display: none;
+        opacity: 0;
+        transition:all 0.7s ease;
+    }
+    .dots{
+        position: absolute;
+        top:107px !important;
+        right: 7px;
+        display: block !important;
+        color: #fff !important;
+        border: none;
+    }
+    .home .main-side .vi .vid-stream .lst.open{
+        width: 100% !important;
+        height: 100% !important;
+        display: block !important;
+        opacity: 1;
+        transition: all 0.7s ease;
+    }
+    .openhome{
+        display: none !important;
+        transition: all 0.7s ease;
+        opacity: 0 !important;
+    
+    
+     }
+}
+
+@media  (min-width:801px )and (max-width: 992px) {
+    .dots{
+        position: absolute;
+        left:15px !important;
+      
+        display: block !important;
+        color: #fff !important;
+        border: none;
+        bottom: 113px;
+    }
+    .home .main-side .vi .vid-stream .lst.open{
+        width: 100% !important;
+        height: 100% !important;
+        display: block !important;
+        opacity: 1;
+        transition: all 0.7s ease;
+    }
+    .home .main-side .vi .vid-stream .lst {
+        width: 100%;
+        text-align: center;
+        color: white;
+        padding: 15px;
+        display: none;
+        opacity: 0;
+        transition:all 0.7s ease;
+    }
+    .openhome{
+        display: none !important;
+        transition: all 0.7s ease;
+        opacity: 0 !important;
+    
+    
+     }
+}

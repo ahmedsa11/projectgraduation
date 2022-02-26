@@ -1,0 +1,44 @@
+.nav{
+    flex-direction: column;
+    color: white !important;
+    padding: 30px 20px !important;
+}
+.linkk{
+    color: white;
+    padding: 0px 15px!important;
+    text-align: center;
+}
+
+@media only screen and (max-width: 800px) {
+    .linkk{
+        color: white;
+        padding: 0px 0px!important;
+        text-align: center;
+    }
+    .nav{
+        flex-direction: row !important;
+        color: white !important;
+      
+        position: absolute;
+        top: 86px !important;
+        margin: 0 !important;
+        padding: 0px 5px !important;
+        left: 0px !important;
+    }
+    .icon-opts ul li i {
+        margin: 0px 9px !important;
+    }
+    .linkk.active{
+        background-color: rgb(85, 85, 85);
+        border-radius: 10px;
+
+    }
+    /* .icon-opts ul{
+        width: 100% !important;
+    } */
+
+}
+.linkk.active{
+    background-color: rgb(85, 85, 85);
+    border-radius: 10px;
+}
