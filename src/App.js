@@ -14,7 +14,7 @@ class App extends Component{
   return (
     <react.Fragment>
        <Switch>
-         <Route exact path="/" component={Form}/>
+          <Route exact path="/" component={Form}/>
          <Route path="/notfound" component={NOT}/>
          <Route path="/forget" component={Forget}/>
          <Route path="/verification" component={Verification}/>
