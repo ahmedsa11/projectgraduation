@@ -466,6 +466,7 @@ text-align: center !important;
     font-size: 15px;
     border: none;
     padding: 10px;
+    pointer-events:all;
 }
 .footer .buttons ul li{
     display: -moz-inline-grid;

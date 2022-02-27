@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 const opentool = () => {
     const tool = document.getElementsByClassName('to');
     for (let i = 0; i < tool.length; i++) {
@@ -54,17 +55,21 @@ const BottomBar = ({
               <div className='caption lead text-center'id="textarea"></div></div>
               <ul>
                 <li>
-                  <button onClick={toggleCameraAudio} data-switch='video'>
-                    {userVideoAudio.video ? (<i className='v fas fa-video'></i>) :(<i className='v fas fa-video-slash'></i>)}
-                  </button>
+                 
+                  <CameraButton onClick={toggleCameraAudio} data-switch='video'> 
+                    {userVideoAudio.video? (
+                    <i className='fas fa-video'></i>) : (<i className='fas fa-video-slash'></i>)}
+                 
+                 </CameraButton>
                 </li>
                 <li>
-                  <button onClick={toggleCameraAudio} data-switch='audio'>
+                  <button id='a' onClick={toggleCameraAudio} data-switch='audio'>
               
                   {userVideoAudio.audio ? (
-              <i className='a fas fa-microphone'></i> ): (<i className='a fas fa-microphone-slash'></i>)}
-           
+              <i className='fas fa-microphone'></i> ): (<i className='fas fa-microphone-slash'></i>)}
+               
                   </button>
+            
                 </li>
                 <li>
                   <button onClick={goToBack}>
@@ -89,4 +94,9 @@ const BottomBar = ({
          </React.Fragment>
   );
 };
+const CameraButton = styled.button`
+  * {
+    pointer-events: none;
+  }
+`;
 export default BottomBar;

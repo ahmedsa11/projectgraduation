@@ -37,10 +37,10 @@ io.on('connection', (socket) => {
    */
   socket.on('BE-join-room', ({ roomId, user }) => {
     // Socket Join RoomName
-    if (currUser) {
-      socket.emit('FE-duplicate-user');
-      return;
-    }
+    // if (currUser) {
+    //   socket.emit('FE-duplicate-user');
+    //   return;
+    // }
     socket.join(roomId);
     currUser = user;
     socketList[currUser.mobile] = { user, video: true, audio: true };

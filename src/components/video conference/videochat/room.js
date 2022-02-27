@@ -154,10 +154,10 @@ const Room = (props) => {
           setPeers(peers);
         });
 
-        socket.on('FE-duplicate-user', () => {
-          window.location.href = '/home';
-          alert("You are already in this room but in other tab")
-        });
+        // socket.on('FE-duplicate-user', () => {
+        //   window.location.href = '/home';
+        //   alert("You are already in this room but in other tab")
+        // });
 
         socket.on('FE-receive-call', ({ signal, from, info }) => {
           let { user: newUser, video, audio } = info;
@@ -215,6 +215,7 @@ const Room = (props) => {
 
         if (switchTarget === 'video') {
           video = !video;
+          
         } else {
           audio = !audio;
           peerIdx.audio = audio;
@@ -580,5 +581,6 @@ const Room = (props) => {
     </react.Fragment>
   );
 };
+
 
 export default Room;

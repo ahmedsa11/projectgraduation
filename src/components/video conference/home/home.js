@@ -16,7 +16,7 @@ const openchat = () => {
 };
 const Home = (props) => {
   const tempuser=localStorage.getItem("user");
-  console.log(tempuser)
+  // console.log(tempuser)
   if(tempuser===null){
     return(
       <Redirect to="/"/>
@@ -24,7 +24,7 @@ const Home = (props) => {
   }
 
 const user= JSON.parse(tempuser);
-  console.log(user);
+  // console.log(user);
 
   // const roomRef = useRef();
   // const userRef = useRef();
