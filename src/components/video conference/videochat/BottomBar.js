@@ -55,16 +55,14 @@ const BottomBar = ({
               <ul>
                 <li>
                   <button onClick={toggleCameraAudio} data-switch='video'>
-             
-                    {userVideoAudio.video ?<i className='fas fa-video'></i>:<i className='fas fa-video-slash'></i>}
-                
+                    {userVideoAudio.video ? (<i className='v fas fa-video'></i>) :(<i className='v fas fa-video-slash'></i>)}
                   </button>
                 </li>
                 <li>
                   <button onClick={toggleCameraAudio} data-switch='audio'>
               
-                  {userVideoAudio.audio ? 
-              <i className='fas fa-microphone'></i> : <i className='fas fa-microphone-slash'></i>}
+                  {userVideoAudio.audio ? (
+              <i className='a fas fa-microphone'></i> ): (<i className='a fas fa-microphone-slash'></i>)}
            
                   </button>
                 </li>
@@ -91,5 +89,4 @@ const BottomBar = ({
          </React.Fragment>
   );
 };
-
 export default BottomBar;

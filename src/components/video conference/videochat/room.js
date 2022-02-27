@@ -156,6 +156,7 @@ const Room = (props) => {
 
         socket.on('FE-duplicate-user', () => {
           window.location.href = '/home';
+          alert("You are already in this room but in other tab")
         });
 
         socket.on('FE-receive-call', ({ signal, from, info }) => {
