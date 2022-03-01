@@ -116,6 +116,10 @@ const Room = (props) => {
     // });
 
     // Set Back Button Event
+    if (tempuser === null) {
+      return <Redirect to='/' />;
+    }
+  
     window.addEventListener('popstate', goToBack);
 
     // Connect Camera & Mic
@@ -234,9 +238,6 @@ const Room = (props) => {
     // eslint-disable-next-line
   }, []);
 
-  if (tempuser === null) {
-    return <Redirect to='/' />;
-  }
 
   function createPeer(userId, caller, stream) {
     const peer = new Peer({

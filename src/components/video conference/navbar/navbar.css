@@ -10,6 +10,11 @@
 }
 
 @media only screen and (max-width: 800px) {
+    .linkk li {
+        display: inline-block;
+        margin:0px !important;
+       
+    }
     .linkk{
         color: white;
         padding: 0px 0px!important;
@@ -20,7 +25,7 @@
         color: white !important;
       
         position: absolute;
-        top: 86px !important;
+        top: 113px !important;
         margin: 0 !important;
         padding: 0px 5px !important;
         left: 0px !important;
@@ -41,4 +46,5 @@
 .linkk.active{
     background-color: rgb(85, 85, 85);
     border-radius: 10px;
+    padding: 0px !important;
 }

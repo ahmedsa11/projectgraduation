@@ -19,7 +19,7 @@
     "history": "^4.10.1",
     "no": "^0.0.1",
     "react": "^17.0.2",
-    "react-bootstrap": "^2.0.3",
+    "react-bootstrap": "^2.1.2",
     "react-dom": "^17.0.2",
     "react-dropdown": "^1.9.2",
     "react-phone-input-2": "^2.14.0",

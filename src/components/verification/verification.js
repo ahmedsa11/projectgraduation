@@ -18,8 +18,8 @@ class Verification extends Component {
     pass: this.props.pass,
     gender:this.props.gender,
     very:"",
-
   };
+
   header = {
     API_KEY:
       "382395e75d624fb1478303451bc7543314ffffac6372c2aa9beb22f687e6e886b77b3ee84aeeb1a8aabad9647686d0baaa4d9a7c65ff6ef1ebc71fcde7bac14b",

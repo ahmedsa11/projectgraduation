@@ -16,12 +16,6 @@ i{
     padding: 0 !important;
     margin: 0 !important;
 }
-/* .home .main-side .vi .icon-opts ul{
-    display: flex;
-    flex-direction: column;
-    margin-top: 100px;
-    margin-left: 10px;
-} */
 .home .main-side ul{
     list-style: none;
 }
@@ -122,65 +116,6 @@ i{
     background-color: #1f232c;
     margin-left: 37px;
 }
-.home .main-side .vi .vid-stream .lst{
-    width: 100%;
-    padding-left: 43px;
-    text-align: center;
-    color: white;
-    padding-top: 26px;
-    
-}
-.home .main-side .vi .vid-stream .lst a{
-    color: white !important;
-    text-decoration: none;
-    font-size: 18px;
-    margin: 15px;
-    font-weight: bold
-}
-.home .main-side .vi .vid-stream .lst .direct{
-display:none;
-}
-.home .main-side .vi .vid-stream .lst .direct:target{
-    display: block;
-}
-.home .main-side .vi .vid-stream .lst .archive{
-display: none;
-}
-.home .main-side .vi .vid-stream .lst .archive:target .direct{
-    display: none;
-}
-.home .main-side .vi .vid-stream .lst .archive:target{
-    display: block;
- 
-}
-.home .main-side .vi .vid-stream .lst .group{
-display: none;
-}
-.home .main-side .vi .vid-stream .lst .group:target .direct{
-    display: none;
-}
-.home .main-side .vi .vid-stream .lst .group:target{
-    display: block;
-}
-.home .main-side .vi .vid-stream .lst .cont{
-    justify-content: space-between;
-    display: flex;
-    margin-top: 20px;
-    background-color: #272530;
-    padding: 10px;
-    border-radius: 10px;
-
-}
-.home .main-side .vi .vid-stream .lst img{
-    height: 29px;
-    width: 29px;
-    border-radius: 50%
-}
-.home .main-side .vi .vid-stream .lst span{
-    margin-top: 5px;
-    color: #59585f;
-}
-
 .home .main-side .vi .vid-stream .prof{
     padding: 15px;
     position: relative;
@@ -214,60 +149,21 @@ display: none;
     margin-top: 10%;
     margin-bottom: 10%;
 }
-.home .main-side .vi .vid-stream .dailymeeting{
-    position: relative;
-    width: 100%;
-    background-color: #272530;
-    border-radius:20px ;
-    padding: 10px;
-}
-.home .main-side .vi .vid-stream .dailymeeting i{
-    position: absolute;
-    right: 10px;
-    border: 2px solid #43414c    ;
-    border-radius: 50%;
-    padding: 1px;
-    color: #43414c
-    ;
-}
-.home .main-side .vi .vid-stream .dailymeeting h4{
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-}
-.home .main-side .vi .vid-stream .dailymeeting ul{
-    list-style: circle;
-    margin-bottom: 0px !important;
-    color: white;
-    margin-left: 0px !important;
-    padding-left: 3px !important;
-   margin-bottom: 30px !important;
-}
-.home .main-side .vi .vid-stream .dailymeeting li{
-    display: block;
-    margin: 5px !important;
-    color: #585661;
-}
-.home .main-side .vi .vid-stream .dailymeeting .im{
-    width: 100%;
+.history{
     display: flex;
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-bottom: 10px;
-}
-.home .main-side .vi .vid-stream .dailymeeting span{
-    color: #585661;
-}
-.home .main-side .vi .vid-stream .dailymeeting .im img{
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    margin: -5px;
+    flex-wrap: wrap;
 }
 .act{
     border-bottom: 1px solid #fff !important;
 }
 @media only screen and (max-width: 800px) {
+    .history{
+        display: block;
+    }
+    .home{
+  
+        height: 100% !important;
+    }
     .home .main-side .navbar .logo{
         width:fit-content;
         font-size: 15px !important;
@@ -309,15 +205,6 @@ display: none;
     .home .main-side .vi .vid-stream .dailymeeting {
         margin-bottom: 10px;
     }
-    .home .main-side .vi .vid-stream .lst {
-        width: 100%;
-        text-align: center;
-        color: white;
-        padding: 15px;
-        display: none;
-        opacity: 0;
-        transition:all 0.7s ease;
-    }
     .dots{
         position: absolute;
         top:107px !important;
@@ -326,22 +213,14 @@ display: none;
         color: #fff !important;
         border: none;
     }
-    .home .main-side .vi .vid-stream .lst.open{
-        width: 100% !important;
-        height: 100% !important;
-        display: block !important;
-        opacity: 1;
-        transition: all 0.7s ease;
-    }
     .openhome{
         display: none !important;
         transition: all 0.7s ease;
         opacity: 0 !important;
     
     
-     }
 }
-
+}
 @media  (min-width:801px )and (max-width: 992px) {
     .dots{
         position: absolute;
@@ -351,22 +230,6 @@ display: none;
         color: #fff !important;
         border: none;
         bottom: 113px;
-    }
-    .home .main-side .vi .vid-stream .lst.open{
-        width: 100% !important;
-        height: 100% !important;
-        display: block !important;
-        opacity: 1;
-        transition: all 0.7s ease;
-    }
-    .home .main-side .vi .vid-stream .lst {
-        width: 100%;
-        text-align: center;
-        color: white;
-        padding: 15px;
-        display: none;
-        opacity: 0;
-        transition:all 0.7s ease;
     }
     .openhome{
         display: none !important;
