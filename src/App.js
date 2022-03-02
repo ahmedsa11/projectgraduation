@@ -8,8 +8,6 @@ import Form from './components/form/form';
 import Room from './components/video conference/videochat/room';
 import Signlang from './components/video conference/videochat/signlanguage';
 import Home from './components/video conference/home/home';
-import Chathome from './components/video conference/home/chathome';
-
 class App extends Component{
   render(){
   return (
@@ -24,7 +22,7 @@ class App extends Component{
         <Route path="/room/:roomId" component={Room} />
          <Redirect from="/form"to="/"/>
          <Redirect to="/notfound"/>
-         <Form/> 
+    
       </Switch> 
      
     </react.Fragment>
