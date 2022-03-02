@@ -2,9 +2,18 @@ import react from "react";
 import { NavLink } from "react-router-dom";
 import "./navbar.css";
 const Navbar = () => {
+  const opennav = () => {
+    const icon = document.querySelector('.toggler');
+    icon.onclick = () => {
+      document.querySelector('.icon-opts .nav').classList.toggle('open');
+ 
+    };
+  };
   return (
     <react.Fragment>
       <div className="icon-opts">
+      <i className="fa-solid fa-toggle-on"></i>
+      <i className="fas fa-calendar-alt toggler" onClick={opennav}></i>
         <ul className="nav justify-content-center">
           <NavLink to="/home" className="linkk">
             <li className="nav-item">
@@ -16,17 +25,17 @@ const Navbar = () => {
               <i className="fas fa-cog"></i>
             </li>
           </NavLink>
-          <NavLink to="/createee" className="linkk">
+          <NavLink to="/calender" className="linkk">
             <li className="nav-item">
               <i className="fas fa-calendar-alt"></i>
             </li>
           </NavLink>
-          <NavLink to="/createee" className="linkk">
+          <NavLink to="/frinds" className="linkk">
             <li className="nav-item">
               <i className="fas fa-user-friends"></i>
             </li>
           </NavLink>
-          <NavLink to="/createee" className="linkk">
+          <NavLink to="/nef" className="linkk">
             <li className="nav-item">
               <i className="fas fa-bell"></i>
             </li>

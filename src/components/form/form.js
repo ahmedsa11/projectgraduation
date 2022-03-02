@@ -71,8 +71,6 @@ class Form extends Component {
       this.setState({ error });
       return;
     }
-// localStorage.setItem(this.state.username,"test");
-// console.log(`user name is ${this.state.username}`,localStorage)
   this.setUpRecaptcha()
   const phoneNumber ='+'+ this.state.mobile
 const appVerifier = window.recaptchaVerifier;

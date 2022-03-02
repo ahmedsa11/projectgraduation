@@ -80,9 +80,9 @@ i{
     color: #f8fff3
     ;
 }
-.home .main-side .navbar .grid-show {
+/* .home .main-side .navbar .grid-show {
     padding: 22px 0px;
-}
+} */
 .home .main-side .vi{
     display: flex;
     background-color: rgba(22,27,33,255)

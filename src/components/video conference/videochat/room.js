@@ -233,7 +233,8 @@ const Room = (props) => {
     });
 
     return () => {
-      socket.disconnect();
+      // socket.disconnect();
+      alert('peer destroy');
     };
     // eslint-disable-next-line
   }, []);
@@ -273,7 +274,8 @@ const Room = (props) => {
     });
 
     peer.on('disconnect', () => {
-      peer.destroy();
+      // peer.destroy();
+      alert('peer destroy');
     });
 
     peer.signal(incomingSignal);

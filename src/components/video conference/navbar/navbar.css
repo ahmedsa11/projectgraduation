@@ -8,7 +8,12 @@
     padding: 0px 15px!important;
     text-align: center;
 }
-
+.toggler{    color: aliceblue;
+    font-size: 20px;
+    position: absolute;
+    left: 10px;
+    top: 107px;}
+  
 @media only screen and (max-width: 800px) {
     .linkk li {
         display: inline-block;
@@ -20,15 +25,25 @@
         padding: 0px 0px!important;
         text-align: center;
     }
-    .nav{
-        flex-direction: row !important;
-        color: white !important;
-      
-        position: absolute;
-        top: 113px !important;
-        margin: 0 !important;
-        padding: 0px 5px !important;
-        left: 0px !important;
+.nav{
+    color: white !important;
+    position: absolute;
+    top: 113px !important;
+    margin: 0 !important;
+    padding: 0px 5px !important;
+    left: 0px !important;
+    transform: translateX(-200%);
+    opacity: 0;
+    flex-direction: row !important;
+    transition: all 0.5s ease !important;
+    top: 108px !important;
+    left: 35px !important;
+    }
+    .open{
+        transition: all 0.5s ease;
+       
+        opacity: 1;
+        transform: translateX(0%);
     }
     .icon-opts ul li i {
         margin: 0px 9px !important;

@@ -52,6 +52,7 @@ class Verification extends Component {
   );
 let  res2 = await data2.json();
 if (res2.status === "success"){
+  localStorage.setItem("user",JSON.stringify(res2.data))
   this.setState({
     very:"verified"
   })
@@ -72,9 +73,10 @@ if (res2.status === "success"){
 
   render() {
     if(this.state.very==="verified"){
+      
       return(
         <react.Fragment>
-          <Redirect to="/create"/>
+          <Redirect to="/home"/>
         </react.Fragment>
       )
     }
