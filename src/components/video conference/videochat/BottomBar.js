@@ -18,6 +18,7 @@ const opentool = () => {
       };
     }
   };
+  
 const BottomBar = ({
   clickChat,
   clickCameraDevice,
@@ -25,9 +26,11 @@ const BottomBar = ({
   toggleCameraAudio,
   userVideoAudio,
   clickScreenSharing,
+  speechRecognition,
   screenShare,
   videoDevices,
   showVideoDevices,
+  text,
   setShowVideoDevices
 }) => {
   return (
@@ -52,7 +55,7 @@ const BottomBar = ({
             </div>
             <div className='buttons'>
               <div className='cp'>
-              <div className='caption lead text-center'id="textarea"></div></div>
+              <div className='caption lead text-center'id="textarea"ref={text}></div></div>
               <ul>
                 <li>
                  
@@ -67,7 +70,7 @@ const BottomBar = ({
               
                   {userVideoAudio.audio ? (
               <i className='fas fa-microphone'></i> ): (<i className='fas fa-microphone-slash'></i>)}
-               
+               {userVideoAudio.audio ? ()=>speechRecognition.start():()=> speechRecognition.stop()}
                   </button>
             
                 </li>

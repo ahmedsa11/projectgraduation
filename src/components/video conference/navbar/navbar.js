@@ -6,14 +6,14 @@ const Navbar = () => {
     const icon = document.querySelector('.toggler');
     icon.onclick = () => {
       document.querySelector('.icon-opts .nav').classList.toggle('open');
+      document.querySelector('.toggler').classList.toggle('fa-toggle-on');
  
     };
   };
   return (
     <react.Fragment>
       <div className="icon-opts">
-      <i className="fa-solid fa-toggle-on"></i>
-      <i className="fas fa-calendar-alt toggler" onClick={opennav}></i>
+      <i className="fas fa-toggle-off toggler" onClick={opennav}></i>
         <ul className="nav justify-content-center">
           <NavLink to="/home" className="linkk">
             <li className="nav-item">

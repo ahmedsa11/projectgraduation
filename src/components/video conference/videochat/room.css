@@ -337,9 +337,9 @@ position: relative;
     -moz-transform: translateY(100%);
     -webkit-transform: translateY(100%);
     transform: translateY(100%);
-    -moz-animation: my-animation 14s linear infinite;
+    /* -moz-animation: my-animation 14s linear infinite;
     -webkit-animation: my-animation 14s linear infinite;
-    animation: my-animation 14s linear infinite;
+    animation: my-animation 14s linear infinite; */
 }
  
 /* for Firefox */

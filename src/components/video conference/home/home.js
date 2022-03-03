@@ -8,6 +8,7 @@ import '../navbar/navbar.css';
 import { Redirect } from 'react-router';
 import Chathome from './chathome';
 import Dailymeeting from './history';
+import logo from "../../../img/loo.png"
 const openchat = () => {
   const icon = document.querySelector('.dots');
   icon.onclick = () => {
@@ -48,7 +49,7 @@ const user= JSON.parse(tempuser);
           <div className='navbar'>
             <div className='container'>
               <div className='logo'>
-                <i className='fas fa-american-sign-language-interpreting'></i>
+         <img src={logo} alt="d"/>
               </div>
               <div className='title'>
                 <input type='search' placeholder='search' />
