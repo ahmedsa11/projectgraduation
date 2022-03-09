@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import react from 'react';
-
+import SpeechRecognition from 'react-speech-recognition';
 // import None from 'No';
 // import io from 'socket.io-client';
 import Peer from 'simple-peer';
@@ -108,89 +108,6 @@ const Room = (props) => {
   const roomId = props.match.params.roomId;
   const tempuser = localStorage.getItem('user');
   const user = JSON.parse(tempuser);
-  // const user.name = user.name;
-  // const sio = io('https://en-asl.herokuapp.com', {
-  //   transportOptions: {
-  //     polling: {
-  //       extraHeaders: {
-  //         AUTHENTICATION: 'Yarab-elkolya-tetheriq',
-  //       },
-  //     },
-  //   },
-  // });
-  
-  // console.log('socket.io connected');
-  
-  // const SpeechRecognition =
-  //   window.speechRecognition || window.webkitSpeechRecognition;
-  // const SpeechGrammarList =
-  //   window.speechGrammarList || window.webkitSpeechGrammarList;
-  
-  // const grammar = '#JSGF V1.0';
-  // const speechRecognition = new SpeechRecognition();
-  // const speechGrammarList = new SpeechGrammarList();
-  
-  // speechGrammarList.addFromString(grammar);
-  // speechRecognition.grammars = speechGrammarList;
-  // speechRecognition.continuous = true;
-  // speechRecognition.lang = 'en-US';
-  
-  // let text=React.createRef()
-  // let content = '';
-  // let newContent = '';
-  // let isFinished = true;
-
-  // speechRecognition.onresult = (event) => {
-  //   if (event.results.length) {
-  //     let current = event.resultIndex;
-  //     let transcript = event.results[current][0].transcript;
-  //     content = transcript;
-  //   if(text.current){
-  //     text.current.textContent += content;
-  //   }
-  //     newContent += content;
-  //     if (isFinished) {
-  //       sio.emit('stream_txt', { data: 'language', id: 'sio.id' });
-  //       isFinished = false;
-  //       newContent = '';
-  //     }
-  //   }
-  // };
-  // sio.on('send', () => {
-  //   isFinished = true;
-  //   if(newContent.length > 0) {
-  //     sio.emit('stream_txt', { data: newContent, id: 'sio.id' });
-  //     newContent = '';
-  //   }
-  // });
-  // // recive data from the server
-  // sio.on('connect', () => {
-  //   console.log('connected');
-  // });
-  
-  // sio.on('disconnect', () => {
-  //   console.log('disconnected');
-  // });
-  
-  // sio.on('connect_error', (e) => {
-  //   console.log(e.message);
-  // });
-  // // send data to the server
-  // // recive data from the server
-  // sio.on('stream_asl', (pyload) => {
-  //   document.getElementById('stream_asl').src =
-  //     'data:image/jpeg;base64,' + arrayBufferToBase64(pyload['data']);
-  // });
-  
-  // const arrayBufferToBase64 = (buffer) => {
-  //   var binary = '';
-  //   var bytes = new Uint8Array(buffer);
-  //   var len = bytes.byteLength;
-  //   for (var i = 0; i < len; i++) {
-  //     binary += String.fromCharCode(bytes[i]);
-  //   }
-  //   return window.btoa(binary);
-  // };
   useEffect(() => {
     // Get Video Devices
     // navigator.mediaDevices.enumerateDevices().then((devices) => {
@@ -429,16 +346,26 @@ const Room = (props) => {
         videoSwitch = !videoSwitch;
         userVideoTrack.enabled = videoSwitch;
       } else {
+       
         const userAudioTrack =
           userVideoRef.current.srcObject.getAudioTracks()[0];
         audioSwitch = !audioSwitch;
-
+        
+        
         if (userAudioTrack) {
           userAudioTrack.enabled = audioSwitch;
         } else {
           userStream.current.getAudioTracks()[0].enabled = audioSwitch;
+          
         }
+        if(audioSwitch){
+          SpeechRecognition.startListening({ continuous: true })
+        }
+        else if(!audioSwitch){
+          SpeechRecognition.stopListening()
+         }
       }
+     
 
       return {
         ...preList,
@@ -632,14 +559,11 @@ const Room = (props) => {
                     ) : (
                       <i className='fas fa-microphone-slash'></i>
                     )}
-                    {/* //   ismutemic
-                      //     ? 'fas fa-microphone-slash'
-                      //     : 'fas fa-microphone'
-                      //  */}
+                
                   </div>
-                  {userVideoAudio['localUser'].video ? null : (
+                  
                     <span className='name'>{user.name}</span>
-                  )}
+                  
                 </div>
                 {peers &&
                   peers.map((peer, index, arr) => {
