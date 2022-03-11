@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import  { useSpeechRecognition } from 'react-speech-recognition';
+// import Caption from './caption';
 const opentool = () => {
     const tool = document.getElementsByClassName('to');
     for (let i = 0; i < tool.length; i++) {
@@ -31,20 +31,12 @@ const BottomBar = ({
   clickScreenSharing,
   speechRecognition,
   screenShare,
+  text,
   videoDevices,
   showVideoDevices,
-  text,
   setShowVideoDevices
 }) => {
-  const {
-    transcript,
-    // listening,
-    // resetTranscript,
-    browserSupportsSpeechRecognition
-  } = useSpeechRecognition();
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
-  }
+
   return (
     <React.Fragment>
     <div className='footer'>
@@ -66,8 +58,8 @@ const BottomBar = ({
               </div>
             </div>
             <div className='buttons'>
-              <div className='cp'>
-              <div className='caption lead text-center'id="textarea">{transcript}</div></div>
+            <div className='cp'>
+              <div className='caption lead text-center'id="textarea" ref={text}></div></div>
               <ul>
                 <li>
                  

@@ -1,25 +1,23 @@
-import React from 'react';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+// import React from 'react';
+// // import  { useSpeechRecognition } from 'react-speech-recognition';
 
-const Dictaphone = () => {
-  const {
-    transcript,
-    // listening,
-    // resetTranscript,
-    browserSupportsSpeechRecognition
-  } = useSpeechRecognition();
+// const Caption = (props) => {
+//   // const {
+//   //   transcript,
+//   //   // listening,
+//   //   // resetTranscript,
+//   //   browserSupportsSpeechRecognition
+//   // } = useSpeechRecognition();
 
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
-  }
+//   // if (!browserSupportsSpeechRecognition) {
+//   //   return <span>Browser doesn't support speech recognition.</span>;
+//   // }
 
-  return (
-    <div> 
-      <button onClick={SpeechRecognition.startListening}>Start</button>
-      <button onClick={SpeechRecognition.stopListening}>Stop</button>
-      {/* <button onClick={resetTranscript}>Reset</button> */}
-      <p>{transcript}</p>
-    </div>
-  );
-};
-export default Dictaphone;
+//   return (
+// <React.Fragment>
+// <div className='cp'>
+//               <div className='caption lead text-center'id="textarea">{props.text}</div></div>
+// </React.Fragment>
+//   );
+// };
+// export default Caption;
