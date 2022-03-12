@@ -125,9 +125,7 @@ const Room = (props) => {
       let current = event.resultIndex;
       let transcript = event.results[current][0].transcript;
       content = transcript;
-      if(text.current){
-        text.current.textContent += content;
-      }
+    
       newContent += content;
       if (isFinished) {
         socket.emit("send-text", {data: newContent, roomId});
@@ -138,6 +136,9 @@ const Room = (props) => {
   };
 
   socket.on("receive-text", ({ data }) => { 
+    if(text.current){
+      text.current.textContent += data;
+    }
     sio.emit('stream_text', { data, id: sio.id });
   })
   sio.on('send', () => {
