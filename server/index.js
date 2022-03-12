@@ -88,6 +88,10 @@ io.on('connection', (socket) => {
       .to(roomId)
       .emit('FE-toggle-camera', { userId: socket.id, switchTarget });
   });
+
+  socket.on("send-text", ({ data, roomId }) => {
+    io.in(roomId).emit("receive-text", { data });
+  })
 });
 
 http.listen(PORT, () => {
