@@ -127,16 +127,21 @@ const Room = (props) => {
       }
       newContent += content;
       if (isFinished) {
-        sio.emit('stream_text', { data: newContent, id: 'sio.id' });
+        socket.emit("send-text", {data: newContent, roomId});
         isFinished = false;
         newContent = '';
       }
     }
   };
+
+  socket.on("receive-text", ({ data }) => { 
+    sio.emit('stream_text', { data, id: sio.id });
+  })
   sio.on('send', () => {
     isFinished = true;
-    if(newContent.length > 0) {
-      sio.emit('stream_text', { data: newContent, id: 'sio.id' });
+    if (newContent.length > 0) {
+      isFinished = false;
+      sio.emit('stream_text', { data: newContent, id: sio.id });
       newContent = '';
     }
   });
