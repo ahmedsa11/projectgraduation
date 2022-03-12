@@ -117,6 +117,9 @@ const Room = (props) => {
   let content = '';
   let newContent = '';
   let isFinished = true;
+  // if(newContent){
+  //   scrollIntoView();
+  // }
   speechRecognition.onresult = (event) => {
     if (event.results.length) {
       let current = event.resultIndex;
@@ -443,9 +446,9 @@ const Room = (props) => {
         }
         else if(!audioSwitch){
           speechRecognition.stop()
+         
          }
       }
-     
 
       return {
         ...preList,

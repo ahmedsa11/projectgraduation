@@ -7,7 +7,7 @@ import socket from "../videochat/socket";
 import { Redirect } from "react-router";
 const Chat = ({ roomId }) => {
   const [msg, setMsg] = useState([]);
-  const messagesEndRef = useRef(null);
+  // const messagesEndRef = useRef(null);
   const inputRef = useRef();
 
   useEffect(() => {
@@ -15,7 +15,14 @@ const Chat = ({ roomId }) => {
       setMsg((msgs) => [...msgs, { sender, msg }]);
     });
   }, []);
+    // Scroll to Bottom of Message List
+
+    // useEffect(() => {scrollToBottom()}, [msg])
+    // const scrollToBottom = () => {
+    //   messagesEndRef.current.scrollIntoView({ behavior: 'smooth'});
+    // }
   const tempuser = localStorage.getItem("user");
+
   // console.log(tempuser);
   if (tempuser === null) {
     return <Redirect to="/" />;
@@ -24,6 +31,7 @@ const Chat = ({ roomId }) => {
   const user = JSON.parse(tempuser);
   // console.log(user);
   const currentUser = user.name;
+
   const sendMessage = (e) => {
     const text = document.getElementById("textt");
     const msg = text.value;
@@ -68,14 +76,9 @@ const Chat = ({ roomId }) => {
                 );
               }
             })}
-          {/* <div className='sender'>
-              <img src={chat} alt='a' />
-              <div className='text-box'>
-                <p>it's nice</p>
-                <div className="message-time-left">SMS 13:37</div>
-              </div>
-            </div> */}
+          {/* <span style={{float:'left', clear: 'both'}} ref={messagesEndRef} ></span> */}
         </div>
+      
         <div className="typing">
           <p>
             <span>david </span>is typing....
@@ -85,10 +88,7 @@ const Chat = ({ roomId }) => {
               <i className="fas fa-image"></i>
               <i className="fas fa-microphone"></i>
             </div>
-            <div
-              style={{ float: "left", clear: "both" }}
-              ref={messagesEndRef}
-            />
+      
             <textarea
               type="text"
               placeholder="Write Message...."

@@ -62,11 +62,9 @@ const BottomBar = ({
               <div className='caption lead text-center'id="textarea" ref={text}></div></div>
               <ul>
                 <li>
-                 
                   <CameraButton onClick={toggleCameraAudio} data-switch='video'> 
                     {userVideoAudio.video? (
                     <i className='fas fa-video'></i>) : (<i className='fas fa-video-slash'></i>)}
-                 
                  </CameraButton>
                 </li>
                 <li>
