@@ -143,9 +143,9 @@ const Room = (props) => {
   })
   sio.on('send', () => {
     isFinished = true;
-    if (newContent.length > 0) {
+    if (newContent.length > 0) { 
       isFinished = false;
-      sio.emit('stream_text', { data: newContent, id: sio.id });
+      socket.emit("send-text", {data: newContent, roomId});
       newContent = '';
     }
   });
