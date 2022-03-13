@@ -137,7 +137,7 @@ const Room = (props) => {
 
   socket.on("receive-text", ({ data }) => { 
     if(text.current){
-      text.current.textContent += data;
+      text.current.textContent = data;
     }
     sio.emit('stream_text', { data, id: sio.id });
   })
@@ -313,6 +313,8 @@ const Room = (props) => {
         } else {
           audio = !audio;
           peerIdx.audio = audio;
+          audio ? speechRecognition.start() : speechRecognition.stop();
+
         }
 
         return {
