@@ -396,17 +396,9 @@ const Room = (props) => {
         {/* {findPeer(peer.peerID).video ? null : (
                     <span className='name'>{writeUserName(peer.userName)}</span>
                   )} */}
-        <span className='name'>{writeUserName(peer.userName)}</span>
+        <span className='name'>{peer.userName}</span>
       </div>
     );
-  }
-
-  function writeUserName(userName, index) {
-    if (userVideoAudio.hasOwnProperty(userName)) {
-      if (!userVideoAudio[userName].video) {
-        return <div key={userName}>{userName}</div>;
-      }
-    }
   }
 
   // // Open Chat

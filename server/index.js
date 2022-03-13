@@ -28,6 +28,7 @@ io.on('connection', (socket) => {
   console.log(`New User connected: ${socket.id}`);
 
   socket.on('disconnect', () => {
+    delete socketList[socket.id];
     socket.disconnect();
     console.log('User disconnected!');
   });
@@ -43,12 +44,12 @@ io.on('connection', (socket) => {
     // }
     socket.join(roomId);
     currUser = user;
-    socketList[currUser.mobile] = { user, video: true, audio: true };
+    socketList[socket.id] = { user, video: true, audio: true };
 
     // Set User List
     socket.to(roomId).emit('FE-user-join', {
       userId: socket.id,
-      info: socketList[currUser.mobile],
+      info: socketList[socket.id],
     });
     // io.sockets.in(roomId).emit('FE-user-join', users);
   });
@@ -57,7 +58,7 @@ io.on('connection', (socket) => {
     io.to(userToCall).emit('FE-receive-call', {
       signal,
       from,
-      info: socketList[currUser.mobile],
+      info: socketList[socket.id],
     });
   });
 
@@ -73,16 +74,16 @@ io.on('connection', (socket) => {
   });
 
   socket.on('BE-leave-room', ({ roomId }) => {
-    delete socketList[currUser.mobile];
+    delete socketList[socket.id];
     socket.to(roomId).emit('FE-user-leave', { userId: socket.id });
     socket.leave(roomId);
   });
 
   socket.on('BE-toggle-camera-audio', ({ roomId, switchTarget }) => {
     if (switchTarget === 'video') {
-      socketList[currUser.mobile].video = !socketList[currUser.mobile].video;
+      socketList[socket.id].video = !socketList[socket.id].video;
     } else {
-      socketList[currUser.mobile].audio = !socketList[currUser.mobile].audio;
+      socketList[socket.id].audio = !socketList[socket.id].audio;
     }
     socket
       .to(roomId)
