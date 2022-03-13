@@ -2,7 +2,7 @@
     display: flex;
     background-color: rgba(22,27,33,255);
     overflow: hidden;
-    height: 100vh;
+   height: 100vh !important;
 }
 .video-conference .main-side{
     width: 70% ;
@@ -93,7 +93,8 @@ margin: 14px 3px
     /* flex-wrap: wrap; */
     width: 100%;
     height: 69px;
-    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
     margin: 0px 16px;
 }
 /* .cp::-webkit-scrollbar{
@@ -321,6 +322,7 @@ position: relative;
     display:flex;
     width:100%;
     background-color: rgba(22,27,33,255);
+    
 }
 .caption{
     color: #fff;
@@ -346,6 +348,10 @@ position: relative;
     animation: my-animation 14s linear infinite; */
 }
  
+.caption .pcap{
+    font-size: 17px;
+    font-weight: unset;
+}
 /* for Firefox */
 @-moz-keyframes my-animation {
  from { -moz-transform: translateY(100%); }
@@ -454,7 +460,7 @@ text-align: center !important;
     color: white;
     font-weight: bold;
     position: relative;
-    bottom: 50px;
+    bottom: 61px;
 }
 .footer .buttons ul {  display: contents;}
 .footer .buttons li{
@@ -522,6 +528,10 @@ text-align: center !important;
         position: relative !important;
         right:0%;
     }
+    .video-conference .main-side .vi .vid-stream .vids .vid-item.signlang{
+        height: 35%;
+     
+    }
     .video-conference .main-side .vi .vid-stream .opts{
         display: none;
     }
@@ -549,8 +559,11 @@ text-align: center !important;
         display: none;
     }
     .video-conference{
-        height:100% !important;
+        height:100vh !important;
         
+    }
+    .video-conference .chat-side .chat {
+        height: 66% !important;
     }
     .video-conference .main-side .vi .vid-stream .vids .vid-item .name{
         position: absolute;
@@ -584,7 +597,7 @@ text-align: center !important;
     }
     .footer .buttons {
         position: relative;
-        bottom: 60px;
+        bottom: 100px;
     }
     .footer .tools{
         padding: 0;

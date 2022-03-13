@@ -196,6 +196,7 @@ const Room = (props) => {
   const roomId = props.match.params.roomId;
   const tempuser = localStorage.getItem('user');
   const user = JSON.parse(tempuser);
+
   useEffect(() => {
     // Get Video Devices
     // navigator.mediaDevices.enumerateDevices().then((devices) => {

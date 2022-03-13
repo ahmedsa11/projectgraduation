@@ -7,7 +7,7 @@ import socket from "../videochat/socket";
 import { Redirect } from "react-router";
 const Chat = ({ roomId }) => {
   const [msg, setMsg] = useState([]);
-  // const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef(null);
   const inputRef = useRef();
 
   useEffect(() => {
@@ -15,12 +15,10 @@ const Chat = ({ roomId }) => {
       setMsg((msgs) => [...msgs, { sender, msg }]);
     });
   }, []);
-    // Scroll to Bottom of Message List
-
-    // useEffect(() => {scrollToBottom()}, [msg])
-    // const scrollToBottom = () => {
-    //   messagesEndRef.current.scrollIntoView({ behavior: 'smooth'});
-    // }
+  useEffect(() => {scrollToBottom()}, [msg])
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: 'smooth'});
+  }
   const tempuser = localStorage.getItem("user");
 
   // console.log(tempuser);
@@ -31,7 +29,9 @@ const Chat = ({ roomId }) => {
   const user = JSON.parse(tempuser);
   // console.log(user);
   const currentUser = user.name;
+   // Scroll to Bottom of Message List
 
+  
   const sendMessage = (e) => {
     const text = document.getElementById("textt");
     const msg = text.value;
@@ -76,7 +76,7 @@ const Chat = ({ roomId }) => {
                 );
               }
             })}
-          {/* <span style={{float:'left', clear: 'both'}} ref={messagesEndRef} ></span> */}
+          <div style={{float:'left', clear: 'both'}} ref={messagesEndRef} ></div>
         </div>
       
         <div className="typing">

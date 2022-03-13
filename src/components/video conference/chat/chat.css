@@ -8,8 +8,10 @@
     transition:all 0.7s ease;
     height:100vh !important;
     left: 0%;
+    overflow: hidden;
     
 }
+
 .video-conference .chat-side .fa-comment-dots{
     display: none;
 }
