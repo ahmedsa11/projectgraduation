@@ -1,4 +1,4 @@
-import React ,{useEffect,useRef} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 // import Caption from './caption';
 const opentool = () => {
@@ -37,11 +37,11 @@ const BottomBar = ({
   showVideoDevices,
   setShowVideoDevices
 }) => {
-  const captionEndRef = useRef(null);
-    useEffect(() => {scrollToBottom()}, [text])
-    const scrollToBottom = () => {
-      captionEndRef.current.scrollIntoView({ behavior: 'smooth'});
-    }
+  // const captionEndRef = useRef(null);
+  //   useEffect(() => {scrollToBottom()}, [text])
+  //   const scrollToBottom = () => {
+  //     captionEndRef.current.scrollIntoView({ behavior: 'smooth'});
+  //   }
   return (
     <React.Fragment>
     <div className='footer'>
@@ -66,10 +66,8 @@ const BottomBar = ({
             <div className='cp'>
               <div className='caption lead text-center'id="textarea">
             <p className='pcap' ref={text}></p>
-            <div style={{float:'left', clear: 'both'}} ref={captionEndRef} ></div>
+            {/* <div style={{float:'left', clear: 'both'}} ref={captionEndRef} ></div> */}
                 </div>
-            
-                  
               </div>
               <ul>
                 <li>

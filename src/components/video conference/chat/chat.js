@@ -9,16 +9,16 @@ const Chat = ({ roomId }) => {
   const [msg, setMsg] = useState([]);
   const messagesEndRef = useRef(null);
   const inputRef = useRef();
-
   useEffect(() => {
     socket.on("FE-receive-message", ({ msg, sender }) => {
       setMsg((msgs) => [...msgs, { sender, msg }]);
     });
   }, []);
-  useEffect(() => {scrollToBottom()}, [msg])
-  const scrollToBottom = () => {
+    const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ behavior: 'smooth'});
   }
+    useEffect(() => {scrollToBottom()}, [msg])
+
   const tempuser = localStorage.getItem("user");
 
   // console.log(tempuser);

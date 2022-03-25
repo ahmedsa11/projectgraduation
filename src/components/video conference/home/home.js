@@ -82,9 +82,6 @@ const user= JSON.parse(tempuser);
                     <h3>Meeting history</h3>
                     <div className='history'>        
                           <Dailymeeting/>
-                          <Dailymeeting/>
-                          <Dailymeeting/>
-                    
                     </div>
                   </div>
                 </div>

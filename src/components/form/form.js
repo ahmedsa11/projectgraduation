@@ -7,6 +7,7 @@ import Verification from "../verification/verification";
 import firebase from "../firebase";
 import "firebase/compat/auth"
 import "firebase/compat/firestore"
+import Loader from "../loader/loader";
 class Form extends Component {
   state = {
     username: "",
@@ -18,6 +19,7 @@ class Form extends Component {
     mobilelog: "",
     passlog: "",
     gender: "",
+    loading:false
   };
   
   setUpRecaptcha = () => {
@@ -64,18 +66,24 @@ class Form extends Component {
       }
     );
     let res = await data.json();
+    this.setState({loading:true})
     console.log(res);
     if (res.status === "success") {
+      this.setState({loading:false})
       const error = {};
       error.mobile = "this mobile already exist";
       this.setState({ error });
+      
       return;
     }
+    
   this.setUpRecaptcha()
+ 
   const phoneNumber ='+'+ this.state.mobile
 const appVerifier = window.recaptchaVerifier;
 firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
     .then((confirmationResult) => {
+      this.setState({loading:false})
       // SMS sent. Prompt user to type the code from the message, then sign the
       // user in with confirmationResult.confirm(code).
       this.setState({
@@ -83,6 +91,7 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
       })
       window.confirmationResult = confirmationResult;
       console.log("sent");
+    
     }).catch((error) => {
       // Error; SMS not sent
       // ...
@@ -182,12 +191,13 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
 
       return (
       <react.Fragment>
-        
       <Redirect to="/home" />
       </react.Fragment>
       );    }
+   
     return (
       <react.Fragment>
+ {this.state.loading ? <Loader/>:null}
         <div id="sign-in-button"></div>
         <div className="form" id="formm">
           <div className="form-container sign-up" id="s">
@@ -334,7 +344,7 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
               </div>
             </div>
           </div>
-        </div>
+        </div>)
       </react.Fragment>
     );
   }

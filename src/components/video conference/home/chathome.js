@@ -4,7 +4,14 @@ import Tabs from 'react-bootstrap/Tabs'
 import './chathome.css'
 import chat from "../../../img/download.png";  
 class Chathome extends Component {
-  state = {}
+  state = {
+    chats:[{id:1,img:chat,time:"12:32",type:""},
+    {id:2,img:chat,time:"12:32" },
+    {id:3,img:chat,time:"12:32" },
+    {id:4,img:chat,time:"12:32" },
+
+  ]
+  }
 
   render() {
     return (
@@ -12,62 +19,37 @@ class Chathome extends Component {
 <div className='lst'>
 <Tabs defaultActiveKey="Direct" id="uncontrolled-tab-example">
                     <Tab eventKey="Direct" title="Direct">
-                      <div className='cont'>
+                      {
+                        this.state.chats.map(chats=>(
+                          <div key={chats.id} className='cont'>
                         
-                        <img src={chat} alt='a' />
-                        <span>09:1125</span>
-                      </div>
-                      <div className='cont'>
-                        
-                        <img src={chat} alt='a' />
-                        <span>09:1315</span>
-                      </div>
-                      <div className='cont'>
-                        
-                        <img src={chat} alt='a' />
-                        <span>09:775</span>
-                      </div>
+                          <img src={chats.img} alt='a' />
+                          <span>{chats.time}</span>
+                        </div>
+                        ))
+                      }
                  </Tab>
                     <Tab eventKey="Group" title="Group">
-                 
-                      <div className='cont'>
+                    {
+                        this.state.chats.map(chats=>(
+                          <div key={chats.id} className='cont'>
                         
-                        <img src={chat} alt='a' />
-                        <span>09:175</span>
-                      </div>
-                      <div className='cont'>
-                        
-                        <img src={chat} alt='a' />
-                        <span>09:195</span>
-                      </div>
-                      <div className='cont'>
-                        
-                        <img src={chat} alt='a' />
-                        <span>09:135</span>
-                      </div>
-                      <div className='cont'>
-                        
-                        <img src={chat} alt='a' />
-                        <span>09:215</span>
-                      </div>
+                          <img src={chats.img} alt='a' />
+                          <span>{chats.time}</span>
+                        </div>
+                        ))
+                      }
                      </Tab>
                       <Tab eventKey="Archive" title="Archive">
-                 
-                      <div className='cont'>
+                      {
+                        this.state.chats.map(chats=>(
+                          <div key={chats.id} className='cont'>
                         
-                        <img src={chat} alt='a' />
-                        <span>09:5</span>
-                      </div>
-                      <div className='cont'>
-                        
-                        <img src={chat} alt='a' />
-                        <span>09:85</span>
-                      </div>
-                      <div className='cont'>
-                        
-                        <img src={chat} alt='a' />
-                        <span>09:95</span>
-                      </div>
+                          <img src={chats.img} alt='a' />
+                          <span>{chats.time}</span>
+                        </div>
+                        ))
+                      }
               </Tab>
                     </Tabs>
                   </div> 

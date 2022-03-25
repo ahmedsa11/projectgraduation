@@ -23,9 +23,11 @@ class App extends Component{
         <Route path="/room/:roomId" component={Room} />
         <Route path="/caption" component={Caption} />
         <Route path="/signlang" component={Signlang} />
+   
               <Route path="/notfound" component={NOT}/>
          <Redirect from="/form"to="/"/>
          <Redirect to="/notfound"/>
+      
       </Switch> 
     </react.Fragment>
   );}

@@ -3,28 +3,36 @@ import './history.css'
 import chat from "../../../img/download.png";  
 
 class Dailymeeting extends Component {
-  state = {}
+  state = {
+    meets:[{id:1,title:"Daily Meeting",namehost:"David alba (host)",participants:25,img:chat,time:"1 hour" },
+    {id:2,title:"Daily Meeting",namehost:"David alba (host)",participants:25,img:chat,time:"1 hour" },
+    {id:2,title:"Daily Meeting",namehost:"David alba (host)",participants:25,img:chat,time:"1 hour" }
+
+  ]
+  }
 
   render() {
     return (
       <react.Fragment>
-     
-                          <div className='dailymeeting'>
-                            <i className='fas fa-ellipsis-h'></i>
-                            <h4>Daily Meeting</h4>
-                            <ul>
-                              <li>David alba (host)</li>
-                              <li>26 participants </li>
-                            </ul>
-                            <div className='im'>
-                              
-                              <img src={chat} alt='a' />
-                              <img src={chat} alt='a' />
-                              <img src={chat} alt='a' />
-                            </div>
-                            <span>1 hour</span>
-                          </div>
-                       
+        {this.state.meets.map(meets=>(
+
+<div key={meets.id} className='dailymeeting'>
+<i className='fas fa-ellipsis-h'></i>
+<h4>{meets.title}</h4>
+<ul>
+  <li>{meets.namehost}</li>
+  <li>{meets.participants}</li>
+</ul>
+<div className='im'>
+  
+  <img src={meets.img} alt='a' />
+  <img src={meets.img} alt='a' />
+  <img src={meets.img} alt='a' />
+</div>
+<span>{meets.time}</span>
+</div>
+        ))
+  }
       </react.Fragment>
     );
   }

@@ -15,6 +15,7 @@ import logo from '../../../img/loo.png'
 import BottomBar from './BottomBar';
 import VideoCard from './vid';
 import { Redirect } from 'react-router';
+import Loader from '../../loader/loader';
 const Copy = () => {
   var Url = document.getElementById('paste-box');
   Url.value = window.location.href;
@@ -182,6 +183,7 @@ const Room = (props) => {
     return window.btoa(binary);
   };
   const [peers, setPeers] = useState([]);
+  const [loading, setloading] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({
     localUser: { video: true, audio: true },
   });
@@ -210,11 +212,12 @@ const Room = (props) => {
     }
   
     window.addEventListener('popstate', goToBack);
-
+    setloading(true)
     // Connect Camera & Mic
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
+        setloading(false)
         userVideoRef.current.srcObject = stream;
         userStream.current = stream;
         // SpeechRecognition.startListening({ continuous: true,lang : 'en-US' })
@@ -559,6 +562,7 @@ const Room = (props) => {
 
   return (
     <react.Fragment>
+   {loading ? <Loader/>:null}
       <div className='video-conference'>
         <div className='main-side' id='main'>
           <div className='navbar'>
@@ -645,9 +649,7 @@ const Room = (props) => {
                     )}
                 
                   </div>
-                  
                     <span className='name'>{user.name}</span>
-                  
                 </div>
                 {peers &&
                   peers.map((peer, index, arr) => {
