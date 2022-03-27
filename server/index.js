@@ -8,6 +8,8 @@ const io = require('socket.io')(http, {
     credentials: true,
   },
 });
+const sio = require('socket.io-client')('https://asl-api.herokuapp.com/');
+
 const PORT = process.env.PORT || 3001;
 const path = require('path');
 
@@ -51,6 +53,11 @@ io.on('connection', (socket) => {
       userId: socket.id,
       info: socketList[socket.id],
     });
+
+    sio.on('stream_text', ({ data, id }) => {
+      console.log('received data from hassib');
+      io.in(roomId).emit('receive-frame', { frame: arrayBufferToBase64(data) });
+    });
     // io.sockets.in(roomId).emit('FE-user-join', users);
   });
 
@@ -90,10 +97,22 @@ io.on('connection', (socket) => {
       .emit('FE-toggle-camera', { userId: socket.id, switchTarget });
   });
 
-  socket.on("send-text", ({ data, roomId }) => {
-    io.in(roomId).emit("receive-text", { data });
-  })
+  socket.on('send-text', ({ data, roomId }) => {
+    console.log('received data from frontend');
+
+    console.log({ data });
+    sio.emit('stream_text', { data, id: sio.id });
+    io.in(roomId).emit('receive-text', { data });
+  });
+  sio.on('send', () => {
+    console.log('finished sending 1');
+    socket.emit('send');
+  });
 });
+
+const arrayBufferToBase64 = (buffer) => {
+  return buffer.toString('base64');
+};
 
 http.listen(PORT, () => {
   console.log(PORT);

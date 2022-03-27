@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import react from 'react';
 // import {useSpeechRecognition} from 'react-speech-recognition';
-import signpic from '../../../img/si.jpeg'
-import io from "socket.io-client";
+import signpic from '../../../img/si.jpeg';
 // import None from 'No';
 // import io from 'socket.io-client';
 import Peer from 'simple-peer';
@@ -11,7 +10,7 @@ import './room.css';
 import chat from '../../../img/download.png';
 import Navbar from '../navbar/navbar';
 import Chat from '../chat/chat';
-import logo from '../../../img/loo.png'
+import logo from '../../../img/loo.png';
 import BottomBar from './BottomBar';
 import VideoCard from './vid';
 import { Redirect } from 'react-router';
@@ -96,92 +95,8 @@ const openpopup = () => {
   document.execCommand('Copy');
 };
 const Room = (props) => {
-  const sio = io("https://asl-api.herokuapp.com/")
-  
   console.log('socket.io connected');
-  
-  const SpeechRecognition =
-    window.speechRecognition || window.webkitSpeechRecognition;
-  const SpeechGrammarList =
-    window.speechGrammarList || window.webkitSpeechGrammarList;
-  
-  const grammar = '#JSGF V1.0';
-  const speechRecognition = new SpeechRecognition();
-  const speechGrammarList = new SpeechGrammarList();
-  
-  speechGrammarList.addFromString(grammar);
-  speechRecognition.grammars = speechGrammarList;
-  speechRecognition.continuous = true;
-  speechRecognition.lang = 'en-US';
-  // speechRecognition.start();
-  let text=React.createRef()
-  let content = '';
-  let newContent = '';
-  let isFinished = true;
-  // if(newContent){
-  //   scrollIntoView();
-  // }
-  speechRecognition.onresult = (event) => {
-    if (event.results.length) {
-      let current = event.resultIndex;
-      let transcript = event.results[current][0].transcript;
-      content = transcript;
-    
-      newContent += content;
-      if (isFinished) {
-        socket.emit("send-text", {data: newContent, roomId});
-        isFinished = false;
-        newContent = '';
-      }
-    }
-  };
 
-  socket.on("receive-text", ({ data }) => { 
-    if(text.current){
-      text.current.textContent = data;
-    }
-    sio.emit('stream_text', { data, id: sio.id });
-  })
-  sio.on('send', () => {
-    isFinished = true;
-    if (newContent.length > 0) { 
-      isFinished = false;
-      socket.emit("send-text", {data: newContent, roomId});
-      newContent = '';
-    }
-  });
-  //else{
-  //   speechRecognition.stop()
-  // }
-  // recive data from the server
-  sio.on('connect', () => {
-    console.log('connected');
-  });
-  
-  sio.on('disconnect', () => {
-    console.log('disconnected');
-  });
-  
-  sio.on('connect_error', (e) => {
-    console.log(e.message);
-  });
-  // send data to the server
-  // recive data from the server
-  sio.on('stream_text', (pyload) => {
-    console.log("test")
-    document.getElementById('stream_asl').src =
-      'data:image/jpeg;base64,' + arrayBufferToBase64(pyload['data']);
-  });
-  
-  const arrayBufferToBase64 = (buffer) => {
-    var binary = '';
-    var bytes = new Uint8Array(buffer);
-    var len = bytes.byteLength;
-    for (var i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return window.btoa(binary);
-  };
   const [peers, setPeers] = useState([]);
   const [loading, setloading] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({
@@ -198,6 +113,18 @@ const Room = (props) => {
   const roomId = props.match.params.roomId;
   const tempuser = localStorage.getItem('user');
   const user = JSON.parse(tempuser);
+  const SpeechRecognition =
+    window.speechRecognition || window.webkitSpeechRecognition;
+  const SpeechGrammarList =
+    window.speechGrammarList || window.webkitSpeechGrammarList;
+
+  const grammar = '#JSGF V1.0';
+  const speechRecognition = new SpeechRecognition();
+  const speechGrammarList = new SpeechGrammarList();
+
+  let text = React.createRef();
+  let newContent = '';
+  let isFinished = true;
 
   useEffect(() => {
     // Get Video Devices
@@ -210,18 +137,68 @@ const Room = (props) => {
     if (tempuser === null) {
       return <Redirect to='/' />;
     }
-  
+
     window.addEventListener('popstate', goToBack);
-    setloading(true)
+    setloading(true);
     // Connect Camera & Mic
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
-        setloading(false)
+        setloading(false);
         userVideoRef.current.srcObject = stream;
         userStream.current = stream;
+
+        speechGrammarList.addFromString(grammar);
+        speechRecognition.grammars = speechGrammarList;
+        speechRecognition.continuous = true;
+        speechRecognition.lang = 'en-US';
+        // speechRecognition.start();
+        // if(newContent){
+        //   scrollIntoView();
+        // }
+        speechRecognition.onresult = (event) => {
+          if (event.results.length) {
+            let current = event.resultIndex;
+            let transcript = event.results[current][0].transcript;
+
+            newContent += transcript;
+            console.log({ isFinished });
+            if (isFinished) {
+              socket.emit('send-text', { data: newContent, roomId });
+              console.log('send text to backend');
+              isFinished = false;
+              newContent = '';
+            }
+          }
+        };
+
+        socket.on('receive-text', ({ data }) => {
+          console.log({ data });
+          if (text.current) {
+            text.current.textContent = data;
+          }
+        });
+
+        socket.on('send', () => {
+          console.log('finished sending 2');
+          isFinished = true;
+          if (newContent.length > 0) {
+            socket.emit('send-text', { data: newContent, roomId });
+            isFinished = false;
+            newContent = '';
+          }
+        });
+
+        // recive data from the server
+        socket.on('receive-frame', ({ frame }) => {
+          console.log('received frame from backend');
+          document.getElementById('stream_asl').src =
+            'data:image/jpeg;base64,' + frame;
+        });
+
         // SpeechRecognition.startListening({ continuous: true,lang : 'en-US' })
-        speechRecognition.start()
+        speechRecognition.start();
+        console.log('speechRecognition started');
         socket.emit('BE-join-room', { roomId, user });
 
         socket.on('FE-user-join', ({ userId, info }) => {
@@ -312,12 +289,11 @@ const Room = (props) => {
 
         if (switchTarget === 'video') {
           video = !video;
-          
         } else {
           audio = !audio;
           peerIdx.audio = audio;
           audio ? speechRecognition.start() : speechRecognition.stop();
-
+          console.log(audio);
         }
 
         return {
@@ -327,13 +303,11 @@ const Room = (props) => {
       });
     });
     return () => {
-      // socket.disconnect();
-      alert('peer destroy');
+      socket.disconnect();
     };
-    
+
     // eslint-disable-next-line
   }, []);
-
 
   function createPeer(userId, caller, stream) {
     const peer = new Peer({
@@ -350,8 +324,7 @@ const Room = (props) => {
       });
     });
     peer.on('disconnect', () => {
-      // peer.destroy();
-      alert('peer destroy');
+      peer.destroy();
     });
 
     return peer;
@@ -369,8 +342,7 @@ const Room = (props) => {
     });
 
     peer.on('disconnect', () => {
-      // peer.destroy();
-      alert('peer destroy');
+      peer.destroy();
     });
 
     peer.signal(incomingSignal);
@@ -422,7 +394,7 @@ const Room = (props) => {
 
   const toggleCameraAudio = (e) => {
     const target = e.target.getAttribute('data-switch');
-  
+
     setUserVideoAudio((preList) => {
       let videoSwitch = preList['localUser'].video;
       let audioSwitch = preList['localUser'].audio;
@@ -433,25 +405,12 @@ const Room = (props) => {
         videoSwitch = !videoSwitch;
         userVideoTrack.enabled = videoSwitch;
       } else {
-       
         const userAudioTrack =
           userVideoRef.current.srcObject.getAudioTracks()[0];
         audioSwitch = !audioSwitch;
-        
-        
-        if (userAudioTrack) {
-          userAudioTrack.enabled = audioSwitch;
-        } else {
-          userStream.current.getAudioTracks()[0].enabled = audioSwitch;
-          
-        }
-        if(audioSwitch){
-          speechRecognition.start()
-        }
-        else if(!audioSwitch){
-          speechRecognition.stop()
-         
-         }
+        userAudioTrack.enabled = audioSwitch;
+        audioSwitch ? speechRecognition.start() : speechRecognition.stop();
+        console.log(audioSwitch);
       }
 
       return {
@@ -562,13 +521,13 @@ const Room = (props) => {
 
   return (
     <react.Fragment>
-   {loading ? <Loader/>:null}
+      {loading ? <Loader /> : null}
       <div className='video-conference'>
         <div className='main-side' id='main'>
           <div className='navbar'>
             <div className='container'>
               <div className='logo'>
-                <img src={logo} alt='logo'/>
+                <img src={logo} alt='logo' />
               </div>
               <div className='title'>
                 <h4>Video Conference</h4>
@@ -624,7 +583,7 @@ const Room = (props) => {
               </div>
               <div className='vids'>
                 <div className='stream vid-item signlang'>
-                <img id="stream_asl" alt="ss" src={signpic} />
+                  <img id='stream_asl' alt='ss' src={signpic} />
                 </div>
                 <div className='vid-item'>
                   <div
@@ -647,9 +606,8 @@ const Room = (props) => {
                     ) : (
                       <i className='fas fa-microphone-slash'></i>
                     )}
-                
                   </div>
-                    <span className='name'>{user.name}</span>
+                  <span className='name'>{user.name}</span>
                 </div>
                 {peers &&
                   peers.map((peer, index, arr) => {
@@ -668,7 +626,7 @@ const Room = (props) => {
             screenShare={screenShare}
             text={text}
             // speechRecognition={speechRecognition.start()}
-    
+
             // videoDevices={videoDevices}
             // showVideoDevices={showVideoDevices}
             // setShowVideoDevices={setShowVideoDevices}
@@ -679,6 +637,5 @@ const Room = (props) => {
     </react.Fragment>
   );
 };
-
 
 export default Room;
