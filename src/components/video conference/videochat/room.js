@@ -95,8 +95,6 @@ const openpopup = () => {
   document.execCommand('Copy');
 };
 const Room = (props) => {
-  console.log('socket.io connected');
-
   const [peers, setPeers] = useState([]);
   const [loading, setloading] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({
@@ -122,10 +120,9 @@ const Room = (props) => {
   const speechRecognition = new SpeechRecognition();
   const speechGrammarList = new SpeechGrammarList();
 
-  let text = React.createRef();
-  let newContent = '';
-  let isFinished = true;
-
+  let text = useRef();
+  let newContent = useRef('');
+  let isFinished = useRef(true);
   useEffect(() => {
     // Get Video Devices
     // navigator.mediaDevices.enumerateDevices().then((devices) => {
@@ -152,22 +149,18 @@ const Room = (props) => {
         speechRecognition.grammars = speechGrammarList;
         speechRecognition.continuous = true;
         speechRecognition.lang = 'en-US';
-        // speechRecognition.start();
-        // if(newContent){
-        //   scrollIntoView();
-        // }
         speechRecognition.onresult = (event) => {
           if (event.results.length) {
             let current = event.resultIndex;
             let transcript = event.results[current][0].transcript;
 
-            newContent += transcript;
+            newContent.current += transcript;
             console.log({ isFinished });
             if (isFinished) {
-              socket.emit('send-text', { data: newContent, roomId });
+              socket.emit('send-text', { data: newContent.current, roomId });
               console.log('send text to backend');
-              isFinished = false;
-              newContent = '';
+              isFinished.current = false;
+              newContent.current = '';
             }
           }
         };
@@ -181,11 +174,11 @@ const Room = (props) => {
 
         socket.on('send', () => {
           console.log('finished sending 2');
-          isFinished = true;
-          if (newContent.length > 0) {
-            socket.emit('send-text', { data: newContent, roomId });
-            isFinished = false;
-            newContent = '';
+          isFinished.current = true;
+          if (newContent.current.length > 0) {
+            socket.emit('send-text', { data: newContent.current, roomId });
+            isFinished.current = false;
+            newContent.current = '';
           }
         });
 

@@ -6,7 +6,7 @@ class Dailymeeting extends Component {
   state = {
     meets:[{id:1,title:"Daily Meeting",namehost:"David alba (host)",participants:25,img:chat,time:"1 hour" },
     {id:2,title:"Daily Meeting",namehost:"David alba (host)",participants:25,img:chat,time:"1 hour" },
-    {id:2,title:"Daily Meeting",namehost:"David alba (host)",participants:25,img:chat,time:"1 hour" }
+    {id:3,title:"Daily Meeting",namehost:"David alba (host)",participants:25,img:chat,time:"1 hour" }
 
   ]
   }

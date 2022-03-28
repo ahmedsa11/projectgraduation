@@ -7,7 +7,7 @@
     position: relative;
     transition:all 0.7s ease;
     height:100vh !important;
-    left: 0%;
+    left: 0% !important;
     overflow: hidden;
     
 }
