@@ -16,7 +16,7 @@ class App extends Component {
           <Route path="/room/:roomId" component={Room} />
           <Route path="/setting" component={Setting} />
           <Route path="/notfound" component={NOT} />
-          <Redirect from="/form" to="/" />
+          {/* <Redirect from="/form" to="/" /> */}
           <Redirect to="/notfound" />
         </Switch>
       </react.Fragment>
