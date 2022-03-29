@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 // const sockets = io('http://localhost:3001', { autoConnect: true, forceNew: true });
-const sockets = io('http://localhost:3001', {
+const sockets = io('https://backend-socket-tabarani.herokuapp.com/', {
   withCredentials: true,
   extraHeaders: {
     'Access-Control-Allow-Origin': true,

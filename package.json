@@ -66,5 +66,5 @@
     "@fortawesome/fontawesome-free": "^5.15.4",
     "nodemon": "^2.0.15"
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "https://backend-socket-tabarani.herokuapp.com/"
 }

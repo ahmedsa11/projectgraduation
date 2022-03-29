@@ -145,13 +145,16 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
       }), // body data type must match "Content-Type" header
     });
     const res = await data.json();
+    this.setState({loading:true})
     if (res.status === "error") {
+      this.setState({loading:false})
       const error = {};
       error.mobilelog = res.message.mobile;
       error.passlog = res.message.password;
       this.setState({ error });
     }
     if (res.status === "success") {
+      this.setState({loading:false})
       console.log(res);
       delete res.data._id;
       localStorage.setItem("user",JSON.stringify(res.data))
