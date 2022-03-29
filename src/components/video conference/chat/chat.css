@@ -292,7 +292,7 @@ right: 5px;
         display: none;
     }
     .video-conference{
-        height:100% !important;
+        height:100vh !important;
         
     }
     .video-conference .main-side .vi .vid-stream .vids .vid-item .name{
