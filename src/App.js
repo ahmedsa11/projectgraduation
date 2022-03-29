@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <react.Fragment>
-        <Switch>
+        <Switch> 
           <Route exact path="/" component={Form} />
           <Route path="/home" component={Home} />
           <Route path="/room/:roomId" component={Room} />
