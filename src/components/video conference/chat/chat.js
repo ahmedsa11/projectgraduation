@@ -14,10 +14,12 @@ const Chat = ({ roomId }) => {
       setMsg((msgs) => [...msgs, { sender, msg }]);
     });
   }, []);
-    const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: 'smooth'});
-  }
-    useEffect(() => {scrollToBottom()}, [msg])
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [msg]);
 
   const tempuser = localStorage.getItem("user");
 
@@ -29,9 +31,8 @@ const Chat = ({ roomId }) => {
   const user = JSON.parse(tempuser);
   // console.log(user);
   const currentUser = user.name;
-   // Scroll to Bottom of Message List
+  // Scroll to Bottom of Message List
 
-  
   const sendMessage = (e) => {
     const text = document.getElementById("textt");
     const msg = text.value;
@@ -54,11 +55,10 @@ const Chat = ({ roomId }) => {
               if (sender !== currentUser) {
                 return (
                   <div className="sender" key={idx}>
-                    
                     <img src={chat} alt="a" />
 
                     <div className="text-box">
-                    <strong>{sender} : </strong>
+                      <strong>{sender} : </strong>
                       <p> {msg}</p>
                       {/*<div className="message-time-left">SMS 13:37</div>*/}
                     </div>
@@ -76,9 +76,12 @@ const Chat = ({ roomId }) => {
                 );
               }
             })}
-          <div style={{float:'left', clear: 'both'}} ref={messagesEndRef} ></div>
+          <div
+            style={{ float: "left", clear: "both" }}
+            ref={messagesEndRef}
+          ></div>
         </div>
-      
+
         <div className="typing">
           <p>
             <span>david </span>is typing....
@@ -88,7 +91,7 @@ const Chat = ({ roomId }) => {
               <i className="fas fa-image"></i>
               <i className="fas fa-microphone"></i>
             </div>
-      
+
             <textarea
               type="text"
               placeholder="Write Message...."

@@ -1,27 +1,19 @@
-import React, { useEffect, useRef } from 'react';
-import './room.css'
+import React, { useEffect, useRef } from "react";
+import "./room.css";
 const VideoCard = (props) => {
   const ref = useRef();
   const peer = props.peer;
   useEffect(() => {
-    peer.on('stream', (stream) => {
+    peer.on("stream", (stream) => {
       ref.current.srcObject = stream;
     });
-    peer.on('track', (track, stream) => {
-    });
+    peer.on("track", (track, stream) => {});
   }, [peer]);
 
   return (
-      <React.Fragment>
-               
-                  <video
-               playsInline
-               autoPlay
-               ref={ref}
-                  >
-                    
-                  </video>
-                  {/* <div className='icon'>
+    <React.Fragment>
+      <video playsInline autoPlay ref={ref}></video>
+      {/* <div className='icon'>
                     <i 
                       className="fas fa-microphone"
                     //   {
@@ -34,9 +26,7 @@ const VideoCard = (props) => {
                   </div>
                   <span className='name'>Ahmed salama</span>
                 </div> */}
-         
-</React.Fragment>
-
+    </React.Fragment>
   );
 };
 

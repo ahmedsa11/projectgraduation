@@ -1,0 +1,148 @@
+
+i{
+    cursor: pointer;
+}
+
+.navbar{
+    background-color: rgba(24,31,39,255);
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.head  ul{
+    list-style: none;
+}
+
+.head  ul li{
+    display:inline-block;
+        margin: 25px 3px
+}
+
+.head  .navbar .logo{
+    width:10%;
+}
+.head  .navbar .logo i{
+    font-size: 45px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.head  .navbar .title{
+    flex:1;
+}
+.head  .navbar input{
+    width: 65%;
+    background-color: #272530    ;
+    border: none !important;
+    border-radius: 10px;
+    color: white !important;
+}
+.head  .navbar input::placeholder{
+    color: white !important;
+}
+.head  .navbar input::placeholder{
+    color: #615f6c;
+}
+.head .navbar  img{
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+}
+.head .navbar  span{
+ color: white;
+ border-bottom: 2px solid white;
+ font-size: 18px;
+ font-weight: bold;
+}
+.head .navbar .fa-phone-alt{
+    font-size: 23px;
+    background-color: rgb(40, 57, 207);
+    color: #f8fff3
+    ;
+    padding: 7px;
+    border-radius: 6px;
+    margin: 0px;
+}
+
+.head .navbar .fa-video{
+    font-size: 23px;
+    background-color: red;
+    padding: 7px;
+    border-radius: 6px;
+    margin: 11px;
+    color: #f8fff3
+    ;
+}
+
+
+.head  .vi .vid-stream .prof{
+    padding: 15px;
+    position: relative;
+    opacity: 1;
+    display: block;
+}
+.head  .vi .vid-stream .prof h3{
+    color: white;
+    font-weight: bold;
+    border-bottom: 2px solid #fff;
+    width: fit-content;
+    margin-bottom: 15px;
+}
+.head  .vi .vid-stream .prof .pic{
+    width: 100%;
+    border: 2px solid #531863;
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.head  .vi .vid-stream .prof .pic img{
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+@media only screen and (max-width: 800px) {
+    .head{
+  
+        height: 100% !important;
+    }
+    .head  .navbar .logo{
+        width:fit-content;
+        font-size: 15px !important;
+    }
+    .head  .navbar .title{
+        width: 100%;
+        display: flex;
+    }
+    .head .navbar input{
+      width: 83%;
+    }
+    .head .navbar .fa-phone-alt{
+        font-size: 23px;
+        background-color: rgb(40, 57, 207);
+        color: #f8fff3;
+        padding: 7px;
+        border-radius: 6px;
+        height: fit-content;
+        margin: 15px 5px !important;
+    }
+    
+    .head .navbar .fa-video{
+        font-size: 23px;
+        background-color: red;
+        padding: 7px;
+        border-radius: 6px;
+        color: #f8fff3;
+        height: fit-content;
+        margin: 15px 5px !important;
+    }
+    .head  .vi .vid-stream {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border-radius: 15px;
+        background-color: #1f232c;
+        margin: 61px 15px 15px 15px !important;  
+      }}

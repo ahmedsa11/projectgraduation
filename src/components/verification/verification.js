@@ -10,14 +10,14 @@ class Verification extends Component {
     num2: "",
     num3: "",
     num4: "",
-    num5:"",
-    num6:"",
-    mobile:this.props.phone,
+    num5: "",
+    num6: "",
+    mobile: this.props.phone,
     code: "",
     username: this.props.username,
     pass: this.props.pass,
-    gender:this.props.gender,
-    very:"",
+    gender: this.props.gender,
+    very: "",
   };
 
   header = {
@@ -27,44 +27,53 @@ class Verification extends Component {
     // 'Content-Type': 'application/x-www-form-urlencoded',
   };
   handlesubotp = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // const error = this.validsignup();
     // if (error) return;
     //back end
-  const code = this.state.num1+this.state.num2+this.state.num3+this.state.num4+this.state.num5+this.state.num6;
- window.confirmationResult.confirm(code).then (async(result) => {
-  // User signed in successfully.
-  const user = result.user;
-  console.log(user);
-  console.log("goood")
-  let data2 = await fetch(
-    `https://backend-api-tabarani.herokuapp.com/api/users/`,
-    {
-      headers: this.header,
-      method: "POST",
-      body: JSON.stringify({
-        name:this.state.username,
-        mobile:this.state.mobile,
-        password:this.state.pass,
-        gender:this.state.gender,
+    const code =
+      this.state.num1 +
+      this.state.num2 +
+      this.state.num3 +
+      this.state.num4 +
+      this.state.num5 +
+      this.state.num6;
+    window.confirmationResult
+      .confirm(code)
+      .then(async (result) => {
+        // User signed in successfully.
+        const user = result.user;
+        console.log(user);
+        console.log("goood");
+        let data2 = await fetch(
+          `https://backend-api-tabarani.herokuapp.com/api/users/`,
+          {
+            headers: this.header,
+            method: "POST",
+            body: JSON.stringify({
+              name: this.state.username,
+              mobile: this.state.mobile,
+              password: this.state.pass,
+              gender: this.state.gender,
+            }),
+          }
+        );
+        let res2 = await data2.json();
+        if (res2.status === "success") {
+          localStorage.setItem("user", JSON.stringify(res2.data));
+          this.setState({
+            very: "verified",
+          });
+        }
+        // ...
       })
-    }
-  );
-let  res2 = await data2.json();
-if (res2.status === "success"){
-  localStorage.setItem("user",JSON.stringify(res2.data))
-  this.setState({
-    very:"verified"
-  })
-}
-  // ...
-}).catch((error) => {
-  // User couldn't sign in (bad verification code?)
-  // ...
-  alert("bad verification code")
-});
+      .catch((error) => {
+        // User couldn't sign in (bad verification code?)
+        // ...
+        alert("bad verification code");
+      });
   };
-  
+
   handlechangesignup = (e) => {
     let state = { ...this.state };
     state[e.currentTarget.name] = e.currentTarget.value;
@@ -72,13 +81,12 @@ if (res2.status === "success"){
   };
 
   render() {
-    if(this.state.very==="verified"){
-      
-      return(
+    if (this.state.very === "verified") {
+      return (
         <react.Fragment>
-          <Redirect to="/home"/>
+          <Redirect to="/home" />
         </react.Fragment>
-      )
+      );
     }
     return (
       <react.Fragment>
@@ -93,50 +101,49 @@ if (res2.status === "success"){
           <form onSubmit={this.handlesubotp}>
             <div className="code">
               <input
-              required
+                required
                 type="text"
                 name="num1"
                 onChange={this.handlechangesignup}
-              maxLength={1}
-           
+                maxLength={1}
               />
               <input
-               required
-              type="text"
+                required
+                type="text"
                 name="num2"
                 onChange={this.handlechangesignup}
                 maxLength={1}
               />
               <input
                 required
-               type="text"
+                type="text"
                 name="num3"
                 onChange={this.handlechangesignup}
                 maxLength={1}
               />
               <input
                 required
-               type="text"
+                type="text"
                 name="num4"
                 onChange={this.handlechangesignup}
                 maxLength={1}
               />
-                 <input
+              <input
                 required
-               type="text"
+                type="text"
                 name="num5"
                 onChange={this.handlechangesignup}
                 maxLength={1}
               />
-                 <input
+              <input
                 required
-               type="text"
+                type="text"
                 name="num6"
                 onChange={this.handlechangesignup}
                 maxLength={1}
               />
             </div>
-            
+
             <button type="submit">Submit</button>
           </form>
         </div>

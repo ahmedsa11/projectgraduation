@@ -8,16 +8,20 @@
     padding: 0px 15px!important;
     text-align: center;
 }
-.toggler{    color: aliceblue;
+.toggler{
+    color: aliceblue;
     font-size: 24px;
     position: absolute;
     left: 10px;
     top: 107px;
-display: none !important;}
-  
+    display: none !important;
+    opacity: 0 !important;
+}
 @media only screen and (max-width: 800px) {
     .toggler{
         display: block !important; 
+        opacity: 1 !important;
+        transition: all 0.5s ease !important;
     }
     .linkk li {
         display: inline-block;
@@ -44,7 +48,7 @@ display: none !important;}
     left: 35px !important;
     }
     .open{
-        transition: all 0.5s ease;
+        transition: all 0.5s ease !important;
        
         opacity: 1;
         transform: translateX(0%);
