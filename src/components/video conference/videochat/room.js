@@ -1,98 +1,98 @@
-import React, { useEffect, useRef, useState } from "react";
-import react from "react";
+import React, { useEffect, useRef, useState } from 'react';
+import react from 'react';
 // import {useSpeechRecognition} from 'react-speech-recognition';
-import signpic from "../../../img/si.jpeg";
+import signpic from '../../../img/si.jpeg';
 // import None from 'No';
 // import io from 'socket.io-client';
-import Peer from "simple-peer";
-import socket from "./socket";
-import "./room.css";
-import chat from "../../../img/download.png";
-import Navbar from "../navbar/navbar";
-import Chat from "../chat/chat";
-import logo from "../../../img/loo.png";
-import BottomBar from "./BottomBar";
-import VideoCard from "./vid";
-import { Redirect } from "react-router";
-import Loader from "../../loader/loader";
+import Peer from 'simple-peer';
+import socket from './socket';
+import './room.css';
+import chat from '../../../img/download.png';
+import Navbar from '../navbar/navbar';
+import Chat from '../chat/chat';
+import logo from '../../../img/loo.png';
+import BottomBar from './BottomBar';
+import VideoCard from './vid';
+import { Redirect } from 'react-router';
+import Loader from '../../loader/loader';
 const Copy = () => {
-  var Url = document.getElementById("paste-box");
+  var Url = document.getElementById('paste-box');
   Url.value = window.location.href;
   Url.focus();
   Url.select();
-  document.execCommand("Copy");
+  document.execCommand('Copy');
 };
 const grid = () => {
-  const grid6 = document.getElementById("grid6");
-  const grid4 = document.getElementById("grid4");
-  const grid1 = document.getElementById("grid1");
-  const vids = document.querySelector(".vids");
-  const viditem = document.getElementsByClassName("vid-item");
+  const grid6 = document.getElementById('grid6');
+  const grid4 = document.getElementById('grid4');
+  const grid1 = document.getElementById('grid1');
+  const vids = document.querySelector('.vids');
+  const viditem = document.getElementsByClassName('vid-item');
   for (let i = 0; i < viditem.length; i++) {
     grid6.onclick = () => {
-      viditem[i].style.width = "calc(100%/4)";
-      vids.style.padding = "0% 19%";
-      viditem[i].style.margin = "0% 0%";
+      viditem[i].style.width = 'calc(100%/4)';
+      vids.style.padding = '0% 19%';
+      viditem[i].style.margin = '0% 0%';
     };
 
     grid4.onclick = () => {
-      viditem[i].style.width = "calc(100%/3.1)";
-      vids.style.padding = "0% 0%";
-      viditem[i].style.margin = "0% 0%";
+      viditem[i].style.width = 'calc(100%/3.1)';
+      vids.style.padding = '0% 0%';
+      viditem[i].style.margin = '0% 0%';
     };
     grid1.onclick = () => {
-      viditem[i].style.width = "calc(100%/1.7)";
-      vids.style.padding = "0% 0%";
-      viditem[i].style.margin = "0% 3%";
+      viditem[i].style.width = 'calc(100%/1.7)';
+      vids.style.padding = '0% 0%';
+      viditem[i].style.margin = '0% 3%';
     };
   }
 };
 const openchat = () => {
-  const icon = document.querySelector(".fa-comment-dots");
-  const iconphone = document.querySelector(".fa-sign-out-alt");
+  const icon = document.querySelector('.fa-comment-dots');
+  const iconphone = document.querySelector('.fa-sign-out-alt');
   icon.onclick = () => {
-    document.querySelector(".chat-side").classList.toggle("open");
-    document.querySelector("#main").classList.toggle("openmain");
-    document.querySelector(".fa-comment-dots").classList.toggle("active");
+    document.querySelector('.chat-side').classList.toggle('open');
+    document.querySelector('#main').classList.toggle('openmain');
+    document.querySelector('.fa-comment-dots').classList.toggle('active');
   };
   iconphone.onclick = () => {
-    document.querySelector(".chat-side").classList.toggle("open");
-    document.querySelector("#main").classList.toggle("openmain");
+    document.querySelector('.chat-side').classList.toggle('open');
+    document.querySelector('#main').classList.toggle('openmain');
   };
 };
 const openpopup = () => {
-  let popup = document.querySelector(".popup-wrapper");
-  let popupBtn = document.querySelector(".popup-open");
-  let popupClose = document.querySelector(".close-btn");
-  popupBtn.addEventListener("click", (e) => {
+  let popup = document.querySelector('.popup-wrapper');
+  let popupBtn = document.querySelector('.popup-open');
+  let popupClose = document.querySelector('.close-btn');
+  popupBtn.addEventListener('click', (e) => {
     e.preventDefault();
     showPopup();
   });
 
-  popupClose.addEventListener("click", (e) => {
+  popupClose.addEventListener('click', (e) => {
     e.preventDefault();
     removePopup();
   });
 
-  popup.addEventListener("click", (e) => {
+  popup.addEventListener('click', (e) => {
     let target = e.target;
-    if (target.classList.contains("popup-wrapper")) {
+    if (target.classList.contains('popup-wrapper')) {
       removePopup();
     } else return;
   });
 
   function showPopup() {
-    popup.classList.add("active");
+    popup.classList.add('active');
   }
 
   function removePopup() {
-    popup.classList.remove("active");
+    popup.classList.remove('active');
   }
-  var Url = document.getElementById("paste-box");
+  var Url = document.getElementById('paste-box');
   Url.value = window.location.href;
   Url.focus();
   Url.select();
-  document.execCommand("Copy");
+  document.execCommand('Copy');
 };
 const Room = (props) => {
   const [peers, setPeers] = useState([]);
@@ -109,19 +109,19 @@ const Room = (props) => {
   const screenTrackRef = useRef();
   const userStream = useRef();
   const roomId = props.match.params.roomId;
-  const tempuser = localStorage.getItem("user");
+  const tempuser = localStorage.getItem('user');
   const user = JSON.parse(tempuser);
   const SpeechRecognition =
     window.speechRecognition || window.webkitSpeechRecognition;
   const SpeechGrammarList =
     window.speechGrammarList || window.webkitSpeechGrammarList;
 
-  const grammar = "#JSGF V1.0";
+  const grammar = '#JSGF V1.0';
   const speechRecognition = new SpeechRecognition();
   const speechGrammarList = new SpeechGrammarList();
 
   let text = useRef();
-  let newContent = useRef("");
+  let newContent = useRef('');
   let isFinished = useRef(true);
   useEffect(() => {
     // Get Video Devices
@@ -132,10 +132,10 @@ const Room = (props) => {
 
     // Set Back Button Event
     if (tempuser === null) {
-      return <Redirect to="/" />;
+      return <Redirect to='/' />;
     }
 
-    window.addEventListener("popstate", goToBack);
+    window.addEventListener('popstate', goToBack);
     setloading(true);
     // Connect Camera & Mic
     navigator.mediaDevices
@@ -148,7 +148,7 @@ const Room = (props) => {
         speechGrammarList.addFromString(grammar);
         speechRecognition.grammars = speechGrammarList;
         speechRecognition.continuous = true;
-        speechRecognition.lang = "en-US";
+        speechRecognition.lang = 'en-US';
         speechRecognition.onresult = (event) => {
           if (event.results.length) {
             let current = event.resultIndex;
@@ -157,46 +157,45 @@ const Room = (props) => {
             newContent.current += transcript;
             console.log({ isFinished });
             if (isFinished) {
-              socket.emit("send-text", { data: newContent.current, roomId });
-              console.log("send text to backend");
+              socket.emit('send-text', { data: newContent.current, roomId });
+              console.log('send text to backend');
               isFinished.current = false;
-              newContent.current = "";
+              newContent.current = '';
             }
           }
         };
 
-        socket.on("receive-text", ({ data }) => {
+        socket.on('receive-text', ({ data }) => {
           console.log({ data });
           if (text.current) {
             text.current.textContent = data;
           }
         });
 
-        socket.on("send", () => {
-          console.log("finished sending 2");
+        socket.on('send', () => {
+          console.log('finished sending 2');
           isFinished.current = true;
           if (newContent.current.length > 0) {
-            socket.emit("send-text", { data: newContent.current, roomId });
+            socket.emit('send-text', { data: newContent.current, roomId });
             isFinished.current = false;
-            newContent.current = "";
+            newContent.current = '';
           }
         });
 
         // recive data from the server
-        socket.on("receive-frame", ({ frame }) => {
-          console.log("received frame from backend");
-          document.getElementById("stream_asl").src =
-            "data:image/jpeg;base64," + frame;
+        socket.on('receive-frame', ({ frame }) => {
+          console.log('received frame from backend');
+          document.getElementById('stream_asl').src =
+            'data:image/jpeg;base64,' + frame;
         });
 
         // SpeechRecognition.startListening({ continuous: true,lang : 'en-US' })
         speechRecognition.start();
-        console.log("speechRecognition started");
-        socket.emit("BE-join-room", { roomId, user });
+        console.log('speechRecognition started');
+        socket.emit('BE-join-room', { roomId, user });
 
-        socket.on("FE-user-join", ({ userId, info }) => {
+        socket.on('FE-user-join', ({ userId, info }) => {
           // all users
-          const peers = [];
           let { user: newUser, video, audio } = info;
 
           const peer = createPeer(userId, socket.id, stream);
@@ -210,15 +209,15 @@ const Room = (props) => {
             audio,
           });
 
-          peers.push(peer);
-
           setUserVideoAudio((preList) => {
             return {
               ...preList,
               [peer.userName]: { video, audio },
             };
           });
-          setPeers(peers);
+          setPeers((users) => {
+            return [...users, peer];
+          });
         });
 
         // socket.on('FE-duplicate-user', () => {
@@ -226,7 +225,7 @@ const Room = (props) => {
         //   alert("You are already in this room but in other tab")
         // });
 
-        socket.on("FE-receive-call", ({ signal, from, info }) => {
+        socket.on('FE-receive-call', ({ signal, from, info }) => {
           let { user: newUser, video, audio } = info;
           const peerIdx = findPeer(from);
 
@@ -255,12 +254,12 @@ const Room = (props) => {
           }
         });
 
-        socket.on("FE-call-accepted", ({ signal, answerId }) => {
+        socket.on('FE-call-accepted', ({ signal, answerId }) => {
           const peerIdx = findPeer(answerId);
           peerIdx.peer.signal(signal);
         });
 
-        socket.on("FE-user-leave", ({ userId }) => {
+        socket.on('FE-user-leave', ({ userId }) => {
           const peerIdx = findPeer(userId);
           peerIdx.peer.destroy();
           setPeers((users) => {
@@ -273,14 +272,14 @@ const Room = (props) => {
         });
       });
 
-    socket.on("FE-toggle-camera", ({ userId, switchTarget }) => {
+    socket.on('FE-toggle-camera', ({ userId, switchTarget }) => {
       const peerIdx = findPeer(userId);
 
       setUserVideoAudio((preList) => {
         let video = preList[peerIdx.userName].video;
         let audio = preList[peerIdx.userName].audio;
 
-        if (switchTarget === "video") {
+        if (switchTarget === 'video') {
           video = !video;
         } else {
           audio = !audio;
@@ -309,14 +308,14 @@ const Room = (props) => {
       stream,
     });
 
-    peer.on("signal", (signal) => {
-      socket.emit("BE-call-user", {
+    peer.on('signal', (signal) => {
+      socket.emit('BE-call-user', {
         userToCall: userId,
         from: caller,
         signal,
       });
     });
-    peer.on("disconnect", () => {
+    peer.on('disconnect', () => {
       peer.destroy();
     });
 
@@ -330,11 +329,11 @@ const Room = (props) => {
       stream,
     });
 
-    peer.on("signal", (signal) => {
-      socket.emit("BE-accept-call", { signal, to: callerId });
+    peer.on('signal', (signal) => {
+      socket.emit('BE-accept-call', { signal, to: callerId });
     });
 
-    peer.on("disconnect", () => {
+    peer.on('disconnect', () => {
       peer.destroy();
     });
 
@@ -350,23 +349,23 @@ const Room = (props) => {
   function createUserVideo(peer, index, arr) {
     return (
       <div
-        className={`width-peer${peers.length > 8 ? "" : peers.length} vid-item`}
+        className={`width-peer${peers.length > 8 ? '' : peers.length} vid-item`}
         onClick={expandScreen}
         key={index}
       >
-        <i className="fas fa-expand"></i>
+        <i className='fas fa-expand'></i>
         <VideoCard key={index} peer={peer} number={arr.length} />
-        <div className="icon">
+        <div className='icon'>
           {findPeer(peer.peerID).audio ? (
-            <i className="fas fa-microphone"></i>
+            <i className='fas fa-microphone'></i>
           ) : (
-            <i className="fas fa-microphone-slash"></i>
+            <i className='fas fa-microphone-slash'></i>
           )}
         </div>
         {/* {findPeer(peer.peerID).video ? null : (
                     <span className='name'>{writeUserName(peer.userName)}</span>
                   )} */}
-        <span className="name">{peer.userName}</span>
+        <span className='name'>{peer.userName}</span>
       </div>
     );
   }
@@ -380,19 +379,19 @@ const Room = (props) => {
   // BackButton
   const goToBack = (e) => {
     e.preventDefault();
-    socket.emit("BE-leave-room", { roomId });
-    sessionStorage.removeItem("user");
-    window.location.href = "/home";
+    socket.emit('BE-leave-room', { roomId });
+    sessionStorage.removeItem('user');
+    window.location.href = '/home';
   };
 
   const toggleCameraAudio = (e) => {
-    const target = e.target.getAttribute("data-switch");
+    const target = e.target.getAttribute('data-switch');
 
     setUserVideoAudio((preList) => {
-      let videoSwitch = preList["localUser"].video;
-      let audioSwitch = preList["localUser"].audio;
+      let videoSwitch = preList['localUser'].video;
+      let audioSwitch = preList['localUser'].audio;
 
-      if (target === "video") {
+      if (target === 'video') {
         const userVideoTrack =
           userVideoRef.current.srcObject.getVideoTracks()[0];
         videoSwitch = !videoSwitch;
@@ -412,7 +411,7 @@ const Room = (props) => {
       };
     });
 
-    socket.emit("BE-toggle-camera-audio", {
+    socket.emit('BE-toggle-camera-audio', {
       roomId,
       switchTarget: target,
     });
@@ -430,7 +429,7 @@ const Room = (props) => {
             peer.replaceTrack(
               peer.streams[0]
                 .getTracks()
-                .find((track) => track.kind === "video"),
+                .find((track) => track.kind === 'video'),
               screenTrack,
               userStream.current
             );
@@ -443,7 +442,7 @@ const Room = (props) => {
                 screenTrack,
                 peer.streams[0]
                   .getTracks()
-                  .find((track) => track.kind === "video"),
+                  .find((track) => track.kind === 'video'),
                 userStream.current
               );
             });
@@ -515,76 +514,76 @@ const Room = (props) => {
   return (
     <react.Fragment>
       {loading ? <Loader /> : null}
-      <div className="video-conference">
-        <div className="main-side" id="main">
-          <div className="navbar">
-            <div className="container">
-              <div className="logo">
-                <img src={logo} alt="logo" />
+      <div className='video-conference'>
+        <div className='main-side' id='main'>
+          <div className='navbar'>
+            <div className='container'>
+              <div className='logo'>
+                <img src={logo} alt='logo' />
               </div>
-              <div className="title">
+              <div className='title'>
                 <h4>Video Conference</h4>
               </div>
-              <div className="grid-show">
+              <div className='grid-show'>
                 <ul>
-                  <li id="grid6" onClick={grid}>
-                    <i className="fas fa-th g"></i>
+                  <li id='grid6' onClick={grid}>
+                    <i className='fas fa-th g'></i>
                   </li>
-                  <li id="grid1" onClick={grid}>
-                    <i className="far fa-window-maximize g"></i>
+                  <li id='grid1' onClick={grid}>
+                    <i className='far fa-window-maximize g'></i>
                   </li>
-                  <li id="grid4" onClick={grid}>
-                    <i className="fas fa-th-large g"></i>
-                  </li>
-                  <li>
-                    <i className="fas fa-comment-dots" onClick={openchat}></i>
+                  <li id='grid4' onClick={grid}>
+                    <i className='fas fa-th-large g'></i>
                   </li>
                   <li>
-                    <img src={chat} alt="a" />
+                    <i className='fas fa-comment-dots' onClick={openchat}></i>
+                  </li>
+                  <li>
+                    <img src={chat} alt='a' />
                   </li>
                 </ul>
               </div>
             </div>
           </div>
-          <div className="vi">
+          <div className='vi'>
             <Navbar />
-            <div className="vid-stream">
-              <div className="opts">
-                <i className="fas fa-user-friends"></i>
-                <select className="nump">
+            <div className='vid-stream'>
+              <div className='opts'>
+                <i className='fas fa-user-friends'></i>
+                <select className='nump'>
                   <option>{peers.length + 1}</option>
                 </select>
-                <div className="invite">
+                <div className='invite'>
                   <i
-                    className="fas fa-users popup-open"
+                    className='fas fa-users popup-open'
                     onClick={openpopup}
                   ></i>
                   Invite a participant
-                  <div className="popup-wrapper">
-                    <div className="popup">
-                      <button className="close-btn">
-                        <i className="fas fa-times"></i>
+                  <div className='popup-wrapper'>
+                    <div className='popup'>
+                      <button className='close-btn'>
+                        <i className='fas fa-times'></i>
                       </button>
-                      <div className="copy">
+                      <div className='copy'>
                         <button onClick={Copy}>Copy Link</button>
-                        <input type="text" id="paste-box" />
+                        <input type='text' id='paste-box' />
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="rec-time">{/*<span></span>*/}00:00 </div>
+                <div className='rec-time'>{/*<span></span>*/}00:00 </div>
               </div>
-              <div className="vids">
-                <div className="stream vid-item signlang">
-                  <img id="stream_asl" alt="ss" src={signpic} />
+              <div className='vids'>
+                <div className='stream vid-item signlang'>
+                  <img id='stream_asl' alt='ss' src={signpic} />
                 </div>
-                <div className="vid-item">
+                <div className='vid-item'>
                   <div
                     className={`width-peer${
-                      peers.length > 8 ? "" : peers.length
+                      peers.length > 8 ? '' : peers.length
                     }`}
                   >
-                    <i className="fas fa-expand" />
+                    <i className='fas fa-expand' />
                     <video
                       onClick={expandScreen}
                       ref={userVideoRef}
@@ -593,14 +592,14 @@ const Room = (props) => {
                       playsInline
                     ></video>
                   </div>
-                  <div className="icon">
-                    {userVideoAudio["localUser"].audio ? (
-                      <i className="fas fa-microphone"></i>
+                  <div className='icon'>
+                    {userVideoAudio['localUser'].audio ? (
+                      <i className='fas fa-microphone'></i>
                     ) : (
-                      <i className="fas fa-microphone-slash"></i>
+                      <i className='fas fa-microphone-slash'></i>
                     )}
                   </div>
-                  <span className="name">{user.name}</span>
+                  <span className='name'>{user.name}</span>
                 </div>
                 {peers &&
                   peers.map((peer, index, arr) => {
@@ -615,7 +614,7 @@ const Room = (props) => {
             // clickCameraDevice={clickCameraDevice}
             goToBack={goToBack}
             toggleCameraAudio={toggleCameraAudio}
-            userVideoAudio={userVideoAudio["localUser"]}
+            userVideoAudio={userVideoAudio['localUser']}
             screenShare={screenShare}
             text={text}
             // speechRecognition={speechRecognition.start()}
