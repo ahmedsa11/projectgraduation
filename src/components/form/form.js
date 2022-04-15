@@ -7,7 +7,6 @@ import Verification from "../verification/verification";
 import firebase from "../firebase";
 import "firebase/compat/auth"
 import "firebase/compat/firestore"
-import Loader from "../loader/loader";
 class Form extends Component {
   state = {
     username: "",
@@ -66,10 +65,9 @@ class Form extends Component {
       }
     );
     let res = await data.json();
-    this.setState({loading:true})
+  
     console.log(res);
     if (res.status === "success") {
-      this.setState({loading:false})
       const error = {};
       error.mobile = "this mobile already exist";
       this.setState({ error });
@@ -200,7 +198,6 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
    
     return (
       <react.Fragment>
- {this.state.loading ? <Loader/>:null}
         <div id="sign-in-button"></div>
         <div className="form" id="formm">
           <div className="form-container sign-up" id="s">
