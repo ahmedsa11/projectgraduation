@@ -6,6 +6,9 @@ import Form from "./components/form/form";
 import Room from "./components/video conference/videochat/room";
 import Home from "./components/video conference/home/home";
 import Setting from "./components/setting/setting";
+import Jis from "./components/jitsi";
+import Mainchat from "./components/mainchat/mainchat";
+import Navbar from "./components/video conference/navbar/navbar";
 class App extends Component {
   render() {
     return (
@@ -15,6 +18,9 @@ class App extends Component {
           <Route path="/home" component={Home} />
           <Route path="/room/:roomId" component={Room} />
           <Route path="/setting" component={Setting} />
+          <Route path="/mainchat" component={Mainchat} />
+          <Route path="/nav" component={Navbar} />
+          <Route path="/jis" component={Jis} />
           <Route path="/notfound" component={NOT} />
           {/* <Redirect from="/form" to="/" /> */}
           <Redirect to="/notfound" />

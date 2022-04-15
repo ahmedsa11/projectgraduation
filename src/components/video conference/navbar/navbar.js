@@ -24,14 +24,14 @@ const Navbar = () => {
               <i className="fas fa-cog"></i>
             </li>
           </NavLink>
+          <NavLink to="/mainchat" className="linkk">
+            <li className="nav-item">
+              <i className="fas fa-user-friends"></i>
+            </li>
+          </NavLink>
           <NavLink to="/nef" className="linkk">
             <li className="nav-item">
               <i className="fas fa-bell"></i>
-            </li>
-          </NavLink>
-          <NavLink to="/frinds" className="linkk">
-            <li className="nav-item">
-              <i className="fas fa-user-friends"></i>
             </li>
           </NavLink>
           <NavLink to="/calender" className="linkk">

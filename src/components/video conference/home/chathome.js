@@ -10,6 +10,12 @@ class Chathome extends Component {
       { id: 2, img: chat, time: "12:32" },
       { id: 3, img: chat, time: "12:32" },
       { id: 4, img: chat, time: "12:32" },
+      { id: 5, img: chat, time: "12:32" },
+      { id: 6, img: chat, time: "12:32" },
+      { id: 7, img: chat, time: "12:32" },
+      { id: 8, img: chat, time: "12:32" },
+      { id: 9, img: chat, time: "12:32" },
+      { id: 10, img: chat, time: "12:32" },
     ],
   };
 
