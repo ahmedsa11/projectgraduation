@@ -135,18 +135,20 @@ const Room = (props) => {
     // });
 
     // Set Back Button Event
+
+   
+    window.addEventListener('popstate', goToBack);
     if (tempuser === null) {
       return <Redirect to='/' />;
     }
-   
-    window.addEventListener('popstate', goToBack);
-    
     setloading(true);
     // Connect Camera & Mic
+ 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         setloading(false);
+    
         userVideoRef.current.srcObject = stream;
         userStream.current = stream;
       
@@ -523,7 +525,9 @@ function signlang () {
   //       });
   //   }
   // };
-
+  if (tempuser === null) {
+    return <Redirect to='/' />;
+  }
   return (
     <react.Fragment>
       {loading ? <Loader /> : null}
