@@ -9,6 +9,7 @@ import Setting from "./components/setting/setting";
 import Jis from "./components/jitsi";
 import Mainchat from "./components/mainchat/mainchat";
 import Navbar from "./components/video conference/navbar/navbar";
+import Signlang from "./components/video conference/videochat/signlanguage";
 class App extends Component {
   render() {
     return (
@@ -21,6 +22,7 @@ class App extends Component {
           <Route path="/mainchat" component={Mainchat} />
           <Route path="/nav" component={Navbar} />
           <Route path="/jis" component={Jis} />
+          <Route path="/s" component={Signlang} />
           <Route path="/notfound" component={NOT} />
           {/* <Redirect from="/form" to="/" /> */}
           <Redirect to="/notfound" />

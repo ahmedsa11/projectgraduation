@@ -1,27 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 // import Caption from './caption';
-const opentool = () => {
-  const tool = document.getElementsByClassName("to");
-  for (let i = 0; i < tool.length; i++) {
-    //   tool[i].onclick=()=>{
-    //     tool[i].classList.toggle("activetool")
-    //  }
-    tool[0].onclick = () => {
-      const sign = document.querySelector(".signlang");
-      tool[0].classList.toggle("activetool");
-      sign.classList.toggle("showsign");
-    };
-    tool[1].onclick = () => {
-      const caption = document.querySelector(".caption");
-      tool[1].classList.toggle("activetool");
-      caption.classList.toggle("showsign");
-    };
-  }
-};
+
 
 // Scroll to Bottom of Message List
+// const SpeechRecognition =
+// window.speechRecognition || window.webkitSpeechRecognition;
+// const SpeechGrammarList =
+// window.speechGrammarList || window.webkitSpeechGrammarList;
 
+// const grammar = '#JSGF V1.0';
+// const speechRecognition = new SpeechRecognition();
+// const speechGrammarList = new SpeechGrammarList();
 const BottomBar = ({
   clickChat,
   clickCameraDevice,
@@ -32,10 +22,43 @@ const BottomBar = ({
   speechRecognition,
   screenShare,
   text,
+  signlang,
   videoDevices,
   showVideoDevices,
   setShowVideoDevices,
 }) => {
+  // function captiontext(){
+  //   userVideoAudio.audio ? (
+  //     speechRecognition.start()
+  //   ) : (
+  //     speechRecognition.stop()
+  //   )
+  // }
+
+  const opentool = () => {
+    const tool = document.getElementsByClassName("to");
+    for (let i = 0; i < tool.length; i++) {
+      //   tool[i].onclick=()=>{
+      //     tool[i].classList.toggle("activetool")
+      //  }
+      tool[0].onclick = () => {
+        const sign = document.querySelector(".signlang");
+        tool[0].classList.toggle("activetool");
+        sign.classList.toggle("showsign");
+        // captiontext()
+        // signlang()
+      };
+      tool[1].onclick = () => {
+        const caption = document.querySelector(".caption");
+        tool[1].classList.toggle("activetool");
+        caption.classList.toggle("showsign");
+        // captiontext()
+       
+        
+      };
+    }
+  };
+
   // const captionEndRef = useRef(null);
   //   useEffect(() => {scrollToBottom()}, [text])
   //   const scrollToBottom = () => {

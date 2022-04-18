@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState} from 'react';
 import react from 'react';
 // import {useSpeechRecognition} from 'react-speech-recognition';
 import signpic from '../../../img/si.jpeg';
@@ -15,6 +15,7 @@ import BottomBar from './BottomBar';
 import VideoCard from './vid';
 import { Redirect } from 'react-router';
 import Loader from '../../loader/loader';
+// import Signlang from './signlanguage';
 const Copy = () => {
   var Url = document.getElementById('paste-box');
   Url.value = window.location.href;
@@ -95,6 +96,7 @@ const openpopup = () => {
   document.execCommand('Copy');
 };
 const Room = (props) => {
+ 
   const [peers, setPeers] = useState([]);
   const [loading, setloading] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({
@@ -119,11 +121,13 @@ const Room = (props) => {
   const grammar = '#JSGF V1.0';
   const speechRecognition = new SpeechRecognition();
   const speechGrammarList = new SpeechGrammarList();
-
   let text = useRef();
-  let newContent = useRef('');
-  let isFinished = useRef(true);
+  let newContent ='';
+  let isFinished = true;
+
+
   useEffect(() => {
+
     // Get Video Devices
     // navigator.mediaDevices.enumerateDevices().then((devices) => {
     //   const filtered = devices.filter((device) => device.kind === 'videoinput');
@@ -134,8 +138,9 @@ const Room = (props) => {
     if (tempuser === null) {
       return <Redirect to='/' />;
     }
-
+   
     window.addEventListener('popstate', goToBack);
+    
     setloading(true);
     // Connect Camera & Mic
     navigator.mediaDevices
@@ -144,53 +149,10 @@ const Room = (props) => {
         setloading(false);
         userVideoRef.current.srcObject = stream;
         userStream.current = stream;
-
-        speechGrammarList.addFromString(grammar);
-        speechRecognition.grammars = speechGrammarList;
-        speechRecognition.continuous = true;
-        speechRecognition.lang = 'en-US';
-        speechRecognition.onresult = (event) => {
-          if (event.results.length) {
-            let current = event.resultIndex;
-            let transcript = event.results[current][0].transcript;
-
-            newContent.current += transcript;
-            console.log({ isFinished });
-            if (isFinished) {
-              socket.emit('send-text', { data: newContent.current, roomId });
-              console.log('send text to backend');
-              isFinished.current = false;
-              newContent.current = '';
-            }
-          }
-        };
-
-        socket.on('receive-text', ({ data }) => {
-          console.log({ data });
-          if (text.current) {
-            text.current.textContent = data;
-          }
-        });
-
-        socket.on('send', () => {
-          console.log('finished sending 2');
-          isFinished.current = true;
-          if (newContent.current.length > 0) {
-            socket.emit('send-text', { data: newContent.current, roomId });
-            isFinished.current = false;
-            newContent.current = '';
-          }
-        });
-
-        // recive data from the server
-        socket.on('receive-frame', ({ frame }) => {
-          console.log('received frame from backend');
-          document.getElementById('stream_asl').src =
-            'data:image/jpeg;base64,' + frame;
-        });
-
+      
         // SpeechRecognition.startListening({ continuous: true,lang : 'en-US' })
-        speechRecognition.start();
+        speechRecognition.start()
+        
         console.log('speechRecognition started');
         socket.emit('BE-join-room', { roomId, user });
 
@@ -219,7 +181,7 @@ const Room = (props) => {
             return [...users, peer];
           });
         });
-
+        
         // socket.on('FE-duplicate-user', () => {
         //   window.location.href = '/home';
         //   alert("You are already in this room but in other tab")
@@ -253,28 +215,30 @@ const Room = (props) => {
             });
           }
         });
-
+        
         socket.on('FE-call-accepted', ({ signal, answerId }) => {
           const peerIdx = findPeer(answerId);
           peerIdx.peer.signal(signal);
         });
-
-        socket.on('FE-user-leave', ({ userId }) => {
-          const peerIdx = findPeer(userId);
-          peerIdx.peer.destroy();
-          setPeers((users) => {
-            users = users.filter((user) => user.peerID !== peerIdx.peer.peerID);
-            return [...users];
-          });
-          peersRef.current = peersRef.current.filter(
-            ({ peerID }) => peerID !== userId
-          );
-        });
+        
+     socket.on('FE-user-leave', ({ userId ,userName}) => {
+          const peerIdx = findPeer(userId);   
+            peerIdx.peer.destroy();
+            setPeers((users) => {
+             users= users.filter((user) => user.peerID !== peerIdx.peer.peerID);
+             return [...users]
+            });
+            peersRef.current = peersRef.current.filter(
+              ({peerID}) => peerID !== userId
+            );
+          
+          
       });
+      });
+      
 
     socket.on('FE-toggle-camera', ({ userId, switchTarget }) => {
       const peerIdx = findPeer(userId);
-
       setUserVideoAudio((preList) => {
         let video = preList[peerIdx.userName].video;
         let audio = preList[peerIdx.userName].audio;
@@ -284,22 +248,71 @@ const Room = (props) => {
         } else {
           audio = !audio;
           peerIdx.audio = audio;
-          audio ? speechRecognition.start() : speechRecognition.stop();
+          // audio ? speechRecognition.start() : speechRecognition.stop();
           console.log(audio);
         }
-
+      
         return {
           ...preList,
           [peerIdx.userName]: { video, audio },
         };
       });
     });
+   
     return () => {
       socket.disconnect();
     };
-
     // eslint-disable-next-line
   }, []);
+  useEffect(()=>{
+    signlang()
+   },[]);
+function signlang () {
+   console.log("calll") 
+   speechGrammarList.addFromString(grammar);
+   speechRecognition.grammars = speechGrammarList;
+   speechRecognition.continuous = true;
+   speechRecognition.lang = 'en-US';
+  speechRecognition.onresult = (event) => {
+    if (event.results.length) {
+      let current = event.resultIndex;
+      let transcript = event.results[current][0].transcript;
+      newContent += transcript;
+      console.log({ isFinished });
+      if (isFinished) {
+        socket.emit('send-text', { data: newContent, roomId });
+        console.log('send text to backend');
+        isFinished = false;
+        newContent = '';
+      }
+    }
+  };
+
+  socket.on('receive-text', ({ data }) => {
+    console.log({ data });
+    if (text.current) {
+      text.current.textContent = data;
+    }
+  });
+
+  socket.on('send', () => {
+    console.log('finished sending 2');
+    isFinished = true;
+    if (newContent.length > 0) {
+      socket.emit('send-text', { data: newContent, roomId });
+      isFinished = false;
+      newContent = '';
+    }
+  });
+
+  // recive data from the server
+  socket.on('receive-frame', ({ frame }) => {
+    console.log('received frame from backend');
+    document.getElementById('stream_asl').src =
+      'data:image/jpeg;base64,' + frame;
+  });
+ }
+ 
 
   function createPeer(userId, caller, stream) {
     const peer = new Peer({
@@ -321,7 +334,7 @@ const Room = (props) => {
 
     return peer;
   }
-
+  
   function addPeer(incomingSignal, callerId, stream) {
     const peer = new Peer({
       initiator: false,
@@ -380,7 +393,6 @@ const Room = (props) => {
   const goToBack = (e) => {
     e.preventDefault();
     socket.emit('BE-leave-room', { roomId });
-    sessionStorage.removeItem('user');
     window.location.href = '/home';
   };
 
@@ -475,6 +487,7 @@ const Room = (props) => {
       elem.msRequestFullscreen();
     }
   };
+ 
   // const clickCameraDevice = (event) => {
   //   if (
   //     event &&
@@ -575,7 +588,7 @@ const Room = (props) => {
               </div>
               <div className='vids'>
                 <div className='stream vid-item signlang'>
-                  <img id='stream_asl' alt='ss' src={signpic} />
+                <img id='stream_asl' alt='ss' src={signpic} />
                 </div>
                 <div className='vid-item'>
                   <div
@@ -617,6 +630,7 @@ const Room = (props) => {
             userVideoAudio={userVideoAudio['localUser']}
             screenShare={screenShare}
             text={text}
+            // signlang={signlang}
             // speechRecognition={speechRecognition.start()}
 
             // videoDevices={videoDevices}

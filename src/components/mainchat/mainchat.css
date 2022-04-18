@@ -1,0 +1,90 @@
+.mainchat  {
+    background-color: rgba(22,27,33,255);
+    overflow: hidden;
+    height: 100vh;
+    color: white;
+}
+.mainchat  h2{
+    color: white;
+    padding: 20px;
+    font-weight: bold;
+}
+.mainchat .contacts{
+    background-color: #1f232c;
+    width: 30%;
+    height: 617px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    display: flex;
+}
+
+.mainchat .chatarea{
+    flex: 1;
+    text-align: center;
+    height: 100%;
+    display: grid;
+  justify-content: center;
+  align-content: center;
+}
+.mainchat .chatarea img{
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+}
+i{
+    cursor: pointer;
+}
+.mainchat   .main-side{
+    width: 100% ;
+    height:auto;
+}
+.navbar{
+    background-color: rgba(24,31,39,255);
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.mainchat   .main-side ul{
+    list-style: none;
+}
+
+.mainchat   .main-side ul li{
+    display:inline-block;
+        margin: 25px 3px
+}
+
+.mainchat   .main-side .navbar .logo{
+    width:10%;
+}
+.mainchat   .main-side .navbar .logo i{
+    font-size: 45px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.mainchat   .main-side .navbar .title{
+    flex:1;
+}
+.mainchat   .main-side .vi{
+    display: flex;
+    background-color: rgba(22,27,33,255)
+    ;
+}
+.mainchat   .main-side .vi .icon-opts ul i{
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.mainchat   .main-side .vi .vid-stream {
+    display: flex;
+    width: 100%;
+    border-radius: 15px 0px 0px 0px;
+    margin-top: 15px;
+    background-color: #1f232c;
+    margin-left: 37px;
+}
+@media only screen and (max-width: 800px) {
+    .mainchat  {
+        height: 100% !important;
+    }
+}
