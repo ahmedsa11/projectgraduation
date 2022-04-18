@@ -223,18 +223,17 @@ const Room = (props) => {
           peerIdx.peer.signal(signal);
         });
         
-     socket.on('FE-user-leave', ({ userId ,userName}) => {
-          const peerIdx = findPeer(userId);   
+        socket.on('FE-user-leave', ({ userId }) => {
+          const peerIdx = findPeer(userId);
+          if (peerIdx) {
             peerIdx.peer.destroy();
-            setPeers((users) => {
-             users= users.filter((user) => user.peerID !== peerIdx.peer.peerID);
-             return [...users]
-            });
             peersRef.current = peersRef.current.filter(
               ({peerID}) => peerID !== userId
             );
-          
-          
+            setPeers((users) => {
+              return users.filter((user) => user.peerID !== userId);
+            });
+          }
       });
       });
       
