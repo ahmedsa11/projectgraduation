@@ -175,7 +175,7 @@ select {
 	border-radius: 15px !important;
     margin: 0px !important;
 	width: 100%;
-	padding: 11px 34px;
+	padding: 11px 34px !important;
 	outline: #d1d1d1;
 	color: #808080;
 	height: 43px;
