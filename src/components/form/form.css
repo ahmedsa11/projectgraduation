@@ -137,7 +137,7 @@ input::placeholder{
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: 30px;
-
+	opacity: 1 !important;
 }
 .react-tel-input .flag-dropdown.open .selected-flag,.react-tel-input .selected-flag:hover, .react-tel-input .selected-flag:focus{
 	background-color: transparent;
@@ -178,6 +178,7 @@ select {
 	padding: 11px 34px;
 	outline: #d1d1d1;
 	color: #808080;
+	height: 43px;
 
 }
 
@@ -402,4 +403,4 @@ display:none;
 	margin-top: 15px;
 	border-radius: 15px !important;
 	font-size: 16px;
-}
+} 
