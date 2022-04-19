@@ -96,7 +96,7 @@ const openpopup = () => {
   document.execCommand('Copy');
 };
 const Room = (props) => {
- 
+
   const [peers, setPeers] = useState([]);
   const [loading, setloading] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({
@@ -259,7 +259,7 @@ const Room = (props) => {
         };
       });
     });
-   
+
     return () => {
       socket.disconnect();
     };

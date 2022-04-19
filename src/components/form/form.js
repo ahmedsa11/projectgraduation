@@ -7,6 +7,8 @@ import Verification from "../verification/verification";
 import firebase from "../firebase";
 import "firebase/compat/auth"
 import "firebase/compat/firestore"
+import logo from "../../img/log.png"
+import gender from "../../img/gender.png"
 class Form extends Component {
   state = {
     username: "",
@@ -198,20 +200,19 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
    
     return (
       <react.Fragment>
-        <div id="sign-in-button"></div>
+       
         <div className="form" id="formm">
           <div className="form-container sign-up" id="s">
             <form onSubmit={this.handlesubsignup}>
-              
-              <h1>Register</h1>
-              <p className="text-center">create your new account </p>
+              <img src={logo} alt="logo"/>
+              <h1 className="REGTITLE">REGISTER</h1>
               <div className="inputcontainer">
                 <i className="fas fa-user"></i>
                 <input
                   type="text"
                   name="username"
                   onChange={this.handlechangesignup}
-                  placeholder="Name"
+                  placeholder="Full Name"
                 />
               </div>
               {this.state.error.username && (
@@ -221,7 +222,7 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
                 <i className="fas fa-mobile-alt i"></i>
                 <PhoneInput
                   name="mobile"
-                  placeholder="phone number"
+                  placeholder="Phone Number"
                   value={this.state.mobile}
                   onChange={(mobile) => this.setState({ mobile })}
                 />
@@ -236,7 +237,7 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
                   type="password"
                   name="pass"
                   onChange={this.handlechangesignup}
-                  placeholder="Password"
+                  placeholder="Enter Password"
                 />
               </div>
               {this.state.error.pass && (
@@ -249,28 +250,30 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
                   type="password"
                   name="confirm"
                   onChange={this.handlechangesignup}
-                  placeholder="ConfirmPassword"
+                  placeholder="Confirm Password"
                 />
               </div>
               {this.state.error.confirm && (
                 <span className="text-danger">{this.state.error.confirm}</span>
               )}
+               <div className="inputcontainer">
+                 <img src={gender}alt="gender"/>
               <select onChange={this.handlechangesignup} name="gender">
-                <option defaultValue hidden>
+                <option defaultValue hidden >
                   Gender
                 </option>
                 <option>Male</option>
                 <option>Female</option>
-              </select>
+              </select></div>
               {this.state.error.gender && (
                 <span className="text-danger">{this.state.error.gender}</span>
               )}
-              <p className="agree">By creating an account you agree to our </p>
+              {/* <p className="agree">By creating an account you agree to our </p>
               <a href="https://www.w3schools.com/colors/colors_gradient.asp">
                 tems of use and privacy policy
-              </a>
+              </a> */}
               <button type="submit" className="signup">
-                Sign Up
+                REGISTER
               </button>
               <p className="agree logg">
                 Already have an account ?
@@ -283,15 +286,16 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
           </div>
           <div className="form-container sign-in" id="l">
             <form onSubmit={this.handlesublogin}>
-              <h1>Sign in</h1>
-              <p className="text-center">enter your accout details </p>
+            <img src={logo} alt="logo"/>
+              <h1 className="LOGTITLE">LOGIN</h1>
+              {/* <p className="text-center">enter your accout details </p> */}
               <div className="inputcontainer">
                 <i className="fas fa-mobile-alt"></i>
                 <input
                   type="number"
                   name="mobilelog"
                   onChange={this.handlechangelogin}
-                  placeholder="phone number"
+                  placeholder="Phone Number"
                 />
               </div>
               {this.state.error.mobilelog && (
@@ -312,39 +316,41 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
                 <span className="text-danger">{this.state.error.passlog}</span>
               )}
               <button type="submit" className="login">
-                log in
+              LOGIN
               </button>
               <p className="agree logg">
                 you need create account ?
                 <a href="#s" className="log">
-                  Register
+                 REGISTER
                 </a>
               </p>
-              <Link to="/forget">forget your password..?</Link>
+              {/* <Link to="/forget">forget your password..?</Link> */}
             </form>
           </div>
 
           <div className="overlay-container">
             <div className="overlay">
               <div className="overlay-panel overlay-left">
-                <h1>Welcome Back!</h1>
+                <h2 className="titleoverlay">Welcome Back!</h2>
                 <p>
-                  To keep connected with us please login with your personal info
+                  To keep connected with us <br/>please login with your <br/>personal info
                 </p>
                 <button className="go" id="signIn">
-                  Sign In
+                 LOGIN
                 </button>
               </div>
               <div className="overlay-panel overlay-right">
-                <h1>Hello, Friend!</h1>
+                <h1 className="titleoverlay">Hello, Friend!</h1>
                 <p>Enter your personal details and start journey with us</p>
                 <button className="go" id="signUp">
-                  Sign Up
+                REGISTER
                 </button>
               </div>
             </div>
           </div>
-        </div>)
+        </div>
+       
+        
       </react.Fragment>
     );
   }
