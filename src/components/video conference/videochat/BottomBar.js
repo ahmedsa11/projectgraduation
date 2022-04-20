@@ -22,6 +22,9 @@ const BottomBar = ({
   speechRecognition,
   screenShare,
   text,
+  toSign,
+  settoSign,
+  settoCaption,
   signlang,
   videoDevices,
   showVideoDevices,
@@ -45,16 +48,12 @@ const BottomBar = ({
         const sign = document.querySelector(".signlang");
         tool[0].classList.toggle("activetool");
         sign.classList.toggle("showsign");
-        // captiontext()
-        // signlang()
+        settoSign(signcheck => !signcheck)
       };
       tool[1].onclick = () => {
         const caption = document.querySelector(".caption");
         tool[1].classList.toggle("activetool");
         caption.classList.toggle("showsign");
-        // captiontext()
-       
-        
       };
     }
   };

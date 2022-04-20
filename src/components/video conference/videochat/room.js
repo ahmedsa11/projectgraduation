@@ -99,6 +99,8 @@ const Room = (props) => {
 
   const [peers, setPeers] = useState([]);
   const [loading, setloading] = useState(false);
+  const [toSign, settoSign] = useState(false);
+  // const [toCaption, settoCaption] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({
     localUser: { video: true, audio: true },
   });
@@ -117,7 +119,6 @@ const Room = (props) => {
     window.speechRecognition || window.webkitSpeechRecognition;
   const SpeechGrammarList =
     window.speechGrammarList || window.webkitSpeechGrammarList;
-
   const grammar = '#JSGF V1.0';
   const speechRecognition = new SpeechRecognition();
   const speechGrammarList = new SpeechGrammarList();
@@ -153,9 +154,6 @@ const Room = (props) => {
         userStream.current = stream;
       
         // SpeechRecognition.startListening({ continuous: true,lang : 'en-US' })
-        speechRecognition.start()
-        
-        console.log('speechRecognition started');
         socket.emit('BE-join-room', { roomId, user });
 
         socket.on('FE-user-join', ({ userId, info }) => {
@@ -266,14 +264,26 @@ const Room = (props) => {
     // eslint-disable-next-line
   }, []);
   useEffect(()=>{
-    signlang()
-   },[]);
+    if(toSign){
+      // speechRecognition.start()
+      // console.log('speechRecognition started');
+      signlang()
+  }
+    else{
+      console.log("call end")
+    }
+   },[toSign]);
 function signlang () {
-   console.log("calll") 
+   console.log("call") 
    speechGrammarList.addFromString(grammar);
    speechRecognition.grammars = speechGrammarList;
    speechRecognition.continuous = true;
    speechRecognition.lang = 'en-US';
+   {userVideoAudio['localUser'].audio ? (
+    speechRecognition.start()
+  ) : (
+    speechRecognition.stop()
+  )}
   speechRecognition.onresult = (event) => {
     if (event.results.length) {
       let current = event.resultIndex;
@@ -288,7 +298,6 @@ function signlang () {
       }
     }
   };
-
   socket.on('receive-text', ({ data }) => {
     console.log({ data });
     if (text.current) {
@@ -313,8 +322,6 @@ function signlang () {
       'data:image/jpeg;base64,' + frame;
   });
  }
- 
-
   function createPeer(userId, caller, stream) {
     const peer = new Peer({
       initiator: true,
@@ -633,6 +640,9 @@ function signlang () {
             userVideoAudio={userVideoAudio['localUser']}
             screenShare={screenShare}
             text={text}
+            toSign={toSign}
+            settoSign={settoSign}
+            // settoCaption={settoCaption}
             // signlang={signlang}
             // speechRecognition={speechRecognition.start()}
 
