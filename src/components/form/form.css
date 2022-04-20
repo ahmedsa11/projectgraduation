@@ -169,7 +169,7 @@ display: none;
 input:focus{
 	outline: none !important;
 }
-select {
+#formm select {
 	background-color: #fff;
 	border: 1px solid #d1d1d1;
 	border-radius: 15px !important;

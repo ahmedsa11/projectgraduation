@@ -5,7 +5,7 @@ import "./header.css";
 import { v4 as uuid } from "uuid";
 import "../navbar/navbar.css";
 import { Redirect } from "react-router";
-import logo from "../../../img/loo.png";
+import logo from "../../../img/log.png";
 const Header = (props) => {
   const tempuser = localStorage.getItem("user");
   // console.log(tempuser)

@@ -18,7 +18,12 @@ i{
 }
 
 .head  .navbar .logo{
-    width:10%;
+    width: fit-content !important;
+    position: relative;
+    /* right: 34px; */
+}
+.head  .navbar .logo img{
+    width: 50px;
 }
 .head  .navbar .logo i{
     font-size: 45px;

@@ -10,7 +10,7 @@ import './room.css';
 import chat from '../../../img/download.png';
 import Navbar from '../navbar/navbar';
 import Chat from '../chat/chat';
-import logo from '../../../img/loo.png';
+import logo from '../../../img/log.png';
 import BottomBar from './BottomBar';
 import VideoCard from './vid';
 import { Redirect } from 'react-router';
