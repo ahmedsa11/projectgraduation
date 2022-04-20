@@ -359,8 +359,9 @@ position: relative;
 }
  
 .caption .pcap{
-    font-size: 17px;
-    font-weight: unset;
+    font-size: 20px;
+    font-weight: 300;
+    color: white;
 }
 /* for Firefox */
 @-moz-keyframes my-animation {

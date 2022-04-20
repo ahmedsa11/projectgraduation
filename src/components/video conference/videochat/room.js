@@ -125,7 +125,7 @@ const Room = (props) => {
   let text = useRef();
   let newContent ='';
   let isFinished = true;
-
+  let senderName=useRef();
 
   useEffect(() => {
 
@@ -298,10 +298,15 @@ function signlang () {
       }
     }
   };
-  socket.on('receive-text', ({ data }) => {
+  socket.on('receive-text', ({ data,name }) => {
+    
     console.log({ data });
     if (text.current) {
       text.current.textContent = data;
+    }
+    if (senderName.current) {
+      senderName.current.textContent = name;
+      console.log(senderName.current.textContent)
     }
   });
 
@@ -599,6 +604,7 @@ function signlang () {
               <div className='vids'>
                 <div className='stream vid-item signlang'>
                 <img id='stream_asl' alt='ss' src={signpic} />
+                <span className='name'ref={senderName}></span>
                 </div>
                 <div className='vid-item'>
                   <div
