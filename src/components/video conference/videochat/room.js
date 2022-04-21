@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import react from 'react';
 // import {useSpeechRecognition} from 'react-speech-recognition';
 import signpic from '../../../img/si.jpeg';
@@ -96,11 +96,10 @@ const openpopup = () => {
   document.execCommand('Copy');
 };
 const Room = (props) => {
-
+  console.log('roooom')
   const [peers, setPeers] = useState([]);
   const [loading, setloading] = useState(false);
   const [toSign, settoSign] = useState(false);
-  const [speech, setspeech] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({
     localUser: { video: true, audio: true },
   });
@@ -123,16 +122,15 @@ const Room = (props) => {
   const speechRecognition = new SpeechRecognition();
   const speechGrammarList = new SpeechGrammarList();
   speechGrammarList.addFromString(grammar);
-   speechRecognition.grammars = speechGrammarList;
-   speechRecognition.continuous = true;
-   speechRecognition.lang = 'en-US';
+  speechRecognition.grammars = speechGrammarList;
+  speechRecognition.continuous = true;
+  speechRecognition.lang = 'en-US';
   let text = useRef();
-  let newContent ='';
-  let isFinished = true;
-  let senderName=useRef();
+  let newContent = useRef('');
+  let isFinished = useRef(true);
+  let senderName = useRef();
 
   useEffect(() => {
-
     // Get Video Devices
     // navigator.mediaDevices.enumerateDevices().then((devices) => {
     //   const filtered = devices.filter((device) => device.kind === 'videoinput');
@@ -141,22 +139,21 @@ const Room = (props) => {
 
     // Set Back Button Event
 
-   
     window.addEventListener('popstate', goToBack);
     if (tempuser === null) {
       return <Redirect to='/' />;
     }
     setloading(true);
     // Connect Camera & Mic
- 
+
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         setloading(false);
-    
+
         userVideoRef.current.srcObject = stream;
         userStream.current = stream;
-      
+
         // SpeechRecognition.startListening({ continuous: true,lang : 'en-US' })
         socket.emit('BE-join-room', { roomId, user });
 
@@ -185,7 +182,7 @@ const Room = (props) => {
             return [...users, peer];
           });
         });
-        
+
         // socket.on('FE-duplicate-user', () => {
         //   window.location.href = '/home';
         //   alert("You are already in this room but in other tab")
@@ -219,26 +216,25 @@ const Room = (props) => {
             });
           }
         });
-        
+
         socket.on('FE-call-accepted', ({ signal, answerId }) => {
           const peerIdx = findPeer(answerId);
           peerIdx.peer.signal(signal);
         });
-        
+
         socket.on('FE-user-leave', ({ userId }) => {
           const peerIdx = findPeer(userId);
           if (peerIdx) {
             peerIdx.peer.destroy();
             peersRef.current = peersRef.current.filter(
-              ({peerID}) => peerID !== userId
+              ({ peerID }) => peerID !== userId
             );
             setPeers((users) => {
               return users.filter((user) => user.peerID !== userId);
             });
           }
+        });
       });
-      });
-      
 
     socket.on('FE-toggle-camera', ({ userId, switchTarget }) => {
       const peerIdx = findPeer(userId);
@@ -254,7 +250,7 @@ const Room = (props) => {
           // audio ? speechRecognition.start() : speechRecognition.stop();
           console.log(audio);
         }
-      
+
         return {
           ...preList,
           [peerIdx.userName]: { video, audio },
@@ -267,62 +263,53 @@ const Room = (props) => {
     };
     // eslint-disable-next-line
   }, []);
-  useEffect(()=>{
-    if(toSign){
-      // speechRecognition.start()
-      // console.log('speechRecognition started');
-      signlang()
-  }
-    else{
-      console.log("call end")
+  useEffect(() => {
+    if (!toSign) return;
+    const audio = userVideoAudio['localUser'].audio;
+    if (audio) {
+      console.log('start listening');
+      speechRecognition.start();
+    } else {
+      console.log('stop listening');
+      speechRecognition.stop();
     }
-   },[toSign]);
-function signlang () {
-  console.log(userVideoAudio['localUser'])
-   console.log("call") 
-   
-   if(userVideoAudio['localUser'].audio===true && speech !==true){
-     setspeech(true)
-    speechRecognition.start()
-  console.log("start")}
-else if(userVideoAudio['localUser'].audio===false &&speech !==false){
-  setspeech(false)
-  speechRecognition.stop()
-  console.log("stop")}
+  }, [toSign, userVideoAudio['localUser'].audio]);
 
   speechRecognition.onresult = (event) => {
     if (event.results.length) {
       let current = event.resultIndex;
       let transcript = event.results[current][0].transcript;
-      newContent += transcript;
-      console.log({ isFinished });
-      if (isFinished) {
-        socket.emit('send-text', { data: newContent, roomId });
+      newContent.current += transcript;
+      console.log({ isFinished: isFinished.current });
+      if (isFinished.current) {
+        socket.emit('send-text', { data: newContent.current, roomId });
         console.log('send text to backend');
-        isFinished = false;
-        newContent = '';
+        isFinished.current = false;
+        newContent.current = '';
       }
     }
   };
-  socket.on('receive-text', ({ data,name }) => {
-    
+  console.log(userVideoAudio['localUser']);
+  console.log('call');
+
+  socket.on('receive-text', ({ data, name }) => {
     console.log({ data });
     if (text.current) {
       text.current.textContent = data;
     }
     if (senderName.current) {
       senderName.current.textContent = name;
-      console.log(senderName.current.textContent)
+      console.log(senderName.current.textContent);
     }
   });
 
   socket.on('send', () => {
     console.log('finished sending 2');
-    isFinished = true;
-    if (newContent.length > 0) {
-      socket.emit('send-text', { data: newContent, roomId });
-      isFinished = false;
-      newContent = '';
+    isFinished.current = true;
+    if (newContent.current.length > 0) {
+      socket.emit('send-text', { data: newContent.current, roomId });
+      isFinished.current = false;
+      newContent.current = '';
     }
   });
 
@@ -341,8 +328,6 @@ else if(userVideoAudio['localUser'].audio===false &&speech !==false){
     }
     return window.btoa(binary);
   };
- }
-
 
   function createPeer(userId, caller, stream) {
     const peer = new Peer({
@@ -364,7 +349,7 @@ else if(userVideoAudio['localUser'].audio===false &&speech !==false){
 
     return peer;
   }
-  
+
   function addPeer(incomingSignal, callerId, stream) {
     const peer = new Peer({
       initiator: false,
@@ -443,16 +428,7 @@ else if(userVideoAudio['localUser'].audio===false &&speech !==false){
           userVideoRef.current.srcObject.getAudioTracks()[0];
         audioSwitch = !audioSwitch;
         userAudioTrack.enabled = audioSwitch;
-        if(toSign){
-          if(audioSwitch===true && speech !==true){
-            setspeech(true)
-           speechRecognition.start()
-         console.log("start")}
-       else if(audioSwitch===false &&speech !==false){
-         setspeech(false)
-         speechRecognition.stop()
-         console.log("stop")}
-        }
+
         // audioSwitch ? speechRecognition.start() : speechRecognition.stop();
         console.log(audioSwitch);
       }
@@ -527,7 +503,7 @@ else if(userVideoAudio['localUser'].audio===false &&speech !==false){
       elem.msRequestFullscreen();
     }
   };
- 
+
   // const clickCameraDevice = (event) => {
   //   if (
   //     event &&
@@ -630,8 +606,8 @@ else if(userVideoAudio['localUser'].audio===false &&speech !==false){
               </div>
               <div className='vids'>
                 <div className='stream vid-item signlang'>
-                <img id='stream_asl' alt='ss' src={signpic} />
-                <span className='name'ref={senderName}></span>
+                  <img id='stream_asl' alt='ss' src={signpic} />
+                  <span className='name' ref={senderName}></span>
                 </div>
                 <div className='vid-item'>
                   <div
