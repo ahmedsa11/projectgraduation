@@ -100,7 +100,7 @@ const Room = (props) => {
   const [peers, setPeers] = useState([]);
   const [loading, setloading] = useState(false);
   const [toSign, settoSign] = useState(false);
-  // const [toCaption, settoCaption] = useState(false);
+  const [speech, setspeech] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({
     localUser: { video: true, audio: true },
   });
@@ -122,6 +122,10 @@ const Room = (props) => {
   const grammar = '#JSGF V1.0';
   const speechRecognition = new SpeechRecognition();
   const speechGrammarList = new SpeechGrammarList();
+  speechGrammarList.addFromString(grammar);
+   speechRecognition.grammars = speechGrammarList;
+   speechRecognition.continuous = true;
+   speechRecognition.lang = 'en-US';
   let text = useRef();
   let newContent ='';
   let isFinished = true;
@@ -274,16 +278,18 @@ const Room = (props) => {
     }
    },[toSign]);
 function signlang () {
+  console.log(userVideoAudio['localUser'])
    console.log("call") 
-   speechGrammarList.addFromString(grammar);
-   speechRecognition.grammars = speechGrammarList;
-   speechRecognition.continuous = true;
-   speechRecognition.lang = 'en-US';
-   {userVideoAudio['localUser'].audio ? (
+   
+   if(userVideoAudio['localUser'].audio===true && speech !==true){
+     setspeech(true)
     speechRecognition.start()
-  ) : (
-    speechRecognition.stop()
-  )}
+  console.log("start")}
+else if(userVideoAudio['localUser'].audio===false &&speech !==false){
+  setspeech(false)
+  speechRecognition.stop()
+  console.log("stop")}
+
   speechRecognition.onresult = (event) => {
     if (event.results.length) {
       let current = event.resultIndex;
@@ -321,12 +327,23 @@ function signlang () {
   });
 
   // recive data from the server
-  socket.on('receive-frame', ({ frame }) => {
+  socket.on('receive-frame', ({ buffer }) => {
     console.log('received frame from backend');
     document.getElementById('stream_asl').src =
-      'data:image/jpeg;base64,' + frame;
+      'data:image/jpeg;base64,' + arrayBufferToBase64(buffer);
   });
+  const arrayBufferToBase64 = (buffer) => {
+    var binary = '';
+    var bytes = new Uint8Array(buffer);
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+  };
  }
+
+
   function createPeer(userId, caller, stream) {
     const peer = new Peer({
       initiator: true,
@@ -426,7 +443,17 @@ function signlang () {
           userVideoRef.current.srcObject.getAudioTracks()[0];
         audioSwitch = !audioSwitch;
         userAudioTrack.enabled = audioSwitch;
-        audioSwitch ? speechRecognition.start() : speechRecognition.stop();
+        if(toSign){
+          if(audioSwitch===true && speech !==true){
+            setspeech(true)
+           speechRecognition.start()
+         console.log("start")}
+       else if(audioSwitch===false &&speech !==false){
+         setspeech(false)
+         speechRecognition.stop()
+         console.log("stop")}
+        }
+        // audioSwitch ? speechRecognition.start() : speechRecognition.stop();
         console.log(audioSwitch);
       }
 
