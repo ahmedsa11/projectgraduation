@@ -143,13 +143,13 @@ const Room = (props) => {
     if (tempuser === null) {
       return <Redirect to='/' />;
     }
-    setloading(true);
+    // setloading(true);
     // Connect Camera & Mic
 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
-        setloading(false);
+        // setloading(false);
 
         userVideoRef.current.srcObject = stream;
         userStream.current = stream;
@@ -544,7 +544,7 @@ const Room = (props) => {
   }
   return (
     <react.Fragment>
-      {loading ? <Loader /> : null}
+      {/* {loading ? <Loader /> : null} */}
       <div className='video-conference'>
         <div className='main-side' id='main'>
           <div className='navbar'>
