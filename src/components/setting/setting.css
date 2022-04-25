@@ -4,9 +4,10 @@
     height: 100vh;
 }
 .setting h2{
-    color: white;
+    color: #f8fafc;
     padding: 20px;
     font-weight: bold;
+    font-size: 27px;
 }
 .setting .data{
     position: relative;
@@ -70,6 +71,7 @@
     display: block;
     border: 1px solid #3a4149 !important;
     color: #ccd2d6;
+    border-radius: 7px !important;
 }
 .setting .data .formdata .inputcout select
 {
@@ -77,6 +79,10 @@
     border: 1px solid #3a4149 !important;
     padding: 5px;
     color: #ccd2d6;
+    width: 100%;
+    border-radius: 7px !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 .setting .data .formdata .notification{
     display: flex;
@@ -95,7 +101,7 @@
     position: relative;
     display: inline-block;
     width: 52px;
-    height: 26px;
+    height: 28px;
   }
   .setting .data .formdata .notification.switch input {
     opacity: 0;
@@ -116,8 +122,8 @@
   .setting .data .formdata .notification .slider:before {
     position: absolute;
     content: "";
-    height: 24px;
-    width: 24px;
+    height: 26px;
+    width: 26px;
     left: 0px;
     bottom: 0px;
     background-color: white;
@@ -157,6 +163,9 @@
     margin: 10px;
     padding: 10px;
     transition: all 0.5s ease;
+    font-weight: 500;
+    background-color: #7476f7;
+    font-size: 14px;
 }
 .setting .data .saveandcancel .save:hover{
     background-color: gray;
@@ -169,6 +178,8 @@
     margin: 10px;
     padding: 10px;
     background: none;
+    font-weight: 500;
+    font-size: 14px;
 }
 
 i{
@@ -186,34 +197,16 @@ i{
 .setting  .main-side ul{
     list-style: none;
 }
-
-.setting  .main-side ul li{
-    display:inline-block;
-        margin: 25px 3px
-}
-
-.setting  .main-side .navbar .logo{
-    width:10%;
-}
 .setting  .main-side .navbar .logo i{
     font-size: 45px;
     color: white;
     font-weight: bold;
     cursor: pointer;
 }
-.setting  .main-side .navbar .title{
-    flex:1;
-}
 .setting  .main-side .vi{
     display: flex;
     background-color: rgba(22,27,33,255)
     ;
-}
-.setting  .main-side .vi .icon-opts ul i{
-    font-size: 20px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
 }
 .setting  .main-side .vi .vid-stream {
     display: flex;
@@ -223,6 +216,7 @@ i{
     margin-top: 15px;
     background-color: #1f232c;
     margin-left: 37px;
+    height: 100vh;
 }
 @media only screen and (max-width: 800px) {
     .setting {
@@ -235,5 +229,6 @@ i{
         border-radius: 15px;
         background-color: #1f232c;
         margin: 61px 15px 15px 15px !important;  
+        height: 100%;
       }
 }

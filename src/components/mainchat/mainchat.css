@@ -16,6 +16,7 @@
 .mainchat .lst h1{
     text-align: initial;
     font-size: 28px;
+    font-weight: bold;
 }
 .mainchat .lst .cont{
     justify-content: space-between;
@@ -190,22 +191,8 @@ i{
     width: 100% ;
     height:auto;
 }
-.navbar{
-    background-color: rgba(24,31,39,255);
-    padding: 0 !important;
-    margin: 0 !important;
-}
 .mainchat   .main-side ul{
     list-style: none;
-}
-
-.mainchat   .main-side ul li{
-    display:inline-block;
-        margin: 25px 3px
-}
-
-.mainchat   .main-side .navbar .logo{
-    width:10%;
 }
 .mainchat   .main-side .navbar .logo i{
     font-size: 45px;
@@ -213,19 +200,11 @@ i{
     font-weight: bold;
     cursor: pointer;
 }
-.mainchat   .main-side .navbar .title{
-    flex:1;
-}
+
 .mainchat   .main-side .vi{
     display: flex;
     background-color: rgba(22,27,33,255)
     ;
-}
-.mainchat   .main-side .vi .icon-opts ul i{
-    font-size: 20px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
 }
 .mainchat   .main-side .vi .vid-stream {
     display: flex;
@@ -238,7 +217,8 @@ i{
 .mainchat .chatarea .sendd {
     display: flex;
     justify-content: space-between;
-    padding: 0px 200px;
+    width: 70%;
+    margin: 0 auto;
 }
 .mainchat .chatarea .sendd .inputmessage {
     position: relative;

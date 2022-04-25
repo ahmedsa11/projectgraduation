@@ -1,7 +1,9 @@
 .nav{
-    flex-direction: column;
     color: white !important;
-    padding: 30px 20px !important;
+    padding: 30px 0px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly !important;
 }
 .linkk{
     color: white;
@@ -16,6 +18,11 @@
     top: 107px;
     display: none !important;
     opacity: 0 !important;
+}
+.linkk.active{
+    background-color: rgb(85, 85, 85);
+    border-radius: 0px 30px 30px 0px;
+    padding: 6px !important ;
 }
 @media only screen and (max-width: 800px) {
     .toggler{
@@ -56,18 +63,29 @@
     .icon-opts ul li i {
         margin: 0px 9px !important;
     }
-    .linkk.active{
-        background-color: rgb(85, 85, 85);
-        border-radius: 10px;
-
-    }
     /* .icon-opts ul{
         width: 100% !important;
     } */
-
+    .linkk.active{
+        border-radius: 7px;
+        padding: 0px !important;
+    }
 }
-.linkk.active{
-    background-color: rgb(85, 85, 85);
-    border-radius: 0px 30px 30px 0px;
-    padding: 0px !important;
+
+.icon-opts{
+    display: flex;
+    height: 554px;
+}
+.icon-opts ul{
+    display: flex;
+    justify-content: space-evenly !important;
+}
+.icon-opts ul a li{
+    margin: 0px !important;
+}
+ .icon-opts ul i {
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }

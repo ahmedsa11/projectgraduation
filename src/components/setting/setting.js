@@ -83,6 +83,7 @@ const Setting = (props) => {
                     Gender
                   </label>
                   <div className="inputcout">
+                  <i class="fas fa-pen editbutton"></i>
                     <select disabled value={user.gender} name="gender">
                       <option defaultValue hidden>
                         Gender

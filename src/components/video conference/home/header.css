@@ -3,27 +3,35 @@ i{
     cursor: pointer;
 }
 
-.navbar{
+.head .navbar{
     background-color: rgba(24,31,39,255);
-    padding: 0 !important;
+    padding: 6px !important;
     margin: 0 !important;
+    display: flex;
+    justify-content: space-between;
 }
 .head  ul{
     list-style: none;
 }
-
+.head .logandtit{
+    display: flex;
+    justify-content: space-between;
+    float: left;
+}
 .head  ul li{
     display:inline-block;
         margin: 25px 3px
 }
 
 .head  .navbar .logo{
-    width: fit-content !important;
     position: relative;
-    /* right: 34px; */
+    text-align: center;
+    width:107px;
+
 }
 .head  .navbar .logo img{
-    width: 50px;
+    width: 43px;
+    height: 53px;
 }
 .head  .navbar .logo i{
     font-size: 45px;
@@ -32,51 +40,66 @@ i{
     cursor: pointer;
 }
 .head  .navbar .title{
-    flex:1;
+    text-align: center;
+    display: flex;
+
+    
+}
+.head  .navbar .title .ser{position: relative;}
+.head  .navbar .title .ser i{
+position: absolute;
+color: #676771;
+bottom: 23px;
+right: 9px;
+font-size: 16px;
 }
 .head  .navbar input{
-    width: 65%;
-    background-color: #272530    ;
+    background-color: #272530;
     border: none !important;
     border-radius: 10px;
     color: white !important;
+    width: 100%;
 }
 .head  .navbar input::placeholder{
-    color: white !important;
+     color: #676771 !important;
+     font-size: 16px;
 }
-.head  .navbar input::placeholder{
-    color: #615f6c;
-}
+
 .head .navbar  img{
     width: 37px;
     height: 37px;
     border-radius: 50%;
 }
 .head .navbar  span{
- color: white;
- border-bottom: 2px solid white;
- font-size: 18px;
- font-weight: bold;
+    color: #d1d5d6;
+    border-bottom: 2px solid #d1d5d6;
+    font-size: 16px;
 }
 .head .navbar .fa-phone-alt{
     font-size: 23px;
-    background-color: rgb(40, 57, 207);
-    color: #f8fff3
-    ;
+    background-color: #f4593e;
+    color: #f8fff3;
     padding: 7px;
     border-radius: 6px;
-    margin: 0px;
+    margin: auto 5px;
+    height: fit-content;
+    margin-left: 12px;
 }
 
 .head .navbar .fa-video{
-    font-size: 23px;
-    background-color: red;
+    background-color: #716ffe;
+    color: #f8fff3;
     padding: 7px;
     border-radius: 6px;
-    margin: 11px;
-    color: #f8fff3
-    ;
-}
+    margin: auto 5px;
+    height: fit-content;
+       font-size: 23px;
+    }
+    .head .navbar .grid-show{
+        margin-right: 22px;
+        float: right;
+
+    }
 
 
 .head  .vi .vid-stream .prof{
@@ -116,13 +139,14 @@ i{
     .head  .navbar .logo{
         width:fit-content;
         font-size: 15px !important;
+        margin-left: -22px;
     }
     .head  .navbar .title{
         width: 100%;
         display: flex;
     }
     .head .navbar input{
-      width: 83%;
+        width: 100%;
     }
     .head .navbar .fa-phone-alt{
         font-size: 23px;
@@ -151,3 +175,43 @@ i{
         background-color: #1f232c;
         margin: 61px 15px 15px 15px !important;  
       }}
+      @media only screen and (max-width: 600px) {
+        .head .navbar input{
+            width: 100%;
+        }
+        .head  .navbar .logo{margin-left: 5px;}
+        .head .navbar .grid-show {
+            margin: 0 auto;
+        }
+      }
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .head .navbar input{
+        width: 100%;
+        
+    }
+    .head  .navbar .logo{margin-right: 5px; margin-left: 0px;}
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media (min-width: 800px  )  and (min-width: 768px  ) {
+    .head .navbar input{
+        width: 395px;
+    }
+    .head  .navbar .logo{margin-right: 0px;margin-left: -22px;}
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {     .head .navbar input{
+    width: 500px;
+}
+.head  .navbar .logo{margin-right: 50px;margin-left: -22px;}
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .head .navbar input{
+        width: 600px;
+    }
+    .head  .navbar .logo{margin-right: 60px;margin-left: -22px;}
+}
