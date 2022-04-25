@@ -14,7 +14,10 @@ import logo from '../../../img/log.png';
 import BottomBar from './BottomBar';
 import VideoCard from './vid';
 import { Redirect } from 'react-router';
-import Loader from '../../loader/loader';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+// import { SpeechRecognitionEvent } from '@speechly/speech-recognition-polyfill';
+// import { SpeechRecognitionResult } from '@speechly/speech-recognition-polyfill';
+// import Loader from '../../loader/loader';
 // import Signlang from './signlanguage';
 const Copy = () => {
   var Url = document.getElementById('paste-box');
@@ -95,10 +98,11 @@ const openpopup = () => {
   Url.select();
   document.execCommand('Copy');
 };
+
 const Room = (props) => {
   console.log('roooom')
   const [peers, setPeers] = useState([]);
-  const [loading, setloading] = useState(false);
+  // const [loading, setloading] = useState(false);
   const [toSign, settoSign] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({
     localUser: { video: true, audio: true },
@@ -114,22 +118,34 @@ const Room = (props) => {
   const roomId = props.match.params.roomId;
   const tempuser = localStorage.getItem('user');
   const user = JSON.parse(tempuser);
-  const SpeechRecognition =
-    window.speechRecognition || window.webkitSpeechRecognition;
-  const SpeechGrammarList =
-    window.speechGrammarList || window.webkitSpeechGrammarList;
-  const grammar = '#JSGF V1.0';
-  const speechRecognition = new SpeechRecognition();
-  const speechGrammarList = new SpeechGrammarList();
-  speechGrammarList.addFromString(grammar);
-  speechRecognition.grammars = speechGrammarList;
-  speechRecognition.continuous = true;
-  speechRecognition.lang = 'en-US';
-  let text = useRef();
-  let newContent = useRef('');
-  let isFinished = useRef(true);
-  let senderName = useRef();
+  const audio = userVideoAudio['localUser'].audio;
+  // const SpeechRecognition =
+  //   window.speechRecognition || window.webkitSpeechRecognition;
+  // const SpeechGrammarList =
+  //   window.speechGrammarList || window.webkitSpeechGrammarList;
+  // const grammar = '#JSGF V1.0';
+  // const speechRecognition = new SpeechRecognition();
+  // const speechGrammarList = new SpeechGrammarList();
+  // speechGrammarList.addFromString(grammar);
+  // speechRecognition.grammars = speechGrammarList;
+  // speechRecognition.continuous = true;
+  // speechRecognition.lang = 'en-US';
 
+  let{
+    transcript,
+    listening,
+    resetTranscript,
+    // interimTranscript,
+    // finalTranscript,
+    // browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
+  let text = useRef();
+  const [newContent,setnewcontent]=useState('')
+const [isFinished,setisfinished]=useState(true)
+  let senderName = useRef();
+  // if (!browserSupportsSpeechRecognition) {
+  //   return (<span>Browser doesn't support speech recognition.</span>)
+  // }
   useEffect(() => {
     // Get Video Devices
     // navigator.mediaDevices.enumerateDevices().then((devices) => {
@@ -263,72 +279,79 @@ const Room = (props) => {
     };
     // eslint-disable-next-line
   }, []);
-  useEffect(() => {
-    if (!toSign) return;
-    const audio = userVideoAudio['localUser'].audio;
-    if (audio) {
-      console.log('start listening');
-      speechRecognition.start();
-    } else {
-      console.log('stop listening');
-      speechRecognition.stop();
-    }
-  }, [toSign, userVideoAudio['localUser'].audio]);
+  
+    useEffect(()=>{
+      
+      if (audio) {
+        console.log('start listening');
+        SpeechRecognition.startListening({ language: 'en-US',continuous:true
+      });
+        console.log(transcript)
+      } else {
+        console.log('stop listening'); 
+        SpeechRecognition.stopListening();
+        console.log(transcript)
+      }
+    },[listening,audio])
 
-  speechRecognition.onresult = (event) => {
-    if (event.results.length) {
-      let current = event.resultIndex;
-      let transcript = event.results[current][0].transcript;
-      newContent.current += transcript;
-      console.log({ isFinished: isFinished.current });
-      if (isFinished.current) {
-        socket.emit('send-text', { data: newContent.current, roomId });
-        console.log('send text to backend');
-        isFinished.current = false;
-        newContent.current = '';
+    useEffect(() => {
+      setnewcontent(transcript)
+    } ,[transcript])
+    useEffect(() => {
+      if(toSign){
+      console.log(newContent)
+      console.log({ isFinished});
+      if (isFinished) {
+        socket.emit('send-text', { data: newContent, roomId,name:user.name });      
+        console.log('send text to backend');   
+        setisfinished(false)
+        setnewcontent('')
       }
     }
-  };
-  console.log(userVideoAudio['localUser']);
-  console.log('call');
-
-  socket.on('receive-text', ({ data, name }) => {
-    console.log({ data });
-    if (text.current) {
-      text.current.textContent = data;
+    } ,[newContent])
+    // useEffect(() => {
+    
+    // } ,[])
+    useEffect(() => {
+      if(toSign){
+      socket.on('receive-text', ({ data, name }) => {
+        console.log({ data });
+        if (text.current) {
+          text.current.textContent = data;
+        }
+        if (senderName.current) {
+          senderName.current.textContent = name;
+          console.log(senderName.current.textContent);
+        }
+      });
+      socket.on('send', () => {
+        console.log('finished sending 2');
+        setisfinished(true)
+        if (newContent.length > 0) {
+          socket.emit('send-text', { data: newContent, roomId,name:user.name });
+          setisfinished(false)
+          setnewcontent('')
+        }
+      });
+   
+       // recive data from the server
+       socket.on('receive-frame', ({ buffer }) => {
+        console.log('received frame from backend');
+        document.getElementById('stream_asl').src =
+          'data:image/jpeg;base64,' + arrayBufferToBase64(buffer);
+      });
+      const arrayBufferToBase64 = (buffer) => {
+        var binary = '';
+        var bytes = new Uint8Array(buffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+          binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
+      };
     }
-    if (senderName.current) {
-      senderName.current.textContent = name;
-      console.log(senderName.current.textContent);
-    }
-  });
 
-  socket.on('send', () => {
-    console.log('finished sending 2');
-    isFinished.current = true;
-    if (newContent.current.length > 0) {
-      socket.emit('send-text', { data: newContent.current, roomId });
-      isFinished.current = false;
-      newContent.current = '';
-    }
-  });
-
-  // recive data from the server
-  socket.on('receive-frame', ({ buffer }) => {
-    console.log('received frame from backend');
-    document.getElementById('stream_asl').src =
-      'data:image/jpeg;base64,' + arrayBufferToBase64(buffer);
-  });
-  const arrayBufferToBase64 = (buffer) => {
-    var binary = '';
-    var bytes = new Uint8Array(buffer);
-    var len = bytes.byteLength;
-    for (var i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return window.btoa(binary);
-  };
-
+    } ,[toSign])
   function createPeer(userId, caller, stream) {
     const peer = new Peer({
       initiator: true,
@@ -539,6 +562,9 @@ const Room = (props) => {
   //       });
   //   }
   // };
+  // if (text.current) {
+  //   text.current.textContent = newContent;
+  // }
   if (tempuser === null) {
     return <Redirect to='/' />;
   }
@@ -651,6 +677,7 @@ const Room = (props) => {
             text={text}
             toSign={toSign}
             settoSign={settoSign}
+            senderName={senderName}
             // settoCaption={settoCaption}
             // signlang={signlang}
             // speechRecognition={speechRecognition.start()}

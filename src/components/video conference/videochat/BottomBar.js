@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 // import Caption from './caption';
-
-
 // Scroll to Bottom of Message List
 // const SpeechRecognition =
 // window.speechRecognition || window.webkitSpeechRecognition;
@@ -25,6 +23,7 @@ const BottomBar = ({
   toSign,
   settoSign,
   settoCaption,
+  senderName,
   signlang,
   videoDevices,
   showVideoDevices,

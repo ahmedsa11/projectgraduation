@@ -266,7 +266,7 @@ input:focus{
 .overlay-panel {
 	position: absolute;
 	display: flex;
-	align-items: start;
+	align-items:baseline;
 	justify-content: center;
 	flex-direction: column;
 	padding: 0 40px;
