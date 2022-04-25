@@ -24,61 +24,6 @@ i{
         margin: 25px 3px
 }
 
-.home .main-side .navbar .logo{
-    width:10%;
-}
-.home .main-side .navbar .logo i{
-    font-size: 45px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-.home .main-side .navbar .title{
-    flex:1;
-}
-.home  .navbar input{
-    width: 65%;
-    background-color: #272530    ;
-    border: none !important;
-    border-radius: 10px;
-    color: white !important;
-}
-.home  .navbar input::placeholder{
-    color: white !important;
-}
-.home  .navbar input::placeholder{
-    color: #615f6c;
-}
-.home .navbar  img{
-    width: 37px;
-    height: 37px;
-    border-radius: 50%;
-}
-.home .navbar  span{
- color: white;
- border-bottom: 2px solid white;
- font-size: 18px;
- font-weight: bold;
-}
-.home .navbar .fa-phone-alt{
-    font-size: 23px;
-    background-color: rgb(40, 57, 207);
-    color: #f8fff3
-    ;
-    padding: 7px;
-    border-radius: 6px;
-    margin: 0px;
-}
-
-.home .navbar .fa-video{
-    font-size: 23px;
-    background-color: red;
-    padding: 7px;
-    border-radius: 6px;
-    margin: 11px;
-    color: #f8fff3
-    ;
-}
 /* .home .main-side .navbar .grid-show {
     padding: 22px 0px;
 } */

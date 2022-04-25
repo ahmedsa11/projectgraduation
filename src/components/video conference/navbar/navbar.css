@@ -75,6 +75,7 @@
 .icon-opts{
     display: flex;
     height: 554px;
+    padding-top: 30px;
 }
 .icon-opts ul{
     display: flex;

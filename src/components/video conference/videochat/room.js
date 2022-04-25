@@ -134,7 +134,6 @@ const Room = (props) => {
   let{
     transcript,
     listening,
-    resetTranscript,
     // interimTranscript,
     // finalTranscript,
     // browserSupportsSpeechRecognition

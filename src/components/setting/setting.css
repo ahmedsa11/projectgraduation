@@ -8,6 +8,7 @@
     padding: 20px;
     font-weight: bold;
     font-size: 27px;
+    position: absolute;
 }
 .setting .data{
     position: relative;
@@ -36,7 +37,7 @@
     bottom: 17px;
     color: white;
     padding: 10px;
-    background-color: #7476f7;
+    background-color: #7174f1;
     border-radius: 50%;
 }
 .setting .data .proimg img{
@@ -44,10 +45,10 @@
     width: 120px;
     height: 120px;
     display: block;
-    margin: 13px auto;
+    margin:32px auto;
 }
 .setting .data .formdata{
-    max-width: 480px;
+    max-width: 442px;
     position: relative;
     margin: 0px auto;
 }
@@ -159,7 +160,7 @@
     width: 100px;
     text-align: center;
     border: none;
-    border-radius: 0px !important;
+    border-radius: 25px !important;
     margin: 10px;
     padding: 10px;
     transition: all 0.5s ease;
@@ -214,7 +215,7 @@ i{
     width: 100%;
     border-radius: 15px 0px 0px 0px;
     margin-top: 15px;
-    background-color: #1f232c;
+    background-color: #181f27;
     margin-left: 37px;
     height: 100vh;
 }
