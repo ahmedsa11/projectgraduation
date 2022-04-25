@@ -292,7 +292,6 @@ const [isFinished,setisfinished]=useState(true)
         console.log(transcript)
       }
     },[listening,audio])
-
     useEffect(() => {
       setnewcontent(transcript)
     } ,[transcript])
