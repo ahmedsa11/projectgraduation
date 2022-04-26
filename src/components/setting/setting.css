@@ -16,6 +16,30 @@
     text-align: center;
     justify-content: center;
 }
+.setting .proimg input[type="file"]{
+    width: 33px;
+    height: 33px;
+    position: absolute;
+    background-color: chocolate;
+    color: brown;
+    padding: 0px;
+}
+.setting .proimg input[type="file"]::after{
+    width: 33px;
+    height: 33px;
+    position: absolute;
+    background-color: chocolate;
+    color: brown;
+    padding: 0px;
+}
+.setting .proimg input[type="file"]::before{
+    width: 33px;
+    height: 33px;
+    position: absolute;
+    background-color: chocolate;
+    color: brown;
+    padding: 0px;
+}
 .setting .data .proimg {
     position: relative;
     display: block;
@@ -172,6 +196,7 @@
     font-weight: 500;
     background-color: #7476f7;
     font-size: 14px;
+    color: white;
 }
 .setting .data .saveandcancel .save:hover{
     background-color: gray;
@@ -186,6 +211,7 @@
     background: none;
     font-weight: 500;
     font-size: 14px;
+    color: white;
 }
 
 i{

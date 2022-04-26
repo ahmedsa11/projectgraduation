@@ -291,9 +291,11 @@ const [isFinished,setisfinished]=useState(true)
         SpeechRecognition.stopListening();
         console.log(transcript)
       }
+      // eslint-disable-next-line
     },[listening,audio])
     useEffect(() => {
       setnewcontent(transcript)
+      // eslint-disable-next-line
     } ,[transcript])
     useEffect(() => {
       if(toSign){
@@ -306,6 +308,7 @@ const [isFinished,setisfinished]=useState(true)
         setnewcontent('')
       }
     }
+    // eslint-disable-next-line
     } ,[newContent])
     // useEffect(() => {
     
@@ -348,7 +351,7 @@ const [isFinished,setisfinished]=useState(true)
         return window.btoa(binary);
       };
     }
-
+// eslint-disable-next-line
     } ,[toSign])
   function createPeer(userId, caller, stream) {
     const peer = new Peer({

@@ -19,7 +19,7 @@ const Mainchat = (props) => {
         <div className="mainchat">
 
         <div className="main-side">
-        <Header/>
+        <Header r={props}/>
         <div className="vi">
             <Navbar />
             <div className="vid-stream">

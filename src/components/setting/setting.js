@@ -32,13 +32,13 @@ const Setting = (props) => {
   // this.setState(state);
   // };
 
-  const editbutton=()=>{
+  const editbutton=(e)=>{
+  
     const editname=document.getElementById("editname");
     const editphone=document.getElementById("editphone");
     const editgender=document.getElementById("editgender");
     const editpass=document.getElementById("editpass");
     const cancel =document.getElementById("cancel");
-    const save =document.getElementById("save");
     const inputsetting=document.getElementsByClassName("inputsetting");
     editname.onclick=()=>{
       document.getElementById("inputname").removeAttribute("disabled");
@@ -58,14 +58,19 @@ const Setting = (props) => {
       document.getElementById("oldpass").textContent="Enter Old Password"
       document.getElementById("saveandcancel").style.display="block"
     }
-    cancel.onclick=()=>{
+    cancel.onclick=(e)=>{
+     
       document.getElementById("saveandcancel").style.display="none"
+      document.getElementById("inputgender").value=user.gender
+      document.getElementById("inputname").value=user.name;
+      document.getElementById("inputphone").value=user.mobile
       for (let i = 0; i < inputsetting.length; i++) {
-          inputsetting[i].setAttribute('disabled','disabled');
+          inputsetting[i].setAttribute('disabled','disabled')
          }
          document.getElementById("hidepass").style.display="none"
          document.getElementById("oldpass").textContent="Password"
-         document.getElementById("inputgender").setAttribute('disabled','disabled');
+         document.getElementById("inputgender").setAttribute('disabled','disabled')
+    
       }
     }
 
@@ -76,7 +81,10 @@ const Setting = (props) => {
     Phone:user.mobile,
     Gender:user.gender,
   })
- 
+  // eslint-disable-next-line 
+ const[picture,setpicture]=useState(false)
+ const[src,setsrc]=useState(false)
+
   // console.log(tempuser)
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -88,6 +96,66 @@ const Setting = (props) => {
     });
   };
   const { Name ,Phone,Gender } = formValue;
+  // const handlePictureSelected =(e)=> {
+  //   let picture = e.target.files[0];
+  //   let src     = URL.createObjectURL(picture);
+  //   setpicture(picture);
+  //   setsrc(src);
+  // }
+  const renderPreview=()=> {
+    if(src) {
+      return (
+        <img id="profile" src={src} alt="your profile pic"/>
+      );
+    } else {
+      return (
+        <img src={proimg} alt="default profile pic"/>
+      );
+    }
+  }
+  function importData() {
+    let input = document.createElement('input');
+  
+    input.type = 'file';
+    input.onchange = (e) => {
+      // you can use this method to get file and perform respective operations
+      let picture = e.target.files[0];
+    let src = URL.createObjectURL(picture);
+    setpicture(picture);
+    setsrc(src);
+          };
+    input.click();
+    document.getElementById("saveandcancel").style.display="block"
+    
+  }
+ const upload = async (e) => {
+    e.preventDefault();
+  const formData = new FormData();
+  let image=document.getElementById("profile");
+  formData.append('image',image)
+  const url=`https://backend-api-tabarani.herokuapp.com/api/users/image/${user.mobile}`
+  const res=await fetch(url,{
+    method:'PATCH',
+    body:formData,
+    headers:{
+      'Content-Type':'image/png',
+      API_KEY:
+      "382395e75d624fb1478303451bc7543314ffffac6372c2aa9beb22f687e6e886b77b3ee84aeeb1a8aabad9647686d0baaa4d9a7c65ff6ef1ebc71fcde7bac14b",
+    },
+  })
+  if (res.status === "success") {
+    console.log(res);
+    delete res.data._id;
+    localStorage.setItem("user",JSON.stringify(res.data))
+    document.getElementById("saveandcancel").style.display="none"
+  } 
+  else{
+    console.log("errr")
+  }
+}
+ 
+
+
   if (tempuser === null) {
     return <Redirect to="/" />;
   }
@@ -102,23 +170,26 @@ const Setting = (props) => {
             <div className="vid-stream">
               <h2>Settings</h2>
               <div className="data">
+              <form id="upload">
                 <div className="proimg">
-                  <form>
-                    <img src={proimg} alt="your profile pic" />
-                    <i class="fas fa-pen editpic"></i>
-                  </form>
+              <div className="imgprof">
+                    {renderPreview()}
+                    </div>
+                    <i className="fas fa-pen editpic" onClick={importData}></i>
+               
                 </div>
+              
                 <div className="formdata">
                   <label htmlFor="username" className="form-label">
                     UserName
                   </label>
                   <div className="inputcout">
-                    <i id="editname" class="fas fa-pen editbutton"onClick={editbutton}></i>
+                    <i id="editname" className="fas fa-pen editbutton"onClick={editbutton}></i>
                     <input
                     id="inputname"
                       className="inputsetting"
                       type="text"
-                      value={Name}
+                       value={Name}
                       disabled
                       name="Name"
                       onChange={handleChange}
@@ -129,12 +200,12 @@ const Setting = (props) => {
                     Phone Number
                   </label>
                   <div className="inputcout">
-                    <i id="editphone" class="fas fa-pen editbutton"onClick={editbutton}></i>
+                    <i id="editphone" className="fas fa-pen editbutton"onClick={editbutton}></i>
                     <input
                     id="inputphone"
                       className="inputsetting"
                       type="tel"
-                      value={Phone}
+                       value={Phone}
                       disabled
                       onChange={handleChange}
                       name="Phone"
@@ -144,8 +215,8 @@ const Setting = (props) => {
                     Gender
                   </label>
                   <div className="inputcout">
-                  <i id="editgender" class="fas fa-pen editbutton"onClick={editbutton}></i>
-                    <select disabled value={Gender} id="inputgender"  onChange={handleChange} name="Gender">
+                  <i id="editgender" className="fas fa-pen editbutton"onClick={editbutton}></i>
+                    <select disabled  value={Gender} id="inputgender"  onChange={handleChange} name="Gender">
                       <option defaultValue hidden>
                         Gender
                       </option>
@@ -157,7 +228,7 @@ const Setting = (props) => {
                     Password
                   </label>
                   <div className="inputcout">
-                    <i id="editpass" class="fas fa-pen editbutton"onClick={editbutton}></i>
+                    <i id="editpass" className="fas fa-pen editbutton"onClick={editbutton}></i>
                     <input
                     id="inputpass"
                       className="inputsetting"
@@ -193,7 +264,7 @@ const Setting = (props) => {
                   </div>
                   <div className="notification">
                     <span>Notification</span>
-                    <label class="switch">
+                    <label className="switch">
                       <input type="checkbox" />
                       <span className="slider round"></span>
                     </label>
@@ -201,8 +272,9 @@ const Setting = (props) => {
                 </div>
                 <div id="saveandcancel" className="saveandcancel">
                   <button  id="cancel" className="cancel">cancel</button>
-                  <button  id="save" className="save">save</button>
+                  <button onClick={upload}  id="save" className="save">save</button>
                 </div>
+                </form>
               </div>
             </div>
           </div>

@@ -29,12 +29,12 @@ const Navbar = () => {
               <i className="fas fa-user-friends"></i>
             </li>
           </NavLink>
-          <NavLink to="/nef" className="linkk">
+          <NavLink to="/notifications" className="linkk">
             <li className="nav-item">
               <i className="fas fa-bell"></i>
             </li>
           </NavLink>
-          <NavLink to="/calender" className="linkk">
+          <NavLink to="/calendar" className="linkk">
             <li className="nav-item">
               <i className="fas fa-calendar-alt"></i>
             </li>

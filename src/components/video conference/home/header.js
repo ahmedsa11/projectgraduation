@@ -30,7 +30,7 @@ const Header = (props) => {
             <div className="title">
             <div className="ser">
               <input type="search" placeholder="search" />
-              <i class="fas fa-search"></i>
+              <i className="fas fa-search"></i>
               </div>
               <i className="fas fa-phone-alt"></i>
               <i className="fas fa-video" onClick={clickJoin}></i>

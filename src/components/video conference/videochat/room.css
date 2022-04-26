@@ -421,7 +421,7 @@ position: relative;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     transition: 1s ease;
-    bottom: 20px;
+    bottom: 0px;
   }
  
   .dropdown-content ul{
@@ -475,6 +475,7 @@ text-align: center !important;
     font-weight: bold;
     position: relative;
     bottom: 70px;
+   
 }
 .footer .buttons ul {  display: contents;}
 .footer .buttons li{
@@ -491,6 +492,7 @@ text-align: center !important;
     border: none;
     padding: 10px;
     pointer-events:all;
+    color: white;
 }
 .footer .buttons ul li{
     display: -moz-inline-grid;
@@ -624,7 +626,7 @@ text-align: center !important;
         top: 106px;
         right: 8px;}
         .footer .tools .dropdown-content{
-            top: 40px;
+            top: 27px;
             right: -9px;
         }
         .g{

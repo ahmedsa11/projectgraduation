@@ -34,7 +34,7 @@ a {
 .sign-up >a{
 	color: #333 !important;
 }
-button {
+#formm button {
 	border-radius: 10px !important;
 	border: 1px solid black;
 	background-color: #204959;
@@ -62,7 +62,7 @@ button:active {
 	transform: scale(0.9);
 }
 
-form {
+#formm form {
 	padding: 50px 60px;
 	height: 100%;
 	text-align: center;
@@ -84,7 +84,7 @@ form img{
 	box-shadow: none !important;
 }
 
-input , .form-control {
+ input , .form-control {
 	background-color: #fff;
 	border: 1px solid #d1d1d1 !important;
     margin: 10px 0 !important;
