@@ -1,4 +1,4 @@
-import react from "react";
+import react, { useState } from "react";
 import { Redirect } from "react-router";
 import Header from "../video conference/home/header";
 import Navbar from "../video conference/navbar/navbar";
@@ -31,12 +31,67 @@ const Setting = (props) => {
   // state[e.currentTarget.name]=e.currentTarget.value;
   // this.setState(state);
   // };
+
+  const editbutton=()=>{
+    const editname=document.getElementById("editname");
+    const editphone=document.getElementById("editphone");
+    const editgender=document.getElementById("editgender");
+    const editpass=document.getElementById("editpass");
+    const cancel =document.getElementById("cancel");
+    const save =document.getElementById("save");
+    const inputsetting=document.getElementsByClassName("inputsetting");
+    editname.onclick=()=>{
+      document.getElementById("inputname").removeAttribute("disabled");
+      document.getElementById("saveandcancel").style.display="block"
+    }
+    editphone.onclick=()=>{
+      document.getElementById("inputphone").removeAttribute("disabled");
+      document.getElementById("saveandcancel").style.display="block"
+    }
+    editgender.onclick=()=>{
+      document.getElementById("inputgender").removeAttribute("disabled");
+      document.getElementById("saveandcancel").style.display="block"
+    }
+    editpass.onclick=()=>{
+      document.getElementById("inputpass").removeAttribute("disabled");
+      document.getElementById("hidepass").style.display="block"
+      document.getElementById("oldpass").textContent="Enter Old Password"
+      document.getElementById("saveandcancel").style.display="block"
+    }
+    cancel.onclick=()=>{
+      document.getElementById("saveandcancel").style.display="none"
+      for (let i = 0; i < inputsetting.length; i++) {
+          inputsetting[i].setAttribute('disabled','disabled');
+         }
+         document.getElementById("hidepass").style.display="none"
+         document.getElementById("oldpass").textContent="Password"
+         document.getElementById("inputgender").setAttribute('disabled','disabled');
+      }
+    }
+
   const tempuser = localStorage.getItem("user");
+  let user = JSON.parse(tempuser);
+  const [formValue, setFormValue] = useState({
+    Name:user.name,
+    Phone:user.mobile,
+    Gender:user.gender,
+  })
+ 
   // console.log(tempuser)
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValue((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+      };
+    });
+  };
+  const { Name ,Phone,Gender } = formValue;
   if (tempuser === null) {
     return <Redirect to="/" />;
   }
-  const user = JSON.parse(tempuser);
+ 
   return (
     <react.Fragment>
       <div className="setting">
@@ -58,12 +113,15 @@ const Setting = (props) => {
                     UserName
                   </label>
                   <div className="inputcout">
-                    <i class="fas fa-pen editbutton"></i>
+                    <i id="editname" class="fas fa-pen editbutton"onClick={editbutton}></i>
                     <input
+                    id="inputname"
                       className="inputsetting"
                       type="text"
-                      value={user.name}
+                      value={Name}
                       disabled
+                      name="Name"
+                      onChange={handleChange}
                     />
                   </div>
 
@@ -71,20 +129,23 @@ const Setting = (props) => {
                     Phone Number
                   </label>
                   <div className="inputcout">
-                    <i class="fas fa-pen editbutton"></i>
+                    <i id="editphone" class="fas fa-pen editbutton"onClick={editbutton}></i>
                     <input
+                    id="inputphone"
                       className="inputsetting"
                       type="tel"
-                      value={user.mobile}
+                      value={Phone}
                       disabled
+                      onChange={handleChange}
+                      name="Phone"
                     />
                   </div>
                   <label htmlFor="username" className="form-label">
                     Gender
                   </label>
                   <div className="inputcout">
-                  <i class="fas fa-pen editbutton"></i>
-                    <select disabled value={user.gender} name="gender">
+                  <i id="editgender" class="fas fa-pen editbutton"onClick={editbutton}></i>
+                    <select disabled value={Gender} id="inputgender"  onChange={handleChange} name="Gender">
                       <option defaultValue hidden>
                         Gender
                       </option>
@@ -92,16 +153,43 @@ const Setting = (props) => {
                       <option>Female</option>
                     </select>
                   </div>
-                  <label htmlFor="username" className="form-label">
+                  <label id="oldpass" htmlFor="username" className="form-label">
                     Password
                   </label>
                   <div className="inputcout">
-                    <i class="fas fa-pen editbutton"></i>
+                    <i id="editpass" class="fas fa-pen editbutton"onClick={editbutton}></i>
                     <input
+                    id="inputpass"
                       className="inputsetting"
                       type="password"
                       value={user.password}
                     />
+                  </div>
+                  <div id="hidepass" className="hidepass">
+                  <label htmlFor="username" className="form-label">
+                    Enter New Password
+                  </label>
+                  <div className="inputcout">
+                  
+                    <input
+                    
+                      className="inputsetting"
+                      type="password"
+                      value={user.password}
+                    />
+                  </div>
+                  <label htmlFor="username" className="form-label">
+                    Confirm New Password
+                  </label>
+                  <div className="inputcout">
+                    
+                    <input
+                  
+                      className="inputsetting"
+                      type="password"
+                      value={user.password}
+                    />
+                  </div>
                   </div>
                   <div className="notification">
                     <span>Notification</span>
@@ -111,9 +199,9 @@ const Setting = (props) => {
                     </label>
                   </div>
                 </div>
-                <div className="saveandcancel">
-                  <button className="cancel">cancel</button>
-                  <button className="save">save</button>
+                <div id="saveandcancel" className="saveandcancel">
+                  <button  id="cancel" className="cancel">cancel</button>
+                  <button  id="save" className="save">save</button>
                 </div>
               </div>
             </div>

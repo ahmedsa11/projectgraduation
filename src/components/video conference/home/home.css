@@ -56,8 +56,8 @@ i{
     width: 100%;
     border-radius: 15px 0px 0px 0px;
     margin-top: 15px;
-   
-    background-color: #1f232c;
+   height: 100vh;
+    background-color: #181f27;
     margin-left: 37px;
 }
 .home .main-side .vi .vid-stream .prof{
@@ -145,6 +145,7 @@ i{
         border-radius: 15px;
         background-color: #1f232c;
         margin: 61px 15px 15px 15px !important;  
+        height: 100%;
       }
     .home .main-side .vi .vid-stream .dailymeeting {
         margin-bottom: 10px;

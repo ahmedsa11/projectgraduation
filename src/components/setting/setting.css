@@ -1,7 +1,7 @@
 .setting {
     background-color: rgba(22,27,33,255);
     overflow: hidden;
-    height: 100vh;
+    height: 100%;
 }
 .setting h2{
     color: #f8fafc;
@@ -84,6 +84,10 @@
     border-radius: 7px !important;
     -webkit-appearance: none;
     -moz-appearance: none;
+    margin-bottom: 6px;
+}
+.setting .data .hidepass{
+    display: none;
 }
 .setting .data .formdata .notification{
     display: flex;
@@ -155,6 +159,7 @@
  .setting .data .saveandcancel{
     position: relative;
     float: right;
+    display: none;
  }
  .setting .data .saveandcancel .save{
     width: 100px;

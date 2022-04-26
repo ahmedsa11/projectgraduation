@@ -29,7 +29,7 @@
 }
 .video-conference .main-side .navbar .logo{
     position: relative !important;
-    left: 21px !important;
+    left: 0px !important;
     text-align: center;
 }
 .video-conference .main-side .navbar .logo i{
@@ -45,6 +45,8 @@
     width: fit-content;
     color: white;
     font-weight: bold;
+    margin-right: auto;
+    margin-left: 13px;
 }
 .video-conference .main-side .navbar .title h4{
 font-weight: bold;    
