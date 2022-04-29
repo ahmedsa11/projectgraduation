@@ -1,8 +1,10 @@
 import react, { Component } from "react";
 import "./verification.css";
-import firebase from "../firebase";
 import { Redirect } from "react-router";
 import verify from '../../img/vecteezy_identity-biometric-verification_ 1.png'
+import authentication from "../firebase";
+import {RecaptchaVerifier,signInWithPhoneNumber  } from "firebase/auth";
+import Loader from "../loader/loader";
 // import firebase from "../firebase";
 class Verification extends Component {
   state = {
@@ -19,6 +21,8 @@ class Verification extends Component {
     pass: this.props.pass,
     gender: this.props.gender,
     very: "",
+    setUpRecaptcha:this.props.set,
+    loading:false
   };
 
   header = {
@@ -27,28 +31,34 @@ class Verification extends Component {
     "Content-Type": "application/json",
     // 'Content-Type': 'application/x-www-form-urlencoded',
   };
+  setUpRecaptcha = () => {
+    
+    window.recaptchaVerifier = new RecaptchaVerifier('recap', {
+      'size': 'invisible',
+      'callback': (response) => {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        // onSignInSubmit();
+      }
+    },authentication);
+  };
   sendagain=()=>{
+    this.setState({loading:true})
     this.setUpRecaptcha()
- 
-    const phoneNumber ='+'+ this.state.mobile
-  const appVerifier = window.recaptchaVerifier;
-  firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-      .then((confirmationResult) => {
-        this.setState({loading:false})
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
-        this.setState({
-          loginn:"true"
-        })
-        window.confirmationResult = confirmationResult;
-        console.log("sent");
-      
-      }).catch((error) => {
-        // Error; SMS not sent
-        // ...
-      alert("please try agin later");
-      });
-  }
+  const phoneNumber ='+'+ this.state.mobile
+const appVerifier = window.recaptchaVerifier;
+signInWithPhoneNumber(authentication,phoneNumber, appVerifier)
+    .then((confirmationResult) => {
+      this.setState({loading:false})
+      // SMS sent. Prompt user to type the code from the message, then sign the
+      // user in with confirmationResult.confirm(code).
+      window.confirmationResult = confirmationResult;
+      console.log("sent");
+    
+    }).catch((error) => {
+      this.setState({loading:false})
+    });
+  };
+
   handlesubotp = async (e) => {
     e.preventDefault();
     // const error = this.validsignup();
@@ -113,11 +123,13 @@ class Verification extends Component {
     }
     return (
       <react.Fragment>
+        {this.state.loading? <Loader/>:null}
+        <div id="recap"></div>
         <div className="verification">
       <div className="about-us">
         <div className="info-box">
           <h2>Enter verification code</h2>
-          <p> We have sent the Verification code to </p> <p className="mobile"> {this.state.mobile} +201066923650</p>
+          <p> We have sent the Verification code to </p> <p className="mobile">{this.state.mobile}</p>
          
           <form onSubmit={this.handlesubotp}>
             <div className="code">

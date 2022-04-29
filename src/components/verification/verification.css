@@ -42,6 +42,7 @@
     position: absolute;
 	margin-top: 30px;
 	color: #4b8cee;
+	cursor: pointer;
 }
 .verification {
 	margin: 100px;

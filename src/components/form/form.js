@@ -4,11 +4,14 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "./form.css";
 import Verification from "../verification/verification";
-import firebase from "../firebase";
-import "firebase/compat/auth"
-import "firebase/compat/firestore"
+// import firebase from "../firebase";
+// import "firebase/compat/auth"
+// import "firebase/compat/firestore"
+import authentication from "../firebase";
+import {RecaptchaVerifier,signInWithPhoneNumber  } from "firebase/auth";
 import logo from "../../img/log.png"
 import gender from "../../img/gender.png"
+import Loader from '../loader/loader'
 class Form extends Component {
   state = {
     username: "",
@@ -22,20 +25,14 @@ class Form extends Component {
     gender: "",
     loading:false
   };
-  // setUpRecaptcha = () => {
-  // window.recaptchaVerifier = new RecaptchaVerifier("sign-in-button", {
-  //   'callback': (response) => {
-  //     console.log("prepared phone auth process");
-  //   }
-  // }, auth);}
   setUpRecaptcha = () => {
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+    window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
       'size': 'invisible',
       'callback': (response) => {
         // reCAPTCHA solved, allow signInWithPhoneNumber.
-       
+        // onSignInSubmit();
       }
-    },firebase.auth);
+    },authentication);
   };
   repp = () => {
     const signUpButton = document.getElementById("signUp");
@@ -61,6 +58,7 @@ class Form extends Component {
   };
   handlesubsignup = async (e) => {
     e.preventDefault();
+    this.setState({loading:true})
     const error = this.validsignup();
     if (error) return;
     //back end
@@ -75,18 +73,20 @@ class Form extends Component {
   
     console.log(res);
     if (res.status === "success") {
+      this.setState({loading:false})
       const error = {};
       error.mobile = "this mobile already exist";
       this.setState({ error });
       
       return;
     }
+    
   this.setUpRecaptcha()
   const phoneNumber ='+'+ this.state.mobile
 const appVerifier = window.recaptchaVerifier;
-firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+signInWithPhoneNumber(authentication,phoneNumber, appVerifier)
     .then((confirmationResult) => {
-      // this.setState({loading:false})
+      this.setState({loading:false})
       // SMS sent. Prompt user to type the code from the message, then sign the
       // user in with confirmationResult.confirm(code).
       this.setState({
@@ -96,14 +96,12 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
       console.log("sent");
     
     }).catch((error) => {
-      // Error; SMS not sent
-      // ...
-    alert("please try agin later");
+      this.setState({loading:false})
     });
   };
   validsignup = () => {
     const error = {};
-    if (this.state.username.trim() === "") {
+    if (this.state.username.trim() === "") { 
       error.username = "username is require";
     } else if (this.state.username.length < 3) {
       error.username = "username must be bigger than 2";
@@ -129,10 +127,11 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
   /*log in*/
   handlesublogin = async (e) => {
     e.preventDefault();
+  
     const error = this.validlogin();
     if (error) return;
     //back end
-
+    this.setState({loading:true})
     const url = "https://backend-api-tabarani.herokuapp.com/api/users/login";
     const data = await fetch(url, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -150,14 +149,14 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
     const res = await data.json();
     // this.setState({loading:true})
     if (res.status === "error") {
-      // this.setState({loading:false})
+      this.setState({loading:false})
       const error = {};
       error.mobilelog = res.message.mobile;
       error.passlog = res.message.password;
       this.setState({ error });
     }
     if (res.status === "success") {
-      // this.setState({loading:false})
+      this.setState({loading:false})
       console.log(res);
       delete res.data._id;
       localStorage.setItem("user",JSON.stringify(res.data))
@@ -188,7 +187,7 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
             username={this.state.username}
             pass={this.state.pass}
             gender={this.state.gender}
-            co={this.onSubmitOtp}
+            set={this.setUpRecaptcha}
           />
         </react.Fragment>
       );
@@ -203,7 +202,8 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
    
     return (
       <react.Fragment>
-       
+        <div id="sign-in-button"></div>
+        {this.state.loading? <Loader/>:null}
         <div className="form" id="formm">
           <div className="form-container sign-up" id="s">
             <form onSubmit={this.handlesubsignup}>
@@ -353,7 +353,7 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
           </div>
         </div>
        
-        
+       
       </react.Fragment>
     );
   }
