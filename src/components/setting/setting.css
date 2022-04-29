@@ -56,13 +56,25 @@
     flex-direction: column;
 }
 .setting .data .proimg i{
-    position: absolute;
-    right: -7px;
-    bottom: 17px;
     color: white;
     padding: 10px;
     background-color: #7174f1;
     border-radius: 50%;
+    width: 35px !important;
+    height: 35px !important;
+}
+.setting .image-editor{
+    position: absolute;
+    top: 76px;
+    right: -4px;
+}
+.setting .image-editor #imginput{
+    width: 35px !important;
+    height: 35px !important;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 .setting .data .proimg img{
     border-radius: 50%;

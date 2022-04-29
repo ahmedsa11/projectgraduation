@@ -1,6 +1,5 @@
 import react from "react";
 import React from "react";
-import chat from "../../../img/download.png";
 import "./home.css";
 import Navbar from "../navbar/navbar";
 // import { v4 as uuid } from "uuid";
@@ -24,7 +23,7 @@ const Home = (props) => {
     return <Redirect to="/" />;
   }
 
-  // const user= JSON.parse(tempuser);
+  const user= JSON.parse(tempuser);
   return (
     <react.Fragment>
       <div className="home">
@@ -43,7 +42,7 @@ const Home = (props) => {
                 <div className="col-lg-8">
                   <div className="prof">
                     <div className="pic">
-                      <img src={chat} alt="a" />
+                      <img src={user.image} alt="a" />
                     </div>
                     <h3>Meeting history</h3>
                     <div className="history">

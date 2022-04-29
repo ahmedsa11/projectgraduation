@@ -1,6 +1,5 @@
 import react from "react";
 import React from "react";
-import chat from "../../../img/download.png";
 import "./header.css";
 import { v4 as uuid } from "uuid";
 import "../navbar/navbar.css";
@@ -38,7 +37,7 @@ const Header = (props) => {
             </div>
             <div className="grid-show">
              
-              <img src={chat} alt="a" /> <span>{user.name}</span>
+              <img src={user.image} alt="a" /> <span>{user.name}</span>
             
             
             </div>

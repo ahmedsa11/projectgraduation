@@ -22,7 +22,7 @@ class Verification extends Component {
     gender: this.props.gender,
     very: "",
     setUpRecaptcha:this.props.set,
-    loading:false
+    loading:false,
   };
 
   header = {
@@ -88,6 +88,7 @@ signInWithPhoneNumber(authentication,phoneNumber, appVerifier)
               mobile: this.state.mobile,
               password: this.state.pass,
               gender: this.state.gender,
+            
             }),
           }
         );
