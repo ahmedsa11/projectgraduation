@@ -34,7 +34,7 @@ a {
 .sign-up >a{
 	color: #333 !important;
 }
-#formm button {
+button {
 	border-radius: 10px !important;
 	border: 1px solid black;
 	background-color: #204959;
@@ -73,7 +73,7 @@ button:active {
 	flex-direction: column;
 	border-radius: 35px;
 }
-form img{
+ form img{
 	width: 72px;
 }
 .form-control{
@@ -84,7 +84,7 @@ form img{
 	box-shadow: none !important;
 }
 
- input , .form-control {
+input , .form-control {
 	background-color: #fff;
 	border: 1px solid #d1d1d1 !important;
     margin: 10px 0 !important;
@@ -294,6 +294,7 @@ input:focus{
 	background-size: 100%;
 	padding: 60px;
 	background-position: center;
+	background-repeat: no-repeat;
 	border-radius: 35px;
 }
 .go{
@@ -316,6 +317,7 @@ input:focus{
 	background-color: #421782;
 	background-image:url("../../img/signback.png");   
 	background-size: 100%;
+	background-repeat: no-repeat;
 	padding: 60px;
 	background-position: center;
 }

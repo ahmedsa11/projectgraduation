@@ -22,7 +22,12 @@ class Form extends Component {
     gender: "",
     loading:false
   };
-  
+  // setUpRecaptcha = () => {
+  // window.recaptchaVerifier = new RecaptchaVerifier("sign-in-button", {
+  //   'callback': (response) => {
+  //     console.log("prepared phone auth process");
+  //   }
+  // }, auth);}
   setUpRecaptcha = () => {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
       'size': 'invisible',
@@ -30,7 +35,7 @@ class Form extends Component {
         // reCAPTCHA solved, allow signInWithPhoneNumber.
        
       }
-    });
+    },firebase.auth);
   };
   repp = () => {
     const signUpButton = document.getElementById("signUp");
@@ -76,14 +81,12 @@ class Form extends Component {
       
       return;
     }
-    
   this.setUpRecaptcha()
- 
   const phoneNumber ='+'+ this.state.mobile
 const appVerifier = window.recaptchaVerifier;
 firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
     .then((confirmationResult) => {
-      this.setState({loading:false})
+      // this.setState({loading:false})
       // SMS sent. Prompt user to type the code from the message, then sign the
       // user in with confirmationResult.confirm(code).
       this.setState({
@@ -145,16 +148,16 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
       }), // body data type must match "Content-Type" header
     });
     const res = await data.json();
-    this.setState({loading:true})
+    // this.setState({loading:true})
     if (res.status === "error") {
-      this.setState({loading:false})
+      // this.setState({loading:false})
       const error = {};
       error.mobilelog = res.message.mobile;
       error.passlog = res.message.password;
       this.setState({ error });
     }
     if (res.status === "success") {
-      this.setState({loading:false})
+      // this.setState({loading:false})
       console.log(res);
       delete res.data._id;
       localStorage.setItem("user",JSON.stringify(res.data))

@@ -1,7 +1,8 @@
 import react, { Component } from "react";
 import "./verification.css";
-import ver from "../../img/22.png";
+import firebase from "../firebase";
 import { Redirect } from "react-router";
+import verify from '../../img/vecteezy_identity-biometric-verification_ 1.png'
 // import firebase from "../firebase";
 class Verification extends Component {
   state = {
@@ -26,6 +27,28 @@ class Verification extends Component {
     "Content-Type": "application/json",
     // 'Content-Type': 'application/x-www-form-urlencoded',
   };
+  sendagain=()=>{
+    this.setUpRecaptcha()
+ 
+    const phoneNumber ='+'+ this.state.mobile
+  const appVerifier = window.recaptchaVerifier;
+  firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+      .then((confirmationResult) => {
+        this.setState({loading:false})
+        // SMS sent. Prompt user to type the code from the message, then sign the
+        // user in with confirmationResult.confirm(code).
+        this.setState({
+          loginn:"true"
+        })
+        window.confirmationResult = confirmationResult;
+        console.log("sent");
+      
+      }).catch((error) => {
+        // Error; SMS not sent
+        // ...
+      alert("please try agin later");
+      });
+  }
   handlesubotp = async (e) => {
     e.preventDefault();
     // const error = this.validsignup();
@@ -90,14 +113,12 @@ class Verification extends Component {
     }
     return (
       <react.Fragment>
-        <div className="container v">
-          <img src={ver} alt="imag" />
-          <h2 className="text-center">Verification code</h2>
-          <p className="text-center">
-            we have sent the code Verification to your mobile number
-          </p>
-          <h3 className="text-center">{this.state.mobile}</h3>
-
+        <div className="verification">
+      <div className="about-us">
+        <div className="info-box">
+          <h2>Enter verification code</h2>
+          <p> We have sent the Verification code to </p> <p className="mobile"> {this.state.mobile} +201066923650</p>
+         
           <form onSubmit={this.handlesubotp}>
             <div className="code">
               <input
@@ -143,10 +164,81 @@ class Verification extends Component {
                 maxLength={1}
               />
             </div>
-
-            <button type="submit">Submit</button>
+            <span onClick={this.sendagain}>send the code again</span>
+            <button type="submit">Verify</button>
           </form>
         </div>
+        <div className="image-box">
+          <img src={verify} alt="verification"/>
+        </div>
+      </div>
+    </div>
+    {/* <div className="verification">
+      <div className="about-us">
+        <div className="row">
+          <div className="col-md-6">
+        <div className="info-box">
+          <h2>Enter verification code</h2>
+          <p> We have sent the Verification code to <br/> {this.state.mobile} </p>
+         
+          <form onSubmit={this.handlesubotp}>
+            <div className="code">
+              <input
+                required
+                type="text"
+                name="num1"
+                onChange={this.handlechangesignup}
+                maxLength={1}
+              />
+              <input
+                required
+                type="text"
+                name="num2"
+                onChange={this.handlechangesignup}
+                maxLength={1}
+              />
+              <input
+                required
+                type="text"
+                name="num3"
+                onChange={this.handlechangesignup}
+                maxLength={1}
+              />
+              <input
+                required
+                type="text"
+                name="num4"
+                onChange={this.handlechangesignup}
+                maxLength={1}
+              />
+              <input
+                required
+                type="text"
+                name="num5"
+                onChange={this.handlechangesignup}
+                maxLength={1}
+              />
+              <input
+                required
+                type="text"
+                name="num6"
+                onChange={this.handlechangesignup}
+                maxLength={1}
+              />
+            </div>
+            <span>send the code again</span>
+            <button type="submit">Verify</button>
+          </form>
+        </div>
+        </div>
+        <div className="col-md-6">
+        <div className="image-box">
+          <img src={verify} alt="verification"/>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div> */}
       </react.Fragment>
     );
   }

@@ -16,14 +16,14 @@
     text-align: center;
     justify-content: center;
 }
-.setting .proimg input[type="file"]{
+/* .setting .proimg input[type="file"]{
     width: 33px;
     height: 33px;
     position: absolute;
     background-color: chocolate;
     color: brown;
     padding: 0px;
-}
+} */
 .setting .proimg input[type="file"]::after{
     width: 33px;
     height: 33px;
@@ -116,6 +116,7 @@
 .setting .data .formdata .notification{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .setting .data .formdata .notification span{
    color: #5e6369;

@@ -194,12 +194,6 @@ i{
 .mainchat   .main-side ul{
     list-style: none;
 }
-.mainchat   .main-side .navbar .logo i{
-    font-size: 45px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
 
 .mainchat   .main-side .vi{
     display: flex;
@@ -212,7 +206,7 @@ i{
     border-radius: 15px;
     margin-top: 15px;
     background-color: #191f26;
-    margin-left: 37px;
+    margin-left: 39.5px;
 }
 .mainchat .chatarea .sendd {
     display: flex;

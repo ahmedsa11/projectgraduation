@@ -5,35 +5,7 @@ import Navbar from "../video conference/navbar/navbar";
 import proimg from "../../img/download.png";
 import "./setting.css";
 const Setting = (props) => {
-  // handlesub=async e=>{
-  //     e.preventDefault();
-  //     const error=this.valid();
-  // if(error)return;
-  //     //back end
-  //    //s const url="https://backend-api-tabarani.herokuapp.com/api/users";
-
-  // };
-  // valid = () =>{
-  //     const error={};
-  //     if(this.state.mobile.trim()==="")
-  //     error.username="mobile is require";
-  //     if(this.state.pass.trim()==="")
-  //     error.pass="password is require";
-  //     if(this.state.confirm!==this.state.pass)
-  //     error.confirm="must enter the same pass";
-  //     if(this.state.code.trim()==="")
-  //     error.pass="coder is require";
-  //     this.setState({error})
-  //     return Object.keys(error).length===0 ? null:error;
-  // };
-  // handlechange=(e)=>{
-  // let state={...this.state};
-  // state[e.currentTarget.name]=e.currentTarget.value;
-  // this.setState(state);
-  // };
-
   const editbutton=(e)=>{
-  
     const editname=document.getElementById("editname");
     const editphone=document.getElementById("editphone");
     const editgender=document.getElementById("editgender");
@@ -43,23 +15,28 @@ const Setting = (props) => {
     editname.onclick=()=>{
       document.getElementById("inputname").removeAttribute("disabled");
       document.getElementById("saveandcancel").style.display="block"
+      document.getElementById("inputname").style.border="1px solid white"
     }
     editphone.onclick=()=>{
       document.getElementById("inputphone").removeAttribute("disabled");
       document.getElementById("saveandcancel").style.display="block"
+      document.getElementById("inputname").style.border="1px solid white"
     }
     editgender.onclick=()=>{
       document.getElementById("inputgender").removeAttribute("disabled");
       document.getElementById("saveandcancel").style.display="block"
+      document.getElementById("inputname").style.border="1px solid white"
     }
     editpass.onclick=()=>{
       document.getElementById("inputpass").removeAttribute("disabled");
       document.getElementById("hidepass").style.display="block"
+      document.getElementById("inputname").style.border="1px solid white"
       document.getElementById("oldpass").textContent="Enter Old Password"
       document.getElementById("saveandcancel").style.display="block"
     }
     cancel.onclick=(e)=>{
-     
+      // eslint-disable-next-line
+      window.location.href=window.location.href
       document.getElementById("saveandcancel").style.display="none"
       document.getElementById("inputgender").value=user.gender
       document.getElementById("inputname").value=user.name;
@@ -73,7 +50,6 @@ const Setting = (props) => {
     
       }
     }
-
   const tempuser = localStorage.getItem("user");
   let user = JSON.parse(tempuser);
   const [formValue, setFormValue] = useState({
@@ -81,8 +57,9 @@ const Setting = (props) => {
     Phone:user.mobile,
     Gender:user.gender,
   })
-  // eslint-disable-next-line 
- const[picture,setpicture]=useState(false)
+ 
+ const[picture,setpicture]=useState('')
+ // eslint-disable-next-line
  const[src,setsrc]=useState(false)
 
   // console.log(tempuser)
@@ -96,16 +73,10 @@ const Setting = (props) => {
     });
   };
   const { Name ,Phone,Gender } = formValue;
-  // const handlePictureSelected =(e)=> {
-  //   let picture = e.target.files[0];
-  //   let src     = URL.createObjectURL(picture);
-  //   setpicture(picture);
-  //   setsrc(src);
-  // }
   const renderPreview=()=> {
-    if(src) {
+    if(picture) {
       return (
-        <img id="profile" src={src} alt="your profile pic"/>
+        <img id="profile" src={picture} alt="your profile pic"/>
       );
     } else {
       return (
@@ -113,34 +84,39 @@ const Setting = (props) => {
       );
     }
   }
+ 
   function importData() {
     let input = document.createElement('input');
-  
     input.type = 'file';
     input.onchange = (e) => {
-      // you can use this method to get file and perform respective operations
-      let picture = e.target.files[0];
-    let src = URL.createObjectURL(picture);
-    setpicture(picture);
-    setsrc(src);
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file)
+    reader.onloadend=()=>{
+      setpicture(reader.result)
+    }
+    // const mainimage= document.getElementById("profile");
+    // mainimage.src=reader.result
+    console.log(picture)
           };
     input.click();
     document.getElementById("saveandcancel").style.display="block"
     
   }
- const upload = async (e) => {
+  const url=`http://localhost:8000/api/users/image/${user.mobile}`
+ const handlesetting = async (e) => {
     e.preventDefault();
-  const formData = new FormData();
-  let image=document.getElementById("profile");
-  formData.append('image',image)
-  const url=`https://backend-api-tabarani.herokuapp.com/api/users/image/${user.mobile}`
+    // setpicture(`${picture}`)
+  // console.log(formData.picture)//is empty
+  console.log(`${picture}`);
   const res=await fetch(url,{
     method:'PATCH',
-    body:formData,
+    body:`${picture}`,
     headers:{
-      'Content-Type':'image/png',
-      API_KEY:
-      "382395e75d624fb1478303451bc7543314ffffac6372c2aa9beb22f687e6e886b77b3ee84aeeb1a8aabad9647686d0baaa4d9a7c65ff6ef1ebc71fcde7bac14b",
+      // 'Content-Type':'image/*',
+      
+          'API_KEY':
+      '382395e75d624fb1478303451bc7543314ffffac6372c2aa9beb22f687e6e886b77b3ee84aeeb1a8aabad9647686d0baaa4d9a7c65ff6ef1ebc71fcde7bac14b',
     },
   })
   if (res.status === "success") {
@@ -170,7 +146,7 @@ const Setting = (props) => {
             <div className="vid-stream">
               <h2>Settings</h2>
               <div className="data">
-              <form id="upload">
+              <form id="upload"onSubmit={handlesetting}>
                 <div className="proimg">
               <div className="imgprof">
                     {renderPreview()}
@@ -184,7 +160,7 @@ const Setting = (props) => {
                     UserName
                   </label>
                   <div className="inputcout">
-                    <i id="editname" className="fas fa-pen editbutton"onClick={editbutton}></i>
+                    <i id="editname" className="fas fa-pen editbutton"onClick={editbutton}  ></i>
                     <input
                     id="inputname"
                       className="inputsetting"
@@ -193,6 +169,7 @@ const Setting = (props) => {
                       disabled
                       name="Name"
                       onChange={handleChange}
+                      
                     />
                   </div>
 
@@ -200,7 +177,7 @@ const Setting = (props) => {
                     Phone Number
                   </label>
                   <div className="inputcout">
-                    <i id="editphone" className="fas fa-pen editbutton"onClick={editbutton}></i>
+                    <i id="editphone" className="fas fa-pen editbutton"onClick={editbutton} ></i>
                     <input
                     id="inputphone"
                       className="inputsetting"
@@ -209,14 +186,15 @@ const Setting = (props) => {
                       disabled
                       onChange={handleChange}
                       name="Phone"
+                      
                     />
                   </div>
                   <label htmlFor="username" className="form-label">
                     Gender
                   </label>
                   <div className="inputcout">
-                  <i id="editgender" className="fas fa-pen editbutton"onClick={editbutton}></i>
-                    <select disabled  value={Gender} id="inputgender"  onChange={handleChange} name="Gender">
+                  <i id="editgender" className="fas fa-pen editbutton"onClick={editbutton} ></i>
+                    <select disabled  value={Gender} id="inputgender"  onChange={handleChange} name="Gender" >
                       <option defaultValue hidden>
                         Gender
                       </option>
@@ -228,12 +206,13 @@ const Setting = (props) => {
                     Password
                   </label>
                   <div className="inputcout">
-                    <i id="editpass" className="fas fa-pen editbutton"onClick={editbutton}></i>
+                    <i id="editpass" className="fas fa-pen editbutton"onClick={editbutton} ></i>
                     <input
                     id="inputpass"
                       className="inputsetting"
                       type="password"
                       value={user.password}
+                    
                     />
                   </div>
                   <div id="hidepass" className="hidepass">
@@ -247,6 +226,7 @@ const Setting = (props) => {
                       className="inputsetting"
                       type="password"
                       value={user.password}
+                      
                     />
                   </div>
                   <label htmlFor="username" className="form-label">
@@ -259,6 +239,7 @@ const Setting = (props) => {
                       className="inputsetting"
                       type="password"
                       value={user.password}
+                      
                     />
                   </div>
                   </div>
@@ -271,8 +252,8 @@ const Setting = (props) => {
                   </div>
                 </div>
                 <div id="saveandcancel" className="saveandcancel">
-                  <button  id="cancel" className="cancel">cancel</button>
-                  <button onClick={upload}  id="save" className="save">save</button>
+                  <button type="button"  id="cancel" className="cancel">cancel</button>
+                  <button type="submit" id="save" className="save">save</button>
                 </div>
                 </form>
               </div>
