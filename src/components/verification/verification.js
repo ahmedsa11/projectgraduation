@@ -5,6 +5,7 @@ import verify from '../../img/vecteezy_identity-biometric-verification_ 1.png'
 import authentication from "../firebase";
 import {RecaptchaVerifier,signInWithPhoneNumber  } from "firebase/auth";
 import Loader from "../loader/loader";
+import { async } from "@firebase/util";
 // import firebase from "../firebase";
 class Verification extends Component {
   state = {
@@ -23,14 +24,15 @@ class Verification extends Component {
     very: "",
     setUpRecaptcha:this.props.set,
     loading:false,
+    direct:this.props.direct,
   };
-
   header = {
     API_KEY:
       "382395e75d624fb1478303451bc7543314ffffac6372c2aa9beb22f687e6e886b77b3ee84aeeb1a8aabad9647686d0baaa4d9a7c65ff6ef1ebc71fcde7bac14b",
     "Content-Type": "application/json",
     // 'Content-Type': 'application/x-www-form-urlencoded',
   };
+
   setUpRecaptcha = () => {
     
     window.recaptchaVerifier = new RecaptchaVerifier('recap', {
@@ -58,7 +60,51 @@ signInWithPhoneNumber(authentication,phoneNumber, appVerifier)
       this.setState({loading:false})
     });
   };
+   update= async()=>{
+   let tempuser = localStorage.getItem("user");
+    let user = JSON.parse(tempuser);
+    let data2 = await fetch(
+      `https://backend-api-tabarani.herokuapp.com/api/users/${user.mobile}`,
+      {
+        headers: this.header,
+        method: "PATCH",
+        body: JSON.stringify({
+          mobile: this.state.mobile,
+        }),
+      }
+    );
+    let res2 = await data2.json();
+    if (res2.status === "success") {
+      
+      localStorage.setItem("user", JSON.stringify(res2.data));
+      this.setState({
+        very: "updated",
+      });
+    }
+  }
 
+  signup= async()=>{
+    let data2 = await fetch(
+      `https://backend-api-tabarani.herokuapp.com/api/users/`,
+      {
+        headers: this.header,
+        method: "POST",
+        body: JSON.stringify({
+          name: this.state.username,
+          mobile: this.state.mobile,
+          password: this.state.pass,
+          gender: this.state.gender,
+        }),
+      }
+    );
+    let res2 = await data2.json();
+    if (res2.status === "success") {
+      localStorage.setItem("user", JSON.stringify(res2.data));
+      this.setState({
+        very: "verified",
+      });
+    }
+  }
   handlesubotp = async (e) => {
     e.preventDefault();
     // const error = this.validsignup();
@@ -75,30 +121,14 @@ signInWithPhoneNumber(authentication,phoneNumber, appVerifier)
       .confirm(code)
       .then(async (result) => {
         // User signed in successfully.
-        const user = result.user;
-        console.log(user);
+
         console.log("goood");
-        let data2 = await fetch(
-          `https://backend-api-tabarani.herokuapp.com/api/users/`,
-          {
-            headers: this.header,
-            method: "POST",
-            body: JSON.stringify({
-              name: this.state.username,
-              mobile: this.state.mobile,
-              password: this.state.pass,
-              gender: this.state.gender,
-            
-            }),
-          }
-        );
-        let res2 = await data2.json();
-        if (res2.status === "success") {
-          localStorage.setItem("user", JSON.stringify(res2.data));
-          this.setState({
-            very: "verified",
-          });
-        }
+        if(this.state.direct==="signup"){  
+          await this.signup()
+      }
+      else if(this.state.direct==="updated"){
+        await this.update()
+      }
         // ...
       })
       .catch((error) => {
@@ -106,6 +136,7 @@ signInWithPhoneNumber(authentication,phoneNumber, appVerifier)
         // ...
         alert("bad verification code");
       });
+
   };
 
   handlechangesignup = (e) => {
@@ -116,6 +147,13 @@ signInWithPhoneNumber(authentication,phoneNumber, appVerifier)
 
   render() {
     if (this.state.very === "verified") {
+      return (
+        <react.Fragment>
+          <Redirect to="/home" />
+        </react.Fragment>
+      );
+    }
+    if (this.state.very === "updated") {
       return (
         <react.Fragment>
           <Redirect to="/home" />

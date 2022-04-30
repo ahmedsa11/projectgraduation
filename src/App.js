@@ -10,7 +10,6 @@ import Setting from "./components/setting/setting";
 import Mainchat from "./components/mainchat/mainchat";
 import Calendarr from "./components/calendar/calendar";
 import Notifications from "./components/neffication/notifications";
-import Verification from "./components/verification/verification";
 import ScreeenRecord from "./components/video conference/videochat/screenrecord";
 // import Navbar from "./components/video conference/navbar/navbar";
 // import Signlang from "./components/video conference/videochat/signlanguage";
@@ -26,7 +25,6 @@ class App extends Component {
           <Route path="/mainchat" component={Mainchat} />
           <Route path="/calendar" component={Calendarr} />
           <Route path="/notifications" component={Notifications} />
-          <Route path="/ver" component={Verification} />
           <Route path="/screen" component={ScreeenRecord} />
           {/* <Route path="/nav" component={Navbar} />
           <Route path="/jis" component={Jis} />

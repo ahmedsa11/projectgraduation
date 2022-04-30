@@ -1,8 +1,12 @@
 import react, { useState } from "react";
 import { Redirect } from "react-router";
+import Verification from "../verification/verification";
 import Header from "../video conference/home/header";
 import Navbar from "../video conference/navbar/navbar";
+import authentication from "../firebase";
+import {RecaptchaVerifier,signInWithPhoneNumber  } from "firebase/auth";
 import "./setting.css";
+import Loader from "../loader/loader";
 const Setting = (props) => {
   // console.log(tempuser)
     let tempuser = localStorage.getItem("user");
@@ -13,6 +17,18 @@ const Setting = (props) => {
     Gender: user.gender,
   });
   const [picture, setpicture] = useState();
+  const [verify, setverify] = useState(false);
+  const [load, setload] = useState(false);
+  const [error, seterror] = useState({});
+  const setUpRecaptcha = () => {
+    window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
+      'size': 'invisible',
+      'callback': (response) => {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        // onSignInSubmit();
+      }
+    },authentication);
+  };
   const editbutton = (e) => {
  
     const editname = document.getElementById("editname");
@@ -76,9 +92,71 @@ const Setting = (props) => {
     });
   };
   const { Name, Phone, Gender } = formValue;
-  // const urldata = `https://backend-api-tabarani.herokuapp.com/api/users/${user.mobile}`;
+  const urldata = `https://backend-api-tabarani.herokuapp.com/api/users/${user.mobile}`;
   const handlesetting = async (e) => {
     e.preventDefault();
+    setload(true)
+    let data2 = await fetch(urldata,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          name: Name,
+          gender:Gender,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        API_KEY:
+        '382395e75d624fb1478303451bc7543314ffffac6372c2aa9beb22f687e6e886b77b3ee84aeeb1a8aabad9647686d0baaa4d9a7c65ff6ef1ebc71fcde7bac14b',
+      }
+    }
+    );
+    let res2 = await data2.json();
+    if (res2.status === "success") {
+      setload(false)
+      localStorage.setItem("user", JSON.stringify(res2.data));
+      console.log(res2)
+    }
+    else{
+      console.log("error")
+    }
+  
+    let data = await fetch(
+      `https://backend-api-tabarani.herokuapp.com/api/users/${Phone}`,
+      {
+        method: "GET",
+        headers: {
+        "Content-Type":"application/json",
+        API_KEY:
+        '382395e75d624fb1478303451bc7543314ffffac6372c2aa9beb22f687e6e886b77b3ee84aeeb1a8aabad9647686d0baaa4d9a7c65ff6ef1ebc71fcde7bac14b',
+      }
+    }
+    );
+    let res = await data.json();
+    console.log(res);
+    if (res.status === "success") {
+      setload(false)
+      const error = {};
+      error.mobile = "this mobile already exist";
+      seterror(error)
+      console.log(error.mobile)
+      return;
+    }
+  setUpRecaptcha()
+  const phoneNumber ='+'+ Phone
+const appVerifier = window.recaptchaVerifier;
+signInWithPhoneNumber(authentication,phoneNumber, appVerifier)
+    .then((confirmationResult) => {
+     setload(false)
+      // SMS sent. Prompt user to type the code from the message, then sign the
+      // user in with confirmationResult.confirm(code).
+   setverify(true)
+      window.confirmationResult = confirmationResult;
+      console.log("sent");
+    
+    }).catch((error) => {
+      setload(false)
+    });
+
   };
   const fileUpload = async (e) => {
     const file = e.target.files[0];
@@ -119,9 +197,13 @@ const Setting = (props) => {
   if (tempuser === null) {
     return <Redirect to="/" />;
   }
-
+if(verify){
+  return <Verification  phone={Phone} direct="updated" />
+}
   return (
     <react.Fragment>
+      {load? <Loader/>:null}
+      <div id="sign-in-button"></div>
       <div className="setting">
         <div className="main-side">
           <Header r={props} />
@@ -184,6 +266,9 @@ const Setting = (props) => {
                         name="Phone"
                       />
                     </div>
+                    {/* {error.name && (
+                <span className="text-danger">{this.state.error.username}</span>
+              )} */}
                     <label htmlFor="username" className="form-label">
                       Gender
                     </label>
@@ -221,6 +306,7 @@ const Setting = (props) => {
                         onClick={editbutton}
                       ></i>
                       <input
+                      disabled
                         id="inputpass"
                         className="inputsetting"
                         type="password"

@@ -188,6 +188,7 @@ signInWithPhoneNumber(authentication,phoneNumber, appVerifier)
             pass={this.state.pass}
             gender={this.state.gender}
             set={this.setUpRecaptcha}
+            direct="signup"
           />
         </react.Fragment>
       );
