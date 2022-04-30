@@ -1,7 +1,5 @@
 import react from "react";
 import "./chat.css";
-// import firebase from "../firebase";
-import chat from "../../../img/download.png";
 import React, { useEffect, useState, useRef } from "react";
 import socket from "../videochat/socket";
 import { Redirect } from "react-router";
@@ -23,7 +21,6 @@ const Chat = ({ roomId }) => {
 
   const tempuser = localStorage.getItem("user");
 
-  // console.log(tempuser);
   if (tempuser === null) {
     return <Redirect to="/" />;
   }
@@ -31,6 +28,7 @@ const Chat = ({ roomId }) => {
   const user = JSON.parse(tempuser);
   // console.log(user);
   const currentUser = user.name;
+  const imageuser=user.image;
   // Scroll to Bottom of Message List
 
   const sendMessage = (e) => {
@@ -38,7 +36,7 @@ const Chat = ({ roomId }) => {
     const msg = text.value;
     // localStorage.setItem("text",text.value);
     if (msg) {
-      socket.emit("BE-send-message", { roomId, msg, sender: currentUser });
+      socket.emit("BE-send-message", { roomId, msg, sender: currentUser});
       inputRef.current.value = "";
     }
 
@@ -55,7 +53,7 @@ const Chat = ({ roomId }) => {
               if (sender !== currentUser) {
                 return (
                   <div className="sender" key={idx}>
-                    <img src={chat} alt="a" />
+                    <img src={imageuser} alt="a" />
 
                     <div className="text-box">
                       <strong>{sender} : </strong>

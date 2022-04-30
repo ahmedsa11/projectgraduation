@@ -1,15 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-// import Caption from './caption';
-// Scroll to Bottom of Message List
-// const SpeechRecognition =
-// window.speechRecognition || window.webkitSpeechRecognition;
-// const SpeechGrammarList =
-// window.speechGrammarList || window.webkitSpeechGrammarList;
-
-// const grammar = '#JSGF V1.0';
-// const speechRecognition = new SpeechRecognition();
-// const speechGrammarList = new SpeechGrammarList();
+import phonealt from '../../../img/index 1.png'
+import tool from '../../../img/MicrosoftTeams-image8) 1.png'
 const BottomBar = ({
   clickChat,
   clickCameraDevice,
@@ -68,7 +60,7 @@ const BottomBar = ({
         <div className="tools">
           <div className="dropdown">
             <button className="dropbtn">
-              <i className="fas fa-border-all"> Tools</i>
+              <img src={tool} alt="tool"/>Tools
             </button>
             <div className="dropdown-content">
               <ul>
@@ -109,8 +101,8 @@ const BottomBar = ({
               </button>
             </li>
             <li>
-              <button onClick={goToBack}>
-                <i className="fas fa-phone-alt"></i>
+              <button onClick={goToBack}id="phonealt" >
+                <img src={phonealt}alt="phone"/>
               </button>
             </li>
             <li>

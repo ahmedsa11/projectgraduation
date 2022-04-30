@@ -7,10 +7,10 @@ import signpic from '../../../img/si.jpeg';
 import Peer from 'simple-peer';
 import socket from './socket';
 import './room.css';
-import chat from '../../../img/download.png';
 import Navbar from '../navbar/navbar';
 import Chat from '../chat/chat';
-import logo from '../../../img/log.png';
+import logo from '../../../img/MicrosoftTeams-image4) 1.png';
+import groupicon from '../../../img/group-chatt 1.png'
 import BottomBar from './BottomBar';
 import VideoCard from './vid';
 import { Redirect } from 'react-router';
@@ -57,7 +57,7 @@ const openchat = () => {
   icon.onclick = () => {
     document.querySelector('.chat-side').classList.toggle('open');
     document.querySelector('#main').classList.toggle('openmain');
-    document.querySelector('.fa-comment-dots').classList.toggle('active');
+    // document.querySelector('.fa-comment-dots').classList.toggle('active');
   };
   iconphone.onclick = () => {
     document.querySelector('.chat-side').classList.toggle('open');
@@ -575,7 +575,6 @@ const [isFinished,setisfinished]=useState(true)
       <div className='video-conference'>
         <div className='main-side' id='main'>
           <div className='navbar'>
-            <div className='container'>
               <div className='logo'>
                 <img src={logo} alt='logo' />
               </div>
@@ -585,29 +584,27 @@ const [isFinished,setisfinished]=useState(true)
               <div className='grid-show'>
                 <ul>
                   <li id='grid6' onClick={grid}>
-                    <i className='fas fa-th g'></i>
-                  </li>
-                  <li id='grid1' onClick={grid}>
-                    <i className='far fa-window-maximize g'></i>
+                   <i className='fas fa-th'></i>
                   </li>
                   <li id='grid4' onClick={grid}>
-                    <i className='fas fa-th-large g'></i>
+                    <i className='fas fa-th-large'></i>
                   </li>
                   <li>
                     <i className='fas fa-comment-dots' onClick={openchat}></i>
+                    {/* <img id="chhh" src={chatt} alt="chat"onClick={openchat}/> */}
                   </li>
                   <li>
-                    <img src={chat} alt='a' />
+                    <img id='imgp' src={user.image} alt='a' />
                   </li>
                 </ul>
               </div>
-            </div>
+       
           </div>
           <div className='vi'>
             <Navbar />
             <div className='vid-stream'>
               <div className='opts'>
-                <i className='fas fa-user-friends'></i>
+              <img src={groupicon} alt="group"/>
                 <select className='nump'>
                   <option>{peers.length + 1}</option>
                 </select>

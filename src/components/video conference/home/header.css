@@ -132,6 +132,10 @@ font-size: 16px;
     margin-bottom: 10%;
 }
 @media only screen and (max-width: 800px) {
+    .head  .navbar .title .ser i{
+        bottom: 27px;
+    
+        }
     .head{
   
         height: 100% !important;

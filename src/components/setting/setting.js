@@ -2,7 +2,6 @@ import react, { useState } from "react";
 import { Redirect } from "react-router";
 import Header from "../video conference/home/header";
 import Navbar from "../video conference/navbar/navbar";
-import proimg from "../../img/download.png";
 import "./setting.css";
 const Setting = (props) => {
   // console.log(tempuser)
@@ -77,10 +76,9 @@ const Setting = (props) => {
     });
   };
   const { Name, Phone, Gender } = formValue;
-
+  // const urldata = `https://backend-api-tabarani.herokuapp.com/api/users/${user.mobile}`;
   const handlesetting = async (e) => {
     e.preventDefault();
- 
   };
   const fileUpload = async (e) => {
     const file = e.target.files[0];

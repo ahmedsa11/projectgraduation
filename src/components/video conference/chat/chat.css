@@ -1,7 +1,7 @@
 
 .video-conference .chat-side{
     width:30%;
-    background:rgba(31,40,47,255);
+    background-color:#1f282d;
     color: #fff;
     border: 1px solid rgba(45,52,58,255);
     position: relative;
@@ -65,9 +65,9 @@
   margin-bottom: 13px;
   position: relative;
   padding: 5px;
-  background-color: #4fa56d;
+  background-color: #e6e5eb;
   text-align: left;
-  border: 1px solid #4fa56d;
+  border: 1px solid #e6e5eb;
   border-radius: 10px;
 word-wrap: break-word;
 }
@@ -89,7 +89,7 @@ word-wrap: break-word;
     position: absolute;
     width: 0;
     height: 0;
-    border-bottom: 12px solid #4fa56d;
+    border-bottom: 12px solid #e6e5eb;
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
     bottom: -1px;
@@ -107,9 +107,9 @@ word-wrap: break-word;
     height: fit-content !important;
     position: relative;
     padding: 5px;
-    background-color: rgba(0,204,70,255);
+    background-color: #00cc46;
     text-align: left;
-    border: 1px solid rgba(0,204,70,255);
+    border: 1px solid #00cc46;
     border-radius: 10px;
     margin-left: auto;
     margin-right: 12px;
@@ -133,7 +133,7 @@ word-wrap: break-word;
     position: absolute;
     width: 0;
     height: 0;
-    border-bottom: 12px solid rgba(0,204,70,255);
+    border-bottom: 12px solid #00cc46;
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
     bottom: -1px;
@@ -195,10 +195,11 @@ right: 5px;
     height: 120px;
     color: #fff;
     border-radius: 20px;
-    background:rgba(31,40,47,255);
-    border: 1px solid rgba(70,69,71,255)
-    ;
+    background:#1f282d;
+    border: 2px solid #40474a;
     padding: 10px;
+    resize: none;
+    box-sizing: border-box;
 }
 .textin textarea:focus{outline: #333;}
 .textin textarea::placeholder{
@@ -210,14 +211,14 @@ right: 5px;
     bottom: 0;
     left: 30px;
     margin: 5px;
-    font-size: 20px;
+    font-size: 22px;
 }
 .textin .feat i.fa-microphone{
     position: absolute;
     bottom: 0;
     left: 65px;
     margin: 5px;
-    font-size: 20px;
+    font-size: 21px;
 }
 .textin .send i{
     width: 15%;
@@ -266,9 +267,6 @@ right: 5px;
         position: relative !important;
         right:0%;
     }
-    .video-conference .main-side .vi .vid-stream .opts{
-        display: none;
-    }
     .video-conference .chat-side.open{
        width: 100%;
        display: block;
@@ -283,10 +281,6 @@ right: 5px;
         display: block !important;
         font-size: 28px;
          margin: 5px 10px;
-    }
-    .video-conference .main-side .navbar .logo{
-        width:10% !important;
-        font-size: 15px !important;
     }
     .arrowback{
         display: none;
