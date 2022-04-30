@@ -6,7 +6,7 @@ import proimg from "../../img/download.png";
 import "./setting.css";
 const Setting = (props) => {
   // console.log(tempuser)
-    const tempuser = localStorage.getItem("user");
+    let tempuser = localStorage.getItem("user");
   let user = JSON.parse(tempuser);
   const [formValue, setFormValue] = useState({
     Name: user.name,
@@ -66,10 +66,6 @@ const Setting = (props) => {
     return <Redirect to="/" />;
   }
 
-
-
-
-
   // console.log(tempuser)
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -81,48 +77,47 @@ const Setting = (props) => {
     });
   };
   const { Name, Phone, Gender } = formValue;
-  const renderPreview = () => {
-    if (picture) {
-      return <img id="profile" src={picture} alt="your profile pic" />;
-    } else {
-      return <img src={proimg} alt="default profile pic" />;
-    }
-  };
-  const url = `https://backend-api-tabarani.herokuapp.com/api/users/${user.mobile}`;
+
   const handlesetting = async (e) => {
     e.preventDefault();
-    let data= await fetch(url, {
-      method: "PATCH",
-      body:JSON.stringify({
-        image:`${picture}`,
-      }),
+ 
+  };
+  const fileUpload = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    console.log(file)
+   
+    formData.append('image', file, file.name);
+    const url = `https://backend-api-tabarani.herokuapp.com/api/users/image/${user.mobile}`;
+    // send image as a file
+    const data = await fetch(url, {
+      method: 'PATCH',
+      body: formData,
       headers: {
-        'Content-Type':'application/json',
         API_KEY:
-          "382395e75d624fb1478303451bc7543314ffffac6372c2aa9beb22f687e6e886b77b3ee84aeeb1a8aabad9647686d0baaa4d9a7c65ff6ef1ebc71fcde7bac14b",
+          '382395e75d624fb1478303451bc7543314ffffac6372c2aa9beb22f687e6e886b77b3ee84aeeb1a8aabad9647686d0baaa4d9a7c65ff6ef1ebc71fcde7bac14b',
       },
     });
-    let res =await data.json()
+   let res = await data.json();
     if (res.status === "success") {
-      console.log(res);
+      console.log(res); 
       delete res.data._id;
       localStorage.setItem("user", JSON.stringify(res.data));
+      user = res.data
+      setpicture(user.image)
       document.getElementById("saveandcancel").style.display = "none";
     } else {
       console.log("errr");
     }
+    console.log(data);
   };
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setpicture(reader.result);
-      document.getElementById("saveandcancel").style.display = "block"
-    };
-    
+  const renderPreview = () => {
+    if (picture) {
+      return <img id="profile" src={user.image} alt="your profile pic" />;
+    } else {
+      return <img src={user.image} alt="default profile pic" />;
+    }
   };
-
   if (tempuser === null) {
     return <Redirect to="/" />;
   }
@@ -146,7 +141,7 @@ const Setting = (props) => {
                         type="file"
                         accept="image/*"
                         id="imginput"
-                        onChange={handleImageChange}
+                        onChange={fileUpload}
                       />
                     </div>
                   </div>
