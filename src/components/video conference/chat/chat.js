@@ -82,7 +82,7 @@ const Chat = ({ roomId }) => {
 
         <div className="typing">
           <p>
-            <span>david </span>is typing....
+            {/* <span>david </span>is typing.... */}
           </p>
           <div className="textin">
             <div className="feat">
