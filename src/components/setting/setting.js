@@ -130,9 +130,9 @@ const Setting = (props) => {
     e.preventDefault();
     const error = validation();
     if (error) return;
-    // setload(true)
+    setload(true)
     if(!document.getElementById("inputname").disabled){
-    let data2 = await fetch(urldata,
+    let data = await fetch(urldata,
       {
         method: "PATCH",
         body: JSON.stringify({
@@ -145,18 +145,20 @@ const Setting = (props) => {
       }
     }
     );
-    let res2 = await data2.json();
-    if (res2.status === "success") {
+    let res = await data.json();
+    if (res.status === "success") {
+      document.getElementById("saveandcancel").style.display = "none";
       setload(false)
-      localStorage.setItem("user", JSON.stringify(res2.data));
-      console.log(res2)
+      localStorage.setItem("user", JSON.stringify(res.data));
+      console.log(res)
     }
     else{
+      setload(false)
       console.log("error")
     }
   }
   if(!document.getElementById("inputgender").disabled){
-    let data2 = await fetch(urldata,
+    let data = await fetch(urldata,
       {
         method: "PATCH",
         body: JSON.stringify({
@@ -169,13 +171,15 @@ const Setting = (props) => {
       }
     }
     );
-    let res2 = await data2.json();
-    if (res2.status === "success") {
+    let res = await data.json();
+    if (res.status === "success") {
+      document.getElementById("saveandcancel").style.display = "none";
       setload(false)
-      localStorage.setItem("user", JSON.stringify(res2.data));
-      console.log(res2)
+      localStorage.setItem("user", JSON.stringify(res.data));
+      console.log(res)
     }
     else{
+      setload(false)
       console.log("error")
     }
   }
@@ -194,6 +198,7 @@ const Setting = (props) => {
     let res = await data.json();
     console.log(res);
     if (res.status === "success") {
+      document.getElementById("saveandcancel").style.display = "none";
       setload(false)
       const error = {};
       error.mobile = "this mobile already exist";
@@ -219,7 +224,7 @@ signInWithPhoneNumber(authentication,phoneNumber, appVerifier)
 }
 
   if(!document.getElementById("inputpass").disabled){
-    const data3 = await fetch(`https://backend-api-tabarani.herokuapp.com/api/users/login`, {
+    const data = await fetch(`https://backend-api-tabarani.herokuapp.com/api/users/login`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       headers: {
         API_KEY:
@@ -231,16 +236,18 @@ signInWithPhoneNumber(authentication,phoneNumber, appVerifier)
         mobile:Phone
       }), 
     });
-    const res3 = await data3.json();
-    if (res3.status === "error") {
+    const res = await data.json();
+    if (res.status === "error") {
+      setload(false)
       const error = {};
       error.oldPassword = "the old password is not correctly";
      seterror(error)
      console.log("error old pass")
     }
-    if (res3.status === "success") {
+    if (res.status === "success") {
+
       console.log("sucsessold pass")
-      let data2 = await fetch(urldata,
+      let data = await fetch(urldata,
         {
           method: "PATCH",
           body: JSON.stringify({
@@ -253,8 +260,10 @@ signInWithPhoneNumber(authentication,phoneNumber, appVerifier)
         }
       }
       );
-      let res2 = await data2.json();
-      if (res2.status === "success") {
+      let res= await data.json();
+      if (res.status === "success") {
+        
+        document.getElementById("saveandcancel").style.display = "none";
         setload(false)
         console.log("good")
       }
