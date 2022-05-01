@@ -15,6 +15,9 @@ const Setting = (props) => {
     Name: user.name,
     Phone: user.mobile,
     Gender: user.gender,
+    oldPassword:'',
+    newPassword:'',
+    confirmNewPassword:''
   });
   const [picture, setpicture] = useState();
   const [verify, setverify] = useState(false);
@@ -28,6 +31,32 @@ const Setting = (props) => {
         // onSignInSubmit();
       }
     },authentication);
+  };
+  const validation = () => {
+    const error = {};
+    if (Name.trim() === "") { 
+      error.Name = "username is require";
+    } else if (Name.length < 3) {
+      error.Name = "username must be bigger than 2";
+    }
+    if (oldPassword.trim() === "") {
+      error.oldPassword = "password is require";
+    } 
+    if (newPassword.trim() === "") {
+      error.newPassword = "password is require";
+    } 
+    if (confirmNewPassword.trim() === "") {
+      error.confirmNewPassword = "password is require";
+    } 
+    else if (newPassword.length < 8) {
+      error.newPassword= "password must be bigger than 8";
+    }
+    if (confirmNewPassword !== newPassword)
+      error.confirmNewPassword = "must enter the same pass";
+    if (Phone.trim() === "") error.Phone = "mobile is require";
+    if (Gender === "") error.Gender = "gender is require";
+    seterror(error)
+    return Object.keys(error).length === 0 ? null : error;
   };
   const editbutton = (e) => {
  
@@ -91,10 +120,12 @@ const Setting = (props) => {
       };
     });
   };
-  const { Name, Phone, Gender } = formValue;
+  const { Name, Phone, Gender,oldPassword,newPassword,confirmNewPassword } = formValue;
   const urldata = `https://backend-api-tabarani.herokuapp.com/api/users/${user.mobile}`;
   const handlesetting = async (e) => {
     e.preventDefault();
+    const error = validation();
+    if (error) return;
     setload(true)
     let data2 = await fetch(urldata,
       {
@@ -246,7 +277,9 @@ if(verify){
                         onChange={handleChange}
                       />
                     </div>
-
+                    {error.Name && (
+                <span className="text-danger">{error.Name}</span>
+              )}
                     <label htmlFor="username" className="form-label">
                       Phone Number
                     </label>
@@ -266,9 +299,9 @@ if(verify){
                         name="Phone"
                       />
                     </div>
-                    {/* {error.name && (
-                <span className="text-danger">{this.state.error.username}</span>
-              )} */}
+                    {error.Phone && (
+                <span className="text-danger">{error.Phone}</span>
+              )}
                     <label htmlFor="username" className="form-label">
                       Gender
                     </label>
@@ -292,6 +325,9 @@ if(verify){
                         <option>Female</option>
                       </select>
                     </div>
+                    {error.Gender && (
+                <span className="text-danger">{error.Gender}</span>
+              )}
                     <label
                       id="oldpass"
                       htmlFor="username"
@@ -310,9 +346,13 @@ if(verify){
                         id="inputpass"
                         className="inputsetting"
                         type="password"
-                        value={user.password}
+                        onChange={handleChange}
+                        name="oldPassword"
                       />
                     </div>
+                    {error.oldPassword && (
+                <span className="text-danger">{error.oldPassword}</span>
+              )}
                     <div id="hidepass" className="hidepass">
                       <label htmlFor="username" className="form-label">
                         Enter New Password
@@ -321,9 +361,13 @@ if(verify){
                         <input
                           className="inputsetting"
                           type="password"
-                          value={user.password}
+                          onChange={handleChange}
+                          name="newPassword"
                         />
                       </div>
+                      {error.newPassword && (
+                <span className="text-danger">{error.newPassword}</span>
+              )}
                       <label htmlFor="username" className="form-label">
                         Confirm New Password
                       </label>
@@ -331,9 +375,13 @@ if(verify){
                         <input
                           className="inputsetting"
                           type="password"
-                          value={user.password}
+                          onChange={handleChange}
+                            name="confirmNewPassword"
                         />
                       </div>
+                      {error.confirmNewPassword && (
+                <span className="text-danger">{error.confirmNewPassword}</span>
+              )}
                     </div>
                     <div className="notification">
                       <span>Notification</span>
