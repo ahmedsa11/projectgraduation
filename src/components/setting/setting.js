@@ -39,20 +39,24 @@ const Setting = (props) => {
     } else if (Name.length < 3) {
       error.Name = "username must be bigger than 2";
     }
+    if(!document.getElementById("inputpass").disabled){
     if (oldPassword.trim() === "") {
       error.oldPassword = "password is require";
     } 
+ 
     if (newPassword.trim() === "") {
       error.newPassword = "password is require";
     } 
     if (confirmNewPassword.trim() === "") {
       error.confirmNewPassword = "password is require";
     } 
+ 
     else if (newPassword.length < 8) {
       error.newPassword= "password must be bigger than 8";
     }
     if (confirmNewPassword !== newPassword)
       error.confirmNewPassword = "must enter the same pass";
+    }
     if (Phone.trim() === "") error.Phone = "mobile is require";
     if (Gender === "") error.Gender = "gender is require";
     seterror(error)
@@ -126,12 +130,36 @@ const Setting = (props) => {
     e.preventDefault();
     const error = validation();
     if (error) return;
-    setload(true)
+    // setload(true)
+    if(!document.getElementById("inputname").disabled){
     let data2 = await fetch(urldata,
       {
         method: "PATCH",
         body: JSON.stringify({
           name: Name,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        API_KEY:
+        '382395e75d624fb1478303451bc7543314ffffac6372c2aa9beb22f687e6e886b77b3ee84aeeb1a8aabad9647686d0baaa4d9a7c65ff6ef1ebc71fcde7bac14b',
+      }
+    }
+    );
+    let res2 = await data2.json();
+    if (res2.status === "success") {
+      setload(false)
+      localStorage.setItem("user", JSON.stringify(res2.data));
+      console.log(res2)
+    }
+    else{
+      console.log("error")
+    }
+  }
+  if(!document.getElementById("inputgender").disabled){
+    let data2 = await fetch(urldata,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
           gender:Gender,
         }),
         headers: {
@@ -150,7 +178,8 @@ const Setting = (props) => {
     else{
       console.log("error")
     }
-  
+  }
+  if(!document.getElementById("inputphone").disabled){
     let data = await fetch(
       `https://backend-api-tabarani.herokuapp.com/api/users/${Phone}`,
       {
@@ -187,7 +216,53 @@ signInWithPhoneNumber(authentication,phoneNumber, appVerifier)
     }).catch((error) => {
       setload(false)
     });
+}
 
+  if(!document.getElementById("inputpass").disabled){
+    const data3 = await fetch(`https://backend-api-tabarani.herokuapp.com/api/users/login`, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        API_KEY:
+          "382395e75d624fb1478303451bc7543314ffffac6372c2aa9beb22f687e6e886b77b3ee84aeeb1a8aabad9647686d0baaa4d9a7c65ff6ef1ebc71fcde7bac14b",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password:oldPassword,
+        mobile:Phone
+      }), 
+    });
+    const res3 = await data3.json();
+    if (res3.status === "error") {
+      const error = {};
+      error.oldPassword = "the old password is not correctly";
+     seterror(error)
+     console.log("error old pass")
+    }
+    if (res3.status === "success") {
+      console.log("sucsessold pass")
+      let data2 = await fetch(urldata,
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            password:newPassword
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          API_KEY:
+          '382395e75d624fb1478303451bc7543314ffffac6372c2aa9beb22f687e6e886b77b3ee84aeeb1a8aabad9647686d0baaa4d9a7c65ff6ef1ebc71fcde7bac14b',
+        }
+      }
+      );
+      let res2 = await data2.json();
+      if (res2.status === "success") {
+        setload(false)
+        console.log("good")
+      }
+      else{
+        console.log("error")
+      }
+    }  
+  }
   };
   const fileUpload = async (e) => {
     const file = e.target.files[0];

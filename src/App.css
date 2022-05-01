@@ -8,3 +8,6 @@
     box-sizing: border-box;
     font-size: small;
 }
+.sign-in-button{
+  opacity: 0;
+}

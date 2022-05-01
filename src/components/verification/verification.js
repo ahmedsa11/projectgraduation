@@ -5,7 +5,6 @@ import verify from '../../img/vecteezy_identity-biometric-verification_ 1.png'
 import authentication from "../firebase";
 import {RecaptchaVerifier,signInWithPhoneNumber  } from "firebase/auth";
 import Loader from "../loader/loader";
-import { async } from "@firebase/util";
 // import firebase from "../firebase";
 class Verification extends Component {
   state = {
