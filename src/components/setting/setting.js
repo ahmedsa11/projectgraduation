@@ -1,5 +1,5 @@
 import react, { useState } from "react";
-import { Redirect } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import Verification from "../verification/verification";
 import Header from "../video conference/home/header";
 import Navbar from "../video conference/navbar/navbar";
@@ -19,6 +19,7 @@ const Setting = (props) => {
     newPassword:'',
     confirmNewPassword:''
   });
+  const history=useHistory()
   const [picture, setpicture] = useState();
   const [verify, setverify] = useState(false);
   const [load, setload] = useState(false);
@@ -32,6 +33,10 @@ const Setting = (props) => {
       }
     },authentication);
   };
+  const logout=()=>{
+    window.localStorage.removeItem('user');
+    history.push("/")
+  }
   const validation = () => {
     const error = {};
     if (Name.trim() === "") { 
@@ -484,7 +489,9 @@ if(verify){
                     </button>
                   </div>
                 </form>
+               <button className="logout"onClick={logout}>Log Out</button>
               </div>
+              
             </div>
           </div>
         </div>
