@@ -356,6 +356,16 @@ margin: 14px 3px
     width: fit-content;
     text-align: center;
 }
+.video-conference .main-side .vi .vid-stream .opts .rec-time span{
+    width: 7px;
+    height: 7px;
+    background: red;
+    position: absolute;
+    border-radius: 50%;
+    left: 7px;
+    top: 11px;
+    display: none;
+}
 .video-conference .main-side .vi .vid-stream .vids{
     display: flex;
     flex-wrap: wrap;

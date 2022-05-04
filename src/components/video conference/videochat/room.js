@@ -111,7 +111,7 @@ const Room = (props) => {
   // const [displayChat, setDisplayChat] = useState(false);
   const [screenShare, setScreenShare] = useState(false);
   const [screenRecod, setScreenRecor] = useState(false);
-
+  // const [counter, setCounter] = useState(0);
   // const [showVideoDevices, setShowVideoDevices] = useState(false);
   const peersRef = useRef([]);
   const userVideoRef = useRef();
@@ -536,15 +536,21 @@ const toggleRecording=()=>{
 useEffect(()=>{
 if(screenRecod){
 startRecording()
+document.querySelector('.rec-time').style.border="2px solid red"
+document.getElementById('dottt').style.display='block'
 }
  if(!screenRecod){
   stopRecording()
+
 }
 // eslint-disable-next-line
 },[screenRecod])
 useEffect(()=>{
   if(!mediaBlobUrl)return
   document.getElementById("pop").classList.add('showop')
+  document.querySelector('.rec-time').style.border="2px solid #b9bec2"
+  document.getElementById('dottt').style.display='none'
+  setScreenRecor(false)
 },[mediaBlobUrl])
   // const clickCameraDevice = (event) => {
   //   if (
@@ -653,7 +659,7 @@ useEffect(()=>{
                     </div>
                   </div>
                 </div>
-                <div className='rec-time'>{/*<span></span>*/}00:00 </div>
+                <div className='rec-time'><span id='dottt'></span>00:00 </div>
               </div>
               <div className='vids'>
                 <div className='stream vid-item signlang'>
