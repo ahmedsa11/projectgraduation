@@ -1,10 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import react from 'react';
-// import {useSpeechRecognition} from 'react-speech-recognition';
 import signpic from '../../../img/si.jpeg';
 import { useReactMediaRecorder } from "react-media-recorder";
-// import None from 'No';
-// import io from 'socket.io-client';
 import Peer from 'simple-peer';
 import socket from './socket';
 import './room.css';
@@ -16,10 +13,6 @@ import BottomBar from './BottomBar';
 import VideoCard from './vid';
 import { Redirect } from 'react-router';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
-// import { SpeechRecognitionEvent } from '@speechly/speech-recognition-polyfill';
-// import { SpeechRecognitionResult } from '@speechly/speech-recognition-polyfill';
-// import Loader from '../../loader/loader';
-// import Signlang from './signlanguage';
 const Copy = () => {
   var Url = document.getElementById('paste-box');
   Url.value = window.location.href;
@@ -102,17 +95,12 @@ const close=()=>{
 const Room = (props) => {
   console.log('roooom')
   const [peers, setPeers] = useState([]);
-  // const [loading, setloading] = useState(false);
   const [toSign, settoSign] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({
     localUser: { video: true, audio: true },
   });
-  // const [videoDevices, setVideoDevices] = useState([]);
-  // const [displayChat, setDisplayChat] = useState(false);
   const [screenShare, setScreenShare] = useState(false);
   const [screenRecod, setScreenRecor] = useState(false);
-  // const [counter, setCounter] = useState(0);
-  // const [showVideoDevices, setShowVideoDevices] = useState(false);
   const peersRef = useRef([]);
   const userVideoRef = useRef();
   const screenTrackRef = useRef();
@@ -123,18 +111,6 @@ const Room = (props) => {
   const audio = userVideoAudio['localUser'].audio;
   const {startRecording, stopRecording, mediaBlobUrl } =
   useReactMediaRecorder({ screen: true });
-  // const SpeechRecognition =
-  //   window.speechRecognition || window.webkitSpeechRecognition;
-  // const SpeechGrammarList =
-  //   window.speechGrammarList || window.webkitSpeechGrammarList;
-  // const grammar = '#JSGF V1.0';
-  // const speechRecognition = new SpeechRecognition();
-  // const speechGrammarList = new SpeechGrammarList();
-  // speechGrammarList.addFromString(grammar);
-  // speechRecognition.grammars = speechGrammarList;
-  // speechRecognition.continuous = true;
-  // speechRecognition.lang = 'en-US';
-
   let{
     transcript,
     listening,
@@ -172,8 +148,6 @@ const [isFinished,setisfinished]=useState(true)
 
         userVideoRef.current.srcObject = stream;
         userStream.current = stream;
-
-        // SpeechRecognition.startListening({ continuous: true,lang : 'en-US' })
         socket.emit('BE-join-room', { roomId, user });
 
         socket.on('FE-user-join', ({ userId, info }) => {
@@ -201,12 +175,6 @@ const [isFinished,setisfinished]=useState(true)
             return [...users, peer];
           });
         });
-
-        // socket.on('FE-duplicate-user', () => {
-        //   window.location.href = '/home';
-        //   alert("You are already in this room but in other tab")
-        // });
-
         socket.on('FE-receive-call', ({ signal, from, info }) => {
           let { user: newUser, video, audio } = info;
           const peerIdx = findPeer(from);
@@ -314,8 +282,6 @@ const [isFinished,setisfinished]=useState(true)
     }
     // eslint-disable-next-line
     } ,[newContent])
-    // useEffect(() => {
-    // } ,[])
     useEffect(() => {
       if(toSign){
       socket.on('receive-text', ({ data, name }) => {
@@ -417,19 +383,10 @@ const [isFinished,setisfinished]=useState(true)
             <i className='fas fa-microphone-slash'></i>
           )}
         </div>
-        {/* {findPeer(peer.peerID).video ? null : (
-                    <span className='name'>{writeUserName(peer.userName)}</span>
-                  )} */}
         <span className='name'>{peer.userName}</span>
       </div>
     );
   }
-
-  // // Open Chat
-  // const clickChat = (e) => {
-  //   e.stopPropagation();
-  //   setDisplayChat(!displayChat);
-  // };
 
   // BackButton
   const goToBack = (e) => {
@@ -437,10 +394,8 @@ const [isFinished,setisfinished]=useState(true)
     socket.emit('BE-leave-room', { roomId });
     window.location.href = '/home';
   };
-
   const toggleCameraAudio = (e) => {
     const target = e.target.getAttribute('data-switch');
-
     setUserVideoAudio((preList) => {
       let videoSwitch = preList['localUser'].video;
       let audioSwitch = preList['localUser'].audio;
@@ -552,50 +507,11 @@ useEffect(()=>{
   document.getElementById('dottt').style.display='none'
   setScreenRecor(false)
 },[mediaBlobUrl])
-  // const clickCameraDevice = (event) => {
-  //   if (
-  //     event &&
-  //     event.target &&
-  //     event.target.dataset &&
-  //     event.target.dataset.value
-  //   ) {
-  //     const deviceId = event.target.dataset.value;
-  //     const enabledAudio =
-  //       userVideoRef.current.srcObject.getAudioTracks()[0].enabled;
-
-  //     navigator.mediaDevices
-  //       .getUserMedia({ video: { deviceId }, audio: enabledAudio })
-  //       .then((stream) => {
-  //         const newStreamTrack = stream
-  //           .getTracks()
-  //           .find((track) => track.kind === 'video');
-  //         const oldStreamTrack = userStream.current
-  //           .getTracks()
-  //           .find((track) => track.kind === 'video');
-
-  //         userStream.current.removeTrack(oldStreamTrack);
-  //         userStream.current.addTrack(newStreamTrack);
-
-  //         peersRef.current.forEach(({ peer }) => {
-  //           // replaceTrack (oldTrack, newTrack, oldStream);
-  //           peer.replaceTrack(
-  //             oldStreamTrack,
-  //             newStreamTrack,
-  //             userStream.current
-  //           );
-  //         });
-  //       });
-  //   }
-  // };
-  // if (text.current) {
-  //   text.current.textContent = newContent;
-  // }
   if (tempuser === null) {
     return <Redirect to='/' />;
   }
   return (
     <react.Fragment>
-
       {/* {loading ? <Loader /> : null} */}
       <div className='video-conference'>
         <div className='main-side' id='main'>
@@ -624,7 +540,6 @@ useEffect(()=>{
                   </li>
                   <li>
                     <i className='fas fa-comment-dots' onClick={openchat}></i>
-                    {/* <img id="chhh" src={chatt} alt="chat"onClick={openchat}/> */}
                   </li>
                   <li>
                     <img id='imgp' src={user.image} alt='a' />
@@ -711,15 +626,6 @@ useEffect(()=>{
             senderName={senderName}
             toggleRecording={toggleRecording}
             screenRecod={screenRecod}
-            // startRecording={startRecording}
-            // stopRecording={stopRecording}
-            // settoCaption={settoCaption}
-            // signlang={signlang}
-            // speechRecognition={speechRecognition.start()}
-
-            // videoDevices={videoDevices}
-            // showVideoDevices={showVideoDevices}
-            // setShowVideoDevices={setShowVideoDevices}
           />
       
         </div>

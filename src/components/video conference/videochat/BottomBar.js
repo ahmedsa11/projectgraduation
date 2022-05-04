@@ -3,8 +3,6 @@ import styled from "styled-components";
 import phonealt from '../../../img/index 1.png'
 import tool from '../../../img/MicrosoftTeams-image8) 1.png'
 const BottomBar = ({
-  clickChat,
-  clickCameraDevice,
   goToBack,
   toggleCameraAudio,
   userVideoAudio,
@@ -16,12 +14,6 @@ const BottomBar = ({
   text,
   toSign,
   settoSign,
-  settoCaption,
-  senderName,
-  signlang,
-  videoDevices,
-  showVideoDevices,
-  setShowVideoDevices,
 }) => {
   // function captiontext(){
   //   userVideoAudio.audio ? (
