@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import react from 'react';
 // import {useSpeechRecognition} from 'react-speech-recognition';
 import signpic from '../../../img/si.jpeg';
+import { useReactMediaRecorder } from "react-media-recorder";
 // import None from 'No';
 // import io from 'socket.io-client';
 import Peer from 'simple-peer';
@@ -92,13 +93,12 @@ const openpopup = () => {
   function removePopup() {
     popup.classList.remove('active');
   }
-  var Url = document.getElementById('paste-box');
-  Url.value = window.location.href;
-  Url.focus();
-  Url.select();
-  document.execCommand('Copy');
 };
-
+const close=()=>{
+    const pop=document.querySelector(".popup-wrapper2");
+    pop.classList.remove('showop')
+    pop.classList.add('hideop')
+}
 const Room = (props) => {
   console.log('roooom')
   const [peers, setPeers] = useState([]);
@@ -110,6 +110,8 @@ const Room = (props) => {
   // const [videoDevices, setVideoDevices] = useState([]);
   // const [displayChat, setDisplayChat] = useState(false);
   const [screenShare, setScreenShare] = useState(false);
+  const [screenRecod, setScreenRecor] = useState(false);
+
   // const [showVideoDevices, setShowVideoDevices] = useState(false);
   const peersRef = useRef([]);
   const userVideoRef = useRef();
@@ -119,6 +121,8 @@ const Room = (props) => {
   const tempuser = localStorage.getItem('user');
   const user = JSON.parse(tempuser);
   const audio = userVideoAudio['localUser'].audio;
+  const {startRecording, stopRecording, mediaBlobUrl } =
+  useReactMediaRecorder({ screen: true });
   // const SpeechRecognition =
   //   window.speechRecognition || window.webkitSpeechRecognition;
   // const SpeechGrammarList =
@@ -283,7 +287,7 @@ const [isFinished,setisfinished]=useState(true)
       
       if (audio) {
         console.log('start listening');
-        SpeechRecognition.startListening({ language: 'en-US',continuous:false
+        SpeechRecognition.startListening({ language: 'en-US',continuous:false,
       });
         console.log(transcript)
       } else {
@@ -526,7 +530,22 @@ const [isFinished,setisfinished]=useState(true)
       elem.msRequestFullscreen();
     }
   };
-
+const toggleRecording=()=>{
+ setScreenRecor(checkrec =>! checkrec);
+}
+useEffect(()=>{
+if(screenRecod){
+startRecording()
+}
+ if(!screenRecod){
+  stopRecording()
+}
+// eslint-disable-next-line
+},[screenRecod])
+useEffect(()=>{
+  if(!mediaBlobUrl)return
+  document.getElementById("pop").classList.add('showop')
+},[mediaBlobUrl])
   // const clickCameraDevice = (event) => {
   //   if (
   //     event &&
@@ -570,9 +589,18 @@ const [isFinished,setisfinished]=useState(true)
   }
   return (
     <react.Fragment>
+
       {/* {loading ? <Loader /> : null} */}
       <div className='video-conference'>
         <div className='main-side' id='main'>
+        <div className='screen-record'>
+                <div id="pop" className='popup-wrapper2'>
+                    <button className='close-btn2'onClick={close}>
+                        <i className='fas fa-times'></i>
+                      </button>
+                    <video src={mediaBlobUrl} controls autoPlay/>
+                    </div>
+                  </div>
           <div className='navbar'>
               <div className='logo'>
                 <img src={logo} alt='logo' />
@@ -675,6 +703,10 @@ const [isFinished,setisfinished]=useState(true)
             toSign={toSign}
             settoSign={settoSign}
             senderName={senderName}
+            toggleRecording={toggleRecording}
+            screenRecod={screenRecod}
+            // startRecording={startRecording}
+            // stopRecording={stopRecording}
             // settoCaption={settoCaption}
             // signlang={signlang}
             // speechRecognition={speechRecognition.start()}
@@ -683,6 +715,7 @@ const [isFinished,setisfinished]=useState(true)
             // showVideoDevices={showVideoDevices}
             // setShowVideoDevices={setShowVideoDevices}
           />
+      
         </div>
         <Chat roomId={roomId} />
       </div>

@@ -9,8 +9,10 @@ const BottomBar = ({
   toggleCameraAudio,
   userVideoAudio,
   clickScreenSharing,
+  screenRecod,
   speechRecognition,
   screenShare,
+  toggleRecording,
   text,
   toSign,
   settoSign,
@@ -106,8 +108,9 @@ const BottomBar = ({
               </button>
             </li>
             <li>
-              <button>
-                <i className="fas fa-record-vinyl"></i>
+              <button onClick={toggleRecording}>
+                
+                {screenRecod? <i className="fas fa-stop"></i>: <i className="fas fa-record-vinyl"></i>}
               </button>
             </li>
             <li>
