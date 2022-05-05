@@ -258,10 +258,10 @@ const [isFinished,setisfinished]=useState(true)
         SpeechRecognition.startListening({ language: 'en-US',continuous:false,
       });
         console.log(transcript)
-      } else {
+      }
+      else {
         console.log('stop listening'); 
         SpeechRecognition.stopListening();
-        console.log(transcript)
       }
       // eslint-disable-next-line
     },[listening,audio])
@@ -278,10 +278,10 @@ const [isFinished,setisfinished]=useState(true)
         console.log('send text to backend');   
         setisfinished(false)
         setnewcontent('')
-      }
+    }
     }
     // eslint-disable-next-line
-    } ,[newContent])
+    } ,[listening])
     useEffect(() => {
       if(toSign){
       socket.on('receive-text', ({ data, name }) => {
@@ -303,7 +303,6 @@ const [isFinished,setisfinished]=useState(true)
           setnewcontent('')
         }
       });
-   
        // recive data from the server
        socket.on('receive-frame', ({ buffer }) => {
         console.log('received frame from backend');
