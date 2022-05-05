@@ -153,23 +153,22 @@ font-size: 16px;
         width: 100%;
     }
     .head .navbar .fa-phone-alt{
-        font-size: 23px;
-        background-color: rgb(40, 57, 207);
+        font-size: 26px;
+    
         color: #f8fff3;
         padding: 7px;
         border-radius: 6px;
         height: fit-content;
-        margin: 15px 5px !important;
+        margin: 11px 5px !important;
     }
     
     .head .navbar .fa-video{
-        font-size: 23px;
-        background-color: red;
+        font-size: 26px;
         padding: 7px;
         border-radius: 6px;
         color: #f8fff3;
         height: fit-content;
-        margin: 15px 5px !important;
+        margin: 11px 5px !important;
     }
     .head  .vi .vid-stream {
         display: flex;

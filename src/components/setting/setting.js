@@ -9,8 +9,13 @@ import "./setting.css";
 import Loader from "../loader/loader";
 const Setting = (props) => {
   // console.log(tempuser)
+  const history=useHistory()
     let tempuser = localStorage.getItem("user");
   let user = JSON.parse(tempuser);
+  if (tempuser === null) {
+  history.push("/")
+  }
+
   const [formValue, setFormValue] = useState({
     Name: user.name,
     Phone: user.mobile,
@@ -19,7 +24,7 @@ const Setting = (props) => {
     newPassword:'',
     confirmNewPassword:''
   });
-  const history=useHistory()
+ 
   const [picture, setpicture] = useState();
   const [verify, setverify] = useState(false);
   const [load, setload] = useState(false);

@@ -13,9 +13,14 @@ const Header = (props) => {
   }
   const user = JSON.parse(tempuser);
   // console.log(user)
-  function clickJoin() {
+  function clickJoinVideo() {
     const id = uuid();
-    props.r.history.push(`/room/${id}`);
+    props.r.history.push(`/roomVideo/${id}`);
+    // console.log()
+  }
+  function clickJoinAudio() {
+    const id = uuid();
+    props.r.history.push(`/roomAudio/${id}`);
     // console.log()
   }
   return (
@@ -31,8 +36,8 @@ const Header = (props) => {
               <input type="search" placeholder="search" />
               <i className="fas fa-search"></i>
               </div>
-              <i className="fas fa-phone-alt"></i>
-              <i className="fas fa-video" onClick={clickJoin}></i>
+              <i className="fas fa-phone-alt"onClick={clickJoinAudio}></i>
+              <i className="fas fa-video" onClick={clickJoinVideo}></i>
             </div>
             </div>
             <div className="grid-show">

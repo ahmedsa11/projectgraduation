@@ -119,25 +119,6 @@ i{
     .home .navbar input{
       width: 83%;
     }
-    .home .navbar .fa-phone-alt{
-        font-size: 23px;
-        background-color: rgb(40, 57, 207);
-        color: #f8fff3;
-        padding: 7px;
-        border-radius: 6px;
-        height: fit-content;
-        margin: 15px 5px !important;
-    }
-    
-    .home .navbar .fa-video{
-        font-size: 23px;
-        background-color: red;
-        padding: 7px;
-        border-radius: 6px;
-        color: #f8fff3;
-        height: fit-content;
-        margin: 15px 5px !important;
-    }
     .home .main-side .vi .vid-stream {
         display: flex;
         flex-direction: column;

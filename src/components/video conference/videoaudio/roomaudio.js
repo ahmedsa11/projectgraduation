@@ -3,14 +3,14 @@ import react from 'react';
 import signpic from '../../../img/si.jpeg';
 import { useReactMediaRecorder } from "react-media-recorder";
 import Peer from 'simple-peer';
-import socket from './socket';
-import './room.css';
+import socket from '../videochat/socket';
+import './roomaudio.css';
 import Navbar from '../navbar/navbar';
 import Chat from '../chat/chat';
 import logo from '../../../img/MicrosoftTeams-image4) 1.png';
 import groupicon from '../../../img/group-chatt 1.png'
-import BottomBar from './BottomBar';
-import VideoCard from './vid';
+import BottomBar from '../videoaudio/bottombar';
+import VideoCard from './audio';
 import { Redirect } from 'react-router';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 const Copy = () => {
@@ -92,7 +92,7 @@ const close=()=>{
     pop.classList.remove('showop')
     pop.classList.add('hideop')
 }
-const RoomVideo = (props) => {
+const RoomAudio = (props) => {
   console.log('roooom')
   const [peers, setPeers] = useState([]);
   const [toSign, settoSign] = useState(false);
@@ -634,4 +634,4 @@ useEffect(()=>{
   );
 };
 
-export default RoomVideo;
+export default RoomAudio;
