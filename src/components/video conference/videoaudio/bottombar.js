@@ -76,7 +76,7 @@ const BottomBar = ({
             </div>
           </div>
           <ul>
-            <li>
+            {/* <li>
               <CameraButton onClick={toggleCameraAudio} data-switch="video">
                 {userVideoAudio.video ? (
                   <i className="fas fa-video"></i>
@@ -84,15 +84,15 @@ const BottomBar = ({
                   <i className="fas fa-video-slash"></i>
                 )}
               </CameraButton>
-            </li>
+            </li> */}
             <li>
-              <button id="a" onClick={toggleCameraAudio} data-switch="audio">
+              <CameraButton id="a" onClick={toggleCameraAudio} data-switch="audio">
                 {userVideoAudio.audio ? (
                   <i className="fas fa-microphone"></i>
                 ) : (
                   <i className="fas fa-microphone-slash"></i>
                 )}
-              </button>
+              </CameraButton>
             </li>
             <li>
               <button onClick={goToBack}id="phonealt" >
@@ -105,7 +105,7 @@ const BottomBar = ({
                 {screenRecod? <i className="fas fa-stop"></i>: <i className="fas fa-record-vinyl"></i>}
               </button>
             </li>
-            <li>
+            {/* <li>
               <button onClick={clickScreenSharing}>
                 <i
                   className={`fas fa-desktop ${
@@ -113,7 +113,7 @@ const BottomBar = ({
                   }`}
                 ></i>
               </button>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

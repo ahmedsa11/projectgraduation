@@ -97,13 +97,11 @@ const RoomAudio = (props) => {
   const [peers, setPeers] = useState([]);
   const [toSign, settoSign] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({
-    localUser: { video: true, audio: true },
+    localUser: { audio: true },
   });
-  const [screenShare, setScreenShare] = useState(false);
   const [screenRecod, setScreenRecor] = useState(false);
   const peersRef = useRef([]);
   const userVideoRef = useRef();
-  const screenTrackRef = useRef();
   const userStream = useRef();
   const roomId = props.match.params.roomId;
   const tempuser = localStorage.getItem('user');
@@ -142,7 +140,7 @@ const [isFinished,setisfinished]=useState(true)
     // Connect Camera & Mic
 
     navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
+      .getUserMedia({ video: false, audio: true })
       .then((stream) => {
         // setloading(false);
 
@@ -152,23 +150,25 @@ const [isFinished,setisfinished]=useState(true)
 
         socket.on('FE-user-join', ({ userId, info }) => {
           // all users
-          let { user: newUser, video, audio } = info;
+          let { user: newUser, audio } = info;
+          console.log(newUser)
 
           const peer = createPeer(userId, socket.id, stream);
           peer.userName = newUser.name;
           peer.peerID = userId;
-
+          peer.image=newUser.image
           peersRef.current.push({
             peerID: userId,
             peer,
             userName: newUser.name,
             audio,
+            image:newUser.image
           });
 
           setUserVideoAudio((preList) => {
             return {
               ...preList,
-              [peer.userName]: { video, audio },
+              [peer.userName]: { audio },
             };
           });
           setPeers((users) => {
@@ -176,7 +176,7 @@ const [isFinished,setisfinished]=useState(true)
           });
         });
         socket.on('FE-receive-call', ({ signal, from, info }) => {
-          let { user: newUser, video, audio } = info;
+          let { user: newUser, audio } = info;
           const peerIdx = findPeer(from);
 
           if (!peerIdx) {
@@ -184,12 +184,14 @@ const [isFinished,setisfinished]=useState(true)
 
             peer.userName = newUser.name;
             peer.peerID = from;
+            peer.image=newUser.image;
 
             peersRef.current.push({
               peerID: from,
               peer,
               userName: newUser.name,
               audio,
+              image:newUser.image
             });
 
             setPeers((users) => {
@@ -198,7 +200,7 @@ const [isFinished,setisfinished]=useState(true)
             setUserVideoAudio((preList) => {
               return {
                 ...preList,
-                [peer.userName]: { video, audio },
+                [peer.userName]: { audio },
               };
             });
           }
@@ -226,12 +228,9 @@ const [isFinished,setisfinished]=useState(true)
     socket.on('FE-toggle-camera', ({ userId, switchTarget }) => {
       const peerIdx = findPeer(userId);
       setUserVideoAudio((preList) => {
-        let video = preList[peerIdx.userName].video;
         let audio = preList[peerIdx.userName].audio;
 
-        if (switchTarget === 'video') {
-          video = !video;
-        } else {
+        if (switchTarget === 'audio'){
           audio = !audio;
           peerIdx.audio = audio;
           // audio ? speechRecognition.start() : speechRecognition.stop();
@@ -240,7 +239,7 @@ const [isFinished,setisfinished]=useState(true)
 
         return {
           ...preList,
-          [peerIdx.userName]: { video, audio },
+          [peerIdx.userName]: { audio },
         };
       });
     });
@@ -370,10 +369,8 @@ const [isFinished,setisfinished]=useState(true)
     return (
       <div
         className={`width-peer${peers.length > 8 ? '' : peers.length} vid-item`}
-        onClick={expandScreen}
         key={index}
       >
-        <i className='fas fa-expand'></i>
         <VideoCard key={index} peer={peer} number={arr.length} />
         <div className='icon'>
           {findPeer(peer.peerID).audio ? (
@@ -396,15 +393,8 @@ const [isFinished,setisfinished]=useState(true)
   const toggleCameraAudio = (e) => {
     const target = e.target.getAttribute('data-switch');
     setUserVideoAudio((preList) => {
-      let videoSwitch = preList['localUser'].video;
       let audioSwitch = preList['localUser'].audio;
-
-      if (target === 'video') {
-        const userVideoTrack =
-          userVideoRef.current.srcObject.getVideoTracks()[0];
-        videoSwitch = !videoSwitch;
-        userVideoTrack.enabled = videoSwitch;
-      } else {
+      if (target === 'audio'){
         const userAudioTrack =
           userVideoRef.current.srcObject.getAudioTracks()[0];
         audioSwitch = !audioSwitch;
@@ -416,7 +406,7 @@ const [isFinished,setisfinished]=useState(true)
 
       return {
         ...preList,
-        localUser: { video: videoSwitch, audio: audioSwitch },
+        localUser: {audio: audioSwitch },
       };
     });
 
@@ -424,65 +414,6 @@ const [isFinished,setisfinished]=useState(true)
       roomId,
       switchTarget: target,
     });
-  };
-
-  const clickScreenSharing = () => {
-    if (!screenShare) {
-      navigator.mediaDevices
-        .getDisplayMedia({ cursor: true })
-        .then((stream) => {
-          const screenTrack = stream.getTracks()[0];
-
-          peersRef.current.forEach(({ peer }) => {
-            // replaceTrack (oldTrack, newTrack, oldStream);
-            peer.replaceTrack(
-              peer.streams[0]
-                .getTracks()
-                .find((track) => track.kind === 'video'),
-              screenTrack,
-              userStream.current
-            );
-          });
-
-          // Listen click end
-          screenTrack.onended = () => {
-            peersRef.current.forEach(({ peer }) => {
-              peer.replaceTrack(
-                screenTrack,
-                peer.streams[0]
-                  .getTracks()
-                  .find((track) => track.kind === 'video'),
-                userStream.current
-              );
-            });
-            userVideoRef.current.srcObject = userStream.current;
-            setScreenShare(false);
-          };
-
-          userVideoRef.current.srcObject = stream;
-          screenTrackRef.current = screenTrack;
-          setScreenShare(true);
-        });
-    } else {
-      screenTrackRef.current.onended();
-    }
-  };
-
-  const expandScreen = (e) => {
-    const elem = e.target;
-
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem.mozRequestFullScreen) {
-      /* Firefox */
-      elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) {
-      /* Chrome, Safari & Opera */
-      elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) {
-      /* IE/Edge */
-      elem.msRequestFullscreen();
-    }
   };
 const toggleRecording=()=>{
  setScreenRecor(checkrec =>! checkrec);
@@ -512,6 +443,7 @@ useEffect(()=>{
   return (
     <react.Fragment>
       {/* {loading ? <Loader /> : null} */}
+      <div className='roomaudio'>
       <div className='video-conference'>
         <div className='main-side' id='main'>
         <div className='screen-record'>
@@ -586,9 +518,8 @@ useEffect(()=>{
                       peers.length > 8 ? '' : peers.length
                     }`}
                   >
-                    <i className='fas fa-expand' />
+                    <img src={user.image}alt='as'/>
                     <video
-                      onClick={expandScreen}
                       ref={userVideoRef}
                       muted
                       autoPlay
@@ -612,13 +543,11 @@ useEffect(()=>{
             </div>
           </div>
           <BottomBar
-            clickScreenSharing={clickScreenSharing}
             // clickChat={clickChat}
             // clickCameraDevice={clickCameraDevice}
             goToBack={goToBack}
             toggleCameraAudio={toggleCameraAudio}
             userVideoAudio={userVideoAudio['localUser']}
-            screenShare={screenShare}
             text={text}
             toSign={toSign}
             settoSign={settoSign}
@@ -629,6 +558,7 @@ useEffect(()=>{
       
         </div>
         <Chat roomId={roomId} />
+      </div>
       </div>
     </react.Fragment>
   );

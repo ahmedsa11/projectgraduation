@@ -8,8 +8,8 @@ const Chat = ({ roomId }) => {
   const messagesEndRef = useRef(null);
   const inputRef = useRef();
   useEffect(() => {
-    socket.on("FE-receive-message", ({ msg, sender }) => {
-      setMsg((msgs) => [...msgs, { sender, msg }]);
+    socket.on("FE-receive-message", ({ msg, sender,img }) => {
+      setMsg((msgs) => [...msgs, { sender, msg,img }]);
     });
   }, []);
   const scrollToBottom = () => {
@@ -36,7 +36,7 @@ const Chat = ({ roomId }) => {
     const msg = text.value;
     // localStorage.setItem("text",text.value);
     if (msg) {
-      socket.emit("BE-send-message", { roomId, msg, sender: currentUser});
+      socket.emit("BE-send-message", { roomId, msg, sender: currentUser,img:imageuser});
       inputRef.current.value = "";
     }
 
@@ -49,11 +49,11 @@ const Chat = ({ roomId }) => {
         <i className="fas fa-sign-out-alt"></i>
         <div className="chat">
           {msg &&
-            msg.map(({ sender, msg }, idx) => {
+            msg.map(({ sender, msg,img }, idx) => {
               if (sender !== currentUser) {
                 return (
                   <div className="sender" key={idx}>
-                    <img src={imageuser} alt="a" />
+                    <img src={img} alt="a" />
 
                     <div className="text-box">
                       <strong>{sender} : </strong>
@@ -87,7 +87,7 @@ const Chat = ({ roomId }) => {
           <div className="textin">
             <div className="feat">
               <i className="fas fa-image"></i>
-              <i className="fas fa-microphone"></i>
+              {/* <i className="fas fa-microphone"></i> */}
             </div>
 
             <textarea

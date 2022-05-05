@@ -367,6 +367,8 @@ const [isFinished,setisfinished]=useState(true)
   }
 
   function createUserVideo(peer, index, arr) {
+    // console.log(userVideoAudio[peer.userName])
+    
     return (
       <div
         className={`width-peer${peers.length > 8 ? '' : peers.length} vid-item`}
@@ -512,6 +514,7 @@ useEffect(()=>{
   return (
     <react.Fragment>
       {/* {loading ? <Loader /> : null} */}
+      <div className='roomvideo'>
       <div className='video-conference'>
         <div className='main-side' id='main'>
         <div className='screen-record'>
@@ -629,6 +632,7 @@ useEffect(()=>{
       
         </div>
         <Chat roomId={roomId} />
+      </div>
       </div>
     </react.Fragment>
   );
