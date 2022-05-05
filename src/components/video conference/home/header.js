@@ -16,12 +16,12 @@ const Header = (props) => {
   function clickJoinVideo() {
     const id = uuid();
     props.r.history.push(`/roomVideo/${id}`);
-    // console.log()
+    
   }
   function clickJoinAudio() {
     const id = uuid();
     props.r.history.push(`/roomAudio/${id}`);
-    // console.log()
+    
   }
   return (
     <react.Fragment>
