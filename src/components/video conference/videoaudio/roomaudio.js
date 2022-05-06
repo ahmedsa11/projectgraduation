@@ -305,7 +305,7 @@ const [isFinished,setisfinished]=useState(true)
        // recive data from the server
        socket.on('receive-frame', ({ buffer }) => {
         console.log('received frame from backend');
-        document.getElementById('stream_asl').src =
+        document.getElementById('stream_asl_a').src =
           'data:image/jpeg;base64,' + arrayBufferToBase64(buffer);
       });
       const arrayBufferToBase64 = (buffer) => {
@@ -509,7 +509,7 @@ useEffect(()=>{
               </div>
               <div className='vids'>
                 <div className='stream vid-item signlang'>
-                  <img id='stream_asl'className='sign' alt='ss' src={signpic} />
+                  <img id='stream_asl_a'className='sign' alt='ss' src={signpic} />
                   <span className='name' ref={senderName}></span>
                 </div>
                 <div className='vid-item'>
