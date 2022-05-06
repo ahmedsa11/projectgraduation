@@ -143,7 +143,7 @@ const RoomAudio = (props) => {
     }
     // setloading(true);
     // Connect Camera & Mic
-    socket.current = io('http://localhost:3001');
+    socket.current = io('https://backend-socket-tabarani.herokuapp.com/');
     // socket.current = io('https://backend-socket-tabarani.herokuapp.com/');
     
     navigator.mediaDevices

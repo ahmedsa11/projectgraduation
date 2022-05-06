@@ -144,7 +144,7 @@ const RoomVideo = (props) => {
       return <Redirect to='/' />;
     }
 
-    socket.current = io('http://localhost:3001');
+    socket.current = io('https://backend-socket-tabarani.herokuapp.com/');
     // socket.current = io('https://backend-socket-tabarani.herokuapp.com/');
 
     // setloading(true);

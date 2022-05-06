@@ -10,7 +10,7 @@ const Chat = ({ roomId }) => {
   const inputRef = useRef();
 
   useEffect(() => {
-    socket.current = io('http://localhost:3001');
+    socket.current = io('https://backend-socket-tabarani.herokuapp.com/');
     // socket.current = io('https://backend-socket-tabarani.herokuapp.com/');
     
     socket.current.on('FE-receive-message', ({ msg, sender, img }) => {
