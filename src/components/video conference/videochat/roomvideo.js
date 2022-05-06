@@ -253,7 +253,7 @@ const [isFinished,setisfinished]=useState(true)
   
     useEffect(()=>{
       
-      if (audio) {
+      if (audio && toSign) { 
         console.log('start listening');
         SpeechRecognition.startListening({ language: 'en-US',continuous:false,
       });
@@ -264,7 +264,7 @@ const [isFinished,setisfinished]=useState(true)
         SpeechRecognition.stopListening();
       }
       // eslint-disable-next-line
-    },[listening,audio])
+    },[listening,audio,toSign])
     useEffect(() => {
       setnewcontent(transcript)
       // eslint-disable-next-line
