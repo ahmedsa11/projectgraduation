@@ -28,7 +28,7 @@ const Home = (props) => {
     <react.Fragment>
       <div className="home">
         <div className="main-side" id="main">
-          <Header r={props} />
+          <Header v={props} a={props} />
           <div className="vi">
             <Navbar />
             <i className="fas fa-comment-dots dots" onClick={openchat}></i>
