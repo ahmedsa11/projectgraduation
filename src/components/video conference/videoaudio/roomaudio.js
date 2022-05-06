@@ -1,18 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import react from 'react';
 import signpic from '../../../img/si.jpeg';
-import { useReactMediaRecorder } from "react-media-recorder";
+import { useReactMediaRecorder } from 'react-media-recorder';
 import Peer from 'simple-peer';
-import socket from '../videochat/socket';
+import io from 'socket.io-client';
 import './roomaudio.css';
 import Navbar from '../navbar/navbar';
 import Chat from '../chat/chat';
 import logo from '../../../img/MicrosoftTeams-image4) 1.png';
-import groupicon from '../../../img/group-chatt 1.png'
+import groupicon from '../../../img/group-chatt 1.png';
 import BottomBar from '../videoaudio/bottombar';
 import VideoCard from './audio';
 import { Redirect } from 'react-router';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from 'react-speech-recognition';
 const Copy = () => {
   var Url = document.getElementById('paste-box');
   Url.value = window.location.href;
@@ -87,13 +89,14 @@ const openpopup = () => {
     popup.classList.remove('active');
   }
 };
-const close=()=>{
-    const pop=document.querySelector(".popup-wrapper2");
-    pop.classList.remove('showop')
-    pop.classList.add('hideop')
-}
+const close = () => {
+  const pop = document.querySelector('.popup-wrapper2');
+  pop.classList.remove('showop');
+  pop.classList.add('hideop');
+};
 const RoomAudio = (props) => {
-  console.log('roooom')
+  console.log('roooom');
+  const socket = useRef();
   const [peers, setPeers] = useState([]);
   const [toSign, settoSign] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({
@@ -103,13 +106,14 @@ const RoomAudio = (props) => {
   const peersRef = useRef([]);
   const userVideoRef = useRef();
   const userStream = useRef();
-  const roomId = props.match.params.roomId;
+  const roomId = props.match.params.roomaudioId;
   const tempuser = localStorage.getItem('user');
   const user = JSON.parse(tempuser);
   const audio = userVideoAudio['localUser'].audio;
-  const {startRecording, stopRecording, mediaBlobUrl } =
-  useReactMediaRecorder({ screen: true });
-  let{
+  const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder(
+    { screen: true }
+  );
+  let {
     transcript,
     listening,
     // interimTranscript,
@@ -117,9 +121,10 @@ const RoomAudio = (props) => {
     // browserSupportsSpeechRecognition
   } = useSpeechRecognition();
   let text = useRef();
-  const [newContent,setnewcontent]=useState('')
-const [isFinished,setisfinished]=useState(true)
+  const [newContent, setnewcontent] = useState('');
+  const [isFinished, setisfinished] = useState(true);
   let senderName = useRef();
+
   // if (!browserSupportsSpeechRecognition) {
   //   return (<span>Browser doesn't support speech recognition.</span>)
   // }
@@ -138,7 +143,9 @@ const [isFinished,setisfinished]=useState(true)
     }
     // setloading(true);
     // Connect Camera & Mic
-
+    socket.current = io('http://localhost:3001');
+    // socket.current = io('https://backend-socket-tabarani.herokuapp.com/');
+    
     navigator.mediaDevices
       .getUserMedia({ video: false, audio: true })
       .then((stream) => {
@@ -146,23 +153,28 @@ const [isFinished,setisfinished]=useState(true)
 
         userVideoRef.current.srcObject = stream;
         userStream.current = stream;
-        socket.emit('BE-join-room', { roomId, user, video: false, audio: true });
+        socket.current.emit('BE-join-room', {
+          roomId,
+          user,
+          video: false,
+          audio: true,
+        });
 
-        socket.on('FE-user-join', ({ userId, info }) => {
+        socket.current.on('FE-user-join', ({ userId, info }) => {
           // all users
           let { user: newUser, audio } = info;
-          console.log(newUser)
+          console.log(newUser);
 
-          const peer = createPeer(userId, socket.id, stream);
+          const peer = createPeer(userId, socket.current.id, stream);
           peer.userName = newUser.name;
           peer.peerID = userId;
-          peer.image=newUser.image
+          peer.image = newUser.image;
           peersRef.current.push({
             peerID: userId,
             peer,
             userName: newUser.name,
             audio,
-            image:newUser.image
+            image: newUser.image,
           });
 
           setUserVideoAudio((preList) => {
@@ -175,7 +187,7 @@ const [isFinished,setisfinished]=useState(true)
             return [...users, peer];
           });
         });
-        socket.on('FE-receive-call', ({ signal, from, info }) => {
+        socket.current.on('FE-receive-call', ({ signal, from, info }) => {
           let { user: newUser, audio } = info;
           const peerIdx = findPeer(from);
 
@@ -184,14 +196,14 @@ const [isFinished,setisfinished]=useState(true)
 
             peer.userName = newUser.name;
             peer.peerID = from;
-            peer.image=newUser.image;
+            peer.image = newUser.image;
 
             peersRef.current.push({
               peerID: from,
               peer,
               userName: newUser.name,
               audio,
-              image:newUser.image
+              image: newUser.image,
             });
 
             setPeers((users) => {
@@ -206,12 +218,12 @@ const [isFinished,setisfinished]=useState(true)
           }
         });
 
-        socket.on('FE-call-accepted', ({ signal, answerId }) => {
+        socket.current.on('FE-call-accepted', ({ signal, answerId }) => {
           const peerIdx = findPeer(answerId);
           peerIdx.peer.signal(signal);
         });
 
-        socket.on('FE-user-leave', ({ userId }) => {
+        socket.current.on('FE-user-leave', ({ userId }) => {
           const peerIdx = findPeer(userId);
           if (peerIdx) {
             peerIdx.peer.destroy();
@@ -225,12 +237,12 @@ const [isFinished,setisfinished]=useState(true)
         });
       });
 
-    socket.on('FE-toggle-camera', ({ userId, switchTarget }) => {
+    socket.current.on('FE-toggle-camera', ({ userId, switchTarget }) => {
       const peerIdx = findPeer(userId);
       setUserVideoAudio((preList) => {
         let audio = preList[peerIdx.userName].audio;
 
-        if (switchTarget === 'audio'){
+        if (switchTarget === 'audio') {
           audio = !audio;
           peerIdx.audio = audio;
           // audio ? speechRecognition.start() : speechRecognition.stop();
@@ -245,45 +257,45 @@ const [isFinished,setisfinished]=useState(true)
     });
 
     return () => {
-      socket.disconnect();
+      socket.current.disconnect();
     };
     // eslint-disable-next-line
   }, []);
-  
-    useEffect(()=>{
-      
-      if (audio) {
-        console.log('start listening');
-        SpeechRecognition.startListening({ language: 'en-US',continuous:false,
+
+  useEffect(() => {
+    if (audio) {
+      console.log('start listening');
+      SpeechRecognition.startListening({
+        language: 'en-US',
+        continuous: false,
       });
-        console.log(transcript)
-      }
-      else {
-        console.log('stop listening'); 
-        SpeechRecognition.stopListening();
-      }
-      // eslint-disable-next-line
-    },[listening,audio])
-    useEffect(() => {
-      setnewcontent(transcript)
-      // eslint-disable-next-line
-    } ,[transcript])
-    useEffect(() => {
-      if(toSign){
-      console.log(newContent)
-      console.log({ isFinished});
-      if (isFinished) {
-        socket.emit('send-text', { data: newContent, roomId,name:user.name });      
-        console.log('send text to backend');   
-        setisfinished(false)
-        setnewcontent('')
-    }
+      console.log(transcript);
+    } else {
+      console.log('stop listening');
+      SpeechRecognition.stopListening();
     }
     // eslint-disable-next-line
-    } ,[listening])
-    useEffect(() => {
-      if(toSign){
-      socket.on('receive-text', ({ data, name }) => {
+  }, [listening, audio]);
+  useEffect(() => {
+    setnewcontent(transcript);
+    // eslint-disable-next-line
+  }, [transcript]);
+  useEffect(() => {
+    if (toSign) {
+      console.log(newContent);
+      console.log({ isFinished });
+      if (isFinished) {
+        socket.current.emit('send-text', { data: newContent, roomId, name: user.name });
+        console.log('send text to backend');
+        setisfinished(false);
+        setnewcontent('');
+      }
+    }
+    // eslint-disable-next-line
+  }, [listening]);
+  useEffect(() => {
+    if (toSign) {
+      socket.current.on('receive-text', ({ data, name }) => {
         console.log({ data });
         if (text.current) {
           text.current.textContent = data;
@@ -293,17 +305,21 @@ const [isFinished,setisfinished]=useState(true)
           console.log(senderName.current.textContent);
         }
       });
-      socket.on('send', () => {
+      socket.current.on('send', () => {
         console.log('finished sending 2');
-        setisfinished(true)
+        setisfinished(true);
         if (newContent.length > 0) {
-          socket.emit('send-text', { data: newContent, roomId,name:user.name });
-          setisfinished(false)
-          setnewcontent('')
+          socket.current.emit('send-text', {
+            data: newContent,
+            roomId,
+            name: user.name,
+          });
+          setisfinished(false);
+          setnewcontent('');
         }
       });
-       // recive data from the server
-       socket.on('receive-frame', ({ buffer }) => {
+      // recive data from the server
+      socket.current.on('receive-frame', ({ buffer }) => {
         console.log('received frame from backend');
         document.getElementById('stream_asl_a').src =
           'data:image/jpeg;base64,' + arrayBufferToBase64(buffer);
@@ -318,8 +334,8 @@ const [isFinished,setisfinished]=useState(true)
         return window.btoa(binary);
       };
     }
-// eslint-disable-next-line
-    } ,[toSign])
+    // eslint-disable-next-line
+  }, [toSign]);
   function createPeer(userId, caller, stream) {
     const peer = new Peer({
       initiator: true,
@@ -328,7 +344,7 @@ const [isFinished,setisfinished]=useState(true)
     });
 
     peer.on('signal', (signal) => {
-      socket.emit('BE-call-user', {
+      socket.current.emit('BE-call-user', {
         userToCall: userId,
         from: caller,
         signal,
@@ -349,7 +365,7 @@ const [isFinished,setisfinished]=useState(true)
     });
 
     peer.on('signal', (signal) => {
-      socket.emit('BE-accept-call', { signal, to: callerId });
+      socket.current.emit('BE-accept-call', { signal, to: callerId });
     });
 
     peer.on('disconnect', () => {
@@ -387,14 +403,14 @@ const [isFinished,setisfinished]=useState(true)
   // BackButton
   const goToBack = (e) => {
     e.preventDefault();
-    socket.emit('BE-leave-room', { roomId });
+    socket.current.emit('BE-leave-room', { roomId });
     window.location.href = '/home';
   };
   const toggleCameraAudio = (e) => {
     const target = e.target.getAttribute('data-switch');
     setUserVideoAudio((preList) => {
       let audioSwitch = preList['localUser'].audio;
-      if (target === 'audio'){
+      if (target === 'audio') {
         const userAudioTrack =
           userVideoRef.current.srcObject.getAudioTracks()[0];
         audioSwitch = !audioSwitch;
@@ -406,37 +422,36 @@ const [isFinished,setisfinished]=useState(true)
 
       return {
         ...preList,
-        localUser: {audio: audioSwitch },
+        localUser: { audio: audioSwitch },
       };
     });
 
-    socket.emit('BE-toggle-camera-audio', {
+    socket.current.emit('BE-toggle-camera-audio', {
       roomId,
       switchTarget: target,
     });
   };
-const toggleRecording=()=>{
- setScreenRecor(checkrec =>! checkrec);
-}
-useEffect(()=>{
-if(screenRecod){
-startRecording()
-document.querySelector('.rec-time').style.border="2px solid red"
-document.getElementById('dottt').style.display='block'
-}
- if(!screenRecod){
-  stopRecording()
-
-}
-// eslint-disable-next-line
-},[screenRecod])
-useEffect(()=>{
-  if(!mediaBlobUrl)return
-  document.getElementById("pop").classList.add('showop')
-  document.querySelector('.rec-time').style.border="2px solid #b9bec2"
-  document.getElementById('dottt').style.display='none'
-  setScreenRecor(false)
-},[mediaBlobUrl])
+  const toggleRecording = () => {
+    setScreenRecor((checkrec) => !checkrec);
+  };
+  useEffect(() => {
+    if (screenRecod) {
+      startRecording();
+      document.querySelector('.rec-time').style.border = '2px solid red';
+      document.getElementById('dottt').style.display = 'block';
+    }
+    if (!screenRecod) {
+      stopRecording();
+    }
+    // eslint-disable-next-line
+  }, [screenRecod]);
+  useEffect(() => {
+    if (!mediaBlobUrl) return;
+    document.getElementById('pop').classList.add('showop');
+    document.querySelector('.rec-time').style.border = '2px solid #b9bec2';
+    document.getElementById('dottt').style.display = 'none';
+    setScreenRecor(false);
+  }, [mediaBlobUrl]);
   if (tempuser === null) {
     return <Redirect to='/' />;
   }
@@ -444,17 +459,17 @@ useEffect(()=>{
     <react.Fragment>
       {/* {loading ? <Loader /> : null} */}
       <div className='roomaudio'>
-      <div className='video-conference'>
-        <div className='main-side' id='main'>
-        <div className='screen-record'>
-                <div id="pop" className='popup-wrapper2'>
-                    <button className='close-btn2'onClick={close}>
-                        <i className='fas fa-times'></i>
-                      </button>
-                    <video src={mediaBlobUrl} controls autoPlay/>
-                    </div>
-                  </div>
-          <div className='navbar'>
+        <div className='video-conference'>
+          <div className='main-side' id='main'>
+            <div className='screen-record'>
+              <div id='pop' className='popup-wrapper2'>
+                <button className='close-btn2' onClick={close}>
+                  <i className='fas fa-times'></i>
+                </button>
+                <video src={mediaBlobUrl} controls autoPlay />
+              </div>
+            </div>
+            <div className='navbar'>
               <div className='logo'>
                 <img src={logo} alt='logo' />
               </div>
@@ -464,7 +479,7 @@ useEffect(()=>{
               <div className='grid-show'>
                 <ul>
                   <li id='grid6' onClick={grid}>
-                   <i className='fas fa-th'></i>
+                    <i className='fas fa-th'></i>
                   </li>
                   <li id='grid4' onClick={grid}>
                     <i className='fas fa-th-large'></i>
@@ -477,88 +492,93 @@ useEffect(()=>{
                   </li>
                 </ul>
               </div>
-       
-          </div>
-          <div className='vi'>
-            <Navbar />
-            <div className='vid-stream'>
-              <div className='opts'>
-              <img src={groupicon} alt="group"/>
-                <select className='nump'>
-                  <option>{peers.length + 1}</option>
-                </select>
-                <div className='invite'>
-                  <i
-                    className='fas fa-users popup-open'
-                    onClick={openpopup}
-                  ></i>
-                  Invite a participant
-                  <div className='popup-wrapper'>
-                    <div className='popup'>
-                      <button className='close-btn'>
-                        <i className='fas fa-times'></i>
-                      </button>
-                      <div className='copy'>
-                        <button onClick={Copy}>Copy Link</button>
-                        <input type='text' id='paste-box' />
+            </div>
+            <div className='vi'>
+              <Navbar />
+              <div className='vid-stream'>
+                <div className='opts'>
+                  <img src={groupicon} alt='group' />
+                  <select className='nump'>
+                    <option>{peers.length + 1}</option>
+                  </select>
+                  <div className='invite'>
+                    <i
+                      className='fas fa-users popup-open'
+                      onClick={openpopup}
+                    ></i>
+                    Invite a participant
+                    <div className='popup-wrapper'>
+                      <div className='popup'>
+                        <button className='close-btn'>
+                          <i className='fas fa-times'></i>
+                        </button>
+                        <div className='copy'>
+                          <button onClick={Copy}>Copy Link</button>
+                          <input type='text' id='paste-box' />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className='rec-time'><span id='dottt'></span>00:00 </div>
-              </div>
-              <div className='vids'>
-                <div className='stream vid-item signlang'>
-                  <img id='stream_asl_a'className='sign' alt='ss' src={signpic} />
-                  <span className='name' ref={senderName}></span>
-                </div>
-                <div className='vid-item'>
-                  <div
-                    className={`width-peer${
-                      peers.length > 8 ? '' : peers.length
-                    }`}
-                  >
-                    <img src={user.image}alt='as'/>
-                    <video
-                      ref={userVideoRef}
-                      muted
-                      autoPlay
-                      playsInline
-                    ></video>
+                  <div className='rec-time'>
+                    <span id='dottt'></span>00:00{' '}
                   </div>
-                  <div className='icon'>
-                    {userVideoAudio['localUser'].audio ? (
-                      <i className='fas fa-microphone'></i>
-                    ) : (
-                      <i className='fas fa-microphone-slash'></i>
-                    )}
-                  </div>
-                  <span className='name'>{user.name}</span>
                 </div>
-                {peers &&
-                  peers.map((peer, index, arr) => {
-                    return createUserVideo(peer, index, arr);
-                  })}
+                <div className='vids'>
+                  <div className='stream vid-item signlang'>
+                    <img
+                      id='stream_asl_a'
+                      className='sign'
+                      alt='ss'
+                      src={signpic}
+                    />
+                    <span className='name' ref={senderName}></span>
+                  </div>
+                  <div className='vid-item'>
+                    <div
+                      className={`width-peer${
+                        peers.length > 8 ? '' : peers.length
+                      }`}
+                    >
+                      <img src={user.image} alt='as' />
+                      <video
+                        ref={userVideoRef}
+                        muted
+                        autoPlay
+                        playsInline
+                      ></video>
+                    </div>
+                    <div className='icon'>
+                      {userVideoAudio['localUser'].audio ? (
+                        <i className='fas fa-microphone'></i>
+                      ) : (
+                        <i className='fas fa-microphone-slash'></i>
+                      )}
+                    </div>
+                    <span className='name'>{user.name}</span>
+                  </div>
+                  {peers &&
+                    peers.map((peer, index, arr) => {
+                      return createUserVideo(peer, index, arr);
+                    })}
+                </div>
               </div>
             </div>
+            <BottomBar
+              // clickChat={clickChat}
+              // clickCameraDevice={clickCameraDevice}
+              goToBack={goToBack}
+              toggleCameraAudio={toggleCameraAudio}
+              userVideoAudio={userVideoAudio['localUser']}
+              text={text}
+              toSign={toSign}
+              settoSign={settoSign}
+              senderName={senderName}
+              toggleRecording={toggleRecording}
+              screenRecod={screenRecod}
+            />
           </div>
-          <BottomBar
-            // clickChat={clickChat}
-            // clickCameraDevice={clickCameraDevice}
-            goToBack={goToBack}
-            toggleCameraAudio={toggleCameraAudio}
-            userVideoAudio={userVideoAudio['localUser']}
-            text={text}
-            toSign={toSign}
-            settoSign={settoSign}
-            senderName={senderName}
-            toggleRecording={toggleRecording}
-            screenRecod={screenRecod}
-          />
-      
+          <Chat roomId={roomId} />
         </div>
-        <Chat roomId={roomId} />
-      </div>
       </div>
     </react.Fragment>
   );
