@@ -377,8 +377,8 @@ position: relative;
 }
 
  .video-conference .main-side .vi .vid-stream .vids .vid-item{
-    width: calc(100%/3);
-    height: fit-content;
+    width: 230px;
+    height: 173px;
     margin: 10px;
     overflow: hidden;
     position: relative;
@@ -395,7 +395,8 @@ position: relative;
     position: relative;
     border-radius: 20px;
     display: none;
-    width: calc(100%/3);
+    width: 230px;
+    height: 173px;
     border: 1px solid #333;
     text-align: center;
 }
@@ -409,9 +410,9 @@ position: relative;
 
  .video-conference .main-side .vi .vid-stream .vids .vid-item .name{
     position: absolute;
-    bottom: 10px;
+    bottom: 4px;
     color: #fff;
-    right: 15px;
+    right: 12px;
     background: rgba(0,0,0,0.5);
     border-radius: 20px;
     cursor: pointer;
@@ -655,8 +656,8 @@ width: 47px;
   }
   @media only screen and (max-width: 800px) {
      .video-conference .main-side .vi .vid-stream .vids .vid-item.signlang{
-        width: 34%;
-        height:fit-content;
+        width: 230px;
+        height: 173px;
     }
     .footer .buttons #phonealt{
 
@@ -788,8 +789,8 @@ width: 47px;
   }
   @media only screen and (max-width: 600px) {
      .video-conference .main-side .vi .vid-stream .vids .vid-item.signlang{
-        width: calc(100%/3);
-        height:fit-content;
+        width: 230px;
+        height: 173px;
     }
      .video-conference .main-side .navbar .logo {
         position: relative;
@@ -803,9 +804,9 @@ width: 47px;
         padding: 0px;
     }
      .video-conference .main-side .vi .vid-stream .vids .vid-item {
-        width: calc(100%/3);
-        height: fit-content;
-        margin: 10px;
+        width: 230px;
+        height: 173px;
+        margin: 5px;
         overflow: hidden;
         position: relative;
         border-radius: 20px;

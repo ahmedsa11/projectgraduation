@@ -580,7 +580,7 @@ useEffect(()=>{
               </div>
               <div className='vids'>
                 <div className='stream vid-item signlang'>
-                  <img id='stream_asl' alt='ss' src={signpic} />
+                  <img id='stream_asl'className='signvid' alt='ss' src={signpic} />
                   <span className='name' ref={senderName}></span>
                 </div>
                 <div className='vid-item'>

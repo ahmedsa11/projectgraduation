@@ -58,9 +58,10 @@ class Form extends Component {
   };
   handlesubsignup = async (e) => {
     e.preventDefault();
-    this.setState({loading:true})
+ 
     const error = this.validsignup();
     if (error) return;
+    this.setState({loading:true})
     //back end
     let data = await fetch(
       `https://backend-api-tabarani.herokuapp.com/api/users/${this.state.mobile}`,

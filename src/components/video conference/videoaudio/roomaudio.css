@@ -397,7 +397,8 @@ position: relative;
     position: relative;
     border-radius: 20px;
     display: none;
-    width: calc(100%/3);
+    width: 215px;
+    height: 182px;
     border: 1px solid #333;
     text-align: center;
 }
@@ -409,6 +410,12 @@ position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+.roomaudio  .video-conference .main-side .vi .vid-stream .vids .signlang .sign{
+    width: 100%;
+    /* height: 104px; */
+    border-radius: 0px;
+    height: 100%;
 }
 .showsign{
     display: block !important;
@@ -662,8 +669,8 @@ width: 47px;
   }
   @media only screen and (max-width: 800px) {
     .roomaudio  .video-conference .main-side .vi .vid-stream .vids .vid-item.signlang{
-        width: 34%;
-        height:fit-content;
+        width: 215px;
+        height: 182px;
     }
     .footer .buttons #phonealt{
 
@@ -795,8 +802,8 @@ width: 47px;
   }
   @media only screen and (max-width: 600px) {
     .roomaudio  .video-conference .main-side .vi .vid-stream .vids .vid-item.signlang{
-        width: calc(100%/3);
-        height:fit-content;
+        width: 180px;
+        height: 160px;
     }
     .roomaudio  .video-conference .main-side .navbar .logo {
         position: relative;
@@ -810,8 +817,9 @@ width: 47px;
         padding: 0px;
     }
     .roomaudio  .video-conference .main-side .vi .vid-stream .vids .vid-item {
-        width: calc(100%/3);
-        margin: 10px;
+        width: 180px;
+        height: 160px;
+        margin: 5px;
         overflow: hidden;
         position: relative;
         border-radius: 20px;
