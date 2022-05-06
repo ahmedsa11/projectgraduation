@@ -15,12 +15,12 @@ const Header = (props) => {
   // console.log(user)
   function clickJoinVideo() {
     const id = uuid();
-    props.v.history.push(`/roomVideo/${id}`);
+    props.r.history.push(`/roomvideo/${id}`);
     
   }
   function clickJoinAudio() {
     const id = uuid();
-    props.a.history.push(`/roomAudio/${id}`);
+    props.r.history.push(`/roomaudio/${id}`);
     
   }
   return (
