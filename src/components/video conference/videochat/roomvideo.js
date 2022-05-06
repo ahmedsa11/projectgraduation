@@ -148,7 +148,7 @@ const [isFinished,setisfinished]=useState(true)
 
         userVideoRef.current.srcObject = stream;
         userStream.current = stream;
-        socket.emit('BE-join-room', { roomId, user });
+        socket.emit('BE-join-room', { roomId, user, video: true, audio: true });
 
         socket.on('FE-user-join', ({ userId, info }) => {
           // all users
