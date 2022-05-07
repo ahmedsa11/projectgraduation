@@ -145,12 +145,15 @@ const RoomVideo = (props) => {
 
     // setloading(true);
     // Connect Camera & Mic
-
+    if (!navigator.mediaDevices) {
+      alert("Sorry, getUserMedia is not supported");
+      return;
+    }
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         // setloading(false);
-
+      
         userVideoRef.current.srcObject = stream;
         userStream.current = stream;
         console.log(props);
