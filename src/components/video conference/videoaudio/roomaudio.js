@@ -142,7 +142,10 @@ const RoomAudio = (props) => {
     }
     // setloading(true);
     // Connect Camera & Mic
-
+    if (!navigator.mediaDevices) {
+      alert("Sorry, getUserMedia is not supported");
+      return;
+    }
     navigator.mediaDevices
       .getUserMedia({ video: false, audio: true })
       .then((stream) => {
