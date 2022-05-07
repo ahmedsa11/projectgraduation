@@ -108,7 +108,7 @@ const RoomVideo = (props) => {
   const userVideoRef = useRef();
   const screenTrackRef = useRef();
   const userStream = useRef();
-  const roomId = props.match.params.roomvideoId;
+  const roomId = props.match.params.roomId;
   const tempuser = localStorage.getItem('user');
   const user = JSON.parse(tempuser);
   const audio = userVideoAudio['localUser'].audio;

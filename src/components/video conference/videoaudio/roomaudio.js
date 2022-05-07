@@ -105,7 +105,7 @@ const RoomAudio = (props) => {
   const peersRef = useRef([]);
   const userVideoRef = useRef();
   const userStream = useRef();
-  const roomId = props.match.params.roomaudioId;
+  const roomId = props.match.params.roomId;
   const tempuser = localStorage.getItem('user');
   const user = JSON.parse(tempuser);
   const audio = userVideoAudio['localUser'].audio;
