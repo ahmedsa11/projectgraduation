@@ -17,13 +17,13 @@ class App extends Component {
       <react.Fragment>
         <Switch> 
           <Route exact path="/" component={Form} />
+          <Route path="/roomvideo/:roomvideoId" component={RoomVideo} />
+          <Route path="/roomaudio/:roomaudioId" component={RoomAudio} />
           <Route path="/home" component={Home} />
           <Route path="/setting" component={Setting} />
           <Route path="/mainchat" component={Mainchat} />
           <Route path="/calendar" component={Calendarr} />
           <Route path="/notifications" component={Notifications} />
-          <Route path="/roomvideo/:roomvideoId" component={RoomVideo} />
-          <Route path="/roomaudio/:roomaudioId" component={RoomAudio} />
           {/* <Route path="/s" component={Signlang} />  */}
           <Route path="/notfound" component={NOT} />
           {/* <Redirect from="/form" to="/" /> */}
