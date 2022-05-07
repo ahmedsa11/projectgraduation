@@ -8,8 +8,8 @@ import Setting from "./components/setting/setting";
 import Mainchat from "./components/mainchat/mainchat";
 import Calendarr from "./components/calendar/calendar";
 import Notifications from "./components/neffication/notifications";
-import RoomVideo from "./components/video conference/videochat/roomvideo";
-import RoomAudio from "./components/video conference/videoaudio/roomaudio";
+import Roomvideo from "./components/video conference/videochat/roomvideo";
+import Roomaudio from "./components/video conference/videoaudio/roomaudio";
 // import Signlang from "./components/video conference/videochat/signlanguage";
 class App extends Component {
   render() {
@@ -17,8 +17,8 @@ class App extends Component {
       <react.Fragment>
         <Switch> 
           <Route exact path="/" component={Form} />
-          <Route path="/roomvideo/:roomId" component={RoomVideo} />
-          <Route path="/roomaudio/:roomId" component={RoomAudio} />
+          <Route path="/roomvideo/:roomvideoId" component={Roomvideo} />
+          <Route path="/roomaudio/:roomaudioId" component={Roomaudio} />
           <Route path="/home" component={Home} />
           <Route path="/setting" component={Setting} />
           <Route path="/mainchat" component={Mainchat} />

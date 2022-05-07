@@ -95,8 +95,7 @@ const close = () => {
   pop.classList.add('hideop');
 };
 
-const RoomVideo = (props) => {
-  console.log('roooom');
+const Roomvideo = (props) => {
   const [peers, setPeers] = useState([]);
   const [toSign, settoSign] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({
@@ -108,7 +107,7 @@ const RoomVideo = (props) => {
   const userVideoRef = useRef();
   const screenTrackRef = useRef();
   const userStream = useRef();
-  const roomId = props.match.params.roomId;
+  const roomId = props.match.params.roomvideoId;
   const tempuser = localStorage.getItem('user');
   const user = JSON.parse(tempuser);
   const audio = userVideoAudio['localUser'].audio;
@@ -664,4 +663,4 @@ const RoomVideo = (props) => {
   );
 };
 
-export default RoomVideo;
+export default Roomvideo;
