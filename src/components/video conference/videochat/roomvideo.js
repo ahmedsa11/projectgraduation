@@ -12,6 +12,10 @@ import groupicon from '../../../img/group-chatt 1.png';
 import BottomBar from './BottomBar';
 import VideoCard from './vid';
 import { Redirect } from 'react-router';
+import { Hands } from "@mediapipe/hands"; 
+import * as hands from "@mediapipe/hands"; 
+import * as cam from "@mediapipe/camera_utils";
+import io from 'socket.io-client';
 import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition';
@@ -94,10 +98,23 @@ const close = () => {
   pop.classList.remove('showop');
   pop.classList.add('hideop');
 };
+const sio = io("http://54.87.224.114/");
+sio.on('connect', () => {
+  console.log('connected');
+  
+});
 
+sio.on('disconnect', () => {
+  console.log('disconnected');
+});
+
+sio.on("connect_error", () =>{
+  console.log("error")
+});
 const Roomvideo = (props) => {
   const [peers, setPeers] = useState([]);
   const [toSign, settoSign] = useState(false);
+  const [signToText, setsignToText] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({
     localUser: { video: true, audio: true },
   });
@@ -128,6 +145,52 @@ const Roomvideo = (props) => {
   // if (!browserSupportsSpeechRecognition) {
   //   return (<span>Browser doesn't support speech recognition.</span>)
   // }
+  const canvasRef = useRef(null);
+  const textsign=useRef()
+  const drawConnectors = window.drawConnectors;
+  const drawLandmarks = window.drawLandmarks;
+  var count = 0;
+  var frames = [];
+  var camera=null
+  function onResults(results) {
+    const videoWidth = userVideoRef.current.videoWidth;
+    const videoHeight = userVideoRef.current.videoHeight;
+    // Set canvas width
+    canvasRef.current.width = videoWidth;
+    canvasRef.current.height = videoHeight;
+    // console.log(results); 
+    // Set canvas width
+    const canvasElement = canvasRef.current;
+    const canvasCtx = canvasElement.getContext("2d");
+    canvasCtx.save();
+    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+    canvasCtx.drawImage(
+      results.image,
+      0,
+      0,
+      canvasElement.width,
+      canvasElement.height
+    );
+    if (results.multiHandLandmarks) {
+      for (const landmarks of results.multiHandLandmarks) {
+        count++;
+        frames.push(landmarks);
+        // console.log(count);
+        if (count === 10) {
+            sio.emit("stream_sign", {'landmarks':frames});
+            console.log(frames.length);
+            count = 0;
+            frames=[];
+        }
+        drawConnectors(canvasCtx, landmarks, hands.HAND_CONNECTIONS, {
+          color: "#00FF00",
+          lineWidth: 5,
+        });
+        drawLandmarks(canvasCtx, landmarks, { color: "#FF0000", lineWidth: 2 });
+      }
+    }
+    canvasCtx.restore();
+  }
   useEffect(() => {
     // Get Video Devices
     // navigator.mediaDevices.enumerateDevices().then((devices) => {
@@ -335,13 +398,46 @@ const Roomvideo = (props) => {
         var bytes = new Uint8Array(buffer);
         var len = bytes.byteLength;
         for (var i = 0; i < len; i++) {
-          binary += String.fromCharCode(bytes[i]);
+          binary += String.fromCharCode(bytes[i]); 
         }
         return window.btoa(binary);
       };
     }
     // eslint-disable-next-line
   }, [toSign]);
+
+  useEffect(() => {
+    if(signToText){
+    const hands = new Hands({
+      locateFile: (file) => {
+        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+      },
+    });
+    hands.setOptions({
+      maxNumHands: 1,
+      modelComplexity: 1,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5,
+    });
+    hands.onResults(onResults);
+      // eslint-disable-next-line 
+      camera = new cam.Camera(userVideoRef.current, { 
+        onFrame: async () => {
+          await hands.send({ image: userVideoRef.current});
+        }
+      });
+      camera.start();
+     // recive data from the server
+sio.on("stream_sign", (pyload)=>{
+    console.log('receive done ', pyload["text"]);
+  if (text.current) {
+    text.current.textContent = pyload["text"];
+  }
+  });
+}
+   // eslint-disable-next-line
+  }, [signToText]);
+
   function createPeer(userId, caller, stream) {
     const peer = new Peer({
       initiator: true,
@@ -623,6 +719,11 @@ const Roomvideo = (props) => {
                         autoPlay
                         playsInline
                       ></video>
+             <canvas
+             id='canvas'
+          ref={canvasRef}
+          className="canvas"
+        ></canvas>
                     </div>
                     <div className='icon'>
                       {userVideoAudio['localUser'].audio ? (
@@ -650,10 +751,13 @@ const Roomvideo = (props) => {
               screenShare={screenShare}
               text={text}
               toSign={toSign}
+              signToText={signToText}
+              setsignToText={setsignToText}
               settoSign={settoSign}
               senderName={senderName}
               toggleRecording={toggleRecording}
               screenRecod={screenRecod}
+              textsign={textsign}
             />
           </div>
           <Chat roomId={roomId}/>

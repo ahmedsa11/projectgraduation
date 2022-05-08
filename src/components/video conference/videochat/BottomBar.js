@@ -12,8 +12,11 @@ const BottomBar = ({
   screenShare,
   toggleRecording,
   text,
+  signToText,
+  textsign,
   toSign,
   settoSign,
+  setsignToText
 }) => {
   // function captiontext(){
   //   userVideoAudio.audio ? (
@@ -40,6 +43,18 @@ const BottomBar = ({
         tool[1].classList.toggle("activetool");
         caption.classList.toggle("showsign");
       };
+      tool[2].onclick = () => {
+        const caption = document.querySelector(".captionsign");
+        tool[2].classList.toggle("activetool");
+        caption.classList.toggle("showsign");
+        setsignToText(signcheck => !signcheck)
+      };
+      tool[3].onclick = () => {
+        const signmedia = document.getElementById('canvas')
+        tool[3].classList.toggle("activetool");
+        signmedia.classList.toggle("showmediapipe");
+        setsignToText(signcheck => !signcheck)
+      };
     }
   };
 
@@ -64,6 +79,13 @@ const BottomBar = ({
                 <li className="to" onClick={opentool}>
                   Caption
                 </li>
+                <li className="to" onClick={opentool}>
+                  Caption SignToText
+                </li>
+                <li className="to" onClick={opentool}>
+                  Sign To Text
+                </li>
+             
               </ul>
             </div>
           </div>
@@ -72,7 +94,9 @@ const BottomBar = ({
           <div className="cp">
             <div className="caption lead text-center" id="textarea">
               <p className="pcap" ref={text}></p>
-              {/* <div style={{float:'left', clear: 'both'}} ref={captionEndRef} ></div> */}
+            </div>
+            <div className="captionsign lead text-center" id="textarea">
+              <p className="pcaps" ref={textsign}></p>
             </div>
           </div>
           <ul>

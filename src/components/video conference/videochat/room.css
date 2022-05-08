@@ -377,8 +377,8 @@ position: relative;
 }
 
  .video-conference .main-side .vi .vid-stream .vids .vid-item{
-    width: 230px;
-    height: 173px;
+    width: 250px;
+    height: 190px;
     margin: 10px;
     overflow: hidden;
     position: relative;
@@ -388,6 +388,22 @@ position: relative;
     border-radius: 20px;
     width: 100%;
     height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+.video-conference .main-side .vi .vid-stream .vids canvas{
+    border-radius: 20px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    display: none;
+    z-index: 0;
+}
+.showmediapipe{
+    display: block !important;
+    z-index: 1000 !important;
 }
  .video-conference .main-side .vi .vid-stream .vids .vid-item.signlang{
     margin: 10px;
@@ -395,8 +411,8 @@ position: relative;
     position: relative;
     border-radius: 20px;
     display: none;
-    width: 230px;
-    height: 173px;
+    width: 250px;
+    height: 190px;
     border: 1px solid #333;
     text-align: center;
 }
@@ -463,8 +479,36 @@ position: relative;
     -webkit-animation: my-animation 14s linear infinite;
     animation: my-animation 14s linear infinite; */
 }
- 
+.captionsign{
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    width: -moz-fit-content;
+    overflow: hidden;
+    height: -moz-fit-content;
+    height: fit-content;
+    /* background-color: rgba(0,0,0,0.4); */
+    padding: 6px;
+    /* left: 47.4%; */
+    bottom: 10%;
+    position: relative;
+    width: fit-content;
+    display: none;
+    overflow-wrap: anywhere;
+    /* -moz-transform: translateY(100%);
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%); */
+    /* -moz-animation: my-animation 14s linear infinite;
+    -webkit-animation: my-animation 14s linear infinite;
+    animation: my-animation 14s linear infinite; */
+}
 .caption .pcap{
+    font-size: 20px;
+    font-weight: 300;
+    color: white;
+    
+}
+.captionsign .pcaps{
     font-size: 20px;
     font-weight: 300;
     color: white;
@@ -656,8 +700,8 @@ width: 47px;
   }
   @media only screen and (max-width: 800px) {
      .video-conference .main-side .vi .vid-stream .vids .vid-item.signlang{
-        width: 230px;
-        height: 173px;
+        width: 250px;
+        height: 190px;
     }
     .footer .buttons #phonealt{
 
@@ -789,8 +833,8 @@ width: 47px;
   }
   @media only screen and (max-width: 600px) {
      .video-conference .main-side .vi .vid-stream .vids .vid-item.signlang{
-        width: 230px;
-        height: 173px;
+        width: 250px;
+        height: 190px;
     }
      .video-conference .main-side .navbar .logo {
         position: relative;
@@ -804,8 +848,8 @@ width: 47px;
         padding: 0px;
     }
      .video-conference .main-side .vi .vid-stream .vids .vid-item {
-        width: 230px;
-        height: 173px;
+        width: 250px;
+        height: 190px;
         margin: 5px;
         overflow: hidden;
         position: relative;
