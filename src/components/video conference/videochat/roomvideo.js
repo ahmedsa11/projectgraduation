@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import react from 'react';
-import signpic from '../../../img/si.jpeg';
 import { useReactMediaRecorder } from 'react-media-recorder';
 import Peer from 'simple-peer';
 import socket from '../socket';
@@ -12,13 +11,11 @@ import groupicon from '../../../img/group-chatt 1.png';
 import BottomBar from './BottomBar';
 import VideoCard from './vid';
 import { Redirect } from 'react-router';
-import { Hands } from "@mediapipe/hands"; 
-import * as hands from "@mediapipe/hands"; 
-import * as cam from "@mediapipe/camera_utils";
-import io from 'socket.io-client';
 import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition';
+import Signlang from './signlanguage';
+import SignToText from './signtotext';
 const Copy = () => {
   var Url = document.getElementById('paste-box');
   Url.value = window.location.href;
@@ -98,26 +95,11 @@ const close = () => {
   pop.classList.remove('showop');
   pop.classList.add('hideop');
 };
-const sio = io("http://54.87.224.114/");
-sio.on('connect', () => {
-  console.log('connected');
-  
-});
-
-sio.on('disconnect', () => {
-  console.log('disconnected');
-});
-
-sio.on("connect_error", () =>{
-  console.log("error")
-});
 const Roomvideo = (props) => {
   const [peers, setPeers] = useState([]);
   const [toSign, settoSign] = useState(false);
   const [signToText, setsignToText] = useState(false);
-  const [userVideoAudio, setUserVideoAudio] = useState({
-    localUser: { video: true, audio: true },
-  });
+  const [userVideoAudio, setUserVideoAudio] = useState({localUser: { video: true, audio: true }});
   const [screenShare, setScreenShare] = useState(false);
   const [screenRecod, setScreenRecor] = useState(false);
   const peersRef = useRef([]);
@@ -128,69 +110,16 @@ const Roomvideo = (props) => {
   const tempuser = localStorage.getItem('user');
   const user = JSON.parse(tempuser);
   const audio = userVideoAudio['localUser'].audio;
-  const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder(
-    { screen: true }
-  );
-  let {
-    transcript,
-    listening,
-    // interimTranscript,
-    // finalTranscript,
-    // browserSupportsSpeechRecognition
-  } = useSpeechRecognition();
+  const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ screen: true });
+  let {transcript,listening,
+// browserSupportsSpeechRecognition
+} = useSpeechRecognition();
   let text = useRef();
-  const [newContent, setnewcontent] = useState('');
-  const [isFinished, setisfinished] = useState(true);
   let senderName = useRef();
+  let textsign=useRef()
   // if (!browserSupportsSpeechRecognition) {
   //   return (<span>Browser doesn't support speech recognition.</span>)
   // }
-  const canvasRef = useRef(null);
-  const textsign=useRef()
-  const drawConnectors = window.drawConnectors;
-  const drawLandmarks = window.drawLandmarks;
-  var count = 0;
-  var frames = [];
-  var camera=null
-  function onResults(results) {
-    const videoWidth = userVideoRef.current.videoWidth;
-    const videoHeight = userVideoRef.current.videoHeight;
-    // Set canvas width
-    canvasRef.current.width = videoWidth;
-    canvasRef.current.height = videoHeight;
-    // console.log(results); 
-    // Set canvas width
-    const canvasElement = canvasRef.current;
-    const canvasCtx = canvasElement.getContext("2d");
-    canvasCtx.save();
-    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-    canvasCtx.drawImage(
-      results.image,
-      0,
-      0,
-      canvasElement.width,
-      canvasElement.height
-    );
-    if (results.multiHandLandmarks) {
-      for (const landmarks of results.multiHandLandmarks) {
-        count++;
-        frames.push(landmarks);
-        // console.log(count);
-        if (count === 10) {
-            sio.emit("stream_sign", {'landmarks':frames});
-            console.log(frames.length);
-            count = 0;
-            frames=[];
-        }
-        drawConnectors(canvasCtx, landmarks, hands.HAND_CONNECTIONS, {
-          color: "#00FF00",
-          lineWidth: 5,
-        });
-        drawLandmarks(canvasCtx, landmarks, { color: "#FF0000", lineWidth: 2 });
-      }
-    }
-    canvasCtx.restore();
-  }
   useEffect(() => {
     // Get Video Devices
     // navigator.mediaDevices.enumerateDevices().then((devices) => {
@@ -204,7 +133,6 @@ const Roomvideo = (props) => {
     if (tempuser === null) {
       return <Redirect to='/' />;
     }
-
     // setloading(true);
     // Connect Camera & Mic
     if (!navigator.mediaDevices) {
@@ -215,7 +143,6 @@ const Roomvideo = (props) => {
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         // setloading(false);
-      
         userVideoRef.current.srcObject = stream;
         userStream.current = stream;
         console.log(props);
@@ -292,8 +219,10 @@ const Roomvideo = (props) => {
             peersRef.current = peersRef.current.filter(
               ({ peerID }) => peerID !== userId
             );
-            setPeers((users) => {
-              return users.filter((user) => user.peerID !== userId);
+        
+setPeers((users) => {
+  users = users.filter((user) => user.peerID !== userId);
+  return [...users];
             });
           }
         });
@@ -326,7 +255,7 @@ const Roomvideo = (props) => {
     };
     // eslint-disable-next-line
   }, []);
-
+  //voice to sign
   useEffect(() => {
     if (audio && toSign) {
       console.log('start listening');
@@ -341,110 +270,12 @@ const Roomvideo = (props) => {
     }
     // eslint-disable-next-line
   }, [listening, audio, toSign]);
-  useEffect(() => {
-    setnewcontent(transcript);
-    // eslint-disable-next-line
-  }, [transcript]);
-  useEffect(() => {
-    if (toSign) {
-      console.log(newContent);
-      console.log({ isFinished });
-      if (isFinished) {
-        socket.emit('send-text', {
-          data: newContent,
-          roomId,
-          name: user.name,
-        });
-        console.log('send text to backend');
-        setisfinished(false);
-        setnewcontent('');
-      }
-    }
-    // eslint-disable-next-line
-  }, [listening]);
-  useEffect(() => {
-    if (toSign) {
-      socket.on('receive-text', ({ data, name }) => {
-        console.log({ data });
-        if (text.current) {
-          text.current.textContent = data;
-        }
-        if (senderName.current) {
-          senderName.current.textContent = name;
-          console.log(senderName.current.textContent);
-        }
-      });
-      socket.on('send', () => {
-        console.log('finished sending 2');
-        setisfinished(true);
-        if (newContent.length > 0) {
-          socket.emit('send-text', {
-            data: newContent,
-            roomId,
-            name: user.name,
-          });
-          setisfinished(false);
-          setnewcontent('');
-        }
-      });
-      // recive data from the server
-      socket.on('receive-frame', ({ buffer }) => {
-        console.log('received frame from backend');
-        document.getElementById('stream_asl_v').src =
-          'data:image/jpeg;base64,' + arrayBufferToBase64(buffer);
-      });
-      const arrayBufferToBase64 = (buffer) => {
-        var binary = '';
-        var bytes = new Uint8Array(buffer);
-        var len = bytes.byteLength;
-        for (var i = 0; i < len; i++) {
-          binary += String.fromCharCode(bytes[i]); 
-        }
-        return window.btoa(binary);
-      };
-    }
-    // eslint-disable-next-line
-  }, [toSign]);
-
-  useEffect(() => {
-    if(signToText){
-    const hands = new Hands({
-      locateFile: (file) => {
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
-      },
-    });
-    hands.setOptions({
-      maxNumHands: 1,
-      modelComplexity: 1,
-      minDetectionConfidence: 0.5,
-      minTrackingConfidence: 0.5,
-    });
-    hands.onResults(onResults);
-      // eslint-disable-next-line 
-      camera = new cam.Camera(userVideoRef.current, { 
-        onFrame: async () => {
-          await hands.send({ image: userVideoRef.current});
-        }
-      });
-      camera.start();
-     // recive data from the server
-sio.on("stream_sign", (pyload)=>{
-    console.log('receive done ', pyload["text"]);
-  if (text.current) {
-    text.current.textContent = pyload["text"];
-  }
-  });
-}
-   // eslint-disable-next-line
-  }, [signToText]);
-
   function createPeer(userId, caller, stream) {
     const peer = new Peer({
       initiator: true,
       trickle: false,
       stream,
     });
-
     peer.on('signal', (signal) => {
       socket.emit('BE-call-user', {
         userToCall: userId,
@@ -458,7 +289,6 @@ sio.on("stream_sign", (pyload)=>{
 
     return peer;
   }
-
   function addPeer(incomingSignal, callerId, stream) {
     const peer = new Peer({
       initiator: false,
@@ -482,10 +312,8 @@ sio.on("stream_sign", (pyload)=>{
   function findPeer(id) {
     return peersRef.current.find((p) => p.peerID === id);
   }
-
   function createUserVideo(peer, index, arr) {
     // console.log(userVideoAudio[peer.userName])
-
     return (
       <div
         className={`width-peer${peers.length > 8 ? '' : peers.length} vid-item`}
@@ -505,7 +333,6 @@ sio.on("stream_sign", (pyload)=>{
       </div>
     );
   }
-
   // BackButton
   const goToBack = (e) => {
     e.preventDefault();
@@ -544,7 +371,6 @@ sio.on("stream_sign", (pyload)=>{
       switchTarget: target,
     });
   };
-
   const clickScreenSharing = () => {
     if (!screenShare) {
       navigator.mediaDevices
@@ -562,7 +388,6 @@ sio.on("stream_sign", (pyload)=>{
               userStream.current
             );
           });
-
           // Listen click end
           screenTrack.onended = () => {
             peersRef.current.forEach(({ peer }) => {
@@ -577,7 +402,6 @@ sio.on("stream_sign", (pyload)=>{
             userVideoRef.current.srcObject = userStream.current;
             setScreenShare(false);
           };
-
           userVideoRef.current.srcObject = stream;
           screenTrackRef.current = screenTrack;
           setScreenShare(true);
@@ -586,10 +410,8 @@ sio.on("stream_sign", (pyload)=>{
       screenTrackRef.current.onended();
     }
   };
-
-  const expandScreen = (e) => {
+    const expandScreen = (e) => {
     const elem = e.target;
-
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
     } else if (elem.mozRequestFullScreen) {
@@ -692,17 +514,18 @@ sio.on("stream_sign", (pyload)=>{
                     </div>
                   </div>
                   <div className='rec-time'>
-                    <span id='dottt'></span>00:00{' '}
+                    <span id='dottt'></span>00:00
                   </div>
                 </div>
                 <div className='vids'>
                   <div className='stream vid-item signlang'>
-                    <img
-                      id='stream_asl_v'
-                      className='signvid'
-                      alt='ss'
-                      src={signpic}
-                    />
+                   <Signlang toSign={toSign}
+                   roomId={roomId}
+                   user={user}
+                  // settextcaption={(textcaption)=>settextcaption(textcaption)}
+                  text={text}
+                  senderName={senderName}
+                  />
                     <span className='name' ref={senderName}></span>
                   </div>
                   <div className='vid-item'>
@@ -719,11 +542,11 @@ sio.on("stream_sign", (pyload)=>{
                         autoPlay
                         playsInline
                       ></video>
-             <canvas
-             id='canvas'
-          ref={canvasRef}
-          className="canvas"
-        ></canvas>
+                      <SignToText
+                       uservideo={userVideoRef}
+                       textsign={textsign}
+                       signToText={signToText}
+                       />
                     </div>
                     <div className='icon'>
                       {userVideoAudio['localUser'].audio ? (

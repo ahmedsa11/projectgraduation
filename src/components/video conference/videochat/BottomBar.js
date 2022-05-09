@@ -16,7 +16,8 @@ const BottomBar = ({
   textsign,
   toSign,
   settoSign,
-  setsignToText
+  setsignToText,
+  textcaption
 }) => {
   // function captiontext(){
   //   userVideoAudio.audio ? (
@@ -74,13 +75,13 @@ const BottomBar = ({
             <div className="dropdown-content">
               <ul>
                 <li className="to" onClick={opentool}>
-                  Sign Language
+                  Voice To Sign
                 </li>
                 <li className="to" onClick={opentool}>
-                  Caption
+                  Caption Voice To Sign
                 </li>
                 <li className="to" onClick={opentool}>
-                  Caption SignToText
+                  Caption Sign To Text
                 </li>
                 <li className="to" onClick={opentool}>
                   Sign To Text
