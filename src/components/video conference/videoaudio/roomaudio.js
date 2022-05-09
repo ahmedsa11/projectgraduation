@@ -221,8 +221,9 @@ const Roomaudio = (props) => {
               ({ peerID }) => peerID !== userId
             );
             setPeers((users) => {
-              return users.filter((user) => user.peerID !== userId);
-            });
+              users = users.filter((user) => user.peerID !== userId);
+              return [...users];
+                        });
           }
         });
       });

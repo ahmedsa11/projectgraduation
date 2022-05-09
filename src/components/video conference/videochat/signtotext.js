@@ -1,21 +1,12 @@
 import React, { useEffect,useRef} from "react";
 import react from "react";
+import socket from "../socket";
 import { Hands } from "@mediapipe/hands"; 
 import * as hands from "@mediapipe/hands"; 
 import * as cam from "@mediapipe/camera_utils";
-import io from 'socket.io-client';
-const sio = io("http://54.87.224.114/");
-sio.on('connect', () => {
-  console.log('connected');
-  
-});
-sio.on('disconnect', () => {
-  console.log('disconnected');
-});
-sio.on("connect_error", () =>{
-  console.log("error")
-});
-const SignToText = ({textsign,uservideo,signToText}) => {
+const SignToText = ({textsign,uservideo,signToText,roomId}) => {
+  let word='';
+  let sentence='';
     const canvasRef = useRef(null);
     const drawConnectors = window.drawConnectors;
     const drawLandmarks = window.drawLandmarks;
@@ -28,7 +19,6 @@ const SignToText = ({textsign,uservideo,signToText}) => {
       // Set canvas width
       canvasRef.current.width = videoWidth;
       canvasRef.current.height = videoHeight;
-      // console.log(results); 
       // Set canvas width
       const canvasElement = canvasRef.current;
       const canvasCtx = canvasElement.getContext("2d");
@@ -43,11 +33,12 @@ const SignToText = ({textsign,uservideo,signToText}) => {
       );
       if (results.multiHandLandmarks) {
         for (const landmarks of results.multiHandLandmarks) {
+          // console.log(landmarks)
           count++;
           frames.push(landmarks);
           // console.log(count);
-          if (count === 10) {
-              sio.emit("stream_sign", {'landmarks':frames});
+          if (count === 20) {
+              socket.emit("stream_sign", {landmarks:frames});
               console.log(frames.length);
               count = 0;
               frames=[];
@@ -64,6 +55,7 @@ const SignToText = ({textsign,uservideo,signToText}) => {
     
   useEffect(() => {
     if(signToText){
+ 
     const hands = new Hands({
       locateFile: (file) => {
         return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
@@ -84,12 +76,22 @@ const SignToText = ({textsign,uservideo,signToText}) => {
       });
       camera.start();
      // recive data from the server
-sio.on("stream_sign", (pyload)=>{
-    console.log('receive done ', pyload["text"]);
-    console.log(pyload["text"])
-  if (textsign.current) {
+socket.on("stream_sign", ({text})=>{
+    console.log('receive done ', text);
+    console.log(text)
+    if(text==="space"){
+      // eslint-disable-next-line 
+      sentence+= " "+word
+      // eslint-disable-next-line 
+      word=''
 
-    textsign.current.textContent = pyload["text"];
+    }
+    else{
+      word+=text
+    }
+
+  if (textsign.current) {
+    textsign.current.textContent = sentence.slice(20) +": "+word;
   }
   });
 }

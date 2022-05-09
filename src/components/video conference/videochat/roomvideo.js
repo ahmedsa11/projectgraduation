@@ -322,6 +322,7 @@ setPeers((users) => {
       >
         <i className='fas fa-expand'></i>
         <VideoCard key={index} peer={peer} number={arr.length} />
+        
         <div className='icon'>
           {findPeer(peer.peerID).audio ? (
             <i className='fas fa-microphone'></i>
@@ -543,6 +544,7 @@ setPeers((users) => {
                         playsInline
                       ></video>
                       <SignToText
+                      roomId={roomId}
                        uservideo={userVideoRef}
                        textsign={textsign}
                        signToText={signToText}
