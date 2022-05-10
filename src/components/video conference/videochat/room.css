@@ -5,7 +5,7 @@
    height: 100vh !important;
 }
  .video-conference .main-side{
-    width: 70% ;
+    width: 100% ;
     height:auto;
     transition:all 0.7s ease;
 }
@@ -25,7 +25,7 @@
         margin: 25px 3px
 }
 .openmain{
-    width: 100% !important;
+    width: 70% !important;
 }
  .video-conference .main-side .navbar .logo{
     position: relative;
@@ -97,10 +97,10 @@ margin: 14px 3px
 .fa-comment-dots{
     margin-left: 20px;
     font-size: 27px !important;
-    border-bottom: 2px solid #ddd;
+    
 }
 .fa-comment-dots.active{
-    border-bottom: none;
+    border-bottom: 2px solid white !important ;
 }
  .video-conference .main-side .vi{
     display: flex;
@@ -115,7 +115,7 @@ margin: 14px 3px
     margin-bottom: 10px;
     /* flex-wrap: wrap; */
     width: 100%;
-    height: 69px;
+    height: 43px;
     overflow-y: scroll;
     overflow-x: hidden;
     margin: 0px 16px;
@@ -367,6 +367,7 @@ margin: 14px 3px
     top: 11px;
     display: none;
 }
+
  .video-conference .main-side .vi .vid-stream .vids{
     display: flex;
     flex-wrap: wrap;
@@ -583,7 +584,7 @@ position: relative;
     height: fit-content;
     padding: 0px !important;
     margin: 0px !important;
-    text-align: center;
+    text-align: initial;
   }
   .dropdown-content ul li{
     margin: 0px !important;
@@ -602,7 +603,9 @@ position: relative;
     display: block;
     margin-bottom: 30px;
   }
-  
+  .fa-check{
+    color:white
+  }
 .footer .tools button{
 background: none;
 border: none;
@@ -712,29 +715,21 @@ width: 47px;
      
     }
      .video-conference .chat-side {
-      left: 100%;
       width: 0%;
       transition:all 0.7s ease;
     }
      .video-conference .main-side{
-        width: 100%;
+        width: 100%; 
         transition:all 0.7s ease;
         position: relative !important;
-        right:0%;
     }
      .video-conference .main-side .vi .vid-stream .opts{
         display: none;
     }
-     .video-conference .chat-side.open{
-       width: 100%;
-       display: block;
-       left: 0%;
-    }
-    
      .video-conference .main-side.openmain{
         width:0% !important;
         position: relative !important;
-        right: 100% !important;
+        right: 100%;
     }
     .fa-sign-out-alt{
         display: block !important;

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect,useRef} from "react";
 import styled from "styled-components";
 import phonealt from '../../../img/index 1.png'
 import tool from '../../../img/MicrosoftTeams-image8) 1.png'
@@ -15,7 +15,7 @@ const BottomBar = ({
   signToText,
   textsign,
   toSign,
-  settoSign,
+  settoSign, 
   setsignToText,
   textcaption
 }) => {
@@ -26,7 +26,13 @@ const BottomBar = ({
   //     speechRecognition.stop()
   //   )
   // }
-
+  const captionend = useRef(null);
+  const scrollToBottom = () => {
+    captionend.current.scrollIntoView({ behavior: 'smooth' });
+  };
+  useEffect(() => {
+    scrollToBottom();
+  },[textsign]);
   const opentool = () => {
     const tool = document.getElementsByClassName("to");
     for (let i = 0; i < tool.length; i++) {
@@ -35,7 +41,7 @@ const BottomBar = ({
       //  }
       tool[0].onclick = () => {
         const sign = document.querySelector(".signlang");
-        tool[0].classList.toggle("activetool");
+        tool[0].classList.toggle("activetool"); 
         sign.classList.toggle("showsign");
         settoSign(signcheck => !signcheck)
       };
@@ -58,14 +64,9 @@ const BottomBar = ({
       };
     }
   };
-
-  // const captionEndRef = useRef(null);
-  //   useEffect(() => {scrollToBottom()}, [text])
-  //   const scrollToBottom = () => {
-  //     captionEndRef.current.scrollIntoView({ behavior: 'smooth'});
-  //   }
   return (
     <React.Fragment>
+     <span className="dottt"></span>
       <div className="footer">
         <div className="tools">
           <div className="dropdown">
@@ -86,20 +87,29 @@ const BottomBar = ({
                 <li className="to" onClick={opentool}>
                   Sign To Text
                 </li>
-             
               </ul>
             </div>
           </div>
         </div>
         <div className="buttons">
+        <div className="cp">
+        <div className="caption lead text-center" id="textarea">
+              <p className="pcap" ref={text}>sdf
+     
+              </p>
+     
+            </div>
+            </div>
           <div className="cp">
-            <div className="caption lead text-center" id="textarea">
-              <p className="pcap" ref={text}></p>
-            </div>
             <div className="captionsign lead text-center" id="textarea">
-              <p className="pcaps" ref={textsign}></p>
+              <p  className="pcaps" ref={textsign}>text sign
+              </p>
+              <div
+            style={{ float: 'left', clear: 'both' }}
+            ref={captionend }
+          ></div>
             </div>
-          </div>
+          </div> 
           <ul>
             <li>
               <CameraButton onClick={toggleCameraAudio} data-switch="video">

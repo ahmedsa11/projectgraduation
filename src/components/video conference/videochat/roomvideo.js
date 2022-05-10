@@ -54,11 +54,12 @@ const openchat = () => {
   icon.onclick = () => {
     document.querySelector('.chat-side').classList.toggle('open');
     document.querySelector('#main').classList.toggle('openmain');
-    // document.querySelector('.fa-comment-dots').classList.toggle('active');
+    document.querySelector('.fa-comment-dots').classList.toggle('active');
   };
   iconphone.onclick = () => {
     document.querySelector('.chat-side').classList.toggle('open');
     document.querySelector('#main').classList.toggle('openmain');
+    document.querySelector('.fa-comment-dots').classList.toggle('active');
   };
 };
 const openpopup = () => {
@@ -356,9 +357,7 @@ setPeers((users) => {
           userVideoRef.current.srcObject.getAudioTracks()[0];
         audioSwitch = !audioSwitch;
         userAudioTrack.enabled = audioSwitch;
-
         // audioSwitch ? speechRecognition.start() : speechRecognition.stop();
-        console.log(audioSwitch);
       }
 
       return {

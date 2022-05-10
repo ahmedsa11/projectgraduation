@@ -53,11 +53,12 @@ const openchat = () => {
   icon.onclick = () => {
     document.querySelector('.chat-side').classList.toggle('open');
     document.querySelector('#main').classList.toggle('openmain');
-    // document.querySelector('.fa-comment-dots').classList.toggle('active');
+    document.querySelector('.fa-comment-dots').classList.toggle('active');
   };
   iconphone.onclick = () => {
     document.querySelector('.chat-side').classList.toggle('open');
     document.querySelector('#main').classList.toggle('openmain');
+    document.querySelector('.fa-comment-dots').classList.toggle('active');
   };
 };
 const openpopup = () => {
