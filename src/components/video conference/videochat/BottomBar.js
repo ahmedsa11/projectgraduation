@@ -16,6 +16,7 @@ const BottomBar = ({
   textsign,
   toSign,
   settoSign, 
+  senderName,
   setsignToText,
   textcaption
 }) => {
@@ -59,6 +60,7 @@ const BottomBar = ({
       tool[3].onclick = () => {
         const signmedia = document.getElementById('canvas')
         tool[3].classList.toggle("activetool");
+        
         signmedia.classList.toggle("showmediapipe");
         setsignToText(signcheck => !signcheck)
       };
@@ -91,18 +93,17 @@ const BottomBar = ({
             </div>
           </div>
         </div>
+        {/* <span ref={senderName}></span> */}
         <div className="buttons">
         <div className="cp">
         <div className="caption lead text-center" id="textarea">
-              <p className="pcap" ref={text}>sdf
-     
+              <p className="pcap" ref={text}>
               </p>
-     
             </div>
             </div>
           <div className="cp">
             <div className="captionsign lead text-center" id="textarea">
-              <p  className="pcaps" ref={textsign}>text sign
+              <p  className="pcaps" ref={textsign}>
               </p>
               <div
             style={{ float: 'left', clear: 'both' }}
@@ -121,11 +122,11 @@ const BottomBar = ({
               </CameraButton>
             </li>
             <li>
-              <button id="a" onClick={toggleCameraAudio} data-switch="audio">
+              <button id="au" onClick={toggleCameraAudio} data-switch="audio">
                 {userVideoAudio.audio ? (
-                  <i className="fas fa-microphone"></i>
+                  <i  className="fas fa-microphone"id="auo"></i>
                 ) : (
-                  <i className="fas fa-microphone-slash"></i>
+                  <i className="fas fa-microphone-slash"id="auf"></i>
                 )}
               </button>
             </li>

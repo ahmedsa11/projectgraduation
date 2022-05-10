@@ -338,12 +338,13 @@ setPeers((users) => {
   // BackButton
   const goToBack = (e) => {
     e.preventDefault();
-    socket.emit('BE-leave-room', { roomId });
+    // socket.emit('BE-leave-room', { roomId });
     window.location.href = '/home';
   };
   const toggleCameraAudio = (e) => {
     const target = e.target.getAttribute('data-switch');
     setUserVideoAudio((preList) => {
+      console.log(userVideoRef)
       let videoSwitch = preList['localUser'].video;
       let audioSwitch = preList['localUser'].audio;
 
@@ -353,10 +354,13 @@ setPeers((users) => {
         videoSwitch = !videoSwitch;
         userVideoTrack.enabled = videoSwitch;
       } else {
+        
         const userAudioTrack =
           userVideoRef.current.srcObject.getAudioTracks()[0];
         audioSwitch = !audioSwitch;
         userAudioTrack.enabled = audioSwitch;
+
+
         // audioSwitch ? speechRecognition.start() : speechRecognition.stop();
       }
 
@@ -547,6 +551,7 @@ setPeers((users) => {
                        uservideo={userVideoRef}
                        textsign={textsign}
                        signToText={signToText}
+                       audio={audio}
                        />
                     </div>
                     <div className='icon'>

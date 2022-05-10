@@ -4,7 +4,7 @@ import socket from "../socket";
 import { Hands } from "@mediapipe/hands"; 
 import * as hands from "@mediapipe/hands"; 
 import * as cam from "@mediapipe/camera_utils";
-const SignToText = ({textsign,uservideo,signToText,roomId}) => {
+const SignToText = ({textsign,uservideo,signToText,audio}) => {
   let word='';
   let sentence='';
     const canvasRef = useRef(null);
@@ -54,6 +54,11 @@ const SignToText = ({textsign,uservideo,signToText,roomId}) => {
     }
   useEffect(() => {
     if(signToText){
+      // document.getElementById("au").setAttribute("disabled", "disabled")
+      // document.getElementById("auo").style.pointerEvents="none";
+      // document.getElementById("auf").style.pointerEvents="none";
+      // document.getElementById("au").style.opacity="0.5"
+      // document.getElementById("auf").setAttribute("disabled", "disabled")
     const hands = new Hands({
       locateFile: (file) => {
         return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
@@ -93,6 +98,12 @@ socket.on("stream_sign", ({text})=>{
     textsign.current.textContent = sentence.slice(20) +": "+word;
   }
   });
+}
+else{
+  // document.getElementById("au").removeAttribute("disabled")
+  // document.getElementById("auo").style.pointerEvents="auto";
+  // document.getElementById("auf").style.pointerEvents="auto";
+  // document.getElementById("au").style.opacity="1"
 }
    // eslint-disable-next-line
   }, [signToText]);
