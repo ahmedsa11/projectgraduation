@@ -52,16 +52,15 @@ const SignToText = ({textsign,uservideo,signToText,roomId}) => {
       }
       canvasCtx.restore();
     }
-    
   useEffect(() => {
     if(signToText){
- 
     const hands = new Hands({
       locateFile: (file) => {
         return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
       },
     });
     hands.setOptions({
+      selfieMode: true,
       maxNumHands: 1,
       modelComplexity: 1,
       minDetectionConfidence: 0.5,
