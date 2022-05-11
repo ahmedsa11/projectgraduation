@@ -1,4 +1,4 @@
-import React, { useEffect,useRef} from "react";
+import React, { useEffect,useRef, useState} from "react";
 import react from "react";
 import socket from "../socket";
 import { Hands } from "@mediapipe/hands"; 
@@ -12,7 +12,9 @@ const SignToText = ({textsign,uservideo,signToText,audio}) => {
     const drawLandmarks = window.drawLandmarks;
     var count = 0;
     var frames = [];
-    var camera=null
+    let camera=null
+    // eslint-disable-next-line
+    const [came,setcame]=useState('')
     function onResults(results) {
       const videoWidth = uservideo.current.videoWidth;
       const videoHeight = uservideo.current.videoHeight;
@@ -52,12 +54,21 @@ const SignToText = ({textsign,uservideo,signToText,audio}) => {
       }
       canvasCtx.restore();
     }
+    // useEffect(()=>{
+    //   if(signToText){
+    //     setcame("start")
+    //   }
+    //   if(!signToText){
+    //     setcame("stop")
+    //   }
+    // },[signToText,came])
+
   useEffect(() => {
     if(signToText){
-      // document.getElementById("au").setAttribute("disabled", "disabled")
+      document.getElementById("au").setAttribute("disabled", "disabled")
       // document.getElementById("auo").style.pointerEvents="none";
       // document.getElementById("auf").style.pointerEvents="none";
-      // document.getElementById("au").style.opacity="0.5"
+      document.getElementById("au").style.opacity="0.5"
       // document.getElementById("auf").setAttribute("disabled", "disabled")
     const hands = new Hands({
       locateFile: (file) => {
@@ -72,13 +83,25 @@ const SignToText = ({textsign,uservideo,signToText,audio}) => {
       minTrackingConfidence: 0.5,
     });
     hands.onResults(onResults);
+    
       // eslint-disable-next-line 
       camera = new cam.Camera(uservideo.current, { 
         onFrame: async () => {
           await hands.send({ image: uservideo.current});
         }
       });
-      camera.start();
+      camera.start()
+      // if(came==="start"){
+      // camera.start()
+      // console.log("start")
+      // }
+    // else{
+    //     camera.stop()
+    //     console.log("stop")
+    //   }
+  
+      // console.log(camera)
+
      // recive data from the server
 socket.on("stream_sign", ({text})=>{
     console.log('receive done ', text);
@@ -98,13 +121,22 @@ socket.on("stream_sign", ({text})=>{
     textsign.current.textContent = sentence.slice(20) +": "+word;
   }
   });
+  // if(signToText===false){
+  //   console.log("stoooooop")
+  //   // camera.stop()
+    
+  //   // console.log(camera)
+  //       }
 }
-else{
-  // document.getElementById("au").removeAttribute("disabled")
-  // document.getElementById("auo").style.pointerEvents="auto";
-  // document.getElementById("auf").style.pointerEvents="auto";
-  // document.getElementById("au").style.opacity="1"
-}
+    if(!signToText){
+      // setcame("stop")
+      console.log("end")
+      document.getElementById("au").removeAttribute("disabled")
+      // document.getElementById("auo").style.pointerEvents="auto";
+      // document.getElementById("auf").style.pointerEvents="auto";
+      document.getElementById("au").style.opacity="1"
+ 
+    }
    // eslint-disable-next-line
   }, [signToText]);
 
