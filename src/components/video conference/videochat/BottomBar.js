@@ -1,7 +1,8 @@
-import React,{useEffect,useRef} from "react";
+import React,{useEffect,useRef, useState} from "react";
 import styled from "styled-components";
 import phonealt from '../../../img/index 1.png'
 import tool from '../../../img/MicrosoftTeams-image8) 1.png'
+import socket from "../socket";
 const BottomBar = ({
   goToBack,
   toggleCameraAudio,
@@ -20,13 +21,14 @@ const BottomBar = ({
   setsignToText,
   textcaption
 }) => {
-  // function captiontext(){
-  //   userVideoAudio.audio ? (
-  //     speechRecognition.start()
-  //   ) : (
-  //     speechRecognition.stop()
-  //   )
-  // }
+  const [sendNameStext,setsendNameStext]=useState("")
+  const [sendNameVs,setsendNameVs]=useState("")
+  socket.on("receive-text", ({name}) => {
+    setsendNameVs(name)
+  })
+  socket.on("send_sender_name",({name})=>{
+    setsendNameStext(name)
+  })
   const captionend = useRef(null);
   const scrollToBottom = () => {
     captionend.current.scrollIntoView({ behavior: 'smooth' });
@@ -95,14 +97,19 @@ const BottomBar = ({
         </div>
         {/* <span ref={senderName}></span> */}
         <div className="buttons">
+        <span className="sendnameStext">{sendNameVs}</span>
         <div className="cp">
         <div className="caption lead text-center" id="textarea">
               <p className="pcap" ref={text}>
               </p>
             </div>
             </div>
+           
+            <span className="sendnameVtext">{sendNameStext}</span>
           <div className="cp">
+    
             <div className="captionsign lead text-center" id="textarea">
+           
               <p  className="pcaps" ref={textsign}>
               </p>
               <div

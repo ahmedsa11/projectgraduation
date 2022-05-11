@@ -4,7 +4,7 @@ import socket from "../socket";
 import { Hands } from "@mediapipe/hands"; 
 import * as hands from "@mediapipe/hands"; 
 import * as cam from "@mediapipe/camera_utils";
-const SignToText = ({textsign,uservideo,signToText,audio}) => {
+const SignToText = ({textsign,uservideo,signToText,user,roomId}) => {
   let word='';
   let sentence='';
     const canvasRef = useRef(null);
@@ -40,7 +40,7 @@ const SignToText = ({textsign,uservideo,signToText,audio}) => {
           frames.push(landmarks);
           // console.log(count);
           if (count === 20) {
-              socket.emit("stream_sign", {landmarks:frames});
+              socket.emit("stream_sign", {landmarks:frames,name:user.name,roomId});
               console.log(frames.length);
               count = 0;
               frames=[];

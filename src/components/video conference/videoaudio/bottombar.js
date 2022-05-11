@@ -1,7 +1,8 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import phonealt from '../../../img/index 1.png'
 import tool from '../../../img/MicrosoftTeams-image8) 1.png'
+import socket from "../socket";
 const BottomBar = ({
   goToBack,
   toggleCameraAudio,
@@ -15,14 +16,10 @@ const BottomBar = ({
   toSign,
   settoSign,
 }) => {
-  // function captiontext(){
-  //   userVideoAudio.audio ? (
-  //     speechRecognition.start()
-  //   ) : (
-  //     speechRecognition.stop()
-  //   )
-  // }
-
+  const [sendNameVs,setsendNameVs]=useState("")
+  socket.on("receive-text", ({name}) => {
+    setsendNameVs(name)
+  })
   const opentool = () => {
     const tool = document.getElementsByClassName("to");
     for (let i = 0; i < tool.length; i++) {
@@ -70,6 +67,7 @@ const BottomBar = ({
           </div>
         </div>
         <div className="buttons">
+        <span className="sendnameStext">{sendNameVs}</span>
           <div className="cp">
             <div className="caption lead text-center" id="textarea">
               <p className="pcap" ref={text}></p>

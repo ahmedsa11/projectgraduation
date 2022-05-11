@@ -552,6 +552,7 @@ setPeers((users) => {
                        textsign={textsign}
                        signToText={signToText}
                        audio={audio}
+                       user={user}
                        />
                     </div>
                     <div className='icon'>
