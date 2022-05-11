@@ -11,6 +11,7 @@ import groupicon from '../../../img/group-chatt 1.png';
 import BottomBar from './BottomBar';
 import VideoCard from './vid';
 import { Redirect } from 'react-router';
+import Loader from '../../loader/loader'
 import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition';
@@ -99,6 +100,7 @@ const close = () => {
 const Roomvideo = (props) => {
   const [peers, setPeers] = useState([]);
   const [toSign, settoSign] = useState(false);
+  const [loading, setloading] = useState(false);
   const [signToText, setsignToText] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({localUser: { video: true, audio: true }});
   const [screenShare, setScreenShare] = useState(false);
@@ -136,14 +138,17 @@ const Roomvideo = (props) => {
     }
     // setloading(true);
     // Connect Camera & Mic
+    setloading(true)
     if (!navigator.mediaDevices) {
+      setloading(false)
       alert("Sorry, getUserMedia is not supported");
       return;
     }
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
-      .then((stream) => {
-        // setloading(false);
+      .then((stream) => 
+      {
+        setloading(false)
         userVideoRef.current.srcObject = stream;
         userStream.current = stream;
         console.log(props);
@@ -455,7 +460,7 @@ setPeers((users) => {
   }
   return (
     <react.Fragment>
-      {/* {loading ? <Loader /> : null} */}
+      {loading ? <Loader /> : null}
       <div className='roomvideo'>
         <div className='video-conference'>
           <div className='main-side' id='main'>

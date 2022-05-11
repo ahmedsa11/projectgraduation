@@ -466,14 +466,12 @@ position: relative;
     color: #fff;
     font-size: 20px;
     text-align: center;
-    width: -moz-fit-content;
     overflow: hidden;
-    height: -moz-fit-content;
     height: fit-content;
     /* background-color: rgba(0,0,0,0.4); */
-    padding: 6px;
+  
     /* left: 47.4%; */
-    bottom: 10%;
+
     position: relative;
     width: fit-content;
     display: none;
@@ -486,11 +484,14 @@ position: relative;
     animation: my-animation 14s linear infinite; */
 }
  
-.caption .pcap{
+.roomaudio .caption .pcap{
     font-size: 20px;
     font-weight: 300;
     color: white;
+    position: relative;
+    top: 8px;
 }
+
 /* for Firefox */
 @-moz-keyframes my-animation {
  from { -moz-transform: translateY(100%); }

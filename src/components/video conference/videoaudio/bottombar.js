@@ -3,6 +3,7 @@ import styled from "styled-components";
 import phonealt from '../../../img/index 1.png'
 import tool from '../../../img/MicrosoftTeams-image8) 1.png'
 import socket from "../socket";
+import ScrollToBottom from 'react-scroll-to-bottom';
 const BottomBar = ({
   goToBack,
   toggleCameraAudio,
@@ -39,15 +40,8 @@ const BottomBar = ({
       };
     }
   };
-
-  // const captionEndRef = useRef(null);
-  //   useEffect(() => {scrollToBottom()}, [text])
-  //   const scrollToBottom = () => {
-  //     captionEndRef.current.scrollIntoView({ behavior: 'smooth'});
-  //   }
   return (
     <React.Fragment>
-
       <div className="footer">
         <div className="tools">
           <div className="dropdown">
@@ -69,21 +63,13 @@ const BottomBar = ({
         <div className="buttons">
         <span className="sendnameStext">{sendNameVs}</span>
           <div className="cp">
+          <ScrollToBottom >
             <div className="caption lead text-center" id="textarea">
               <p className="pcap" ref={text}></p>
-              {/* <div style={{float:'left', clear: 'both'}} ref={captionEndRef} ></div> */}
             </div>
+            </ScrollToBottom >
           </div>
           <ul>
-            {/* <li>
-              <CameraButton onClick={toggleCameraAudio} data-switch="video">
-                {userVideoAudio.video ? (
-                  <i className="fas fa-video"></i>
-                ) : (
-                  <i className="fas fa-video-slash"></i>
-                )}
-              </CameraButton>
-            </li> */}
             <li>
               <CameraButton id="a" onClick={toggleCameraAudio} data-switch="audio">
                 {userVideoAudio.audio ? (

@@ -1,8 +1,9 @@
-import React,{useEffect,useRef, useState} from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import phonealt from '../../../img/index 1.png'
 import tool from '../../../img/MicrosoftTeams-image8) 1.png'
 import socket from "../socket";
+import ScrollToBottom from 'react-scroll-to-bottom';
 const BottomBar = ({
   goToBack,
   toggleCameraAudio,
@@ -29,13 +30,13 @@ const BottomBar = ({
   socket.on("send_sender_name",({name})=>{
     setsendNameStext(name)
   })
-  const captionend = useRef(null);
-  const scrollToBottom = () => {
-    captionend.current.scrollIntoView({ behavior: 'smooth' });
-  };
-  useEffect(() => {
-    scrollToBottom();
-  },[textsign]);
+  // const captionend = useRef(null);
+  // const scrollToBottom = () => {
+  //   captionend.current.scrollIntoView({ behavior: 'smooth' });
+  // };
+  // useEffect(() => {
+  //   scrollToBottom();
+  // });
   const opentool = () => {
     const tool = document.getElementsByClassName("to");
     for (let i = 0; i < tool.length; i++) {
@@ -99,24 +100,23 @@ const BottomBar = ({
         <div className="buttons">
         <span className="sendnameStext">{sendNameVs}</span>
         <div className="cp">
+        <ScrollToBottom >
         <div className="caption lead text-center" id="textarea">
               <p className="pcap" ref={text}>
               </p>
             </div>
+            </ScrollToBottom>
             </div>
            
             <span className="sendnameVtext">{sendNameStext}</span>
           <div className="cp">
-    
+          <ScrollToBottom >
             <div className="captionsign lead text-center" id="textarea">
-           
+        
               <p  className="pcaps" ref={textsign}>
               </p>
-              <div
-            style={{ float: 'left', clear: 'both' }}
-            ref={captionend }
-          ></div>
             </div>
+              </ScrollToBottom>
           </div> 
           <ul>
             <li>

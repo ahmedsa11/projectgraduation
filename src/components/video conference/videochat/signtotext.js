@@ -89,19 +89,9 @@ const SignToText = ({textsign,uservideo,signToText,user,roomId}) => {
         onFrame: async () => {
           await hands.send({ image: uservideo.current});
         }
+        
       });
       camera.start()
-      // if(came==="start"){
-      // camera.start()
-      // console.log("start")
-      // }
-    // else{
-    //     camera.stop()
-    //     console.log("stop")
-    //   }
-  
-      // console.log(camera)
-
      // recive data from the server
 socket.on("stream_sign", ({text})=>{
     console.log('receive done ', text);
@@ -121,12 +111,7 @@ socket.on("stream_sign", ({text})=>{
     textsign.current.textContent = sentence.slice(20) +": "+word;
   }
   });
-  // if(signToText===false){
-  //   console.log("stoooooop")
-  //   // camera.stop()
-    
-  //   // console.log(camera)
-  //       }
+
 }
     if(!signToText){
       // setcame("stop")
