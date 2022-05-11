@@ -1,0 +1,159 @@
+.landing .land{
+    height: 100vh;
+    background: linear-gradient(118.54deg, #ED4690 -34.81%, #5522CC 63.38%);
+    mix-blend-mode: normal;
+    opacity: 0.9;
+}
+.landing .land .navbarr{
+    display: flex;
+    justify-content: space-between;
+    padding: 17px;
+}
+.landing .land .navbarr img{
+    width: 50px;
+    height: 50px;
+}
+.landing .land .navbarr .ulnav{
+    display: flex;
+    align-items: center;
+}
+.landing .land .navbarr .ulnav li{
+    list-style: none;
+    margin: 0px 10px;
+}
+.landing .land .navbarr .ulnav li a{
+    text-decoration: none;
+    text-decoration: none;
+    font-size: 22px;
+    color: white !important;
+}
+.landing .land .navbarr  button{
+    width: 20px;
+    padding: 7px 52px;
+    display: flex;
+    background-color: transparent;
+    border-radius: 20px !important;
+    font-size: 18px;
+    justify-content: center;
+    color: white;
+    border: 2px solid white;
+}
+.landing .land .intro{
+display: flex;
+margin-top: 111px;
+}
+.landing .land .imgintro{
+width: 50%;
+display: flex;
+justify-content: center;
+}
+.landing .land .imgintro img{
+    width: 100%;
+}
+.landing .land .textintro{
+    flex: 1 1;
+    /* display: flex; */
+    /* text-align: center; */
+    justify-content: center;
+    align-items: center;
+}
+.landing .land .textintro h2{
+    font-size: 33px;
+    text-align: initial;
+    margin-left: 27px;
+    color: white;
+    font-weight: bold;
+}
+.landing .land .textintro ul{
+margin-top: 22px;
+}
+.landing .land .textintro ul li{
+    font-size: 26px;
+    margin-left: 27px;
+    color: white;
+    line-height:1.7
+}
+.landing .feature{
+    text-align: center;
+    height: 100vh;
+    background-color: #D2CAE4;
+    display: grid;
+}
+.landing .feature  img{
+    padding: 21px;
+    background: linear-gradient(180deg, rgba(102, 16, 83, 0) -31%, rgba(102, 29, 123, 0.31638) -8.94%, #6638D1 90.69%, rgba(102, 16, 83, 0) 118%);
+    border-radius: 15px;
+    margin-bottom: 48px;
+    width: 86px;
+}
+.landing .feature  h3{
+    font-size: 23px;
+}
+.landing .feature h1{
+    padding-top: 54px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #6638d1;
+}
+.landing .about{
+display: flex;
+height: 600px;
+}
+.landing .about .abouttext{
+width: 40%;
+}
+.landing .about .abouttext h2{
+    font-size: 23px;
+}
+.landing .about .abouttext p{
+    text-align: initial;
+    color: black;
+}
+.landing .about .aboutimg{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+.landing .about .aboutimg img{
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+.landing .footer{
+    padding: 70px 0;
+        background-color:#0a075f;
+    color: aliceblue;
+    height: 100%;
+}
+.landing .footer h2{
+      color: aliceblue;
+      margin-bottom: 34px;
+}
+.landing .footer h2 img{
+    width: 47px;}
+.landing .footer ul{
+    list-style: none;
+    padding: 0
+}
+.landing .footer ul li a{
+    color: aliceblue !important;
+    text-decoration: none
+}
+.landing .footer ul li {margin-bottom: 15px}
+.landing .footer i{font-size: 25px;color:white;margin-right: 15px;transition: all .5s ease;
+    cursor: pointer}
+.landing .footer ul li i{
+    color:#47b2e4;
+    font-size: 16px;
+    }
+.landing .footer i:hover{color:cyan}
+.copy{
+    background-color: #1e6282;padding: 20px 0;color: #fff;text-align: center;
+}
+.copy h3{font-size: 20px}
