@@ -31,7 +31,7 @@ const LandingPage = () => {
 //   }
  const history =useHistory()
  const login=()=>{
-     history.push("/")
+     history.push("/login")
  }
   return (
     <react.Fragment>
