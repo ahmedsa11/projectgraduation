@@ -2,17 +2,38 @@ import react from "react";
 import './landingpage.css'
 import logo from '../../img/log.png'
 import intro from '../../img/Girl with PC on zoom meeting 1.png'
-import icon8 from '../../img/icons8-closed-captioning-32.png'
+import iconchat from '../../img/MicrosoftTeams-imag (17) 1.png'
+import iconvid from '../../img/icons8-laptop-play-video-24.png'
+import iconshare from '../../img/icons8-share-3-32.png'
+import iconcall from '../../img/icons8-ringer-volume-32.png'
+import iconrecord from '../../img/icons8-music-record-32.png'
+import icontrans from '../../img/icons8-closed-captioning-32.png'
 import googleplay from '../../img/googleplay.png'
 import imgapp from '../../img/image 28.png'
-import ahmedsalama from '../../img/salama.jpeg'
+import group from '../../img/Group 1738.png'
+import member1  from '../../img/salama.jpeg'
+import member2 from '../../img/osama.jpeg'
+import member3 from '../../img/rania.jpeg'
+import member4 from '../../img/rawan.jpeg'
+import member5 from '../../img/tabarani.jpeg'
+import member6 from '../../img/hassib.jpeg'
+import member7 from '../../img/heba.jpeg'
+import member8 from '../../img/menna.jpeg'
+import landimg from '../../img/la1.jpg'
+import l1 from '../../img/l1.jpg'
+import l2 from '../../img/l2.jpg'
+import l3 from '../../img/l3.jpg'
+import { useHistory } from "react-router";
 const LandingPage = () => {
 //   const tempuser = localStorage.getItem("user");
 // //   let user = JSON.parse(tempuser);
 //   if (tempuser === null) {
 //     return <Redirect to="/" />;
 //   }
- 
+ const history =useHistory()
+ const login=()=>{
+     history.push("/")
+ }
   return (
     <react.Fragment>
         <div className="landing">
@@ -20,13 +41,13 @@ const LandingPage = () => {
                 <div className="navbarr">
                     <img src={logo} alt="logo"/>
                     <ul className="ulnav">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Service</a></li>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#service">Service</a></li>
                     </ul>
-                    <button>Login</button>
+                    <button onClick={login}>Login</button>
                 </div>
-                <div className="intro">
+                <div className="intro"id="home">
                 <div className="textintro">
                     <h2>Social communication<br/> system for the signer and <br/> non-signer people </h2>
                     <ul>
@@ -36,108 +57,110 @@ const LandingPage = () => {
                     </ul>
                     </div>
                     <div className="imgintro">
-                        <img src={intro}/>
+                        <img src={landimg} alt="land"/>
                     </div>
                   
                 </div>
             </div>
-            <div className="feature">
+            <div className="feature"id="service">
+
                 <h1>Check Out All Feature</h1>
                 <div class="colorbar1"></div>
-              
+              <div className="contfeat">
                 <div className="row">
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-sm-6">
                         <div className="featuericon">
-                           <img src={icon8} alt="icon8"/>
-                           <h3>ahmed</h3>
+                           <img src={iconchat} alt="icon8"/>
+                           <h3>Chat</h3>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-sm-6">
                         <div className="featuericon">
-                           <img src={icon8} alt="icon8"/>
-                           <h3>ahmed</h3>
+                           <img src={icontrans} alt="icon8"/>
+                           <h3>Caption</h3>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-sm-6">
                         <div className="featuericon">
-                           <img src={icon8} alt="icon8"/>
-                           <h3>ahmed</h3>
+                           <img src={iconvid} alt="icon8"/>
+                           <h3>Video Conference</h3>
                         </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-sm-6">
                         <div className="featuericon">
                             
-                           <img src={icon8} alt="icon8"/>
-                           <h3>ahmed</h3>
+                           <img src={iconshare} alt="icon8"/>
+                           <h3>Screen Share</h3>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-sm-6">
                         <div className="featuericon">
-                           <img src={icon8} alt="icon8"/>
-                           <h3>ahmed</h3>
+                           <img src={iconcall} alt="icon8"/>
+                           <h3>Call</h3>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-sm-6">
                         <div className="featuericon">
-                           <img src={icon8} alt="icon8"/>
-                           <h3>ahmed</h3>
+                           <img src={iconrecord} alt="icon8"/>
+                           <h3>Recording</h3>
                         </div>
                     </div>
                 </div>
                
+               </div>
             </div>
 
             <div className="about">
             <div className="abouttext">
-                    <h2>asdad</h2>
-                    <p>asdad</p>
+            <h2>Fast, Reliable,And Service <br/> Video Conferencing</h2>
+                    <p>Connect app is an extremely secure, high-end video conferencing tool. And since it's a browser-based platform, it's incredibly simple to use all you need is a link to join a call or event - so great for meetings on the fly</p>
                 </div>
                 <div className="aboutimg">
-                    <img src={intro} alt="aa"/>
+                    <img src={l1} alt="aa"/>
                 </div>
             </div>
             <div className="about">
             <div className="abouttext">
-                    <h2>asdad</h2>
-                    <p>asdad</p>
+                    <h2>Work And Study From <br/> Anywhere</h2>
+                    <p>
+Connect app allows you to Work and Study from anywhere. The ability to deliver projects remotely with video conferencing plays a huge part in the workforce success while creating a culture that supports work-life balance</p>
                 </div>
                 <div className="aboutimg">
-                    <img src={intro} alt="aa"/>
+                    <img src={l2} alt="aa"/>
                 </div>
             </div>
             <div className="about">
             <div className="abouttext">
-                    <h2>asdad</h2>
-                    <p>asdad</p>
+                    <h2>Control Your Most <br/> Valuable Time </h2>
+                    <p> Connect app allows you to control your time. A conference host can ensure an effective virtual meeting -one that happens in a well-planned, controlled setting. which can reduce logistics costs of travel and accommodations</p>
                 </div>
                 <div className="aboutimg">
-                    <img src={intro} alt="aa"/>
+                    <img src={l3} alt="aa"/>
                 </div>
             </div>
-
-
-            <div className="work">
+            <div className="work" id="how">
                 <h1>How does it work</h1>
                 <div class="colorbar1"></div>
+                <div className="contwork">
                 <div className="row">
                     <div className="col-md-4">
                         <div className="workicon">
                             <div className="infoo">
-                           <img src={icon8} alt="icon8"/>
-                           <h3>ahmed</h3>
-                           <p>sufdusgfussdf</p>
+                           <img src={group} alt="logo"/>
+                           <h3>ASL Signer</h3>
+                           <p> deaf person signing during the video call</p>
                         </div>
                         </div>
                     </div>
                     <div className="col-md-4">
-                        <div className="card">
-                        <div className="workicon">
+                        <div className="cardd">
+                        <div className="workicon mainn">
                         <div className="infoo">
-                           <img src={icon8} alt="icon8"/>
-                           <h3>ahmed</h3>
-                           <p>sufdusgfussdf</p>
+                           <img src={logo} alt="logo"/>
+                           <h3>Connect</h3>
+                           <p> -transfer from ASL to text in real-time <br/>
+                               -Transcribes from speech to text <br/>
+                               -Provides video communication</p>
                         </div>
                         </div>
                         <div className="ly"></div>
@@ -147,53 +170,56 @@ const LandingPage = () => {
                     <div className="col-md-4">
                         <div className="workicon">
                         <div className="infoo">
-                           <img src={icon8} alt="icon8"/>
-                           <h3>ahmed</h3>
-                           <p>sufdusgfussdf</p>
+                           <img src={group} alt="logo"/>
+                           <h3>Speaker</h3>
+                           <p>Speaker Hearing person speaking during the video call</p>
                         </div>
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
 
-            <div className="ourteam">
+            <div className="ourteam"id="about">
+
                 <h1>Meet Our Team</h1>
                 <div class="colorbar1"></div>
+                <div className="contour">
                 <div className="row">
                     <div className="col-lg-3 col-md-6">
                         <div className="ourteaminfo">
                             <div className="im">
-                           <img src={ahmedsalama} alt="icon8"/>
+                           <img src={member2} alt="icon8"/>
                            </div>
-                           <h3>ahmed</h3>
-                           <span>asda</span>
+                           <h3>Mohamed Osama</h3>
+                           <span>Cloud DevOps</span>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="ourteaminfo">
                                  <div className="im">
-                           <img src={ahmedsalama} alt="icon8"/>
+                           <img src={member6} alt="icon8"/>
                            </div>
-                           <h3>ahmed</h3>
-                           <span>asda</span>
+                           <h3>Mohamed Hassib</h3>
+                           <span>Machine Learning</span>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="ourteaminfo">
                                  <div className="im">
-                           <img src={ahmedsalama} alt="icon8"/>
+                           <img src={member1} alt="icon8"/>
                            </div>
-                           <h3>ahmed</h3>
-                           <span>asda</span>
+                           <h3>Ahmed Salama</h3>
+                           <span>Frontend Developer</span>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="ourteaminfo">
                                  <div className="im">
-                           <img src={ahmedsalama} alt="icon8"/>
+                           <img src={member5} alt="icon8"/>
                            </div>
-                           <h3>ahmed</h3>
-                           <span>asda</span>
+                           <h3>Ahmed Mostafa</h3>
+                           <span>Backend Developer</span>
                         </div>
                     </div>
                 </div>
@@ -201,43 +227,43 @@ const LandingPage = () => {
                     <div className="col-lg-3 col-md-6">
                         <div className="ourteaminfo">
                                  <div className="im">
-                           <img src={ahmedsalama} alt="icon8"/>
+                           <img src={member4} alt="icon8"/>
                            </div>
-                           <h3>ahmed</h3>
-                           <span>asda</span>
+                           <h3>Rawan Emad</h3>
+                           <span>Android Developer</span>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="ourteaminfo">
                                  <div className="im">
-                           <img src={ahmedsalama} alt="icon8"/>
+                           <img src={member3} alt="icon8"/>
                            </div>
-                           <h3>ahmed</h3>
-                           <span>asda</span>
+                           <h3>Rania Khaled</h3>
+                           <span>Android Developer</span>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="ourteaminfo">
                         <div className="featuerii">
                                  <div className="im">
-                           <img src={ahmedsalama} alt="icon8"/>
+                           <img src={member8} alt="icon8"/>
                            </div>
                            </div>
-                           <h3>ahmed</h3>
-                           <span>asda</span>
+                           <h3>Mennat Allah Kamal</h3>
+                           <span>UI/UX Designer</span>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="ourteaminfo">
                                  <div className="im">
-                           <img src={ahmedsalama} alt="icon8"/>
+                           <img src={member7} alt="icon8"/>
                            </div>
-                           <h3>ahmed</h3>
-                           <span>asda</span>
+                           <h3>Heba Elsaid</h3>
+                           <span>Backend Developer</span>
                         </div>
                     </div>
                 </div>
-               
+                </div>
             </div>
             <div className="android">
                 <div className="imgapp">
@@ -247,7 +273,7 @@ const LandingPage = () => {
                     <div className="textcontent">
                     <h3>Download our app </h3>
                     <h1>Get Connect App<br/> More Easily</h1>
-                    <p>asdjaoijdoajodjaojdajdojaodjaojs aij oaisjd oaj oaj oj jaoijsdaa</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>
                     <img src={googleplay} alt="googleplay" />
                     </div>
                 </div>
@@ -267,9 +293,10 @@ const LandingPage = () => {
                         </div>
                         <div class ="col-md-6">
                         <ul>
-                                <li><a href="index.html"><i className="fas fa-chevron-right"></i>Home</a></li>
-                                <li><a href="index.html"><i className="fas fa-chevron-right"></i>About Us</a></li>
-                                <li><a href="index.html"><i className="fas fa-chevron-right"></i>Service</a></li>
+                                <li><a href="#home"><i className="fas fa-chevron-right"></i>Home</a></li>
+                                <li><a href="#about"><i className="fas fa-chevron-right"></i>About Us</a></li>
+                                <li><a href="#service"><i className="fas fa-chevron-right"></i>Service</a></li>
+                                <li><a href="#how"><i className="fas fa-chevron-right"></i>How does it work</a></li>
                             </ul>
                         </div>
                     </div>

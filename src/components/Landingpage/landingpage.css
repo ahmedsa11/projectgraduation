@@ -43,22 +43,29 @@ display: flex;
 margin-top: 111px;
 }
 .landing .land .imgintro{
-width: 50%;
-display: flex;
-justify-content: center;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 0px 55px 31px 0px; */
+    overflow: hidden;
+    height: 100%;
+    text-align: center;
 }
 .landing .land .imgintro img{
-    width: 100%;
+    border-radius: 35px;
+    width: 80%;
 }
 .landing .land .textintro{
-    flex: 1 1;
+    width: 50%;
     /* display: flex; */
     /* text-align: center; */
     justify-content: center;
     align-items: center;
+    padding: 30px;
 }
 .landing .land .textintro h2{
-    font-size: 33px;
+    font-size: 38px;
     text-align: initial;
     margin-left: 27px;
     color: white;
@@ -68,7 +75,7 @@ justify-content: center;
 margin-top: 22px;
 }
 .landing .land .textintro ul li{
-    font-size: 26px;
+    font-size: 30px;
     margin-left: 27px;
     color: white;
     line-height:1.7
@@ -77,7 +84,10 @@ margin-top: 22px;
     text-align: center;
     height: 100vh;
     background-color: #D2CAE4;
-    display: grid;
+    
+}
+.landing .feature .contfeat{
+    margin-top: 88px;
 }
 .landing .feature  img{
     padding: 21px;
@@ -85,6 +95,7 @@ margin-top: 22px;
     border-radius: 15px;
     margin-bottom: 48px;
     width: 86px;
+    margin-top: 45px;
 }
 .landing .feature  h3{
     font-size: 23px;
@@ -96,13 +107,13 @@ margin-top: 22px;
     color: #6638d1;
 }
 .colorbar1{
-    background-color: green;
+    background-color: #afa3e7;
     height: 4px;
     position: relative;
-    bottom: 61px;
-    width: 80%;
+    width: 66%;
     border-radius: 5px;
     margin: 0px auto;
+    margin-top: 20px;
 }
 .colorbar1::before{
     content: "";
@@ -111,7 +122,7 @@ margin-top: 22px;
     position: absolute;
     top:0;
     left: 0;
-    background-color:#47b2e4;
+    background-color:#cb7c1c;
     height: 100%;
     border-radius: 0px 5px 5px 0px;
 }
@@ -122,7 +133,7 @@ margin-top: 22px;
     position: absolute;
     top:0;
     left: 0;
-    background-color: red;
+    background-color: #afa3e7;
     height: 100%;
     border-radius: 5px 0px 0px 5px;
 }
@@ -134,63 +145,81 @@ height: 600px;
 width: 40%;
 }
 .landing .about .abouttext h2{
-    font-size: 23px;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 77px 0px 50px 29px;
 }
 .landing .about .abouttext p{
     text-align: initial;
-    color: black;
+    color: #949494;
+    margin-left: 29px;
+    line-height: 2;
+    font-size: 20px;
 }
 .landing .about .aboutimg{
     flex: 1;
     display: flex;
     justify-content: center;
+    padding: 62px;
 }
 .landing .about .aboutimg img{
     width: 100%;
+    border-radius:35px ;
 }
-
-
-
-
-
 
 .landing .work{
     text-align: center;
     height: 100vh;
     background-color: #D2CAE4;
-    display: grid;
+}
+.landing .work .contwork{
+    margin-top: 161px;
 }
 .landing .work  img{
-    padding: 21px;
-    background: linear-gradient(180deg, rgba(102, 16, 83, 0) -31%, rgba(102, 29, 123, 0.31638) -8.94%, #6638D1 90.69%, rgba(102, 16, 83, 0) 118%);
-    border-radius: 15px;
-    margin-bottom: 48px;
-    width: 86px;
+    margin-bottom: 15px;
 }
 .landing .work  h3{
     font-size: 23px;
+    font-weight: bold;
 }
 .landing .work h1{
     padding-top: 54px;
     font-size: 40px;
     font-weight: bold;
-    color: #6638d1;
+    color: #2e068b;
+}
+.landing .work p{
+    color: black;
+    line-height: 2;
 }
 .landing .workicon{
     display: inline-block;
-    width: 314px;
-    height: 331px;
+    width: 310px;
+    height: 324px;
     background-color: white;
     position: relative;
     border-radius: 17px;
     z-index: 2;
+}
+.landing .workicon.mainn{
+    background-color: #0a075f;
+}
+.landing .workicon.mainn img{
+    width: 70px;
+}
+.landing .workicon.mainn h3{
+    color: white;
+}
+.landing .workicon.mainn p{
+    color: white;
+    line-height: 3;
 }
 .landing .work .workicon .infoo{
     margin-top: 39px;
 }
 .landing .work .ly{
     position: absolute;
-    background: blanchedalmond;
+    background: white;
     width: 314px;
     height: 300px;
     top: 58px;
@@ -199,15 +228,20 @@ width: 40%;
     z-index: 0;
     left: 33px;
 }
-.landing .work .card{
+.landing .work .cardd{
     position: relative;
     width: 0px;
+    display: inline-table;
 }
 .landing .ourteam{
     text-align: center;
     height: 100vh;
     background-color: #fff;
-    display: grid;
+    
+}
+.landing .ourteam .contour{
+    margin-top: 88px;
+
 }
 .landing .ourteam  img{
     border-radius: 15px;
@@ -223,15 +257,15 @@ width: 40%;
 .landing .ourteam h1{
     font-size: 40px;
     font-weight: bold;
-    color: #6638d1;
+    color: #2e068b;
 }
 .landing .ourteam span{
     font-size: 20px;
-    color: #6638d1;
+    color: #764dd6;
 }
 .landing .ourteam .im{
     width: 223px;
-    height: 210px;
+    height: 215px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -263,19 +297,22 @@ width: 100%;
 }
 .landing .android .textapp .textcontent{
     margin-top: 154px;
+    padding:0pc 100px;
 }
 .landing .android .textapp h3{
-    font-size: 27px;
+    font-size: 30px;
+    color: #340d97;
 }
 .landing .android .textapp h1{
     font-size: 35px;
     font-weight: bold;
 }
 .landing .android .textapp p{
-    color: blueviolet;
+    color: #949494;
     margin: 14px 0px 20px 0px;
-    font-size: 18px;
+    font-size: 20px;
     text-align: initial;
+    line-height: 2;
 }
 
 .landing .footer{
@@ -312,3 +349,225 @@ width: 100%;
     background-color: #1e6282;padding: 20px 0;color: #fff;text-align: center;
 }
 .copy h3{font-size: 20px}
+@media only screen and (max-width: 1100px) {
+    .landing .land .textintro h2{
+        font-size: 28px;
+        text-align: initial;
+        margin-left: 27px;
+        color: white;
+        font-weight: bold;
+    }
+    .landing .land .textintro ul{
+    margin-top: 22px;
+    }
+    .landing .land .textintro ul li{
+        font-size: 20px;
+        margin-left: 27px;
+        color: white;
+        line-height:1.7
+    }
+}
+@media only screen and (max-width: 999px) {
+    .landing .land .intro{
+        display: flex;
+        margin-top: 111px;
+        }
+        .landing .land .imgintro{
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* padding: 0px 55px 31px 0px; */
+            overflow: hidden;
+            height: 100%;
+            text-align: center;
+        }
+        .landing .land .imgintro img{
+            border-radius: 35px;
+            width: 80%;
+        }
+        .landing .land .textintro{
+            width: 50%;
+            /* display: flex; */
+            /* text-align: center; */
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+        .landing .land .textintro h2{
+            font-size: 28px;
+            text-align: initial;
+            margin-left: 27px;
+            color: white;
+            font-weight: bold;
+        }
+        .landing .land .textintro ul{
+        margin-top: 22px;
+        }
+        .landing .land .textintro ul li{
+            font-size: 20px;
+            margin-left: 27px;
+            color: white;
+            line-height:1.7
+        }
+        .landing .feature{
+            text-align: center;
+            height: 100%;
+            background-color: #D2CAE4;
+            
+        }
+        .landing .feature .contfeat{
+            margin-top: 30px;
+        }
+        .landing .feature  img{
+            padding: 21px;
+            background: linear-gradient(180deg, rgba(102, 16, 83, 0) -31%, rgba(102, 29, 123, 0.31638) -8.94%, #6638D1 90.69%, rgba(102, 16, 83, 0) 118%);
+            border-radius: 15px;
+            margin-bottom: 48px;
+            width: 86px;
+            margin-top: 30px;
+        }
+        .landing .feature  h3{
+            font-size: 23px;
+        }
+        .landing .feature h1{
+            padding-top: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #6638d1;
+        }
+
+}
+
+@media only screen and (max-width: 800px) {
+    .landing .land .intro{
+        display: flex;
+        margin-top: 111px;
+        }
+        .landing .land .imgintro{
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            height: 100%;
+            text-align: center;
+        }
+        .landing .land .imgintro img{
+            border-radius: 35px;
+            width: 80%;
+        }
+        .landing .land .textintro{
+            width: 50%;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+        .landing .land .textintro h2{
+            font-size: 20px;
+            text-align: initial;
+            margin-left: 27px;
+            color: white;
+            font-weight: bold;
+        }
+        .landing .land .textintro ul{
+        margin-top: 22px;
+        }
+        .landing .land .textintro ul li{
+            font-size: 15px;
+            margin-left: 27px;
+            color: white;
+            line-height:1.7
+        }
+                .landing .feature{
+            text-align: center;
+            height: 100%;
+            background-color: #D2CAE4;
+            
+        }
+        .landing .feature .contfeat{
+            margin-top: 30px;
+        }
+        .landing .feature  img{
+            padding: 21px;
+            background: linear-gradient(180deg, rgba(102, 16, 83, 0) -31%, rgba(102, 29, 123, 0.31638) -8.94%, #6638D1 90.69%, rgba(102, 16, 83, 0) 118%);
+            border-radius: 15px;
+            margin-bottom: 48px;
+            width: 86px;
+            margin-top: 30px;
+        }
+        .landing .feature  h3{
+            font-size: 23px;
+        }
+        .landing .feature h1{
+            padding-top: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #6638d1;
+        }
+}
+@media only screen and (max-width: 700px) {
+    .landing .land .intro{
+        display: flex;
+        margin-top: 111px;
+        }
+        .landing .land .imgintro{
+            display: none;
+        }
+        .landing .land .textintro{
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            padding: 20px
+        }
+        .landing .land .textintro h2{
+            font-size: 30px;
+            
+            margin-left: 27px;
+            color: white;
+            font-weight: bold;
+        }
+        .landing .land .textintro ul{
+        margin-top: 22px;
+        }
+        .landing .land .textintro ul li{
+            font-size: 20px;
+            margin-left: 27px;
+            color: white;
+            line-height:1.7
+        }
+        .landing .land .navbarr{
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+        }
+        .landing .land .navbarr img{
+            width: 40px;
+            height: 40px;
+        }
+        .landing .land .navbarr .ulnav{
+            display: flex;
+            align-items: center;
+        }
+        .landing .land .navbarr .ulnav li{
+            list-style: none;
+            margin: 0px 10px;
+        }
+        .landing .land .navbarr .ulnav li a{
+            text-decoration: none;
+            text-decoration: none;
+            font-size: 15px;
+            color: white !important;
+        }
+        .landing .land .navbarr  button{
+            width: 20px;
+            padding: 4px 35px;
+            display: flex;
+            background-color: transparent;
+            border-radius: 20px !important;
+            font-size: 17px;
+            justify-content: center;
+            color: white;
+            border: 2px solid white;
+        }
+}
