@@ -95,6 +95,37 @@ margin-top: 22px;
     font-weight: bold;
     color: #6638d1;
 }
+.colorbar1{
+    background-color: green;
+    height: 4px;
+    position: relative;
+    bottom: 61px;
+    width: 80%;
+    border-radius: 5px;
+    margin: 0px auto;
+}
+.colorbar1::before{
+    content: "";
+    display: block;
+    width: 66.6666%;
+    position: absolute;
+    top:0;
+    left: 0;
+    background-color:#47b2e4;
+    height: 100%;
+    border-radius: 0px 5px 5px 0px;
+}
+.colorbar1::after{
+    content: "";
+    display: block;
+    width: 33.3333%;
+    position: absolute;
+    top:0;
+    left: 0;
+    background-color: red;
+    height: 100%;
+    border-radius: 5px 0px 0px 5px;
+}
 .landing .about{
 display: flex;
 height: 600px;
@@ -123,17 +154,141 @@ width: 40%;
 
 
 
-
+.landing .work{
+    text-align: center;
+    height: 100vh;
+    background-color: #D2CAE4;
+    display: grid;
+}
+.landing .work  img{
+    padding: 21px;
+    background: linear-gradient(180deg, rgba(102, 16, 83, 0) -31%, rgba(102, 29, 123, 0.31638) -8.94%, #6638D1 90.69%, rgba(102, 16, 83, 0) 118%);
+    border-radius: 15px;
+    margin-bottom: 48px;
+    width: 86px;
+}
+.landing .work  h3{
+    font-size: 23px;
+}
+.landing .work h1{
+    padding-top: 54px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #6638d1;
+}
+.landing .workicon{
+    display: inline-block;
+    width: 314px;
+    height: 331px;
+    background-color: white;
+    position: relative;
+    border-radius: 17px;
+    z-index: 2;
+}
+.landing .work .workicon .infoo{
+    margin-top: 39px;
+}
+.landing .work .ly{
+    position: absolute;
+    background: blanchedalmond;
+    width: 314px;
+    height: 300px;
+    top: 58px;
+    transform: rotate(86deg);
+    border-radius: 17px;
+    z-index: 0;
+    left: 33px;
+}
+.landing .work .card{
+    position: relative;
+    width: 0px;
+}
+.landing .ourteam{
+    text-align: center;
+    height: 100vh;
+    background-color: #fff;
+    display: grid;
+}
+.landing .ourteam  img{
+    border-radius: 15px;
+    margin-bottom: 20px;
+    min-width: 100%;
+    min-height: 100%;
+}
+.landing .ourteam  h3{
+    margin-top: 10px;
+    font-size: 23px;
+    font-weight: bold;
+}
+.landing .ourteam h1{
+    font-size: 40px;
+    font-weight: bold;
+    color: #6638d1;
+}
+.landing .ourteam span{
+    font-size: 20px;
+    color: #6638d1;
+}
+.landing .ourteam .im{
+    width: 223px;
+    height: 210px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 20px;
+}
+.landing .ourteam .ourteaminfo{
+    display: inline-block;
+}
+.landing .android{
+    height: 100vh;
+    background-image: url('../../img/BG.jpg');
+    background-size: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.landing .android .imgapp{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+/* .landing .android .imgapp img{
+width: 100%;
+} */
+.landing .android .textapp{
+    text-align: initial;
+    height: 100%;
+}
+.landing .android .textapp .textcontent{
+    margin-top: 154px;
+}
+.landing .android .textapp h3{
+    font-size: 27px;
+}
+.landing .android .textapp h1{
+    font-size: 35px;
+    font-weight: bold;
+}
+.landing .android .textapp p{
+    color: blueviolet;
+    margin: 14px 0px 20px 0px;
+    font-size: 18px;
+    text-align: initial;
+}
 
 .landing .footer{
     padding: 70px 0;
         background-color:#0a075f;
     color: aliceblue;
-    height: 100%;
+    height: 358px;
 }
 .landing .footer h2{
-      color: aliceblue;
-      margin-bottom: 34px;
+    color: aliceblue;
+    margin-bottom: 53px;
+    position: relative;
+    right: 16px;
 }
 .landing .footer h2 img{
     width: 47px;}
