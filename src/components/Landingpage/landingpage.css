@@ -1,3 +1,6 @@
+.landing{
+    overflow: hidden;
+}
 .landing .land{
     height: 100vh;
     background: linear-gradient(118.54deg, #ED4690 -34.81%, #5522CC 63.38%);
@@ -10,7 +13,6 @@
     padding: 17px;
 }
 .landing .land .navbarr img{
-    width: 50px;
     height: 50px;
 }
 .landing .land .navbarr .ulnav{
@@ -339,7 +341,9 @@ width: 100%;
 }
 .landing .footer ul li {margin-bottom: 15px}
 .landing .footer i{font-size: 25px;color:white;margin-right: 15px;transition: all .5s ease;
-    cursor: pointer}
+    cursor: pointer;
+margin-bottom: 10px;
+}
 .landing .footer ul li i{
     color:#47b2e4;
     font-size: 16px;
@@ -436,7 +440,111 @@ width: 100%;
             font-weight: bold;
             color: #6638d1;
         }
+        .landing .about{
+            display: block;
+            height: 100%;
+            }
+            .landing .about .abouttext{
+            width: 100%;
+            text-align: center;
+            }
+            .landing .about .abouttext h2{
+                font-size: 25px;
+                font-weight: bold;
+            }
+            .landing .about .abouttext p{
+                text-align: initial;
+                color: #949494;
+                line-height: 2;
+                font-size: 20px;
+                text-align: center;
+            }
+            .landing .about .aboutimg{
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                padding: 50px;
+            }
+            .landing .about .aboutimg img{
+                width: 100%;
+                border-radius:35px ;
+            }
+            .landing .ourteam{
+                text-align: center;
+                height: 100%;
+                background-color: #fff;
+                
+            }
 
+            .landing .work{
+                text-align: center;
+                height: 100%;
+                background-color: #D2CAE4;
+            
+            }
+            .landing .work .contwork{
+                margin-top: 50px;
+               padding-bottom: 50px;
+            }
+            .landing .work  img{
+                margin-bottom: 15px;
+            }
+            .landing .work  h3{
+                font-size: 23px;
+                font-weight: bold;
+            }
+            .landing .work h1{
+                padding-top: 54px;
+                font-size: 40px;
+                font-weight: bold;
+                color: #2e068b;
+            }
+            .landing .work p{
+                color: black;
+                line-height: 2;
+            }
+            .landing .workicon{
+                display: inline-block;
+                width: 310px;
+                height: 324px;
+                background-color: white;
+                position: relative;
+                border-radius: 17px;
+                z-index: 2;
+                margin: 20px;
+            }
+            .landing .workicon.mainn{
+                background-color: #0a075f;
+            }
+            .landing .workicon.mainn img{
+                width: 70px;
+            }
+            .landing .workicon.mainn h3{
+                color: white;
+            }
+            .landing .workicon.mainn p{
+                color: white;
+                line-height: 3;
+            }
+            .landing .work .workicon .infoo{
+                margin-top: 39px;
+            }
+            .landing .work .ly{
+                position: absolute;
+                background: white;
+                width: 314px;
+                height: 300px;
+                top: 58px;
+                transform: rotate(86deg);
+                border-radius: 17px;
+                z-index: 0;
+                left: 33px;
+            }
+            .landing .work .cardd{
+                position: relative;
+                width: 0px;
+                display: inline-table;
+            }
 }
 
 @media only screen and (max-width: 800px) {
@@ -505,6 +613,47 @@ width: 100%;
             font-weight: bold;
             color: #6638d1;
         }
+        .landing .android{
+            height: 100%;
+            background-image: url('../../img/BG.jpg');
+            background-size: 100%;
+            display: block;
+            justify-content: center;
+            align-items: center;
+        }
+        .landing .android .imgapp{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        /* .landing .android .imgapp img{
+        width: 100%;
+        } */
+        .landing .android .textapp{
+            text-align: center;
+            height: 100%;
+
+        }
+        .landing .android .textapp .textcontent{
+            margin-top: 50px;
+            padding:0px 100px;
+        }
+        .landing .android .textapp h3{
+            font-size: 20px;
+            color: #340d97;
+        }
+        .landing .android .textapp h1{
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .landing .android .textapp p{
+            color: #949494;
+            margin: 14px 0px 20px 0px;
+            font-size: 20px;
+            text-align: center;
+            line-height: 2;
+        }
+        
 }
 @media only screen and (max-width: 700px) {
     .landing .land .intro{
@@ -542,7 +691,6 @@ width: 100%;
             padding: 5px;
         }
         .landing .land .navbarr img{
-            width: 40px;
             height: 40px;
         }
         .landing .land .navbarr .ulnav{
@@ -569,5 +717,18 @@ width: 100%;
             justify-content: center;
             color: white;
             border: 2px solid white;
+        }
+        .landing .about .aboutimg{
+            padding: 30px;
+        }
+        .landing .ourteam{
+            text-align: center;
+            height: 100%;
+            background-color: #fff;
+            
+        }
+        .landing .android .imgapp img{
+            width:50%;
+            margin-top: 30px;
         }
 }

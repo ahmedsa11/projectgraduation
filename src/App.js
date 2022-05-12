@@ -17,8 +17,8 @@ class App extends Component {
     return (
       <react.Fragment>
         <Switch> 
-          <Route exact path="/" component={Form} />
-          <Route exact path="/land" component={LandingPage} />
+          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/login" component={Form} />
           <Route path="/roomvideo/:roomvideoId" component={Roomvideo} />
           <Route path="/roomaudio/:roomaudioId" component={Roomaudio} />
           <Route path="/home" component={Home} />

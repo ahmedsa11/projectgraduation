@@ -1,7 +1,6 @@
 import react from "react";
 import './landingpage.css'
-import logo from '../../img/log.png'
-import intro from '../../img/Girl with PC on zoom meeting 1.png'
+import logo from '../../img/loooo.png'
 import iconchat from '../../img/MicrosoftTeams-imag (17) 1.png'
 import iconvid from '../../img/icons8-laptop-play-video-24.png'
 import iconshare from '../../img/icons8-share-3-32.png'
@@ -28,7 +27,7 @@ const LandingPage = () => {
 //   const tempuser = localStorage.getItem("user");
 // //   let user = JSON.parse(tempuser);
 //   if (tempuser === null) {
-//     return <Redirect to="/" />;
+//     return <Redirect to="/login" />;
 //   }
  const history =useHistory()
  const login=()=>{
@@ -41,6 +40,7 @@ const LandingPage = () => {
                 <div className="navbarr">
                     <img src={logo} alt="logo"/>
                     <ul className="ulnav">
+                        
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#service">Service</a></li>
@@ -143,7 +143,7 @@ Connect app allows you to Work and Study from anywhere. The ability to deliver p
                 <div class="colorbar1"></div>
                 <div className="contwork">
                 <div className="row">
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-md-6 ">
                         <div className="workicon">
                             <div className="infoo">
                            <img src={group} alt="logo"/>
@@ -152,7 +152,7 @@ Connect app allows you to Work and Study from anywhere. The ability to deliver p
                         </div>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-md-6">
                         <div className="cardd">
                         <div className="workicon mainn">
                         <div className="infoo">
@@ -167,7 +167,7 @@ Connect app allows you to Work and Study from anywhere. The ability to deliver p
                         </div>
                        
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-md-6">
                         <div className="workicon">
                         <div className="infoo">
                            <img src={group} alt="logo"/>
