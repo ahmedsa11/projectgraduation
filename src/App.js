@@ -19,13 +19,13 @@ class App extends Component {
         <Switch> 
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={Form} />
-          <Route path="/roomvideo/:roomvideoId" component={Roomvideo} />
-          <Route path="/roomaudio/:roomaudioId" component={Roomaudio} />
           <Route path="/home" component={Home} />
           <Route path="/setting" component={Setting} />
           <Route path="/mainchat" component={Mainchat} />
           <Route path="/calendar" component={Calendarr} />
           <Route path="/notifications" component={Notifications} />
+          <Route path="/roomvideo/:roomvideoId" component={Roomvideo} />
+          <Route path="/roomaudio/:roomaudioId" component={Roomaudio} />
           {/* <Route path="/s" component={Signlang} />  */}
           <Route path="/notfound" component={NOT} />
           {/* <Redirect from="/form" to="/" /> */}
