@@ -1,4 +1,4 @@
-import react from "react";
+import react, { useEffect } from "react";
 import './landingpage.css'
 import logo from '../../img/loooo.png'
 import iconchat from '../../img/MicrosoftTeams-imag (17) 1.png'
@@ -10,14 +10,14 @@ import icontrans from '../../img/icons8-closed-captioning-32.png'
 import googleplay from '../../img/googleplay.png'
 import imgapp from '../../img/image 28.png'
 import group from '../../img/Group 1738.png'
-import member1  from '../../img/salama.jpeg'
-import member2 from '../../img/osama.jpeg'
-import member3 from '../../img/rania.jpeg'
-import member4 from '../../img/rawan.jpeg'
-import member5 from '../../img/tabarani.jpeg'
-import member6 from '../../img/hassib.jpeg'
-import member7 from '../../img/heba.jpeg'
-import member8 from '../../img/menna.jpeg'
+import member1  from '../../img/salama.jpg'
+import member2 from '../../img/osama.jpg'
+import member3 from '../../img/rania.jpg'
+import member4 from '../../img/rawan.jpg'
+import member5 from '../../img/tabarani.jpg'
+import member6 from '../../img/hassib.jpg'
+import member7 from '../../img/heba.jpg'
+import member8 from '../../img/menna.jpg'
 import landimg from '../../img/la1.jpg'
 import l1 from '../../img/l1.jpg'
 import l2 from '../../img/l2.jpg'
@@ -33,26 +33,39 @@ const LandingPage = () => {
  const login=()=>{
      history.push("/login")
  }
+ const activeLink=()=>{
+     const link =document.querySelectorAll('.land a');
+     link.forEach(act => {
+        act.addEventListener('click', function () {
+            link.forEach(btn => btn.classList.remove('activelink'));
+            this.classList.add('activelink');        
+        });
+    });
+ }
+ useEffect(()=>{
+activeLink()
+ },[])
   return (
     <react.Fragment>
         <div className="landing">
-            <div className="land">
+            <div className="land"id="home">
                 <div className="navbarr">
                     <img src={logo} alt="logo"/>
                     <ul className="ulnav">
                         
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#service">Service</a></li>
+                        <li><a className="activelink" href="#home">Home</a></li>
+                        <li><a  href="#service">Service</a></li>
+                        <li><a  href="#about">About Us</a></li>
                     </ul>
                     <button onClick={login}>Login</button>
                 </div>
-                <div className="intro"id="home">
+                <div className="intro">
                 <div className="textintro">
                     <h2>Social communication<br/> system for the signer and <br/> non-signer people </h2>
                     <ul>
                         <li>Sign language to text </li>
                         <li>Speech to text </li>
+                        <li>Speech to sign language </li>
                         <li>video communication </li>
                     </ul>
                     </div>
@@ -294,9 +307,9 @@ Connect app allows you to Work and Study from anywhere. The ability to deliver p
                         <div class ="col-md-6">
                         <ul>
                                 <li><a href="#home"><i className="fas fa-chevron-right"></i>Home</a></li>
-                                <li><a href="#about"><i className="fas fa-chevron-right"></i>About Us</a></li>
                                 <li><a href="#service"><i className="fas fa-chevron-right"></i>Service</a></li>
                                 <li><a href="#how"><i className="fas fa-chevron-right"></i>How does it work</a></li>
+                                <li><a href="#about"><i className="fas fa-chevron-right"></i>About Us</a></li>
                             </ul>
                         </div>
                     </div>
