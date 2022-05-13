@@ -24,8 +24,8 @@ class App extends Component {
           <Route path="/mainchat" component={Mainchat} />
           <Route path="/calendar" component={Calendarr} />
           <Route path="/notifications" component={Notifications} />
-          <Route exact path="/roomvideo/:roomvideoId" component={Roomvideo} />
-          <Route exact path="/roomaudio/:roomaudioId" component={Roomaudio} />
+          <Route  path="/roomvideo" component={Roomvideo} />
+          <Route  path="/roomaudio" component={Roomaudio} />
           {/* <Route path="/s" component={Signlang} />  */}
           <Route path="/notfound" component={NOT} />
           {/* <Redirect from="/form" to="/" /> */}
