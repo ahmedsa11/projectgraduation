@@ -17,7 +17,7 @@ class App extends Component {
     return (
       <react.Fragment>
         <Switch> 
-          <Route path="/" component={LandingPage} />
+          <Route exact path="/" component={LandingPage} />
           <Route path="/login" component={Form} />
           <Route path="/home" component={Home} />
           <Route path="/setting" component={Setting} />
@@ -25,7 +25,7 @@ class App extends Component {
           <Route path="/calendar" component={Calendarr} />
           <Route path="/notifications" component={Notifications} />
           <Route path="/roomvideo/:roomvideoId" component={Roomvideo} />
-          <Route path="/roomaudio/:roomaudioId" component={Roomaudio} />
+          {/* <Route path="/roomaudio/:roomaudioId" component={Roomaudio} /> */}
           {/* <Route path="/s" component={Signlang} />  */}
           <Route path="/notfound" component={NOT} />
           {/* <Redirect from="/form" to="/" /> */}
