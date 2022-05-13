@@ -61,7 +61,7 @@ activeLink()
                 </div>
                 <div className="intro">
                 <div className="textintro">
-                    <h2>Social communication<br/> system for the signer and <br/> non-signer people </h2>
+                    <h2>Social communication system for the signer and <br/> non-signer people </h2>
                     <ul>
                         <li>Sign language to text </li>
                         <li>Speech to text </li>
