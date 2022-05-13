@@ -257,7 +257,7 @@ Connect app allows you to Work and Study from anywhere. The ability to deliver p
                     </div>
                     <div className="col-lg-3 col-md-6">
                         <div className="ourteaminfo">
-                        <div className="featuerii">
+                        <div className="featuer">
                                  <div className="im">
                            <img src={member8} alt="icon8"/>
                            </div>
