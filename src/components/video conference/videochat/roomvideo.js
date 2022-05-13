@@ -231,6 +231,8 @@ setPeers((users) => {
             });
           }
         });
+      }).catch((error)=>{
+        alert("error")
       });
 
     socket.on('FE-toggle-camera', ({ userId, switchTarget }) => {
