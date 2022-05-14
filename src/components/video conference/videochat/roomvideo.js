@@ -123,6 +123,7 @@ const Roomvideo = (props) => {
   // if (!browserSupportsSpeechRecognition) {
   //   return (<span>Browser doesn't support speech recognition.</span>)
   // }
+ 
   useEffect(() => {
     // Get Video Devices
     // navigator.mediaDevices.enumerateDevices().then((devices) => {
@@ -139,11 +140,6 @@ const Roomvideo = (props) => {
     // setloading(true);
     // Connect Camera & Mic
     setloading(true)
-    if (!navigator.mediaDevices) {
-      setloading(false)
-      alert("Sorry, getUserMedia is not supported");
-      return;
-    }
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => 
@@ -232,7 +228,9 @@ setPeers((users) => {
           }
         });
       }).catch((error)=>{
-        alert("error")
+        setloading(false)
+        // alert(error)
+        alert("Sorry, getUserMedia is not supported ");
       });
 
     socket.on('FE-toggle-camera', ({ userId, switchTarget }) => {
