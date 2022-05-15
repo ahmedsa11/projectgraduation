@@ -39,7 +39,7 @@ const SignToText = ({textsign,uservideo,signToText,user,roomId}) => {
           count++;
           frames.push(landmarks);
           // console.log(count);
-          if (count === 20) {
+          if (count === 15) {
               socket.emit("stream_sign", {landmarks:frames,name:user.name,roomId});
               console.log(frames.length);
               count = 0;
@@ -94,7 +94,9 @@ const SignToText = ({textsign,uservideo,signToText,user,roomId}) => {
       camera.start()
      // recive data from the server
 socket.on("stream_sign", ({text})=>{
+  frames=[];
     console.log('receive done ', text);
+    
     console.log(text)
     if(text==="space"){
       // eslint-disable-next-line 
