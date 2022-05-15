@@ -361,8 +361,6 @@ setPeers((users) => {
           userVideoRef.current.srcObject.getAudioTracks()[0];
         audioSwitch = !audioSwitch;
         userAudioTrack.enabled = audioSwitch;
-
-
         // audioSwitch ? speechRecognition.start() : speechRecognition.stop();
       }
 
