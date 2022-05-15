@@ -29,24 +29,22 @@ const grid = () => {
   const grid4 = document.getElementById('grid4');
   const grid1 = document.getElementById('grid1');
   const vids = document.querySelector('.vids');
-  const viditem = document.getElementsByClassName('vid-item');
+  const viditem = document.querySelectorAll('.vid-item');
   for (let i = 0; i < viditem.length; i++) {
     grid6.onclick = () => {
-      viditem[i].style.width = 'calc(100%/4)';
-      vids.style.padding = '0% 19%';
+      vids.style.padding = '0px 10px';
       viditem[i].style.margin = '0% 0%';
     };
 
     grid4.onclick = () => {
-      viditem[i].style.width = 'calc(100%/3.1)';
-      vids.style.padding = '0% 0%';
-      viditem[i].style.margin = '0% 0%';
+      vids.style.padding = '0px 122px';
+      // viditem[i].style.margin = '0% 0%';
     };
-    grid1.onclick = () => {
-      viditem[i].style.width = 'calc(100%/1.7)';
-      vids.style.padding = '0% 0%';
-      viditem[i].style.margin = '0% 3%';
-    };
+    // grid1.onclick = () => {
+    //   viditem[i].style.width = 'calc(100%/1.7)';
+    //   vids.style.padding = '0% 0%';
+    //   viditem[i].style.margin = '0% 3%';
+    // };
   }
 };
 const openchat = () => {
@@ -262,7 +260,7 @@ setPeers((users) => {
   }, []);
   //voice to sign
   useEffect(() => {
-    if (audio && toSign) {
+    if (audio) {
       console.log('start listening');
       SpeechRecognition.startListening({
         language: 'en-US',
@@ -274,7 +272,7 @@ setPeers((users) => {
       SpeechRecognition.stopListening();
     }
     // eslint-disable-next-line
-  }, [listening, audio, toSign]);
+  }, [listening, audio]);
   function createPeer(userId, caller, stream) {
     const peer = new Peer({
       initiator: true,
@@ -592,6 +590,7 @@ setPeers((users) => {
               toggleRecording={toggleRecording}
               screenRecod={screenRecod}
               textsign={textsign}
+              roomId={roomId}
             />
           </div>
           <Chat roomId={roomId}/>
