@@ -40,7 +40,7 @@ const SignToText = ({ textsign, uservideo, signToText, user, roomId }) => {
         count++;
         frames.push(landmarks);
         // console.log(count);
-        if (frames.length === 100) {
+        if (frames.length === 15) {
           socket.emit('stream_sign', {
             landmarks: frames,
             name: user.name,
