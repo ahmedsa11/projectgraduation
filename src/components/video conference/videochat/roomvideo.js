@@ -130,7 +130,9 @@ const Roomvideo = (props) => {
     // });
 
     // Set Back Button Event
-
+    navigator.mediaDevices.getUserMedia = (navigator.mediaDevices.getUserMedia || 
+      navigator.mediaDevices.webKitGetUserMedia || navigator.mediaDevices.moxGetUserMedia ||
+       navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia);
     window.addEventListener('popstate', goToBack);
     if (tempuser === null) {
       return <Redirect to='/login' />;
@@ -138,9 +140,7 @@ const Roomvideo = (props) => {
     // setloading(true);
     // Connect Camera & Mic
     setloading(true)
-    // navigator.mediaDevices.getUserMedia = (navigator.mediaDevices.getUserMedia || 
-    // navigator.mediaDevices.webKitGetUserMedia || navigator.mediaDevices.moxGetUserMedia ||
-    //  navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia);
+   
     navigator.mediaDevices
       .getUserMedia({ video: true , audio: true })
       .then((stream) => 
