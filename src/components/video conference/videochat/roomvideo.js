@@ -121,7 +121,7 @@ const Roomvideo = (props) => {
   // if (!browserSupportsSpeechRecognition) {
   //   return (<span>Browser doesn't support speech recognition.</span>)
   // }
- 
+
   useEffect(() => {
     // Get Video Devices
     // navigator.mediaDevices.enumerateDevices().then((devices) => {
@@ -138,8 +138,11 @@ const Roomvideo = (props) => {
     // setloading(true);
     // Connect Camera & Mic
     setloading(true)
+    // navigator.mediaDevices.getUserMedia = (navigator.mediaDevices.getUserMedia || 
+    // navigator.mediaDevices.webKitGetUserMedia || navigator.mediaDevices.moxGetUserMedia ||
+    //  navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia);
     navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
+      .getUserMedia({ video: true , audio: true })
       .then((stream) => 
       {
         setloading(false)
@@ -548,7 +551,6 @@ setPeers((users) => {
                       ></video>
                       <SignToText
                       roomId={roomId}
-                       uservideo={userVideoRef}
                        textsign={textsign}
                        signToText={signToText}
                        audio={audio}
