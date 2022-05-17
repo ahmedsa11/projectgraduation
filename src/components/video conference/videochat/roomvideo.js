@@ -27,7 +27,7 @@ const Copy = () => {
 const grid = () => {
   const grid6 = document.getElementById('grid6');
   const grid4 = document.getElementById('grid4');
-  const grid1 = document.getElementById('grid1');
+  // const grid1 = document.getElementById('grid1');
   const vids = document.querySelector('.vids');
   const viditem = document.querySelectorAll('.vid-item');
   for (let i = 0; i < viditem.length; i++) {

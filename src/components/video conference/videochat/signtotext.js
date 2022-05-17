@@ -1,21 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import react from 'react';
 import socket from '../socket';
 import { Hands } from '@mediapipe/hands';
 import * as hands from '@mediapipe/hands';
 import * as cam from '@mediapipe/camera_utils';
-const SignToText = ({ textsign, uservideo, signToText, user, roomId }) => {
+const SignToText = ({ textsign, signcheckCap, signToText, user, roomId }) => {
   let word = '';
   let sentence = '';
   const videoref = useRef();
   const canvasRef = useRef(null);
   const drawConnectors = window.drawConnectors;
   const drawLandmarks = window.drawLandmarks;
+  // eslint-disable-next-line
   var count = 0;
+  // eslint-disable-next-line
   var frames = [];
   let camera = null;
-  // eslint-disable-next-line
-  const [came, setcame] = useState('');
   function onResults(results) {
     const videoWidth = videoref.current.videoWidth;
     const videoHeight = videoref.current.videoHeight;
@@ -59,15 +59,6 @@ const SignToText = ({ textsign, uservideo, signToText, user, roomId }) => {
     }
     canvasCtx.restore();
   }
-  // useEffect(()=>{
-  //   if(signToText){
-  //     setcame("start")
-  //   }
-  //   if(!signToText){
-  //     setcame("stop")
-  //   }
-  // },[signToText,came])
-
   useEffect(() => {
     if (signToText) {
       // document.getElementById("au").setAttribute("disabled", "disabled")
@@ -98,9 +89,9 @@ const SignToText = ({ textsign, uservideo, signToText, user, roomId }) => {
       camera.start();
       // recive data from the server
       socket.on('stream_sign', ({ text }) => {
+        // eslint-disable-next-line
         frames = [];
         console.log('receive done ', text);
-
         console.log(text);
         if (text === 'space') {
           // eslint-disable-next-line
@@ -116,20 +107,23 @@ const SignToText = ({ textsign, uservideo, signToText, user, roomId }) => {
         }
       });
     }
-    if (!signToText) {
-      // setcame("stop")
-      // console.log("end")
-      // document.getElementById("au").removeAttribute("disabled")
-      // // document.getElementById("auo").style.pointerEvents="auto";
-      // // document.getElementById("auf").style.pointerEvents="auto";
-      // document.getElementById("au").style.opacity="1"
-    }
     // eslint-disable-next-line
   }, [signToText]);
+  // useEffect(()=>{
+  //   if(signcheckCap){
 
+  //   }
+  // // eslint-disable-next-line
+  // },[signcheckCap,textsign])
   return (
     <react.Fragment>
-      <video ref={videoref} muted autoPlay playsInline></video>
+      <video
+        ref={videoref}
+        muted
+        autoPlay
+        playsInline
+        style={{ display: 'none' }}
+      ></video>
       <canvas id="canvas" ref={canvasRef} className="canvas"></canvas>
     </react.Fragment>
   );
