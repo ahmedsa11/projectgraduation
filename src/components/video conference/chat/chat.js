@@ -41,7 +41,7 @@ const Chat = ({ roomId }) => {
     const msg = text.value;
 
     // localStorage.setItem("text",text.value);
-    if (msg || inputImage !== '') {
+    if (msg ||inputImage) {
       console.log(msg, inputImage);
       // console.log({ socket: socket });
       // console.log({ roomId, msg, sender: currentUser, img: imageuser });
@@ -67,6 +67,7 @@ const Chat = ({ roomId }) => {
     input.type = 'file';
     input.accept = 'image/*';
     input.onchange = (e) => {
+      setimageSended(false)
       let file = e.target.files[0];
       // const formData = new FormData();
       const reader = new FileReader();
@@ -84,8 +85,15 @@ const Chat = ({ roomId }) => {
     };
 
     input.click();
-    console.log(inputImage);
   }
+  const deleteImg =()=>{
+    setimageSended(true)
+    setinputImage('')
+    console.log(inputImage)
+    console.log(imageSended)
+  }
+  console.log(inputImage)
+  console.log(imageSended)
   return (
     <react.Fragment>
       <div className="chat-side" id="chat">
@@ -99,7 +107,7 @@ const Chat = ({ roomId }) => {
                     <img src={img} alt="a" />
                     <div className="text-box">
                       <strong>{sender} : </strong>
-                       {inputImage}
+                       {inputImage!==''&&<img className='img-inbox' src={inputImage}alt="g"/>}
                       <p>{msg} </p>
                       {/*<div className="message-time-left">SMS 13:37</div>*/}
                     </div>
@@ -110,7 +118,7 @@ const Chat = ({ roomId }) => {
                   <div className="reciver" key={idx}>
                     {/* <strong>{sender}</strong> */}
                     <div className="text-box">
-                      {inputImage}
+                    {inputImage!==''&&<img className='img-inbox' src={inputImage}alt="g"/>}
                       <p>{msg} </p>
                       {/*<div className="message-time-right">SMS 13:37</div>*/}
                     </div>
@@ -129,11 +137,15 @@ const Chat = ({ roomId }) => {
           <div className="textin">
             <div className="feat">
               <i className="fas fa-image" id="imggg" onClick={importData}></i>
+
               {/* <i className="fas fa-microphone"></i> */}
             </div>
             {inputImage !== '' && !imageSended && (
+            <div className='info-imagee'>  
+              <i className='fas fa-times' onClick={deleteImg}></i>
               <img className="sended-image" src={inputImage} alt="fj"/>
-            )}
+            </div>
+              )}
             <textarea
               type="text"
               placeholder="Write message...."
