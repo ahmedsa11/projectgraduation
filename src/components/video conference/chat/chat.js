@@ -25,7 +25,7 @@ const Chat = ({ roomId }) => {
   const tempuser = localStorage.getItem('user');
 
   if (tempuser === null) {
-    return <Redirect to='/' />;
+    return <Redirect to="/" />;
   }
 
   const user = JSON.parse(tempuser);
@@ -39,7 +39,6 @@ const Chat = ({ roomId }) => {
     const msg = text.value;
     // localStorage.setItem("text",text.value);
     if (msg) {
- 
       console.log(msg);
       console.log({ socket: socket });
       console.log({ roomId, msg, sender: currentUser, img: imageuser });
@@ -53,43 +52,39 @@ const Chat = ({ roomId }) => {
     }
     console.log('sent');
   };
-//   if(msgpic){
-//   useEffect(()=>{
-//       setMsg(msgpic)
-//   },[msgpic])
-// }
-    function importData() {
-      let input = document.createElement('input');
-      input.type = 'file';
-      input.accept='image/*'
-      input.onchange = (e)=> {
-                let file = e.target.files[0];
-                const formData = new FormData();
-                formData.append('image', file, file.name);
-                setMsgpic(file)
-                console.log(file)
-                // const text = document.getElementById('textt');
-              
-               
-                
-                
-            };
-      input.click();
-    console.log(msgpic)
-    }
-  return ( 
+  //   if(msgpic){
+  //   useEffect(()=>{
+  //       setMsg(msgpic)
+  //   },[msgpic])
+  // }
+  function importData() {
+    let input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e) => {
+      let file = e.target.files[0];
+      const formData = new FormData();
+      formData.append('image', file, file.name);
+      setMsgpic(file);
+      console.log(file);
+      // const text = document.getElementById('textt');
+    };
+    input.click();
+    console.log(msgpic);
+  }
+  return (
     <react.Fragment>
-      <div className='chat-side' id='chat'>
-        <i className='fas fa-sign-out-alt'></i>
-        <div className='chat'>
+      <div className="chat-side" id="chat">
+        <i className="fas fa-sign-out-alt"></i>
+        <div className="chat">
           {msg &&
             msg.map(({ sender, msg, img }, idx) => {
               if (sender !== currentUser) {
                 return (
-                  <div className='sender' key={idx}>
-                    <img src={img} alt='a' />
+                  <div className="sender" key={idx}>
+                    <img src={img} alt="a" />
 
-                    <div className='text-box'>
+                    <div className="text-box">
                       <strong>{sender} : </strong>
                       <p> {msg}</p>
                       {/*<div className="message-time-left">SMS 13:37</div>*/}
@@ -98,9 +93,9 @@ const Chat = ({ roomId }) => {
                 );
               } else {
                 return (
-                  <div className='reciver' key={idx}>
+                  <div className="reciver" key={idx}>
                     {/* <strong>{sender}</strong> */}
-                    <div className='text-box'>
+                    <div className="text-box">
                       <p>{msg} </p>
                       {/*<div className="message-time-right">SMS 13:37</div>*/}
                     </div>
@@ -114,22 +109,22 @@ const Chat = ({ roomId }) => {
           ></div>
         </div>
 
-        <div className='typing'>
+        <div className="typing">
           <p>{/* <span>david </span>is typing.... */}</p>
-          <div className='textin'>
-            <div className='feat'>
-              <i className='fas fa-image'id='imggg' onClick={importData}></i>
+          <div className="textin">
+            <div className="feat">
+              <i className="fas fa-image" id="imggg" onClick={importData}></i>
               {/* <i className="fas fa-microphone"></i> */}
             </div>
 
             <textarea
-              type='text'
-              placeholder='Write Message....'
+              type="text"
+              placeholder="Write message...."
               ref={inputRef}
-              id='textt'
+              id="textt"
             ></textarea>
-            <div className='send'>
-              <i className='fas fa-paper-plane' onClick={sendMessage}></i>
+            <div className="send">
+              <i className="fas fa-paper-plane" onClick={sendMessage}></i>
             </div>
           </div>
         </div>
