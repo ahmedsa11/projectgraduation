@@ -845,6 +845,7 @@ width: 47px;
             bottom: 3px !important;
             left: 2px !important;
             object-fit: cover !important;
+            border-radius: none;
         }
         .fa-comment-dots{
             margin-left: 0px !important;

@@ -26,27 +26,36 @@ const Copy = () => {
   document.execCommand('Copy');
 };
 const grid = () => {
+  console.log('grid');
   const grid6 = document.getElementById('grid6');
   const grid4 = document.getElementById('grid4');
-  // const grid1 = document.getElementById('grid1');
-  const vids = document.querySelector('.vids');
+  const grid1 =document.getElementById('grid1');
+  // const vids = document.querySelector('.vids');
   const viditem = document.querySelectorAll('.vid-item');
-  for (let i = 0; i < viditem.length; i++) {
-    grid6.onclick = () => {
-      vids.style.padding = '0px 10px';
-      viditem[i].style.margin = '0% 0%';
-    };
+  // const videoconference = document.querySelector('.video-conference');
+  // if(videoconference.style.width=="100%"){
+    for (let i = 0; i < viditem.length; i++) {
+      grid6.onclick = () => {
+        viditem[i].style.width = 'calc(100% / 4)';
+        viditem[i].style.height = 'auto';
+      };
+  
+      grid4.onclick = () => {
+        viditem[i].style.width = 'calc(100% / 3)';
+        viditem[i].style.height = 'auto';
+      };
+      grid1.onclick = () => {
+        viditem[i].style.width = '100%';
+        viditem[i].style.height = '100%';
+        // vids.style.padding = '0% 0%';
+        // viditem[i].style.margin = '0% 3%';
+      };
+    }
+  // }
+  // else{
 
-    grid4.onclick = () => {
-      vids.style.padding = '0px 122px';
-      // viditem[i].style.margin = '0% 0%';
-    };
-    // grid1.onclick = () => {
-    //   viditem[i].style.width = 'calc(100%/1.7)';
-    //   vids.style.padding = '0% 0%';
-    //   viditem[i].style.margin = '0% 3%';
-    // };
-  }
+  // }
+
 };
 const openchat = () => {
   const icon = document.querySelector('.fa-comment-dots');
