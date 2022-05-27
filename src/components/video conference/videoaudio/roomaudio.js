@@ -12,6 +12,7 @@ import BottomBar from '../videoaudio/bottombar';
 import VideoCard from './audio';
 import { Redirect } from 'react-router';
 import Loader from '../../loader/loader';
+import grid1 from '../../../img/icons8-grid-50.png';
 import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition';
@@ -413,6 +414,9 @@ const Roomaudio = (props) => {
               </div>
               <div className='grid-show'>
                 <ul>
+                <li id='grid1' onClick={grid}>
+                 <img src={grid1} alt="f"/>
+                  </li>
                   <li id='grid6' onClick={grid}>
                     <i className='fas fa-th'></i>
                   </li>

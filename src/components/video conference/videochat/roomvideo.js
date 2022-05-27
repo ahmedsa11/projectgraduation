@@ -17,6 +17,7 @@ import SpeechRecognition, {
 } from 'react-speech-recognition';
 import Signlang from './signlanguage';
 import SignToText from './signtotext';
+import grid1 from '../../../img/icons8-grid-50.png';
 const Copy = () => {
   var Url = document.getElementById('paste-box');
   Url.value = window.location.href;
@@ -479,8 +480,11 @@ setPeers((users) => {
               </div>
               <div className='grid-show'>
                 <ul>
+                <li id='grid1' onClick={grid}>
+                 <img src={grid1} alt="f"/>
+                  </li>
                   <li id='grid6' onClick={grid}>
-                    <i className='fas fa-th'></i>
+                     <i className='fas fa-th'></i>
                   </li>
                   <li id='grid4' onClick={grid}>
                     <i className='fas fa-th-large'></i>
