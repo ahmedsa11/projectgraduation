@@ -42,10 +42,7 @@ const Setting = (props) => {
       authentication
     );
   };
-  const logout = () => {
-    window.localStorage.removeItem('user');
-    history.push('/');
-  };
+
   const validation = () => {
     const error = {};
     if (Name.trim() === '') {
@@ -481,9 +478,6 @@ const Setting = (props) => {
                     </button>
                   </div>
                 </form>
-                <button className="logout" onClick={logout}>
-                  Log Out
-                </button>
               </div>
             </div>
           </div>

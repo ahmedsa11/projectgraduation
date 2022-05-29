@@ -465,7 +465,7 @@ const Roomaudio = (props) => {
                     </div>
                   </div>
                   <div className='rec-time'>
-                    <span id='dottt'></span>{hours}:{minutes}:{seconds}
+                    <span id='dottt'></span><span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
                   </div>
                 </div>
                 <div className='vids'>

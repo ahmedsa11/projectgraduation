@@ -25,6 +25,16 @@
     padding: 6px !important ;
 }
 @media only screen and (max-width: 800px) {
+    .icon-opts ul li.logimg{
+        text-align: center;
+        bottom: 13px;
+        position: absolute;
+        right: -31px;
+        top: -2px;
+    }
+    .icon-opts ul li.logimg img{
+        width: 28px;
+    }
     .toggler{
         display: block !important; 
         opacity: 1 !important;
@@ -90,4 +100,13 @@
     color: white;
     font-weight: bold;
     cursor: pointer;
+}
+.icon-opts ul li.logimg{
+    text-align: center;
+    bottom: 13px;
+    position: absolute;
+} 
+.icon-opts ul .logimg img{
+    cursor: pointer;
+    margin-left: 12px;
 }

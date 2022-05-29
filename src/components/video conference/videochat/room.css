@@ -368,7 +368,7 @@ margin: 14px 3px
     text-align: center;
      width: 80px;
 }
- .video-conference .main-side .vi .vid-stream .opts .rec-time span{
+ .video-conference .main-side .vi .vid-stream .opts .rec-time #dottt{
     width: 7px;
     height: 7px;
     background: red;
@@ -846,7 +846,7 @@ width: 47px;
             bottom: 3px !important;
             left: 2px !important;
             object-fit: cover !important;
-            border-radius: none;
+            border-radius: 0px;
         }
         .fa-comment-dots{
             margin-left: 0px !important;
