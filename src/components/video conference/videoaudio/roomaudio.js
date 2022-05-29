@@ -13,6 +13,7 @@ import VideoCard from './audio';
 import { Redirect } from 'react-router';
 import Loader from '../../loader/loader';
 import grid1 from '../../../img/icons8-grid-50.png';
+import { useStopwatch } from 'react-timer-hook';
 import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition';
@@ -116,6 +117,11 @@ const Roomaudio = (props) => {
     listening,
     // browserSupportsSpeechRecognition
   } = useSpeechRecognition();
+  const {
+    seconds,
+    minutes,
+    hours,
+  } = useStopwatch({ autoStart: true });
   let text = useRef();
   let senderName = useRef();
   // if (!browserSupportsSpeechRecognition) {
@@ -459,7 +465,7 @@ const Roomaudio = (props) => {
                     </div>
                   </div>
                   <div className='rec-time'>
-                    <span id='dottt'></span>00:00{' '}
+                    <span id='dottt'></span>{hours}:{minutes}:{seconds}
                   </div>
                 </div>
                 <div className='vids'>

@@ -18,6 +18,7 @@ import SpeechRecognition, {
 import Signlang from './signlanguage';
 import SignToText from './signtotext';
 import grid1 from '../../../img/icons8-grid-50.png';
+import { useStopwatch } from 'react-timer-hook';
 const Copy = () => {
   var Url = document.getElementById('paste-box');
   Url.value = window.location.href;
@@ -125,13 +126,18 @@ const Roomvideo = (props) => {
   let {transcript,listening,
 // browserSupportsSpeechRecognition
 } = useSpeechRecognition();
+
   let text = useRef();
   let senderName = useRef();
   let textsign=useRef()
   // if (!browserSupportsSpeechRecognition) {
   //   return (<span>Browser doesn't support speech recognition.</span>)
   // }
-
+  const {
+    seconds,
+    minutes,
+    hours,
+  } = useStopwatch({ autoStart: true });
   useEffect(() => {
     // Get Video Devices
     // navigator.mediaDevices.enumerateDevices().then((devices) => {
@@ -534,7 +540,7 @@ setPeers((users) => {
                     </div>
                   </div>
                   <div className='rec-time'>
-                    <span id='dottt'></span>00:00
+                    <span id='dottt'></span>{hours}:{minutes}:{seconds}
                   </div>
                 </div>
                 <div className='vids'>

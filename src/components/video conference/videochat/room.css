@@ -366,6 +366,7 @@ margin: 14px 3px
     color: white;
     width: fit-content;
     text-align: center;
+     width: 80px;
 }
  .video-conference .main-side .vi .vid-stream .opts .rec-time span{
     width: 7px;
