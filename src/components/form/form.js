@@ -67,7 +67,7 @@ class Form extends Component {
     this.setState({ loading: true });
     //back end
     let data = await fetch(
-      `https://backend-api-tabarani.herokuapp.com/api/users/${this.state.mobile}`,
+      `https://api.connect-asl.site/api/users/${this.state.mobile}`,
       {
         headers: this.header,
         method: 'GET',
@@ -136,7 +136,7 @@ class Form extends Component {
     if (error) return;
     //back end
     this.setState({ loading: true });
-    const url = 'https://backend-api-tabarani.herokuapp.com/api/users/login';
+    const url = 'https://api.connect-asl.site/api/users/login';
     const data = await fetch(url, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {

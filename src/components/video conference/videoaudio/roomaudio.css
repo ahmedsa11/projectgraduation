@@ -785,6 +785,7 @@ width: 47px;
             bottom: 5px;
             margin-left: 10px;
             cursor: pointer;
+            object-fit: cover;
         }
         .roomaudio  .video-conference .main-side .navbar .grid-show #grid6 img{
             width: 30px;

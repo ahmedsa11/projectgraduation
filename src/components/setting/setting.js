@@ -134,7 +134,7 @@ const Setting = (props) => {
   };
   const { Name, Phone, Gender, oldPassword, newPassword, confirmNewPassword } =
     formValue;
-  const urldata = `https://backend-api-tabarani.herokuapp.com/api/users/${user.mobile}`;
+  const urldata = `https://api.connect-asl.site/api/users/${user.mobile}`;
   const handlesetting = async (e) => {
     e.preventDefault();
     const error = validation();
@@ -186,7 +186,7 @@ const Setting = (props) => {
     }
     if (!document.getElementById('inputphone').disabled) {
       let data = await fetch(
-        `https://backend-api-tabarani.herokuapp.com/api/users/${Phone}`,
+        `https://api.connect-asl.site/api/users/${Phone}`,
         {
           method: 'GET',
           headers: {
@@ -224,20 +224,17 @@ const Setting = (props) => {
     }
 
     if (!document.getElementById('inputpass').disabled) {
-      const data = await fetch(
-        `https://backend-api-tabarani.herokuapp.com/api/users/login`,
-        {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          headers: {
-            API_KEY: process.env.REACT_APP_API_KEY,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            password: oldPassword,
-            mobile: Phone,
-          }),
-        }
-      );
+      const data = await fetch(`https://api.connect-asl.site/api/users/login`, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          API_KEY: process.env.REACT_APP_API_KEY,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          password: oldPassword,
+          mobile: Phone,
+        }),
+      });
       const res = await data.json();
       if (res.status === 'error') {
         setload(false);
@@ -275,7 +272,7 @@ const Setting = (props) => {
     console.log(file);
 
     formData.append('image', file, file.name);
-    const url = `https://backend-api-tabarani.herokuapp.com/api/users/image/${user.mobile}`;
+    const url = `https://api.connect-asl.site/api/users/image/${user.mobile}`;
     // send image as a file
     const data = await fetch(url, {
       method: 'PATCH',

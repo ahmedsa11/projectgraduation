@@ -65,7 +65,7 @@ class Verification extends Component {
     let tempuser = localStorage.getItem('user');
     let user = JSON.parse(tempuser);
     let data2 = await fetch(
-      `https://backend-api-tabarani.herokuapp.com/api/users/${user.mobile}`,
+      `https://api.connect-asl.site/api/users/${user.mobile}`,
       {
         headers: this.header,
         method: 'PATCH',
@@ -84,19 +84,16 @@ class Verification extends Component {
   };
 
   signup = async () => {
-    let data2 = await fetch(
-      `https://backend-api-tabarani.herokuapp.com/api/users/`,
-      {
-        headers: this.header,
-        method: 'POST',
-        body: JSON.stringify({
-          name: this.state.username,
-          mobile: this.state.mobile,
-          password: this.state.pass,
-          gender: this.state.gender,
-        }),
-      }
-    );
+    let data2 = await fetch(`https://api.connect-asl.site/api/users/`, {
+      headers: this.header,
+      method: 'POST',
+      body: JSON.stringify({
+        name: this.state.username,
+        mobile: this.state.mobile,
+        password: this.state.pass,
+        gender: this.state.gender,
+      }),
+    });
     let res2 = await data2.json();
     if (res2.status === 'success') {
       localStorage.setItem('user', JSON.stringify(res2.data));
