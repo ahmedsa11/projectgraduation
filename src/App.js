@@ -10,6 +10,7 @@ import Notifications from "./components/neffication/notifications";
 import Roomvideo from "./components/video conference/videochat/roomvideo";
 import Roomaudio from "./components/video conference/videoaudio/roomaudio";
 import LandingPage from "./components/Landingpage/Landingpage";
+import Forget from "./components/forgetpass/forgetpass";
 class App extends Component {
   render() {
     return (
@@ -18,6 +19,7 @@ class App extends Component {
           <Route exact path="/" component={LandingPage} />
           <Route path="/login" component={Form} />
           <Route path="/home" component={Home} />
+          <Route path="/forget" component={Forget} />
           <Route path="/setting" component={Setting} />
           <Route path="/calendar" component={Calendarr} />
           <Route path="/notifications" component={Notifications} />
