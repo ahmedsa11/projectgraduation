@@ -54,6 +54,7 @@ const Chat = ({ roomId }) => {
       });
       inputRef.current.value = '';
     }
+    setinputImage('');
     console.log('sent');
   };
   //   if(msgpic){
