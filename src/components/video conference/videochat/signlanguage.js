@@ -3,8 +3,9 @@ import signpic from "../../../img/sign.jpg";
 import React, { useEffect, useState } from "react";
 import socket from "../socket";
 import { useSpeechRecognition } from "react-speech-recognition";
-const Signlang = ({ toSign, roomId, user, senderName, text }) => {
-  let { transcript, listening } = useSpeechRecognition();
+const Signlang = ({ roomId, user, senderName, text }) => {
+     // eslint-disable-next-line
+  let { transcript ,listening} = useSpeechRecognition();
   const [newContent, setnewcontent] = useState("");
   const [enablef1, setenablef1] = useState(false);
   const [isFinished, setisfinished] = useState(true);
@@ -37,9 +38,10 @@ const Signlang = ({ toSign, roomId, user, senderName, text }) => {
         setisfinished(false);
         setnewcontent("");
       }
-    }}
+    }
+  }
     // eslint-disable-next-line
-  }, [listening,enablef1]);
+  }, [enablef1,newContent]);
   useEffect(() => {
     if(enablef1){
       console.log("asdadadada")

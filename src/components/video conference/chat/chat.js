@@ -57,11 +57,7 @@ const Chat = ({ roomId }) => {
     setinputImage('');
     console.log('sent');
   };
-  //   if(msgpic){
-  //   useEffect(()=>{
-  //       setMsg(msgpic)
-  //   },[msgpic])
-  // }
+
   function importData() {
     let input = document.createElement('input');
 
