@@ -2,18 +2,25 @@ import React, { useEffect, useRef } from 'react';
 import react from 'react';
 import socket from '../socket';
 import { Hands } from '@mediapipe/hands';
+// import '@mediapipe/drawing_utils/drawing_utils';
+// import '@mediapipe/control_utils/control_utils';
 import * as hands from '@mediapipe/hands';
-import * as cam from '@mediapipe/camera_utils';
-const SignToText = ({ textsign, signcheckCap, signToText, user, roomId }) => {
+import * as cam from '@mediapipe/camera_utils/camera_utils';
+const SignToText = ({
+  textsign,
+  signToText,
+  user,
+  roomId,
+  signToTextCaption,
+}) => {
   let word = '';
   let sentence = '';
   const videoref = useRef();
   const canvasRef = useRef(null);
   const drawConnectors = window.drawConnectors;
   const drawLandmarks = window.drawLandmarks;
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   var count = 0;
-  // eslint-disable-next-line
   var frames = [];
   let camera = null;
   function onResults(results) {
@@ -47,7 +54,7 @@ const SignToText = ({ textsign, signcheckCap, signToText, user, roomId }) => {
             roomId,
           });
           console.log(frames.length);
-          count = 0;
+          count = 0; 
           frames = [];
         }
         drawConnectors(canvasCtx, landmarks, hands.HAND_CONNECTIONS, {
@@ -59,34 +66,38 @@ const SignToText = ({ textsign, signcheckCap, signToText, user, roomId }) => {
     }
     canvasCtx.restore();
   }
-  useEffect(() => {
-    if (signToText) {
-      // document.getElementById("au").setAttribute("disabled", "disabled")
-      // // document.getElementById("auo").style.pointerEvents="none";
-      // // document.getElementById("auf").style.pointerEvents="none";
-      // document.getElementById("au").style.opacity="0.5"
-      // document.getElementById("auf").setAttribute("disabled", "disabled")
-      const hands = new Hands({
-        locateFile: (file) => {
-          return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
-        },
-      });
-      hands.setOptions({
-        selfieMode: true,
-        maxNumHands: 1,
-        modelComplexity: 1,
-        minDetectionConfidence: 0.5,
-        minTrackingConfidence: 0.5,
-      });
-      hands.onResults(onResults);
 
-      // eslint-disable-next-line
-      camera = new cam.Camera(videoref.current, {
-        onFrame: async () => {
-          await hands.send({ image: videoref.current });
-        },
-      });
+  useEffect(() => {
+    const hands = new Hands({
+      locateFile: (file) => {
+        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+      },
+    });
+    hands.setOptions({
+      selfieMode: true,
+      maxNumHands: 1,
+      modelComplexity: 1,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5,
+    });
+    hands.onResults(onResults);
+    // eslint-disable-next-line
+    camera = new cam.Camera(videoref.current, {
+      onFrame: async () => {
+        await hands.send({ image: videoref.current });
+      },
+    });
+    camera.stop();
+    console.log('closeCameMediapipe');
+    if (signToText) {
       camera.start();
+      console.log('startCameMediapipe');
+    }
+    // eslint-disable-next-line
+  }, [signToText]);
+
+  useEffect(() => {
+    if (signToTextCaption) {
       // recive data from the server
       socket.on('stream_sign', ({ text }) => {
         // eslint-disable-next-line
@@ -108,13 +119,7 @@ const SignToText = ({ textsign, signcheckCap, signToText, user, roomId }) => {
       });
     }
     // eslint-disable-next-line
-  }, [signToText]);
-  // useEffect(()=>{
-  //   if(signcheckCap){
-
-  //   }
-  // // eslint-disable-next-line
-  // },[signcheckCap,textsign])
+  }, [signToTextCaption]);
   return (
     <react.Fragment>
       <video
@@ -124,9 +129,7 @@ const SignToText = ({ textsign, signcheckCap, signToText, user, roomId }) => {
         playsInline
         style={{ display: 'none' }}
       ></video>
-      <canvas
-         muted
-      id="canvas" ref={canvasRef} className="canvas"></canvas>
+      <canvas muted id="canvas" ref={canvasRef} className="canvas"></canvas>
     </react.Fragment>
   );
 };

@@ -21,7 +21,8 @@ const BottomBar = ({
   senderName,
   setsignToText,
   textcaption,
-  roomId
+  roomId,
+  setsignToTextCaption
 }) => {
   const [sendNameStext,setsendNameStext]=useState("")
   const [sendNameVs,setsendNameVs]=useState("")
@@ -65,7 +66,7 @@ const BottomBar = ({
         const caption = document.querySelector(".captionsign");
         tool[2].classList.toggle("activetool");
         caption.classList.toggle("showsign");
-        setsignToText(signcheck => !signcheck)
+        setsignToTextCaption(signcheck => !signcheck)
       };
       tool[3].onclick = () => {
         const signmedia = document.getElementById('canvas')

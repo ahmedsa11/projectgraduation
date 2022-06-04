@@ -113,7 +113,6 @@ const Roomaudio = (props) => {
   const audio = userVideoAudio['localUser'].audio;
   const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ screen: true });
   let {
-    transcript,
     listening,
     // browserSupportsSpeechRecognition
   } = useSpeechRecognition();
@@ -265,19 +264,17 @@ const Roomaudio = (props) => {
   }, []);
 
   useEffect(() => {
-    if (audio && toSign) {
-      console.log('start listening');
+    if (audio) {
+   
       SpeechRecognition.startListening({
         language: 'en-US',
         continuous: false,
       });
-      console.log(transcript);
     } else {
-      console.log('stop listening');
       SpeechRecognition.stopListening();
     }
     // eslint-disable-next-line
-  }, [listening, audio,toSign]);
+  }, [listening, audio]);
   function createPeer(userId, caller, stream) {
     const peer = new Peer({
       initiator: true,

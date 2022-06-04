@@ -11,7 +11,7 @@ import groupicon from '../../../img/group-chatt 1.png';
 import BottomBar from './BottomBar';
 import VideoCard from './vid';
 import { Redirect } from 'react-router';
-import Loader from '../../loader/loader'
+import Loader from '../../loader/loader';
 import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition';
@@ -30,33 +30,32 @@ const grid = () => {
   console.log('grid');
   const grid6 = document.getElementById('grid6');
   const grid4 = document.getElementById('grid4');
-  const grid1 =document.getElementById('grid1');
+  const grid1 = document.getElementById('grid1');
   // const vids = document.querySelector('.vids');
   const viditem = document.querySelectorAll('.vid-item');
   // const videoconference = document.querySelector('.video-conference');
   // if(videoconference.style.width=="100%"){
-    for (let i = 0; i < viditem.length; i++) {
-      grid6.onclick = () => {
-        viditem[i].style.width = 'calc(100% / 4)';
-        viditem[i].style.height = 'auto';
-      };
-  
-      grid4.onclick = () => {
-        viditem[i].style.width = 'calc(100% / 3)';
-        viditem[i].style.height = 'auto';
-      };
-      grid1.onclick = () => {
-        viditem[i].style.width = '100%';
-        viditem[i].style.height = '100%';
-        // vids.style.padding = '0% 0%';
-        // viditem[i].style.margin = '0% 3%';
-      };
-    }
+  for (let i = 0; i < viditem.length; i++) {
+    grid6.onclick = () => {
+      viditem[i].style.width = 'calc(100% / 4)';
+      viditem[i].style.height = 'auto';
+    };
+
+    grid4.onclick = () => {
+      viditem[i].style.width = 'calc(100% / 3)';
+      viditem[i].style.height = 'auto';
+    };
+    grid1.onclick = () => {
+      viditem[i].style.width = '100%';
+      viditem[i].style.height = '100%';
+      // vids.style.padding = '0% 0%';
+      // viditem[i].style.margin = '0% 3%';
+    };
+  }
   // }
   // else{
 
   // }
-
 };
 const openchat = () => {
   const icon = document.querySelector('.fa-comment-dots');
@@ -111,7 +110,10 @@ const Roomvideo = (props) => {
   const [toSign, settoSign] = useState(false);
   const [loading, setloading] = useState(false);
   const [signToText, setsignToText] = useState(false);
-  const [userVideoAudio, setUserVideoAudio] = useState({localUser: { video: true, audio: true }});
+  const [signToTextCaption, setsignToTextCaption] = useState(false);
+  const [userVideoAudio, setUserVideoAudio] = useState({
+    localUser: { video: true, audio: true },
+  });
   const [screenShare, setScreenShare] = useState(false);
   const [screenRecod, setScreenRecor] = useState(false);
   const peersRef = useRef([]);
@@ -122,22 +124,21 @@ const Roomvideo = (props) => {
   const tempuser = localStorage.getItem('user');
   const user = JSON.parse(tempuser);
   const audio = userVideoAudio['localUser'].audio;
-  const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ screen: true });
-  let {transcript,listening,
-// browserSupportsSpeechRecognition
-} = useSpeechRecognition();
+  const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder(
+    { screen: true }
+  );
+  let {
+    listening,
+    // browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
 
   let text = useRef();
   let senderName = useRef();
-  let textsign=useRef()
+  let textsign = useRef();
   // if (!browserSupportsSpeechRecognition) {
   //   return (<span>Browser doesn't support speech recognition.</span>)
   // }
-  const {
-    seconds,
-    minutes,
-    hours,
-  } = useStopwatch({ autoStart: true });
+  const { seconds, minutes, hours } = useStopwatch({ autoStart: true });
   useEffect(() => {
     // Get Video Devices
     // navigator.mediaDevices.enumerateDevices().then((devices) => {
@@ -146,22 +147,24 @@ const Roomvideo = (props) => {
     // });
 
     // Set Back Button Event
-    navigator.mediaDevices.getUserMedia = (navigator.mediaDevices.getUserMedia || 
-      navigator.mediaDevices.webKitGetUserMedia || navigator.mediaDevices.moxGetUserMedia ||
-       navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia);
+    navigator.mediaDevices.getUserMedia =
+      navigator.mediaDevices.getUserMedia ||
+      navigator.mediaDevices.webKitGetUserMedia ||
+      navigator.mediaDevices.moxGetUserMedia ||
+      navigator.mediaDevices.mozGetUserMedia ||
+      navigator.mediaDevices.msGetUserMedia;
     window.addEventListener('popstate', goToBack);
     if (tempuser === null) {
-      return <Redirect to='/login' />;
+      return <Redirect to="/login" />;
     }
     // setloading(true);
     // Connect Camera & Mic
-    setloading(true)
-   
+    setloading(true);
+
     navigator.mediaDevices
-      .getUserMedia({ video: true , audio: true })
-      .then((stream) => 
-      {
-        setloading(false)
+      .getUserMedia({ video: true, audio: true })
+      .then((stream) => {
+        setloading(false);
         userVideoRef.current.srcObject = stream;
         userStream.current = stream;
         socket.emit('BE-join-room', {
@@ -237,17 +240,18 @@ const Roomvideo = (props) => {
             peersRef.current = peersRef.current.filter(
               ({ peerID }) => peerID !== userId
             );
-        
-setPeers((users) => {
-  users = users.filter((user) => user.peerID !== userId);
-  return [...users];
+
+            setPeers((users) => {
+              users = users.filter((user) => user.peerID !== userId);
+              return [...users];
             });
           }
         });
-      }).catch((error)=>{
-        setloading(false)
+      })
+      .catch((error) => {
+        setloading(false);
         // alert(error)
-        alert("Sorry, getUserMedia is not supported ");
+        alert('Sorry, getUserMedia is not supported ');
       });
 
     socket.on('FE-toggle-camera', ({ userId, switchTarget }) => {
@@ -280,14 +284,11 @@ setPeers((users) => {
   //voice to sign
   useEffect(() => {
     if (audio) {
-      console.log('start listening');
       SpeechRecognition.startListening({
         language: 'en-US',
         continuous: false,
       });
-      console.log(transcript);
     } else {
-      console.log('stop listening');
       SpeechRecognition.stopListening();
     }
     // eslint-disable-next-line
@@ -342,17 +343,17 @@ setPeers((users) => {
         onClick={expandScreen}
         key={index}
       >
-        <i className='fas fa-expand'></i>
+        <i className="fas fa-expand"></i>
         <VideoCard key={index} peer={peer} number={arr.length} />
-        
-        <div className='icon'>
+
+        <div className="icon">
           {findPeer(peer.peerID).audio ? (
-            <i className='fas fa-microphone'></i>
+            <i className="fas fa-microphone"></i>
           ) : (
-            <i className='fas fa-microphone-slash'></i>
+            <i className="fas fa-microphone-slash"></i>
           )}
         </div>
-        <span className='name'>{peer.userName}</span>
+        <span className="name">{peer.userName}</span>
       </div>
     );
   }
@@ -365,7 +366,7 @@ setPeers((users) => {
   const toggleCameraAudio = (e) => {
     const target = e.target.getAttribute('data-switch');
     setUserVideoAudio((preList) => {
-      console.log(userVideoRef)
+      console.log(userVideoRef);
       let videoSwitch = preList['localUser'].video;
       let audioSwitch = preList['localUser'].audio;
 
@@ -375,7 +376,6 @@ setPeers((users) => {
         videoSwitch = !videoSwitch;
         userVideoTrack.enabled = videoSwitch;
       } else {
-        
         const userAudioTrack =
           userVideoRef.current.srcObject.getAudioTracks()[0];
         audioSwitch = !audioSwitch;
@@ -433,7 +433,7 @@ setPeers((users) => {
       screenTrackRef.current.onended();
     }
   };
-    const expandScreen = (e) => {
+  const expandScreen = (e) => {
     const elem = e.target;
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
@@ -470,97 +470,100 @@ setPeers((users) => {
     setScreenRecor(false);
   }, [mediaBlobUrl]);
   if (tempuser === null) {
-    return <Redirect to='/login' />;
+    return <Redirect to="/login" />;
   }
   return (
     <react.Fragment>
       {loading ? <Loader /> : null}
-      <div className='roomvideo'>
-        <div className='video-conference'>
-          <div className='main-side' id='main'>
-            <div className='screen-record'>
-              <div id='pop' className='popup-wrapper2'>
-                <button className='close-btn2' onClick={close}>
-                  <i className='fas fa-times'></i>
+      <div className="roomvideo">
+        <div className="video-conference">
+          <div className="main-side" id="main">
+            <div className="screen-record">
+              <div id="pop" className="popup-wrapper2">
+                <button className="close-btn2" onClick={close}>
+                  <i className="fas fa-times"></i>
                 </button>
                 <video src={mediaBlobUrl} controls autoPlay />
               </div>
             </div>
-            <div className='navbar'>
-              <div className='logo'>
-                <img src={logo} alt='logo' />
+            <div className="navbar">
+              <div className="logo">
+                <img src={logo} alt="logo" />
               </div>
-              <div className='title'>
+              <div className="title">
                 <h4>Video Conference</h4>
               </div>
-              <div className='grid-show'>
+              <div className="grid-show">
                 <ul>
-                <li id='grid1' onClick={grid}>
-                 <img src={grid1} alt="f"/>
+                  <li id="grid1" onClick={grid}>
+                    <img src={grid1} alt="f" />
                   </li>
-                  <li id='grid6' onClick={grid}>
-                     <i className='fas fa-th'></i>
+                  <li id="grid6" onClick={grid}>
+                    <i className="fas fa-th"></i>
                   </li>
-                  <li id='grid4' onClick={grid}>
-                    <i className='fas fa-th-large'></i>
-                  </li>
-                  <li>
-                    <i className='fas fa-comment-dots' onClick={openchat}></i>
+                  <li id="grid4" onClick={grid}>
+                    <i className="fas fa-th-large"></i>
                   </li>
                   <li>
-                    <img id='imgp' src={user.image} alt='a' />
+                    <i className="fas fa-comment-dots" onClick={openchat}></i>
+                  </li>
+                  <li>
+                    <img id="imgp" src={user.image} alt="a" />
                   </li>
                 </ul>
               </div>
             </div>
-            <div className='vi'>
+            <div className="vi">
               <Navbar />
-              <div className='vid-stream'>
-                <div className='opts'>
-                  <img src={groupicon} alt='group' />
-                  <select className='nump'>
+              <div className="vid-stream">
+                <div className="opts">
+                  <img src={groupicon} alt="group" />
+                  <select className="nump">
                     <option>{peers.length + 1}</option>
                   </select>
-                  <div className='invite'>
+                  <div className="invite">
                     <i
-                      className='fas fa-users popup-open'
+                      className="fas fa-users popup-open"
                       onClick={openpopup}
                     ></i>
                     Invite a participant
-                    <div className='popup-wrapper'>
-                      <div className='popup'>
-                        <button className='close-btn'>
-                          <i className='fas fa-times'></i>
+                    <div className="popup-wrapper">
+                      <div className="popup">
+                        <button className="close-btn">
+                          <i className="fas fa-times"></i>
                         </button>
-                        <div className='copy'>
+                        <div className="copy">
                           <button onClick={Copy}>Copy Link</button>
-                          <input type='text' id='paste-box' />
+                          <input type="text" id="paste-box" />
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className='rec-time'>
-                    <span id='dottt'></span><span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+                  <div className="rec-time">
+                    <span id="dottt"></span>
+                    <span>{hours}</span>:<span>{minutes}</span>:
+                    <span>{seconds}</span>
                   </div>
                 </div>
-                <div className='vids'>
-                  <div className='stream vid-item signlang'>
-                   <Signlang toSign={toSign}
-                   roomId={roomId}
-                   user={user}
-                  // settextcaption={(textcaption)=>settextcaption(textcaption)}
-                  text={text}
-                  senderName={senderName}
-                  />
-                    <span className='name' ref={senderName}></span>
+                <div className="vids">
+                  <div className="stream vid-item signlang">
+                    <Signlang
+                      toSign={toSign}
+                      roomId={roomId}
+                      user={user}
+                      // settextcaption={(textcaption)=>settextcaption(textcaption)}
+                      text={text}
+                      senderName={senderName}
+                    />
+                    <span className="name" ref={senderName}></span>
                   </div>
-                  <div className='vid-item'>
+                  <div className="vid-item">
                     <div
                       className={`width-peer${
                         peers.length > 8 ? '' : peers.length
                       }`}
                     >
-                      <i className='fas fa-expand' />
+                      <i className="fas fa-expand" />
                       <video
                         onClick={expandScreen}
                         ref={userVideoRef}
@@ -569,21 +572,22 @@ setPeers((users) => {
                         playsInline
                       ></video>
                       <SignToText
-                      roomId={roomId}
-                       textsign={textsign}
-                       signToText={signToText}
-                       audio={audio}
-                       user={user}
-                       />
+                        signToTextCaption={signToTextCaption}
+                        roomId={roomId}
+                        textsign={textsign}
+                        signToText={signToText}
+                        audio={audio}
+                        user={user}
+                      />
                     </div>
-                    <div className='icon'>
+                    <div className="icon">
                       {userVideoAudio['localUser'].audio ? (
-                        <i className='fas fa-microphone'></i>
+                        <i className="fas fa-microphone"></i>
                       ) : (
-                        <i className='fas fa-microphone-slash'></i>
+                        <i className="fas fa-microphone-slash"></i>
                       )}
                     </div>
-                    <span className='name'>{user.name}</span>
+                    <span className="name">{user.name}</span>
                   </div>
                   {peers &&
                     peers.map((peer, index, arr) => {
@@ -610,9 +614,10 @@ setPeers((users) => {
               screenRecod={screenRecod}
               textsign={textsign}
               roomId={roomId}
+              setsignToTextCaption={setsignToTextCaption}
             />
           </div>
-          <Chat roomId={roomId}/>
+          <Chat roomId={roomId} />
         </div>
       </div>
     </react.Fragment>
