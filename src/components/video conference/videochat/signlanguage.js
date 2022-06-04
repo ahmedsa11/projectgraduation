@@ -38,10 +38,10 @@ const Signlang = ({ roomId, user, senderName, text }) => {
         setisfinished(false);
         setnewcontent("");
       }
-    }
+    } 
   }
     // eslint-disable-next-line
-  }, [enablef1,newContent]);
+  }, [enablef1,listening]);
   useEffect(() => {
     if(enablef1){
       console.log("asdadadada")
