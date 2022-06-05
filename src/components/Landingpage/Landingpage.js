@@ -24,7 +24,7 @@ import l2 from '../../img/l2.jpg';
 import l3 from '../../img/l3.jpg';
 import { useHistory } from 'react-router';
 const LandingPage = () => {
-    const tempuser = localStorage.getItem("user");
+    let tempuser = localStorage.getItem("user");
     let user = JSON.parse(tempuser);
     // if (tempuser === null) {
     //   return <Redirect to="/login" />;
@@ -53,7 +53,7 @@ const LandingPage = () => {
       <div className="landing">
         <div className="land" id="home">
           <div className="navbarr">
-            <div className='logoandnav'>
+        
             <img src={logo} alt="logo" />
             <ul className="ulnav">
               <li>
@@ -68,11 +68,10 @@ const LandingPage = () => {
                 <a href="#about">About Us</a>
               </li>
             </ul>
-            </div>
-            <div className='profileandlogin'>
-           {tempuser && <img className='profilee' src={user.image} onClick={gohome} alt="profile"/>}
-            <button onClick={login}>Login</button>
-            </div>
+           {tempuser ?<div className='profileandname'> <img className='profilee' src={user.image} onClick={gohome} alt="profile"/>
+           <span onClick={gohome}>{user.name}</span></div>
+           :
+           <button onClick={login}>Login</button>}
           </div>
           <div className="intro">
             <div className="textintro">

@@ -30,6 +30,7 @@
     display: contents;
 }
 .react-calendar__navigation {
+    justify-content: center;
     display: flex;
     height: 44px;
     margin-bottom: 1em;
@@ -132,5 +133,14 @@
       .calendar .cal{
         margin: 100px auto;
         width: 100%;
+    }
+    .react-calendar__navigation {
+        justify-content: center;
+        display: flex;
+        height: 44px;
+        margin-bottom: 1em;
+        font-size: 20px;
+        font-weight: bold;
+        /* color: blue; */
     }
 }

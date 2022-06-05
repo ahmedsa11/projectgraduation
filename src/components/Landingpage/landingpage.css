@@ -26,9 +26,10 @@
     margin-right: 5px;
     cursor: pointer;
 }
-.landing .land .profileandlogin,.landing .land .logoandnav {
-    display: flex;
-    height: fit-content;
+.landing .land .navbarr span{
+    color: white;
+    border-bottom: 2px solid white;
+    cursor: pointer;
 }
 .landing .land .navbarr .ulnav{
     display: flex;
