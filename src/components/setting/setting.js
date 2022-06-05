@@ -458,13 +458,13 @@ const Setting = (props) => {
                         </span>
                       )}
                     </div>
-                    <div className="notification">
+                    {/* <div className="notification">
                       <span>Notification</span>
                       <label className="switch">
                         <input type="checkbox" />
                         <span className="slider round"></span>
                       </label>
-                    </div>
+                    </div> */}
                   </div>
                   <div id="saveandcancel" className="saveandcancel">
                     <button type="button" id="cancel" className="cancel">

@@ -8,6 +8,7 @@ import { Redirect } from "react-router";
 import Chathome from "./chathome";
 import Dailymeeting from "./history";
 import Header from "./header.js";
+// eslint-disable-next-line
 const openchat = () => {
   const icon = document.querySelector(".dots");
   icon.onclick = () => {
@@ -31,7 +32,7 @@ const Home = (props) => {
           <Header r={props} />
           <div className="vi">
             <Navbar />
-            <i className="fas fa-comment-dots dots" onClick={openchat}></i>
+            {/* <i className="fas fa-comment-dots dots" onClick={openchat}></i> */}
             <div className="vid-stream">
               <div className="row">
                 <div className="col-lg-4">

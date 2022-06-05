@@ -19,7 +19,8 @@
     height: 50px;
 }
 .landing .land .navbarr .profilee{
-    width: 50px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 5px;
@@ -685,7 +686,7 @@ margin-bottom: 10px;
        padding: 0px;
     }
     .landing .land .navbarr .ulnav li {
-        margin: 0px 5px !important;
+        margin: 5px !important;
     }
     .landing .land .intro{
         display: flex;
@@ -729,8 +730,7 @@ margin-bottom: 10px;
         }
         .landing .land .navbarr .ulnav li a{
             text-decoration: none;
-            text-decoration: none;
-            font-size: 15px;
+            font-size: 12px;
             color: white !important;
         }
         .landing .land .navbarr  button{

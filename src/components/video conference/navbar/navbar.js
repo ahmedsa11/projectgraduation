@@ -36,19 +36,19 @@ const Navbar = () => {
               <i className="fas fa-user-friends"></i>
             </li>
           </NavLink> */}
-          <NavLink to="/notifications" className="linkk">
+          {/* <NavLink to="/notifications" className="linkk">
             <li className="nav-item">
               <i className="fas fa-bell"></i>
             </li>
-          </NavLink>
+          </NavLink> */}
           <NavLink to="/calendar" className="linkk">
             <li className="nav-item">
               <i className="fas fa-calendar-alt"></i>
             </li>
           </NavLink>
-            <li className="nav-item logimg">
-            <img src={logoutimg} alt="a" onClick={logout}/></li>
         </ul>
+        <div className="logimg">
+            <img src={logoutimg} alt="a" onClick={logout}/></div>
       </div>
     </react.Fragment>
   );
