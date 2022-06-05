@@ -3,7 +3,7 @@ import React from "react";
 import "./header.css";
 import { v4 as uuid } from "uuid";
 import "../navbar/navbar.css";
-import { Redirect } from "react-router";
+import { Redirect} from "react-router";
 import logo from "../../../img/MicrosoftTeams-image4) 1.png";
 const Header = (props) => {
   const tempuser = localStorage.getItem("user");
@@ -11,6 +11,9 @@ const Header = (props) => {
   if (tempuser === null) {
     return <Redirect to="/login" />;
   }
+  const golanding = () => {
+    props.r.history.push('/');
+  };
   const user = JSON.parse(tempuser);
   // console.log(user)
   function clickJoinVideo() {
@@ -29,7 +32,7 @@ const Header = (props) => {
         <div className="navbar">
       <div className="logandtit">
             <div className="logo">
-              <img src={logo} alt="d" />
+              <img src={logo} alt="d" onClick={golanding}/>
             </div>
             <div className="title">
             <div className="ser">
