@@ -48,7 +48,8 @@ const Navbar = () => {
           </NavLink>
         </ul>
         <div className="logimg">
-            <img src={logoutimg} alt="a" onClick={logout}/></div>
+            <img src={logoutimg} alt="a" onClick={logout}/>  <span>Logout</span></div>
+          
       </div>
     </react.Fragment>
   );
