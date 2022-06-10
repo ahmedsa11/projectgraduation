@@ -140,6 +140,7 @@ const Chat = ({ roomId }) => {
             </div>
               )}
             <textarea
+            spellCheck="false"
               type="text"
               placeholder="Write message...."
               ref={inputRef}
