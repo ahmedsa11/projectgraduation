@@ -2,8 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import react from 'react';
 import socket from '../socket';
 import { Hands } from '@mediapipe/hands';
-// import '@mediapipe/drawing_utils/drawing_utils';
-// import '@mediapipe/control_utils/control_utils';
 import * as hands from '@mediapipe/hands';
 import * as cam from '@mediapipe/camera_utils/camera_utils';
 const SignToText = ({

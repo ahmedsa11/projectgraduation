@@ -31,7 +31,6 @@ const grid = () => {
   const grid6 = document.getElementById('grid6');
   const grid4 = document.getElementById('grid4');
   const grid1 = document.getElementById('grid1');
-  // const vids = document.querySelector('.vids');
   const viditem = document.querySelectorAll('.vid-item');
   // const videoconference = document.querySelector('.video-conference');
   // if(videoconference.style.width=="100%"){
@@ -140,11 +139,6 @@ const Roomvideo = (props) => {
   // }
   const { seconds, minutes, hours } = useStopwatch({ autoStart: true });
   useEffect(() => {
-    // Get Video Devices
-    // navigator.mediaDevices.enumerateDevices().then((devices) => {
-    //   const filtered = devices.filter((device) => device.kind === 'videoinput');
-    //   // setVideoDevices(filtered);
-    // });
 
     // Set Back Button Event
     navigator.mediaDevices.getUserMedia =
@@ -380,7 +374,6 @@ const Roomvideo = (props) => {
           userVideoRef.current.srcObject.getAudioTracks()[0];
         audioSwitch = !audioSwitch;
         userAudioTrack.enabled = audioSwitch;
-        // audioSwitch ? speechRecognition.start() : speechRecognition.stop();
       }
 
       return {
@@ -538,13 +531,13 @@ const Roomvideo = (props) => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> 
                   <div className="rec-time">
                     <span id="dottt"></span>
                     <span>{hours}</span>:<span>{minutes}</span>:
                     <span>{seconds}</span>
                   </div>
-                </div>
+                </div> 
                 <div className="vids">
                   <div className="stream vid-item signlang">
                     <Signlang
@@ -598,8 +591,6 @@ const Roomvideo = (props) => {
             </div>
             <BottomBar
               clickScreenSharing={clickScreenSharing}
-              // clickChat={clickChat}
-              // clickCameraDevice={clickCameraDevice}
               goToBack={goToBack}
               toggleCameraAudio={toggleCameraAudio}
               userVideoAudio={userVideoAudio['localUser']}
