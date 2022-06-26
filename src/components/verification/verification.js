@@ -6,6 +6,7 @@ import authentication from '../firebase';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import Loader from '../loader/loader';
 import NewPassword from '../forgetpass/password';
+import { Api } from '../api/api';
 // import firebase from "../firebase";
 class Verification extends Component {
   state = {
@@ -66,7 +67,7 @@ class Verification extends Component {
     let tempuser = localStorage.getItem('user');
     let user = JSON.parse(tempuser);
     let data2 = await fetch(
-      `https://api.connect-asl.site/api/users/${user.mobile}`,
+      `${Api}/${user.mobile}`,
       {
         headers: this.header,
         method: 'PATCH',
@@ -85,7 +86,7 @@ class Verification extends Component {
   };
 
   signup = async () => {
-    let data2 = await fetch(`https://api.connect-asl.site/api/users/`, {
+    let data2 = await fetch(`${Api}/`, {
       headers: this.header,
       method: 'POST',
       body: JSON.stringify({

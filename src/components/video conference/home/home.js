@@ -5,18 +5,10 @@ import Navbar from "../navbar/navbar";
 // import { v4 as uuid } from "uuid";
 import "../navbar/navbar.css";
 import { Redirect } from "react-router";
-import Chathome from "./chathome";
 import Dailymeeting from "./history";
 import Header from "./header.js";
+import Calls from "./chathome";
 // eslint-disable-next-line
-const openchat = () => {
-  const icon = document.querySelector(".dots");
-  icon.onclick = () => {
-    document.querySelector(".lst").classList.toggle("open");
-    document.querySelector(".prof").classList.toggle("openhome");
-    document.querySelector(".dots").classList.toggle("act");
-  };
-};
 const Home = (props) => {
   const tempuser = localStorage.getItem("user");
   // console.log(tempuser)
@@ -37,7 +29,7 @@ const Home = (props) => {
               <div className="row">
                 <div className="col-lg-4">
                   <div className="chh">
-                    <Chathome />
+                    <Calls />
                   </div>
                 </div>
                 <div className="col-lg-8">

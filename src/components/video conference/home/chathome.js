@@ -1,52 +1,62 @@
-import react, { Component } from "react";
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
+import react from "react";
 import "./chathome.css";
-import chat from "../../../img/download.png";
-class Chathome extends Component {
-  state = {
-    chats: [
-      { id: 1, img: chat, time: "12:32", type: "" },
-      { id: 2, img: chat, time: "12:32" },
-      { id: 3, img: chat, time: "12:32" },
-      { id: 4, img: chat, time: "12:32" },
+import { v4 as uuid } from "uuid";
+import { useHistory } from "react-router";
+import logoutimg from '../../../img/logout.png'
 
-    ],
+const Calls=()=> {
+  let history=useHistory()
+  function clickJoinVideo() {
+    const id = uuid();
+    history.push(`/roomvideo/${id}`);
+  }
+  function clickJoinAudio() {
+    const id = uuid();
+    history.push(`/roomaudio/${id}`);
+  }
+  const logou = useHistory();
+  const logout = () => {
+    window.localStorage.removeItem('user');
+    logou.push('/');
   };
-
-  render() {
     return (
       <react.Fragment>
         <div className="lst">
-          <Tabs defaultActiveKey="Direct" id="uncontrolled-tab-example">
-            <Tab eventKey="Direct" title="Direct">
-              {this.state.chats.map((chats) => (
-                <div key={chats.id} className="cont">
-                  <img src={chats.img} alt="a" />
-                  <span>{chats.time}</span>
-                </div>
-              ))}
-            </Tab>
-            <Tab eventKey="Group" title="Group">
-              {this.state.chats.map((chats) => (
-                <div key={chats.id} className="cont">
-                  <img src={chats.img} alt="a" />
-                  <span>{chats.time}</span>
-                </div>
-              ))}
-            </Tab>
-            <Tab eventKey="Archive" title="Archive">
-              {this.state.chats.map((chats) => (
-                <div key={chats.id} className="cont">
-                  <img src={chats.img} alt="a" />
-                  <span>{chats.time}</span>
-                </div>
-              ))}
-            </Tab>
-          </Tabs>
-        </div>
+          <div className="container">
+          <div className="row">
+            <div className="col-sm-6">
+          <div className="callaudio">
+            <div className="overlay"></div>
+            <i className="fas fa-phone-alt"onClick={clickJoinAudio}></i>
+            {/* <span>Create Now</span> */}
+            <div className="tit">New voice call</div>
+            </div>
+            </div>
+            <div className="col-sm-6">
+          <div className="callvideo"> 
+          <div className="overlay"></div>
+          <i className="fas fa-video" onClick={clickJoinVideo}></i>
+          {/* <span>Create Now</span> */}
+          <div className="tit">New video call</div>
+          </div>
+          </div>
+          <div className="col-sm-6">
+        <div className="logimg">
+        <div className="overlay"></div>
+            <img src={logoutimg} alt="a" onClick={logout}/> 
+             {/* <span>Logout</span> */}
+            <div className="tit">Logout</div>
+            </div>
+            </div>
+            {/* <div className="col-sm-6">
+        <div className="rejoin"> 
+          <div className="overlay"></div>
+          <i className="fas fa-repeat" ></i><span>Rejoin</span></div>
+          </div> */}
+          </div> </div>
+          </div>
+      
       </react.Fragment>
     );
-  }
 }
-export default Chathome;
+export default Calls;

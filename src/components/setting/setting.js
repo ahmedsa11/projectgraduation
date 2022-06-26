@@ -4,6 +4,8 @@ import Verification from '../verification/verification';
 import Header from '../video conference/home/header';
 import Navbar from '../video conference/navbar/navbar';
 import authentication from '../firebase';
+import { Api } from '../api/api';
+import logoutimg from '../../img/logout.png'
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import './setting.css';
 import Loader from '../loader/loader';
@@ -42,7 +44,11 @@ const Setting = (props) => {
       authentication
     );
   };
-
+  const logou = useHistory();
+  const logout = () => {
+    window.localStorage.removeItem('user');
+    logou.push('/');
+  };
   const validation = () => {
     const error = {};
     if (Name.trim() === '') {
@@ -134,7 +140,7 @@ const Setting = (props) => {
   };
   const { Name, Phone, Gender, oldPassword, newPassword, confirmNewPassword } =
     formValue;
-  const urldata = `https://api.connect-asl.site/api/users/${user.mobile}`;
+  const urldata = `${Api}/${user.mobile}`;
   const handlesetting = async (e) => {
     e.preventDefault();
     const error = validation();
@@ -186,7 +192,7 @@ const Setting = (props) => {
     }
     if (!document.getElementById('inputphone').disabled) {
       let data = await fetch(
-        `https://api.connect-asl.site/api/users/${Phone}`,
+        `Api/${Phone}`,
         {
           method: 'GET',
           headers: {
@@ -224,7 +230,7 @@ const Setting = (props) => {
     }
 
     if (!document.getElementById('inputpass').disabled) {
-      const data = await fetch(`https://api.connect-asl.site/api/users/login`, {
+      const data = await fetch(`${Api}/login`, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         headers: {
           API_KEY: process.env.REACT_APP_API_KEY,
@@ -272,7 +278,7 @@ const Setting = (props) => {
     console.log(file);
 
     formData.append('image', file, file.name);
-    const url = `https://api.connect-asl.site/api/users/image/${user.mobile}`;
+    const url = `${Api}/image/${user.mobile}`;
     // send image as a file
     const data = await fetch(url, {
       method: 'PATCH',
@@ -475,7 +481,8 @@ const Setting = (props) => {
                     </button>
                   </div>
                 </form>
-              </div>
+                <img className='log' src={logoutimg} alt="a" onClick={logout}/> 
+              </div> 
             </div>
           </div>
         </div>

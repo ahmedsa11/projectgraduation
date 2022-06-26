@@ -10,6 +10,11 @@
     font-size: 27px;
     position: absolute;
 }
+.calendar .log{
+    width: 50px;
+    object-fit: cover;
+    cursor: pointer;
+}
 .calendar   .main-side{
     width: 100% ;
     height:auto;

@@ -1,7 +1,6 @@
 import react from "react";
 import React from "react";
 import "./header.css";
-import { v4 as uuid } from "uuid";
 import "../navbar/navbar.css";
 import { Redirect} from "react-router";
 import logo from "../../../img/MicrosoftTeams-image4) 1.png";
@@ -16,16 +15,6 @@ const Header = (props) => {
   };
   const user = JSON.parse(tempuser);
   // console.log(user)
-  function clickJoinVideo() {
-    const id = uuid();
-    props.r.history.push(`/roomvideo/${id}`);
-    
-  }
-  function clickJoinAudio() {
-    const id = uuid();
-    props.r.history.push(`/roomaudio/${id}`);
-    
-  }
   return (
     <react.Fragment>
       <div className="head">
@@ -35,12 +24,12 @@ const Header = (props) => {
               <img src={logo} alt="d" onClick={golanding}/>
             </div>
             <div className="title">
-            <div className="ser">
-              <input type="search" placeholder="search" />
+            {/* <div className="ser">
+               <input type="search" placeholder="search" />
               <i className="fas fa-search"></i>
-              </div>
-              <i className="fas fa-phone-alt"onClick={clickJoinAudio}></i>
-              <i className="fas fa-video" onClick={clickJoinVideo}></i>
+              </div>  */}
+              {/* <i className="fas fa-phone-alt"onClick={clickJoinAudio}></i>
+              <i className="fas fa-video" onClick={clickJoinVideo}></i> */}
             </div>
             </div>
             <div className="grid-show">

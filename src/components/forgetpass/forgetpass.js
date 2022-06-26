@@ -2,6 +2,7 @@ import react from 'react';
 import { useState } from 'react';
 import Verification from '../verification/verification';
 import authentication from '../firebase';
+import { Api } from '../api/api';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 const Forget=()=> {
   // console.log(tempuser)
@@ -48,7 +49,7 @@ const Forget=()=> {
     // setload(true);
     console.log("asdad")
       let data = await fetch(
-        `https://api.connect-asl.site/api/users/${Phone}`,
+        `${Api}/${Phone}`,
         {
           method: 'GET',
           headers: {

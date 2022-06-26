@@ -1,7 +1,5 @@
 import react from "react";
 import { NavLink } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import logoutimg from '../../../img/icons8-logout-32.png'
 import "./navbar.css";
 const Navbar = () => {
   const opennav = () => {
@@ -10,11 +8,6 @@ const Navbar = () => {
       document.querySelector('.icon-opts .nav').classList.toggle('open');
       document.querySelector('.toggler').classList.toggle('fa-times');
     };
-  };
-  const history = useHistory();
-  const logout = () => {
-    window.localStorage.removeItem('user');
-    history.push('/');
   };
   return (
     <react.Fragment>
@@ -47,8 +40,6 @@ const Navbar = () => {
             </li>
           </NavLink>
         </ul>
-        <div className="logimg">
-            <img src={logoutimg} alt="a" onClick={logout}/>  <span>Logout</span></div>
           
       </div>
     </react.Fragment>

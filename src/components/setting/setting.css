@@ -55,6 +55,11 @@
     justify-content: center;
     flex-direction: column;
 }
+.setting .data .log{
+    object-fit: cover;
+    width: 50px;
+    cursor: pointer;
+}
 .setting .data .proimg i{
     color: white;
     padding: 10px;

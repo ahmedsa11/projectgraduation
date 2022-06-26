@@ -3,6 +3,7 @@ import { Redirect,Link } from 'react-router-dom';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import './form.css';
+import { Api } from '../api/api';
 import Verification from '../verification/verification';
 // import firebase from "../firebase";
 // import "firebase/compat/auth"
@@ -67,7 +68,7 @@ class Form extends Component {
     this.setState({ loading: true });
     //back end
     let data = await fetch(
-      `https://api.connect-asl.site/api/users/${this.state.mobile}`,
+      `${Api}/${this.state.mobile}`,
       {
         headers: this.header,
         method: 'GET',
@@ -136,7 +137,7 @@ class Form extends Component {
     if (error) return;
     //back end
     this.setState({ loading: true });
-    const url = 'https://api.connect-asl.site/api/users/login';
+    const url = `${Api}/login`;
     const data = await fetch(url, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {

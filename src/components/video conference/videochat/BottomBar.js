@@ -106,11 +106,11 @@ const BottomBar = ({
         </div>
         {/* <span ref={senderName}></span> */}
         <div className="buttons">
-        <span className="sendnameStext">{sendNameVs}</span>
+        <span className="sendnameStext">{sendNameVs}ahmed: </span>
         <div className="cp">
         <ScrollToBottom >
         <div className="caption lead text-center" id="textarea">
-              <p className="pcap" ref={text}>
+              <p className="pcap" ref={text}>aksdjhaihudiauhdaiuhdsiahdiauhdiauhdiahdia
               </p>
             </div>
             </ScrollToBottom>

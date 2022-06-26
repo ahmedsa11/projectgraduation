@@ -33,7 +33,7 @@ const NewPassword = (props) => {
     });
   };
   const {  newPassword, confirmNewPassword } =formValue;
-  const urldata = `https://api.connect-asl.site/api/users/${props.Phone}`;
+  const urldata = `Api/${props.Phone}`;
   const handlepass= async (e) => {
     e.preventDefault();
     const error = validation();
