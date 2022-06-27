@@ -1,6 +1,7 @@
 import react, { useState } from 'react';
 import { useHistory } from 'react-router';
-const NewPassword = (props) => {
+import {Api} from '../api/api'; 
+const NewPassword = (props) => { 
   const [formValue, setFormValue] = useState({
     newPassword: '',
     confirmNewPassword: '',
@@ -33,7 +34,7 @@ const NewPassword = (props) => {
     });
   };
   const {  newPassword, confirmNewPassword } =formValue;
-  const urldata = `Api/${props.Phone}`;
+  const urldata = `${Api}/${props.Phone}`;
   const handlepass= async (e) => {
     e.preventDefault();
     const error = validation();

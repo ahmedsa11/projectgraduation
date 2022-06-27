@@ -31,6 +31,14 @@ class Verification extends Component {
     API_KEY: process.env.REACT_APP_API_KEY,
     'Content-Type': 'application/json',
   };
+  nextotp = () => {
+    const otp =document.querySelectorAll('.otp');
+    for (let i = 0; i < otp.length-1; i++) {
+      otp[i].addEventListener ("keyup",function(){
+        this.nextElementSibling.focus();
+      })
+    }
+  }
 
   setUpRecaptcha = () => {
     window.recaptchaVerifier = new RecaptchaVerifier(
@@ -144,7 +152,9 @@ class Verification extends Component {
     state[e.currentTarget.name] = e.currentTarget.value;
     this.setState(state);
   };
-
+  componentDidMount(){
+    this.nextotp();
+  }
   render() {
     if (this.state.very === 'verified') {
       return (
@@ -178,6 +188,7 @@ class Verification extends Component {
               <form onSubmit={this.handlesubotp}>
                 <div className="code">
                   <input
+                  className='otp'
                     required
                     type="text"
                     name="num1"
@@ -185,6 +196,7 @@ class Verification extends Component {
                     maxLength={1}
                   />
                   <input
+                   className='otp'
                     required
                     type="text"
                     name="num2"
@@ -192,6 +204,7 @@ class Verification extends Component {
                     maxLength={1}
                   />
                   <input
+                   className='otp'
                     required
                     type="text"
                     name="num3"
@@ -199,6 +212,7 @@ class Verification extends Component {
                     maxLength={1}
                   />
                   <input
+                   className='otp'
                     required
                     type="text"
                     name="num4"
@@ -206,6 +220,7 @@ class Verification extends Component {
                     maxLength={1}
                   />
                   <input
+                   className='otp'
                     required
                     type="text"
                     name="num5"
@@ -213,6 +228,7 @@ class Verification extends Component {
                     maxLength={1}
                   />
                   <input
+                   className='otp'
                     required
                     type="text"
                     name="num6"
