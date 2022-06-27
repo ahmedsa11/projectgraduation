@@ -338,7 +338,11 @@ const Roomaudio = (props) => {
       </div>
     );
   }
+  function createUseroption(peer, index, arr) {
+    console.log(peer)
 
+    return <option disabled key={index} >{peer.userName}</option>;
+  }
   // BackButton
   const goToBack = (e) => {
     e.preventDefault();
@@ -441,7 +445,13 @@ const Roomaudio = (props) => {
                 <div className='opts'>
                   <img src={groupicon} alt='group' />
                   <select className='nump'>
-                    <option>{peers.length + 1}</option>
+                  <option defaultValue hidden>{peers.length + 1}</option>
+                    <option disabled>{user.name}</option>
+                    {peers &&
+                      peers.map((peer, index, arr) => {
+                        console.log()
+                        return  createUseroption(peer, index, arr);
+                      })}
                   </select>
                   <div className='invite'>
                     <i

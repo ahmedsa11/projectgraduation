@@ -170,7 +170,7 @@ margin: 14px 3px
     top: 12px;
 }
 .roomaudio  .video-conference .main-side .vi .vid-stream .opts .nump{
-    width: fit-content;
+    width: 74px;
     border-radius: 9px;
     border: 2px solid #b9bec2;
     padding: 0px 4px 0px 33px;

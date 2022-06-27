@@ -364,7 +364,7 @@ const Roomvideo = (props) => {
   function createUseroption(peer, index, arr) {
     console.log(peer)
 
-    return <option key={index} >{peer.userName}</option>;
+    return <option disabled key={index} >{peer.userName}</option>;
   }
   // BackButton
   const goToBack = (e) => {
@@ -526,9 +526,9 @@ const Roomvideo = (props) => {
               <div className="vid-stream">
                 <div className="opts">
                   <img src={groupicon} alt="group" />
-                  <select className="nump">
-                    <option>{peers.length + 1}</option>
-                    <option>{user.name}</option>
+                  <select className="nump" >
+                    <option defaultValue hidden>{peers.length + 1}</option>
+                    <option disabled>{user.name}</option>
                     {peers &&
                       peers.map((peer, index, arr) => {
                         console.log()
