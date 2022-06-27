@@ -23,17 +23,6 @@
     font-size: 90px;
  
     }
-    /* .lst .overlay{
-        background: rgb(0, 0, 0,0.6);
-        position: absolute;
-        border-radius: 0px;
-        left: 0;
-        top: 0;
-        width: 100%;
-        transition: all 0.7s ease;
-      opacity: 0;
-      border-radius: 16px;
-        } */
   .lst  .logimg{
         position: relative;
         cursor: pointer;
@@ -62,9 +51,6 @@
     .lst .logimg:hover img{
         opacity: 1;
     }
-    /* .logimg:hover span , .logimg:hover .overlay{
-        opacity: 1 !important;
-    } */
     .callaudio,.callvideo{
         position: relative;
         cursor: pointer;
@@ -83,34 +69,7 @@
         margin-top: 6px;
         font-size: 16px;
     }
-    /* .callaudio:hover .overlay{  opacity: 1 !important;} */
-/* 
-    .callaudio span{
-          color: white;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    } */
-    /* .callaudio:hover span {
-        opacity: 1 !important;
-    } */
-    /* .callvideo span{
-          color: white;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    } */
-    /* .callvideo:hover .overlay{  opacity: 1 !important;}
 
-    .callvideo:hover span {
-        opacity: 1 !important;
-    } */
 @media only screen and (max-width: 800px){
     
  .lst{
@@ -121,65 +80,3 @@
     padding: 10px;
 }
 }
-/* 
-@media only screen and (max-width: 800px) {
-    .dots{
-        position: absolute;
-        top:107px !important;
-        right: 7px;
-        display: block !important;
-        color: #fff !important;
-        border: none;
-    }
-     .lst.open{
-        width: 100% !important;
-        height: 100% !important;
-        display: block !important;
-        opacity: 1;
-        transition: all 0.7s ease;
-        padding-top: 10px;
-    }
-    .openhome{
-        display: none !important;
-        transition: all 0.7s ease;
-        opacity: 0 !important;
-    
-    
-     }
-}
-
-@media  (min-width:801px )and (max-width: 992px) {
-    .dots{
-        position: absolute;
-        left:15px !important;
-      
-        display: block !important;
-        color: #fff !important;
-        border: none;
-        bottom: 113px;
-    }
-     .lst.open{
-        width: 100% !important;
-        height: 100% !important;
-        display: block !important;
-        opacity: 1;
-        transition: all 0.7s ease;
-    }
-     .lst {
-        width: 100%;
-        text-align: center;
-        color: white;
-        padding: 15px;
-        display: none;
-        opacity: 0;
-        transition:all 0.7s ease;
-    }
-    .openhome{
-        display: none !important;
-        transition: all 0.7s ease;
-        opacity: 0 !important;
-    
-    
-     }
-} */
-

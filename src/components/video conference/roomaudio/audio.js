@@ -15,19 +15,6 @@ const VideoCard = (props) => {
     <React.Fragment>
         <img src={img}alt="s"/>
       <video playsInline autoPlay ref={ref}></video>
-      {/* <div className='icon'>
-                    <i 
-                      className="fas fa-microphone"
-                    //   {
-                    //     ismutemic
-                    //       ? 'fas fa-microphone-slash'
-                    //       : 'fas fa-microphone'
-                    //   }
-                    
-                    ></i>
-                  </div>
-                  <span className='name'>Ahmed salama</span>
-                </div> */}
     </React.Fragment>
   );
 };

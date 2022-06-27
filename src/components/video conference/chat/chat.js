@@ -30,7 +30,6 @@ const Chat = ({ roomId }) => {
   }
 
   const user = JSON.parse(tempuser);
-  // console.log(user);
   const currentUser = user.name;
   const imageuser = user.image;
   // Scroll to Bottom of Message List
@@ -39,12 +38,8 @@ const Chat = ({ roomId }) => {
     setimageSended(true);
     const text = document.getElementById('textt');
     const msg = text.value;
-
-    // localStorage.setItem("text",text.value);
     if (msg ||inputImage) {
       console.log(msg, inputImage);
-      // console.log({ socket: socket });
-      // console.log({ roomId, msg, sender: currentUser, img: imageuser });
       socket.emit('BE-send-message', {
         roomId,
         msg,
@@ -66,19 +61,11 @@ const Chat = ({ roomId }) => {
     input.onchange = (e) => {
       setimageSended(false)
       let file = e.target.files[0];
-      // const formData = new FormData();
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        // console.log(reader.result);
         setinputImage(reader.result);
       };
-      // formData.append('image', file, file.name);
-      // setMsgpic(file);
-      // // setImage(file);
-      // console.log(file);
-
-      // const text = document.getElementById('textt');
     };
 
     input.click();
@@ -102,18 +89,15 @@ const Chat = ({ roomId }) => {
                       <strong>{sender} : </strong>
                        {inputImage!==''&&<img className='img-inbox' src={inputImage}alt="g"/>}
                       <p>{msg} </p>
-                      {/*<div className="message-time-left">SMS 13:37</div>*/}
                     </div>
                   </div>
                 );
               } else {
                 return (
                   <div className="reciver" key={idx}>
-                    {/* <strong>{sender}</strong> */}
                     <div className="text-box">
                     {inputImage!==''&&<img className='img-inbox' src={inputImage}alt="g"/>}
                       <p>{msg} </p>
-                      {/*<div className="message-time-right">SMS 13:37</div>*/}
                     </div>
                   </div>
                 );
@@ -124,14 +108,10 @@ const Chat = ({ roomId }) => {
             ref={messagesEndRef}
           ></div>
         </div>
-
         <div className="typing">
-          <p>{/* <span>david </span>is typing.... */}</p>
           <div className="textin">
             <div className="feat">
               <i className="fas fa-image" id="imggg" onClick={importData}></i>
-
-              {/* <i className="fas fa-microphone"></i> */}
             </div>
             {inputImage !== '' && !imageSended && (
             <div className='info-imagee'>  

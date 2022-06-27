@@ -32,19 +32,9 @@ const BottomBar = ({
   socket.on("send_sender_name",({name})=>{
     setsendNameStext(name)
   })
-  // const captionend = useRef(null);
-  // const scrollToBottom = () => {
-  //   captionend.current.scrollIntoView({ behavior: 'smooth' });
-  // };
-  // useEffect(() => {
-  //   scrollToBottom();
-  // });
   const opentool = () => {
     const tool = document.getElementsByClassName("to");
     for (let i = 0; i < tool.length; i++) {
-      //   tool[i].onclick=()=>{
-      //     tool[i].classList.toggle("activetool")
-      //  }
       tool[0].onclick = () => {
         const sign = document.querySelector(".signlang");
         tool[0].classList.toggle("activetool"); 
@@ -104,13 +94,12 @@ const BottomBar = ({
             </div>
           </div>
         </div>
-        {/* <span ref={senderName}></span> */}
         <div className="buttons">
-        <span className="sendnameStext">{sendNameVs}ahmed: </span>
+        <span className="sendnameStext">{sendNameVs}</span>
         <div className="cp">
         <ScrollToBottom >
         <div className="caption lead text-center" id="textarea">
-              <p className="pcap" ref={text}>aksdjhaihudiauhdaiuhdsiahdiauhdiauhdiahdia
+              <p className="pcap" ref={text}>
               </p>
             </div>
             </ScrollToBottom>

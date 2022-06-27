@@ -8,7 +8,7 @@ import Setting from "./components/setting/setting";
 import Calendarr from "./components/calendar/calendar";
 import Notifications from "./components/neffication/notifications";
 import Roomvideo from "./components/video conference/videochat/roomvideo";
-import Roomaudio from "./components/video conference/videoaudio/roomaudio";
+import Roomaudio from "./components/video conference/roomaudio/roomaudio";
 import LandingPage from "./components/Landingpage/Landingpage";
 import Forget from "./components/forgetpass/forgetpass";
 class App extends Component {

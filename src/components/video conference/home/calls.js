@@ -28,7 +28,6 @@ const Calls=()=> {
           <div className="callaudio">
             <div className="overlay"></div>
             <i className="fas fa-phone-alt"onClick={clickJoinAudio}></i>
-            {/* <span>Create Now</span> */}
             <div className="tit">New voice call</div>
             </div>
             </div>
@@ -36,7 +35,6 @@ const Calls=()=> {
           <div className="callvideo"> 
           <div className="overlay"></div>
           <i className="fas fa-video" onClick={clickJoinVideo}></i>
-          {/* <span>Create Now</span> */}
           <div className="tit">New video call</div>
           </div>
           </div>
@@ -44,15 +42,9 @@ const Calls=()=> {
         <div className="logimg">
         <div className="overlay"></div>
             <img src={logoutimg} alt="a" onClick={logout}/> 
-             {/* <span>Logout</span> */}
             <div className="tit">Logout</div>
             </div>
             </div>
-            {/* <div className="col-sm-6">
-        <div className="rejoin"> 
-          <div className="overlay"></div>
-          <i className="fas fa-repeat" ></i><span>Rejoin</span></div>
-          </div> */}
           </div> </div>
           </div>
       

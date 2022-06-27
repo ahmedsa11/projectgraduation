@@ -8,10 +8,7 @@ const BottomBar = ({
   goToBack,
   toggleCameraAudio,
   userVideoAudio,
-  clickScreenSharing,
   screenRecod,
-  speechRecognition,
-  screenShare,
   toggleRecording,
   text,
   toSign,
@@ -25,9 +22,6 @@ const BottomBar = ({
   const opentool = () => {
     const tool = document.getElementsByClassName("to");
     for (let i = 0; i < tool.length; i++) {
-      //   tool[i].onclick=()=>{
-      //     tool[i].classList.toggle("activetool")
-      //  }
       tool[0].onclick = () => {
         const sign = document.querySelector(".signlang");
         tool[0].classList.toggle("activetool");
@@ -97,15 +91,6 @@ const BottomBar = ({
                 {screenRecod? <i className="fas fa-stop"></i>: <i className="fas fa-record-vinyl"></i>}
               </button>
             </li>
-            {/* <li>
-              <button onClick={clickScreenSharing}>
-                <i
-                  className={`fas fa-desktop ${
-                    screenShare ? "sharing" : "fas fa-desktop"
-                  }`}
-                ></i>
-              </button>
-            </li> */}
           </ul>
         </div>
       </div>

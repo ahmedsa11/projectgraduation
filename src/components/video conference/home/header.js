@@ -23,20 +23,9 @@ const Header = (props) => {
             <div className="logo">
               <img src={logo} alt="d" onClick={golanding}/>
             </div>
-            <div className="title">
-            {/* <div className="ser">
-               <input type="search" placeholder="search" />
-              <i className="fas fa-search"></i>
-              </div>  */}
-              {/* <i className="fas fa-phone-alt"onClick={clickJoinAudio}></i>
-              <i className="fas fa-video" onClick={clickJoinVideo}></i> */}
-            </div>
             </div>
             <div className="grid-show">
-             
               <img src={user.image} alt="a" /> <span>{user.name}</span>
-            
-            
             </div>
          
         </div>

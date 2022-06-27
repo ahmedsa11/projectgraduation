@@ -26,9 +26,6 @@ import { useHistory } from 'react-router';
 const LandingPage = () => {
     let tempuser = localStorage.getItem("user");
     let user = JSON.parse(tempuser);
-    // if (tempuser === null) {
-    //   return <Redirect to="/login" />;
-    // }
   const history = useHistory();
   const login = () => {
     history.push('/login');

@@ -5,9 +5,6 @@ import 'react-phone-input-2/lib/style.css';
 import './form.css';
 import { Api } from '../api/api';
 import Verification from '../verification/verification';
-// import firebase from "../firebase";
-// import "firebase/compat/auth"
-// import "firebase/compat/firestore"
 import authentication from '../firebase';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import logo from '../../img/log.png';
@@ -277,10 +274,6 @@ class Form extends Component {
               {this.state.error.gender && (
                 <span className="text-danger">{this.state.error.gender}</span>
               )}
-              {/* <p className="agree">By creating an account you agree to our </p>
-              <a href="https://www.w3schools.com/colors/colors_gradient.asp">
-                tems of use and privacy policy
-              </a> */}
               <button type="submit" className="signup">
                 REGISTER
               </button>
@@ -297,7 +290,6 @@ class Form extends Component {
             <form onSubmit={this.handlesublogin}>
               <img src={logo} alt="logo" />
               <h1 className="LOGTITLE">LOGIN</h1>
-              {/* <p className="text-center">enter your accout details </p> */}
               <div className="inputcontainer">
                 <i className="fas fa-mobile-alt"></i>
                 <input

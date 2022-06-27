@@ -5,17 +5,8 @@ import authentication from '../firebase';
 import { Api } from '../api/api';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 const Forget=()=> {
-  // console.log(tempuser)
-  // const history = useHistory();
-  // let tempuser = localStorage.getItem('user');
-  // let user = JSON.parse(tempuser);
-  // if (tempuser === null) {
-  //   history.push('/');
-  // }
-  // console.log(user);
   const [Phone,setPhone] = useState('');
   const [verify, setverify] = useState(false);
-  // const [load, setload] = useState(false);
   const [error, seterror] = useState({});
   const setUpRecaptcha = () => {
     window.recaptchaVerifier = new RecaptchaVerifier(
@@ -37,11 +28,6 @@ const Forget=()=> {
     seterror(error);
     return Object.keys(error).length === 0 ? null : error;
   };
-  // const handleChange = (event) => {
-  //   console.log(Phone)
-  //   const { name, value } = event.target;
-  //   setPhone({...Phone, [name]: value })
-  // };
   const handleforget = async (e) => {
     e.preventDefault();
     const error = validation();
@@ -63,10 +49,6 @@ const Forget=()=> {
         // setload(false);
         const error = {};
         error.mobile = 'this mobile already exist';
-      //   seterror(error);
-      //   console.log(error.mobile);
-      //   return;
-      // }
       setUpRecaptcha();
       const phoneNumber = '+' + Phone;
       const appVerifier = window.recaptchaVerifier;

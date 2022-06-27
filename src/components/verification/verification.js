@@ -30,7 +30,6 @@ class Verification extends Component {
   header = {
     API_KEY: process.env.REACT_APP_API_KEY,
     'Content-Type': 'application/json',
-    // 'Content-Type': 'application/x-www-form-urlencoded',
   };
 
   setUpRecaptcha = () => {
@@ -39,8 +38,6 @@ class Verification extends Component {
       {
         size: 'invisible',
         callback: (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          // onSignInSubmit();
         },
       },
       authentication
@@ -54,8 +51,6 @@ class Verification extends Component {
     signInWithPhoneNumber(authentication, phoneNumber, appVerifier)
       .then((confirmationResult) => {
         this.setState({ loading: false });
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
         window.confirmationResult = confirmationResult;
         console.log('sent');
       })
@@ -234,72 +229,6 @@ class Verification extends Component {
             </div>
           </div>
         </div>
-        {/* <div className="verification">
-      <div className="about-us">
-        <div className="row">
-          <div className="col-md-6">
-        <div className="info-box">
-          <h2>Enter verification code</h2>
-          <p> We have sent the Verification code to <br/> {this.state.mobile} </p>
-         
-          <form onSubmit={this.handlesubotp}>
-            <div className="code">
-              <input
-                required
-                type="text"
-                name="num1"
-                onChange={this.handlechangesignup}
-                maxLength={1}
-              />
-              <input
-                required
-                type="text"
-                name="num2"
-                onChange={this.handlechangesignup}
-                maxLength={1}
-              />
-              <input
-                required
-                type="text"
-                name="num3"
-                onChange={this.handlechangesignup}
-                maxLength={1}
-              />
-              <input
-                required
-                type="text"
-                name="num4"
-                onChange={this.handlechangesignup}
-                maxLength={1}
-              />
-              <input
-                required
-                type="text"
-                name="num5"
-                onChange={this.handlechangesignup}
-                maxLength={1}
-              />
-              <input
-                required
-                type="text"
-                name="num6"
-                onChange={this.handlechangesignup}
-                maxLength={1}
-              />
-            </div>
-            <span>send the code again</span>
-            <button type="submit">Verify</button>
-          </form>
-        </div>
-        </div>
-        <div className="col-md-6">
-        <div className="image-box">
-          <img src={verify} alt="verification"/>
-        </div>
-        </div>
-      </div>
-      </div>
-    </div> */}
       </react.Fragment>
     );
   }

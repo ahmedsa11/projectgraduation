@@ -8,7 +8,7 @@ import Navbar from '../navbar/navbar';
 import Chat from '../chat/chat';
 import logo from '../../../img/MicrosoftTeams-image4) 1.png';
 import groupicon from '../../../img/group-chatt 1.png';
-import BottomBar from '../videoaudio/bottombar';
+import BottomBar from './bottombar';
 import VideoCard from './audio';
 import { Redirect } from 'react-router';
 import Loader from '../../loader/loader';

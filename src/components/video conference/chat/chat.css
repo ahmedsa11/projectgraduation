@@ -57,12 +57,6 @@
     margin: 15px;
     object-fit: cover;
 }
-/*
-.video-conference .chat-side .chat .sender span{
-    width:5%;
-    margin-right: 15px
-}
-*/
 .video-conference .chat-side .chat .sender .text-box{
     width: fit-content;
     height: fit-content;
@@ -238,24 +232,20 @@ right: 5px;
 .icon, .name{
     z-index: 10;
 }
-/*scroll*/
-/* width */
+
 ::-webkit-scrollbar {
     width: 7px;
   }
   
-  /* Track */
   ::-webkit-scrollbar-track {
     background-color:transparent;
   }
-  
-  /* Handle */
+
   ::-webkit-scrollbar-thumb {
     background: #333;
     border-radius:5px ;
   }
   
-  /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
@@ -355,12 +345,6 @@ right: 5px;
             font-size: 27px !important;
         }
   }
-  /* @media only screen and (min-width: 600pxpx) {
-    .footer .buttons {
-        position: relative;
-        bottom: 70px;
-    }
-  } */
   strong{
     border-bottom: 2px solid #333;
     color: #333;

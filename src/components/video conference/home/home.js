@@ -20,11 +20,10 @@ const Home = (props) => {
   return (
     <react.Fragment>
       <div className="home">
-        <div className="main-side" id="main">
+        <div className="main-side">
           <Header r={props} />
           <div className="vi">
             <Navbar />
-            {/* <i className="fas fa-comment-dots dots" onClick={openchat}></i> */}
             <div className="vid-stream">
               <div className="row">
                 <div className="col-lg-4">
