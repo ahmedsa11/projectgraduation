@@ -37,7 +37,7 @@ class Dailymeeting extends Component {
       <react.Fragment>
         {this.state.meets.map((meets) => (
           <div key={meets.id} className="dailymeeting">
-            <i className="fas fa-ellipsis-h"></i>
+            <i className="fas fa-times"></i>
             <h4>{meets.title}</h4>
             <ul>
               <li>{meets.namehost}</li>
