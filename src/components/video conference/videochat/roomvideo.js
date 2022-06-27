@@ -118,6 +118,7 @@ const Roomvideo = (props) => {
   const peersRef = useRef([]);
   const userVideoRef = useRef();
   const screenTrackRef = useRef();
+  const [users, setUsers] = useState([]);
   const userStream = useRef();
   const roomId = props.match.params.roomvideoId;
   const tempuser = localStorage.getItem('user');
@@ -139,7 +140,6 @@ const Roomvideo = (props) => {
   // }
   const { seconds, minutes, hours } = useStopwatch({ autoStart: true });
   useEffect(() => {
-
     // Set Back Button Event
     navigator.mediaDevices.getUserMedia =
       navigator.mediaDevices.getUserMedia ||
@@ -167,7 +167,16 @@ const Roomvideo = (props) => {
           video: true,
           audio: true,
         });
-
+        socket.emit('get-all-users', { roomId });
+        socket.on('get-all-users', ({ users: usersroom }) => {
+          console.log(usersroom);
+          setUsers(usersroom);
+          console.log(users);
+          //     usersroom.forEach((usersr) => {
+          //    setUsers(usersr.name);
+          //    console.log(users);
+          //  })
+        });
         socket.on('FE-user-join', ({ userId, info }) => {
           // all users
           let { user: newUser, video, audio } = info;
@@ -193,6 +202,7 @@ const Roomvideo = (props) => {
             return [...users, peer];
           });
         });
+
         socket.on('FE-receive-call', ({ signal, from, info }) => {
           let { user: newUser, video, audio } = info;
           const peerIdx = findPeer(from);
@@ -350,6 +360,11 @@ const Roomvideo = (props) => {
         <span className="name">{peer.userName}</span>
       </div>
     );
+  }
+  function createUseroption(peer, index, arr) {
+    console.log(peer)
+
+    return <option key={index} >{peer.userName}</option>;
   }
   // BackButton
   const goToBack = (e) => {
@@ -513,6 +528,12 @@ const Roomvideo = (props) => {
                   <img src={groupicon} alt="group" />
                   <select className="nump">
                     <option>{peers.length + 1}</option>
+                    <option>{user.name}</option>
+                    {peers &&
+                      peers.map((peer, index, arr) => {
+                        console.log()
+                        return  createUseroption(peer, index, arr);
+                      })}
                   </select>
                   <div className="invite">
                     <i
@@ -531,13 +552,13 @@ const Roomvideo = (props) => {
                         </div>
                       </div>
                     </div>
-                  </div> 
+                  </div>
                   <div className="rec-time">
                     <span id="dottt"></span>
                     <span>{hours}</span>:<span>{minutes}</span>:
                     <span>{seconds}</span>
                   </div>
-                </div> 
+                </div>
                 <div className="vids">
                   <div className="stream vid-item signlang">
                     <Signlang
