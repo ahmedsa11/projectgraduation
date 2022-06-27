@@ -55,7 +55,7 @@
     justify-content: center;
     flex-direction: column;
 }
-.setting .data .log{
+.setting .data img.log{
     object-fit: cover;
     width: 50px;
     cursor: pointer;

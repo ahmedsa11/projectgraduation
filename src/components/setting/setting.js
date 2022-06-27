@@ -192,7 +192,7 @@ const Setting = (props) => {
     }
     if (!document.getElementById('inputphone').disabled) {
       let data = await fetch(
-        `Api/${Phone}`,
+        `${Api}/${Phone}`,
         {
           method: 'GET',
           headers: {

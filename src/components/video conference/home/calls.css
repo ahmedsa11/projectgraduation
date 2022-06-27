@@ -5,7 +5,7 @@
     padding: 60px 10px;
     height: 100%;
 }
-.fa-phone-alt{
+.lst .fa-phone-alt{
     font-size: 90px;
     background-color: #f4593e;
     color: #f8fff3;
@@ -14,13 +14,14 @@
     height: fit-content;
 }
 
-.fa-video{
-    background-color: #716ffe;
+.lst .fa-video{
+    background-color: #718ffe;
     color: #f8fff3;
     padding: 9px;
     border-radius: 16px;
     height: fit-content;
     font-size: 90px;
+ 
     }
     /* .lst .overlay{
         background: rgb(0, 0, 0,0.6);
@@ -33,10 +34,13 @@
       opacity: 0;
       border-radius: 16px;
         } */
-    .logimg{
+  .lst  .logimg{
         position: relative;
         cursor: pointer;
         margin-top: 20px;
+      
+        transition: all 0.7s ease;
+        
     }
     .logimg span{
         color: white;
@@ -53,16 +57,25 @@
         width: 110px;
         transition: all 0.5s ease;
         border-radius: 16px;
+        opacity: 0.5;
+    }
+    .lst .logimg:hover img{
+        opacity: 1;
     }
     /* .logimg:hover span , .logimg:hover .overlay{
         opacity: 1 !important;
     } */
     .callaudio,.callvideo{
         position: relative;
-   
         cursor: pointer;
         overflow: hidden;
         margin-bottom: 15px;
+    }
+    .callvideo:hover .fa-video {
+        background-color: #916ffe;
+    }
+    .callaudio:hover .fa-phone-alt{
+        background-color: #f4793e;
     }
     .lst .tit{
         color: #fff;

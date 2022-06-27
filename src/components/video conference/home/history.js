@@ -6,7 +6,7 @@ class Dailymeeting extends Component {
   state = {
     meets: [
       {
-        id: 1,
+        id: Math.random(),
         title: "Daily Meeting",
         namehost: "David alba (host)",
         participants: 25,
@@ -14,7 +14,7 @@ class Dailymeeting extends Component {
         time: "1 hour",
       },
       {
-        id: 2,
+        id: Math.random(),
         title: "Daily Meeting",
         namehost: "David alba (host)",
         participants: 25,
@@ -22,7 +22,7 @@ class Dailymeeting extends Component {
         time: "1 hour",
       },
       {
-        id: 3,
+        id:Math.random(),
         title: "Daily Meeting",
         namehost: "David alba (host)",
         participants: 25,

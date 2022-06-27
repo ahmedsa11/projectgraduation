@@ -10,7 +10,7 @@
     font-size: 27px;
     position: absolute;
 }
-.calendar .log{
+.calendar img.log{
     width: 50px;
     object-fit: cover;
     cursor: pointer;

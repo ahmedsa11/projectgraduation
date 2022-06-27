@@ -7,7 +7,7 @@ import "../navbar/navbar.css";
 import { Redirect } from "react-router";
 import Dailymeeting from "./history";
 import Header from "./header.js";
-import Calls from "./chathome";
+import Calls from "./calls";
 // eslint-disable-next-line
 const Home = (props) => {
   const tempuser = localStorage.getItem("user");
