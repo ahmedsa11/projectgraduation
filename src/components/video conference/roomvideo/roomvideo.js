@@ -118,7 +118,6 @@ const Roomvideo = (props) => {
   const peersRef = useRef([]);
   const userVideoRef = useRef();
   const screenTrackRef = useRef();
-  const [users, setUsers] = useState([]);
   const userStream = useRef();
   const roomId = props.match.params.roomvideoId;
   const tempuser = localStorage.getItem('user');
@@ -167,16 +166,7 @@ const Roomvideo = (props) => {
           video: true,
           audio: true,
         });
-        socket.emit('get-all-users', { roomId });
-        socket.on('get-all-users', ({ users: usersroom }) => {
-          console.log(usersroom);
-          setUsers(usersroom);
-          console.log(users);
-          //     usersroom.forEach((usersr) => {
-          //    setUsers(usersr.name);
-          //    console.log(users);
-          //  })
-        });
+
         socket.on('FE-user-join', ({ userId, info }) => {
           // all users
           let { user: newUser, video, audio } = info;

@@ -10,6 +10,7 @@ const Header = (props) => {
   if (tempuser === null) {
     return <Redirect to="/login" />;
   }
+
   const golanding = () => {
     props.r.history.push('/');
   };

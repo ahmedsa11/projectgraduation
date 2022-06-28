@@ -1,58 +1,58 @@
-import react, { Component } from "react";
+import react, { useEffect, useState } from "react";
 import "./history.css";
-import chat from "../../../img/download.png";
+import socket from "../socket";
+const Dailymeeting=()=>{
+  const tempuser = localStorage.getItem("user");
+  const user = JSON.parse(tempuser);
 
-class Dailymeeting extends Component {
-  state = {
-    meets: [
-      {
-        id: Math.random(),
-        title: "Daily Meeting",
-        namehost: "David alba (host)",
-        participants: 25,
-        img: chat,
-        time: "1 hour",
-      },
-      {
-        id: Math.random(),
-        title: "Daily Meeting",
-        namehost: "David alba (host)",
-        participants: 25,
-        img: chat,
-        time: "1 hour",
-      },
-      {
-        id:Math.random(),
-        title: "Daily Meeting",
-        namehost: "David alba (host)",
-        participants: 25,
-        img: chat,
-        time: "1 hour",
-      },
-    ],
-  };
+  const [meets,setMeets]=useState([]);
+  useEffect(()=>{
+    socket.emit("get-rooms-user", {mobile:user.mobile});
+    socket.on("get-rooms-user", ({userRooms})=>{
+      console.log("asdad");
+      userRooms.slice(-3).forEach(roomId => {
+        socket.emit('get-all-users', { roomId });
+         });
+         
+      console.log(userRooms);
+    });
+    socket.on('get-all-users', ({users,roomId}) => {
+      console.log(roomId);
+    
+      setMeets(prev=>[...prev,{
+        users:users.slice(-3),
+        roomId
+      }]);
+       
+       console.log(users.length);
+    }); 
+    // eslint-disable-next-line
+  },[])
 
-  render() {
     return (
       <react.Fragment>
-        {this.state.meets.map((meets) => (
-          <div key={meets.id} className="dailymeeting">
+        {meets.map((meet) => (
+          <div key={meet.roomId} className="dailymeeting">
             <i className="fas fa-times"></i>
-            <h4>{meets.title}</h4>
+            <h4>{meet.roomId}</h4>
             <ul>
-              <li>{meets.namehost}</li>
-              <li>{meets.participants}</li>
+              {meet.users.map((user) => {
+                return (
+                  <react.Fragment>
+                  <li key={user.mobile}>
+                 {user.name}
+                  </li>
+                    <div className="im">
+                       <img src={user.image} alt="a" />
+                     </div>
+                     </react.Fragment>
+                );
+              })}
             </ul>
-            <div className="im">
-              <img src={meets.img} alt="a" />
-              <img src={meets.img} alt="a" />
-              <img src={meets.img} alt="a" />
-            </div>
-            <span>{meets.time}</span>
+             <span>{meets.time}</span> 
           </div>
         ))}
       </react.Fragment>
     );
   }
-}
 export default Dailymeeting;
