@@ -6,7 +6,7 @@ import Form from "./components/form/form";
 import Home from "./components/video conference/home/home";
 import Setting from "./components/setting/setting";
 import Calendarr from "./components/calendar/calendar";
-import Roomvideo from "./components/video conference/videochat/roomvideo";
+import Roomvideo from "./components/video conference/roomvideo/roomvideo";
 import Roomaudio from "./components/video conference/roomaudio/roomaudio";
 import LandingPage from "./components/Landingpage/Landingpage";
 import Forget from "./components/forgetpass/forgetpass";

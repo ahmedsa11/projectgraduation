@@ -17,7 +17,7 @@ import { useStopwatch } from 'react-timer-hook';
 import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition';
-import Signlang from '../videochat/signlanguage';
+import Signlang from '../roomvideo/signlanguage';
 const Copy = () => {
   var Url = document.getElementById('paste-box');
   Url.value = window.location.href;
