@@ -16,14 +16,6 @@
     text-align: center;
     justify-content: center;
 }
-/* .setting .proimg input[type="file"]{
-    width: 33px;
-    height: 33px;
-    position: absolute;
-    background-color: chocolate;
-    color: brown;
-    padding: 0px;
-} */
 .setting .proimg input[type="file"]::after{
     width: 33px;
     height: 33px;
@@ -55,7 +47,7 @@
     justify-content: center;
     flex-direction: column;
 }
-.setting .data img.log{
+.setting .data img.logoutimg{
     object-fit: cover;
     width: 50px;
     cursor: pointer;

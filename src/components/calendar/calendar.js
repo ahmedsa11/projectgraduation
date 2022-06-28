@@ -30,11 +30,12 @@ const Calendarr = (props) => {
               <h2>Calendar</h2>
               <div className="cal">
               <Calendar onChange={onChange} value={value}  />
+              <img className='logout' src={logoutimg} alt="a" onClick={logout}/> 
               </div>
             </div>
           </div>
         </div>
-        <img className='log' src={logoutimg} alt="a" onClick={logout}/> 
+   
       </div>
     </react.Fragment>
   );

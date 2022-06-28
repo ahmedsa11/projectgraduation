@@ -10,10 +10,12 @@
     font-size: 27px;
     position: absolute;
 }
-.calendar img.log{
+.calendar img.logout{
     width: 50px;
     object-fit: cover;
     cursor: pointer;
+    margin: 0 auto;
+    display: block;
 }
 .calendar   .main-side{
     width: 100% ;

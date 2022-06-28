@@ -474,7 +474,7 @@ const Setting = (props) => {
                     </button>
                   </div>
                 </form>
-                <img className='log' src={logoutimg} alt="a" onClick={logout}/> 
+                <img className='logoutimg' src={logoutimg} alt="a" onClick={logout}/> 
               </div> 
             </div>
           </div>
