@@ -165,6 +165,7 @@ const Roomvideo = (props) => {
           user,
           video: true,
           audio: true,
+          typeMeet:"video",
         });
 
         socket.on('FE-user-join', ({ userId, info }) => {

@@ -43,6 +43,9 @@
  .dailymeeting span{
     color: #585661;
 }
+.dailymeeting .rejoin{
+    color: white;
+}
  .dailymeeting .im img{
     width: 25px;
     height: 25px;
