@@ -23,15 +23,15 @@ const Dailymeeting=()=>{
       console.log(userRooms);
     });
     socket.on('get-all-users', ({users,roomId,typeMeet}) => {
-      console.log(roomId);
-    
       setMeets(prev=>[...prev,{
         users:users.slice(-3),
         typeMeet,
-        roomId
-      }]);
+        roomId,
+        roomName:roomId.split("+")[1]|| "Unnamed"
+         }]);
        
-       console.log(users.length);
+       console.log(roomId.split("+")[1]);
+       console.log(roomId.split("+"));
     }); 
     // eslint-disable-next-line
   },[])
@@ -41,7 +41,7 @@ const Dailymeeting=()=>{
         {meets.map((meet) => (
           <div key={meet.roomId} className="dailymeeting">
             <i className="fas fa-times"></i>
-            <h4>{meet.roomId}</h4>
+            <h4>{meet.roomName}</h4>
        
               {meet.users.map((user) => {
                 return (

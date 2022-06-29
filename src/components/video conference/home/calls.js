@@ -10,11 +10,11 @@ const Calls = () => {
   let history = useHistory();
   function clickJoinVideo() {
     const id = uuid();
-    history.push(`/roomvideo/${id}`);
+    history.push(`/roomvideo/${id+'+'+roomName}`);
   }
   function clickJoinAudio() {
     const id = uuid();
-    history.push(`/roomaudio/${id}`);
+    history.push(`/roomaudio/${id+'+'+roomName}`);
   }
   const logou = useHistory();
   const logout = () => {
