@@ -47,8 +47,6 @@ i{
 .home .main-side .vi .vid-stream .prof{
     padding: 15px;
     position: relative;
-    opacity: 1;
-    display: block;
 }
 
  .dots{
@@ -101,5 +99,14 @@ i{
       }
     .home .main-side .vi .vid-stream .dailymeeting {
         margin-bottom: 10px;
+    }
+}
+@media only screen and (max-width: 992px) {
+    .home{
+        background-color: rgba(22,27,33,255);
+        overflow-y: auto;
+        height: 100%;
+        overflow-x: hidden;
+        height: 100% !important;
     }
 }

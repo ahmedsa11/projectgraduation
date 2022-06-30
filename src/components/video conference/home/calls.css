@@ -90,13 +90,13 @@
        .lst  .popup {
         padding: 22px 25px;
         /* max-width: 380px; */
-        width: 500px;
-        height: 400px;
+        /* width: 500px; */
+        /* height: 400px; */
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color:#333;
+        background-color: #333;
         border-radius: 15px;
       }
        .lst  .close-btn {
@@ -124,7 +124,12 @@
        .lst  .close-btn:hover {
         transform: scale(1.1);
       }
-
+.lst .options .CreateNow{
+    width: 100%;
+    background: darkorchid;
+    font-size: 17px;
+    border: none;
+}
 @media only screen and (max-width: 800px){
     
  .lst{

@@ -104,12 +104,14 @@ const Calls = () => {
                       <button className="close-btn">
                         <i className="fas fa-times"></i>
                       </button>
+                      <form onSubmit={go}>
                       <input
+                      required
                         type="text"
                         placeholder="Enter the room name"
                         onChange={(e) => setroomName(e.target.value)}
                       />
-                      <button onClick={go}>Go</button>
+                      <button type='submit' className='CreateNow'>Create Now</button></form>
                     </div>
                   </div>
                 </div>

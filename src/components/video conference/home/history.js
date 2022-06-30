@@ -12,6 +12,13 @@ const Dailymeeting=()=>{
     
     history.push(`/room${typeMeet}/${id}`);
   }
+  // function remove (id){
+  //   let item = meets; 
+  //   item=item.filter(id!==item.roomId)
+  //   setMeets(item)
+  //   console.log("as")
+    
+  // }
   useEffect(()=>{
     socket.emit("get-rooms-user", {mobile:user.mobile});
     socket.on("get-rooms-user", ({userRooms})=>{
@@ -40,26 +47,30 @@ const Dailymeeting=()=>{
       <react.Fragment>
         {meets.map((meet) => (
           <div key={meet.roomId} className="dailymeeting">
-            <i className="fas fa-times"></i>
+            {/* <i className="fas fa-times" onClick={()=>remove(meet.roomId)}></i> */}
             <h4>{meet.roomName}</h4>
        
-              {meet.users.map((user) => {
-                return (
+              
+                
                   <react.Fragment>
-                         <ul>
+              <ul>
+              {meet.users.map((user) => (
                   <li key={user.mobile}>
+                   
                  {user.name}
-                  </li>
+                  </li> ))}
                   </ul>
                     <div className="im" >
-                       <img src={user.image} alt="a" />
+                    {meet.users.map((user) => (
+                       <img key={user.mobile} src={user.image} alt="a" />
+                       ))}
                      </div>
                    
                      </react.Fragment>
-                );
-              })}
-             {/* <span>{meets.time}</span>  */}
-             <div className="rejoin" onClick={()=>reJoin(meet.roomId,meet.typeMeet)}>rejoin</div>
+                
+{/*             
+             <span>click to rejoin</span>  */}
+             <button className="rejoin" onClick={()=>reJoin(meet.roomId,meet.typeMeet)}>rejoin</button>
           </div>
         ))}
       </react.Fragment>

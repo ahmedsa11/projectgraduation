@@ -474,6 +474,7 @@ const Roomvideo = (props) => {
   return (
     <react.Fragment>
       {loading ? <Loader /> : null}
+      
       <div className="roomvideo">
         <div className="video-conference">
           <div className="main-side" id="main">
@@ -490,7 +491,7 @@ const Roomvideo = (props) => {
                 <img src={logo} alt="logo" />
               </div>
               <div className="title">
-                <h4>Video Conference</h4>
+                <h4>{roomId.split("+")[1]|| "Unnamed"}</h4>
               </div>
               <div className="grid-show">
                 <ul>

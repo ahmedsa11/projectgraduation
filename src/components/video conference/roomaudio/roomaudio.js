@@ -418,7 +418,7 @@ const Roomaudio = (props) => {
                 <img src={logo} alt='logo' />
               </div>
               <div className='title'>
-                <h4>Video Conference</h4>
+                <h4>{roomId.split("+")[1]|| "Unnamed"}</h4>
               </div>
               <div className='grid-show'>
                 <ul>
