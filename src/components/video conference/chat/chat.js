@@ -11,9 +11,9 @@ const Chat = ({ roomId }) => {
   const inputRef = useRef();
 
   useEffect(() => {
-    socket.on('FE-receive-message', ({ msg, sender, img ,inputImage}) => {
+    socket.on('FE-receive-message', ({ msg, sender, img, inputImage }) => {
       console.log({ msg, sender, img });
-      setMsg((msgs) => [...msgs, { sender, msg, img,inputImage }]);
+      setMsg((msgs) => [...msgs, { sender, msg, img, inputImage }]);
     });
   }, []);
   const scrollToBottom = () => {
@@ -38,7 +38,7 @@ const Chat = ({ roomId }) => {
     setimageSended(true);
     const text = document.getElementById('textt');
     const msg = text.value;
-    if (msg ||inputImage) {
+    if (msg || inputImage) {
       console.log(msg, inputImage);
       socket.emit('BE-send-message', {
         roomId,
@@ -59,7 +59,7 @@ const Chat = ({ roomId }) => {
     input.type = 'file';
     input.accept = 'image/*';
     input.onchange = (e) => {
-      setimageSended(false)
+      setimageSended(false);
       let file = e.target.files[0];
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -70,24 +70,26 @@ const Chat = ({ roomId }) => {
 
     input.click();
   }
-  const deleteImg =()=>{
-    setimageSended(true)
-    setinputImage('')
-  }
+  const deleteImg = () => {
+    setimageSended(true);
+    setinputImage('');
+  };
   return (
     <react.Fragment>
       <div className="chat-side" id="chat">
         <i className="fas fa-sign-out-alt"></i>
         <div className="chat">
           {msg &&
-            msg.map(({ sender, msg, img ,inputImage}, idx) => {
+            msg.map(({ sender, msg, img, inputImage }, idx) => {
               if (sender !== currentUser) {
                 return (
                   <div className="sender" key={idx}>
                     <img src={img} alt="a" />
                     <div className="text-box">
                       <strong>{sender} : </strong>
-                       {inputImage!==''&&<img className='img-inbox' src={inputImage}alt="g"/>}
+                      {inputImage !== '' && (
+                        <img className="img-inbox" src={inputImage} alt="g" />
+                      )}
                       <p>{msg} </p>
                     </div>
                   </div>
@@ -96,7 +98,9 @@ const Chat = ({ roomId }) => {
                 return (
                   <div className="reciver" key={idx}>
                     <div className="text-box">
-                    {inputImage!==''&&<img className='img-inbox' src={inputImage}alt="g"/>}
+                      {inputImage !== '' && (
+                        <img className="img-inbox" src={inputImage} alt="g" />
+                      )}
                       <p>{msg} </p>
                     </div>
                   </div>
@@ -114,13 +118,13 @@ const Chat = ({ roomId }) => {
               <i className="fas fa-image" id="imggg" onClick={importData}></i>
             </div>
             {inputImage !== '' && !imageSended && (
-            <div className='info-imagee'>  
-              <i className='fas fa-times' onClick={deleteImg}></i>
-              <img className="sended-image" src={inputImage} alt="fj"/>
-            </div>
-              )}
+              <div className="info-imagee">
+                <i className="fas fa-times" onClick={deleteImg}></i>
+                <img className="sended-image" src={inputImage} alt="fj" />
+              </div>
+            )}
             <textarea
-            spellCheck="false"
+              spellCheck="false"
               type="text"
               placeholder="Write message...."
               ref={inputRef}

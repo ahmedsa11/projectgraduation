@@ -1,8 +1,8 @@
-import React,{useState} from "react";
-import styled from "styled-components";
-import phonealt from '../../../img/index 1.png'
-import tool from '../../../img/MicrosoftTeams-image8) 1.png'
-import socket from "../socket";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import phonealt from '../../../img/index 1.png';
+import tool from '../../../img/MicrosoftTeams-image8) 1.png';
+import socket from '../socket';
 import ScrollToBottom from 'react-scroll-to-bottom';
 const BottomBar = ({
   goToBack,
@@ -13,31 +13,30 @@ const BottomBar = ({
   text,
   toSign,
   settoSign,
-  roomId
+  roomId,
 }) => {
-  const [sendNameVs,setsendNameVs]=useState("")
-  socket.on("receive-text", ({name}) => {
-    setsendNameVs(name)
-  })
+  const [sendNameVs, setsendNameVs] = useState('');
+  socket.on('receive-text', ({ name }) => {
+    setsendNameVs(name);
+  });
   const opentool = () => {
-    const tool = document.getElementsByClassName("to");
+    const tool = document.getElementsByClassName('to');
     for (let i = 0; i < tool.length; i++) {
       tool[0].onclick = () => {
-        const sign = document.querySelector(".signlang");
-        tool[0].classList.toggle("activetool");
-        sign.classList.toggle("showsign");
-        settoSign(signcheck => !signcheck)
-        if(toSign){
-          socket.emit("leave-sign-room",{roomId:roomId,id:"voicetosign"})}
-       
-        else{
-          socket.emit("join-sign-room",{roomId:roomId,id:"voicetosign"})
-        } 
+        const sign = document.querySelector('.signlang');
+        tool[0].classList.toggle('activetool');
+        sign.classList.toggle('showsign');
+        settoSign((signcheck) => !signcheck);
+        if (toSign) {
+          socket.emit('leave-sign-room', { roomId: roomId, id: 'voicetosign' });
+        } else {
+          socket.emit('join-sign-room', { roomId: roomId, id: 'voicetosign' });
+        }
       };
       tool[1].onclick = () => {
-        const caption = document.querySelector(".caption");
-        tool[1].classList.toggle("activetool");
-        caption.classList.toggle("showsign");
+        const caption = document.querySelector('.caption');
+        tool[1].classList.toggle('activetool');
+        caption.classList.toggle('showsign');
       };
     }
   };
@@ -47,7 +46,8 @@ const BottomBar = ({
         <div className="tools">
           <div className="dropdown">
             <button className="dropbtn">
-              <img src={tool} alt="tool"/>Tools
+              <img src={tool} alt="tool" />
+              Tools
             </button>
             <div className="dropdown-content">
               <ul>
@@ -62,17 +62,21 @@ const BottomBar = ({
           </div>
         </div>
         <div className="buttons">
-        <span className="sendnameStext">{sendNameVs}</span>
+          <span className="sendnameStext">{sendNameVs}</span>
           <div className="cp">
-          <ScrollToBottom >
-            <div className="caption lead text-center" id="textarea">
-              <p className="pcap" ref={text}></p>
-            </div>
-            </ScrollToBottom >
+            <ScrollToBottom>
+              <div className="caption lead text-center" id="textarea">
+                <p className="pcap" ref={text}></p>
+              </div>
+            </ScrollToBottom>
           </div>
           <ul>
             <li>
-              <CameraButton id="a" onClick={toggleCameraAudio} data-switch="audio">
+              <CameraButton
+                id="a"
+                onClick={toggleCameraAudio}
+                data-switch="audio"
+              >
                 {userVideoAudio.audio ? (
                   <i className="fas fa-microphone"></i>
                 ) : (
@@ -81,14 +85,17 @@ const BottomBar = ({
               </CameraButton>
             </li>
             <li>
-              <button onClick={goToBack}id="phonealt" >
-                <img src={phonealt}alt="phone"/>
+              <button onClick={goToBack} id="phonealt">
+                <img src={phonealt} alt="phone" />
               </button>
             </li>
             <li>
               <button onClick={toggleRecording}>
-                
-                {screenRecod? <i className="fas fa-stop"></i>: <i className="fas fa-record-vinyl"></i>}
+                {screenRecod ? (
+                  <i className="fas fa-stop"></i>
+                ) : (
+                  <i className="fas fa-record-vinyl"></i>
+                )}
               </button>
             </li>
           </ul>

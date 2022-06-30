@@ -5,12 +5,11 @@ import Header from '../video conference/home/header';
 import Navbar from '../video conference/navbar/navbar';
 import authentication from '../firebase';
 import { Api } from '../api/api';
-import logoutimg from '../../img/logout.png'
+import logoutimg from '../../img/logout.png';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import './setting.css';
 import Loader from '../loader/loader';
 const Setting = (props) => {
-
   const history = useHistory();
   let tempuser = localStorage.getItem('user');
   let user = JSON.parse(tempuser);
@@ -191,16 +190,13 @@ const Setting = (props) => {
       }
     }
     if (!document.getElementById('inputphone').disabled) {
-      let data = await fetch(
-        `${Api}/${Phone}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            API_KEY: process.env.REACT_APP_API_KEY,
-          },
-        }
-      );
+      let data = await fetch(`${Api}/${Phone}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          API_KEY: process.env.REACT_APP_API_KEY,
+        },
+      });
       let res = await data.json();
       console.log(res);
       if (res.status === 'success') {
@@ -474,8 +470,13 @@ const Setting = (props) => {
                     </button>
                   </div>
                 </form>
-                <img className='logoutimg' src={logoutimg} alt="a" onClick={logout}/> 
-              </div> 
+                <img
+                  className="logoutimg"
+                  src={logoutimg}
+                  alt="a"
+                  onClick={logout}
+                />
+              </div>
             </div>
           </div>
         </div>

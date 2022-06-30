@@ -32,21 +32,20 @@ class Verification extends Component {
     'Content-Type': 'application/json',
   };
   nextotp = () => {
-    const otp =document.querySelectorAll('.otp');
-    for (let i = 0; i < otp.length-1; i++) {
-      otp[i].addEventListener ("keyup",function(){
+    const otp = document.querySelectorAll('.otp');
+    for (let i = 0; i < otp.length - 1; i++) {
+      otp[i].addEventListener('keyup', function () {
         this.nextElementSibling.focus();
-      })
+      });
     }
-  }
+  };
 
   setUpRecaptcha = () => {
     window.recaptchaVerifier = new RecaptchaVerifier(
       'recap',
       {
         size: 'invisible',
-        callback: (response) => {
-        },
+        callback: (response) => {},
       },
       authentication
     );
@@ -69,16 +68,13 @@ class Verification extends Component {
   update = async () => {
     let tempuser = localStorage.getItem('user');
     let user = JSON.parse(tempuser);
-    let data2 = await fetch(
-      `${Api}/${user.mobile}`,
-      {
-        headers: this.header,
-        method: 'PATCH',
-        body: JSON.stringify({
-          mobile: this.state.mobile,
-        }),
-      }
-    );
+    let data2 = await fetch(`${Api}/${user.mobile}`, {
+      headers: this.header,
+      method: 'PATCH',
+      body: JSON.stringify({
+        mobile: this.state.mobile,
+      }),
+    });
     let res2 = await data2.json();
     if (res2.status === 'success') {
       localStorage.setItem('user', JSON.stringify(res2.data));
@@ -108,9 +104,9 @@ class Verification extends Component {
     }
   };
   forget = async () => {
-      this.setState({
-        very: 'updatedpass',
-      });
+    this.setState({
+      very: 'updatedpass',
+    });
   };
   handlesubotp = async (e) => {
     e.preventDefault();
@@ -134,8 +130,7 @@ class Verification extends Component {
           await this.signup();
         } else if (this.state.direct === 'updated') {
           await this.update();
-        }
-        else if (this.state.direct === 'forget') {
+        } else if (this.state.direct === 'forget') {
           await this.forget();
         }
         // ...
@@ -152,7 +147,7 @@ class Verification extends Component {
     state[e.currentTarget.name] = e.currentTarget.value;
     this.setState(state);
   };
-  componentDidMount(){
+  componentDidMount() {
     this.nextotp();
   }
   render() {
@@ -171,9 +166,7 @@ class Verification extends Component {
       );
     }
     if (this.state.very === 'updatedpass') {
-      return (
-          <NewPassword Phone={this.state.mobile}/>
-      );
+      return <NewPassword Phone={this.state.mobile} />;
     }
     return (
       <react.Fragment>
@@ -188,7 +181,7 @@ class Verification extends Component {
               <form onSubmit={this.handlesubotp}>
                 <div className="code">
                   <input
-                  className='otp'
+                    className="otp"
                     required
                     type="text"
                     name="num1"
@@ -196,7 +189,7 @@ class Verification extends Component {
                     maxLength={1}
                   />
                   <input
-                   className='otp'
+                    className="otp"
                     required
                     type="text"
                     name="num2"
@@ -204,7 +197,7 @@ class Verification extends Component {
                     maxLength={1}
                   />
                   <input
-                   className='otp'
+                    className="otp"
                     required
                     type="text"
                     name="num3"
@@ -212,7 +205,7 @@ class Verification extends Component {
                     maxLength={1}
                   />
                   <input
-                   className='otp'
+                    className="otp"
                     required
                     type="text"
                     name="num4"
@@ -220,7 +213,7 @@ class Verification extends Component {
                     maxLength={1}
                   />
                   <input
-                   className='otp'
+                    className="otp"
                     required
                     type="text"
                     name="num5"
@@ -228,7 +221,7 @@ class Verification extends Component {
                     maxLength={1}
                   />
                   <input
-                   className='otp'
+                    className="otp"
                     required
                     type="text"
                     name="num6"

@@ -17,7 +17,7 @@ const SignToText = ({
   const canvasRef = useRef(null);
   const drawConnectors = window.drawConnectors;
   const drawLandmarks = window.drawLandmarks;
-    // eslint-disable-next-line
+  // eslint-disable-next-line
   var count = 0;
   var frames = [];
   let camera = null;
@@ -52,7 +52,7 @@ const SignToText = ({
             roomId,
           });
           console.log(frames.length);
-          count = 0; 
+          count = 0;
           frames = [];
         }
         drawConnectors(canvasCtx, landmarks, hands.HAND_CONNECTIONS, {

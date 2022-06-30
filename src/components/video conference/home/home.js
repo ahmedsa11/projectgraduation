@@ -1,22 +1,22 @@
-import react from "react";
-import React from "react";
-import "./home.css";
-import Navbar from "../navbar/navbar";
+import react from 'react';
+import React from 'react';
+import './home.css';
+import Navbar from '../navbar/navbar';
 // import { v4 as uuid } from "uuid";
-import "../navbar/navbar.css";
-import { Redirect } from "react-router";
-import Dailymeeting from "./history";
-import Header from "./header.js";
-import Calls from "./calls";
+import '../navbar/navbar.css';
+import { Redirect } from 'react-router';
+import Dailymeeting from './history';
+import Header from './header.js';
+import Calls from './calls';
 // eslint-disable-next-line
 const Home = (props) => {
-  const tempuser = localStorage.getItem("user");
+  const tempuser = localStorage.getItem('user');
   // console.log(tempuser)
   if (tempuser === null) {
     return <Redirect to="/login" />;
   }
 
-  const user= JSON.parse(tempuser);
+  const user = JSON.parse(tempuser);
   return (
     <react.Fragment>
       <div className="home">

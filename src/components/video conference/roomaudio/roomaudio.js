@@ -102,7 +102,9 @@ const Roomaudio = (props) => {
   const [peers, setPeers] = useState([]);
   const [toSign, settoSign] = useState(false);
   const [loading, setloading] = useState(false);
-  const [userVideoAudio, setUserVideoAudio] = useState({localUser: { audio: true }});
+  const [userVideoAudio, setUserVideoAudio] = useState({
+    localUser: { audio: true },
+  });
   const [screenRecod, setScreenRecor] = useState(false);
   const peersRef = useRef([]);
   const userVideoRef = useRef();
@@ -111,16 +113,14 @@ const Roomaudio = (props) => {
   const tempuser = localStorage.getItem('user');
   const user = JSON.parse(tempuser);
   const audio = userVideoAudio['localUser'].audio;
-  const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ screen: true });
+  const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder(
+    { screen: true }
+  );
   let {
     listening,
     // browserSupportsSpeechRecognition
   } = useSpeechRecognition();
-  const {
-    seconds,
-    minutes,
-    hours,
-  } = useStopwatch({ autoStart: true });
+  const { seconds, minutes, hours } = useStopwatch({ autoStart: true });
   let text = useRef();
   let senderName = useRef();
   // if (!browserSupportsSpeechRecognition) {
@@ -137,14 +137,14 @@ const Roomaudio = (props) => {
 
     window.addEventListener('popstate', goToBack);
     if (tempuser === null) {
-      return <Redirect to='/' />;
+      return <Redirect to="/" />;
     }
     // setloading(true);
     // Connect Camera & Mic
-    setloading(true)
+    setloading(true);
     if (!navigator.mediaDevices) {
-      setloading(false)
-      alert("Sorry, getUserMedia is not supported");
+      setloading(false);
+      alert('Sorry, getUserMedia is not supported');
       return;
     }
     navigator.mediaDevices
@@ -158,7 +158,7 @@ const Roomaudio = (props) => {
           user,
           video: false,
           audio: true,
-          typeMeet:"audio",
+          typeMeet: 'audio',
         });
 
         socket.on('FE-user-join', ({ userId, info }) => {
@@ -234,7 +234,7 @@ const Roomaudio = (props) => {
             setPeers((users) => {
               users = users.filter((user) => user.peerID !== userId);
               return [...users];
-                        });
+            });
           }
         });
       });
@@ -266,7 +266,6 @@ const Roomaudio = (props) => {
 
   useEffect(() => {
     if (audio) {
-   
       SpeechRecognition.startListening({
         language: 'en-US',
         continuous: false,
@@ -328,21 +327,25 @@ const Roomaudio = (props) => {
         key={index}
       >
         <VideoCard key={index} peer={peer} number={arr.length} />
-        <div className='icon'>
+        <div className="icon">
           {findPeer(peer.peerID).audio ? (
-            <i className='fas fa-microphone'></i>
+            <i className="fas fa-microphone"></i>
           ) : (
-            <i className='fas fa-microphone-slash'></i>
+            <i className="fas fa-microphone-slash"></i>
           )}
         </div>
-        <span className='name'>{peer.userName}</span>
+        <span className="name">{peer.userName}</span>
       </div>
     );
   }
   function createUseroption(peer, index, arr) {
-    console.log(peer)
+    console.log(peer);
 
-    return <option disabled key={index} >{peer.userName}</option>;
+    return (
+      <option disabled key={index}>
+        {peer.userName}
+      </option>
+    );
   }
   // BackButton
   const goToBack = (e) => {
@@ -397,103 +400,108 @@ const Roomaudio = (props) => {
     setScreenRecor(false);
   }, [mediaBlobUrl]);
   if (tempuser === null) {
-    return <Redirect to='/' />;
+    return <Redirect to="/" />;
   }
   return (
     <react.Fragment>
       {loading ? <Loader /> : null}
-      <div className='roomaudio'>
-        <div className='video-conference'>
-          <div className='main-side' id='main'>
-            <div className='screen-record'>
-              <div id='pop' className='popup-wrapper2'>
-                <button className='close-btn2' onClick={close}>
-                  <i className='fas fa-times'></i>
+      <div className="roomaudio">
+        <div className="video-conference">
+          <div className="main-side" id="main">
+            <div className="screen-record">
+              <div id="pop" className="popup-wrapper2">
+                <button className="close-btn2" onClick={close}>
+                  <i className="fas fa-times"></i>
                 </button>
                 <video src={mediaBlobUrl} controls autoPlay />
               </div>
             </div>
-            <div className='navbar'>
-              <div className='logo'>
-                <img src={logo} alt='logo' />
+            <div className="navbar">
+              <div className="logo">
+                <img src={logo} alt="logo" />
               </div>
-              <div className='title'>
-                <h4>{roomId.split("+")[1]|| "Unnamed"}</h4>
+              <div className="title">
+                <h4>{roomId.split('+')[1] || 'Unnamed'}</h4>
               </div>
-              <div className='grid-show'>
+              <div className="grid-show">
                 <ul>
-                <li id='grid1' onClick={grid}>
-                 <img src={grid1} alt="f"/>
+                  <li id="grid1" onClick={grid}>
+                    <img src={grid1} alt="f" />
                   </li>
-                  <li id='grid6' onClick={grid}>
-                    <i className='fas fa-th'></i>
+                  <li id="grid6" onClick={grid}>
+                    <i className="fas fa-th"></i>
                   </li>
-                  <li id='grid4' onClick={grid}>
-                    <i className='fas fa-th-large'></i>
-                  </li>
-                  <li>
-                    <i className='fas fa-comment-dots' onClick={openchat}></i>
+                  <li id="grid4" onClick={grid}>
+                    <i className="fas fa-th-large"></i>
                   </li>
                   <li>
-                    <img id='imgpa' src={user.image} alt='a' />
+                    <i className="fas fa-comment-dots" onClick={openchat}></i>
+                  </li>
+                  <li>
+                    <img id="imgpa" src={user.image} alt="a" />
                   </li>
                 </ul>
               </div>
             </div>
-            <div className='vi'>
+            <div className="vi">
               <Navbar />
-              <div className='vid-stream'>
-                <div className='opts'>
-                  <img src={groupicon} alt='group' />
-                  <select className='nump'>
-                  <option defaultValue hidden>{peers.length + 1}</option>
+              <div className="vid-stream">
+                <div className="opts">
+                  <img src={groupicon} alt="group" />
+                  <select className="nump">
+                    <option defaultValue hidden>
+                      {peers.length + 1}
+                    </option>
                     <option disabled>{user.name}</option>
                     {peers &&
                       peers.map((peer, index, arr) => {
-                        console.log()
-                        return  createUseroption(peer, index, arr);
+                        console.log();
+                        return createUseroption(peer, index, arr);
                       })}
                   </select>
-                  <div className='invite'>
+                  <div className="invite">
                     <i
-                      className='fas fa-users popup-open'
+                      className="fas fa-users popup-open"
                       onClick={openpopup}
                     ></i>
                     Invite a participant
-                    <div className='popup-wrapper'>
-                      <div className='popup'>
-                        <button className='close-btn'>
-                          <i className='fas fa-times'></i>
+                    <div className="popup-wrapper">
+                      <div className="popup">
+                        <button className="close-btn">
+                          <i className="fas fa-times"></i>
                         </button>
-                        <div className='copy'>
+                        <div className="copy">
                           <button onClick={Copy}>Copy Link</button>
-                          <input type='text' id='paste-box' />
+                          <input type="text" id="paste-box" />
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className='rec-time'>
-                    <span id='dottt'></span><span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+                  <div className="rec-time">
+                    <span id="dottt"></span>
+                    <span>{hours}</span>:<span>{minutes}</span>:
+                    <span>{seconds}</span>
                   </div>
                 </div>
-                <div className='vids'>
-                  <div className='stream vid-item signlang'>
-                  <Signlang toSign={toSign}
-                   roomId={roomId}
-                   user={user}
-                  // settextcaption={(textcaption)=>settextcaption(textcaption)}
-                  text={text}
-                  senderName={senderName}
-                  />
-                    <span className='name' ref={senderName}></span>
+                <div className="vids">
+                  <div className="stream vid-item signlang">
+                    <Signlang
+                      toSign={toSign}
+                      roomId={roomId}
+                      user={user}
+                      // settextcaption={(textcaption)=>settextcaption(textcaption)}
+                      text={text}
+                      senderName={senderName}
+                    />
+                    <span className="name" ref={senderName}></span>
                   </div>
-                  <div className='vid-item'>
+                  <div className="vid-item">
                     <div
                       className={`width-peer${
                         peers.length > 8 ? '' : peers.length
                       }`}
                     >
-                      <img src={user.image} alt='as' />
+                      <img src={user.image} alt="as" />
                       <video
                         ref={userVideoRef}
                         muted
@@ -501,14 +509,14 @@ const Roomaudio = (props) => {
                         playsInline
                       ></video>
                     </div>
-                    <div className='icon'>
+                    <div className="icon">
                       {userVideoAudio['localUser'].audio ? (
-                        <i className='fas fa-microphone'></i>
+                        <i className="fas fa-microphone"></i>
                       ) : (
-                        <i className='fas fa-microphone-slash'></i>
+                        <i className="fas fa-microphone-slash"></i>
                       )}
                     </div>
-                    <span className='name'>{user.name}</span>
+                    <span className="name">{user.name}</span>
                   </div>
                   {peers &&
                     peers.map((peer, index, arr) => {
@@ -532,7 +540,7 @@ const Roomaudio = (props) => {
               roomId={roomId}
             />
           </div>
-          <Chat roomId={roomId}/>
+          <Chat roomId={roomId} />
         </div>
       </div>
     </react.Fragment>

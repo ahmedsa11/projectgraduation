@@ -10,11 +10,11 @@ const Calls = () => {
   let history = useHistory();
   function clickJoinVideo() {
     const id = uuid();
-    history.push(`/roomvideo/${id+'+'+roomName}`);
+    history.push(`/roomvideo/${id + '+' + roomName}`);
   }
   function clickJoinAudio() {
     const id = uuid();
-    history.push(`/roomaudio/${id+'+'+roomName}`);
+    history.push(`/roomaudio/${id + '+' + roomName}`);
   }
   const logou = useHistory();
   const logout = () => {
@@ -32,11 +32,11 @@ const Calls = () => {
     let popup = document.querySelector('.popup-wrapper');
     let popupBtn = document.querySelectorAll('.popup-open');
     let popupClose = document.querySelector('.close-btn');
-    popupBtn.forEach(btn =>{
+    popupBtn.forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         showPopup();
-    })
+      });
     });
 
     popupClose.addEventListener('click', (e) => {
@@ -58,20 +58,20 @@ const Calls = () => {
       popup.classList.remove('active');
     }
   };
-  const videomeet =()=>{
-    settype("video")
-  }
-  const audiomeet =()=>{
-    settype("audio")
-  }
-  const joinvideo=()=>{
+  const videomeet = () => {
+    settype('video');
+  };
+  const audiomeet = () => {
+    settype('audio');
+  };
+  const joinvideo = () => {
     openpopup();
     videomeet();
-  }
-  const joinaudio=()=>{
+  };
+  const joinaudio = () => {
     openpopup();
     audiomeet();
-  }
+  };
   console.log(roomName);
   return (
     <react.Fragment>
@@ -105,13 +105,16 @@ const Calls = () => {
                         <i className="fas fa-times"></i>
                       </button>
                       <form onSubmit={go}>
-                      <input
-                      required
-                        type="text"
-                        placeholder="Enter the room name"
-                        onChange={(e) => setroomName(e.target.value)}
-                      />
-                      <button type='submit' className='CreateNow'>Create Now</button></form>
+                        <input
+                          required
+                          type="text"
+                          placeholder="Enter the room name"
+                          onChange={(e) => setroomName(e.target.value)}
+                        />
+                        <button type="submit" className="CreateNow">
+                          Create Now
+                        </button>
+                      </form>
                     </div>
                   </div>
                 </div>

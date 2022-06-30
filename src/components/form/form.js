@@ -1,5 +1,5 @@
 import react, { Component } from 'react';
-import { Redirect,Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import './form.css';
@@ -64,13 +64,10 @@ class Form extends Component {
     if (error) return;
     this.setState({ loading: true });
     //back end
-    let data = await fetch(
-      `${Api}/${this.state.mobile}`,
-      {
-        headers: this.header,
-        method: 'GET',
-      }
-    );
+    let data = await fetch(`${Api}/${this.state.mobile}`, {
+      headers: this.header,
+      method: 'GET',
+    });
     let res = await data.json();
 
     console.log(res);

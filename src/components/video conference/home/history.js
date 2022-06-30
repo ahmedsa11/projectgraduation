@@ -33,13 +33,13 @@ const Dailymeeting = () => {
         ...prev,
         {
           users: users.slice(-3),
-          userLength: users.length-users.slice(-3).length,
+          userLength: users.length - users.slice(-3).length,
           typeMeet,
           roomId,
           roomName: roomId.split('+')[1] || 'Unnamed',
         },
       ]);
-console.log( users.length-users.slice(-3).length)
+      console.log(users.length - users.slice(-3).length);
       console.log(roomId.split('+')[1]);
       console.log(roomId.split('+'));
     });
@@ -64,7 +64,7 @@ console.log( users.length-users.slice(-3).length)
               ))}
             </div>
           </react.Fragment>
-          {meet.userLength===0?'':<span>{meet.userLength}</span>}
+          {meet.userLength === 0 ? '' : <span> +{meet.userLength}</span>}
           <button
             className="rejoin"
             onClick={() => reJoin(meet.roomId, meet.typeMeet)}

@@ -281,7 +281,6 @@ margin: 14px 3px
   .screen-record video{
     width: 82%;
     display: flex;
-    /* margin: 0 auto; */
     position: absolute;
     z-index: 333;
     left: 50;
@@ -310,18 +309,6 @@ margin: 14px 3px
     display: block;
     z-index: 9999;
   }
-  /*  .roomvideo .video-conference .main-side  .screen-record  .popup {
-    padding: 22px 25px;
-    max-width: 380px; */
-    /* width: 500px;
-    height: 400px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color:#333;
-    border-radius: 15px;
-  } */
    .roomvideo .video-conference .main-side  .screen-record  .close-btn2 {
     position: absolute;
     top: 2px;

@@ -165,7 +165,7 @@ const Roomvideo = (props) => {
           user,
           video: true,
           audio: true,
-          typeMeet:"video",
+          typeMeet: 'video',
         });
 
         socket.on('FE-user-join', ({ userId, info }) => {
@@ -353,9 +353,13 @@ const Roomvideo = (props) => {
     );
   }
   function createUseroption(peer, index, arr) {
-    console.log(peer)
+    console.log(peer);
 
-    return <option disabled key={index} >{peer.userName}</option>;
+    return (
+      <option disabled key={index}>
+        {peer.userName}
+      </option>
+    );
   }
   // BackButton
   const goToBack = (e) => {
@@ -474,7 +478,7 @@ const Roomvideo = (props) => {
   return (
     <react.Fragment>
       {loading ? <Loader /> : null}
-      
+
       <div className="roomvideo">
         <div className="video-conference">
           <div className="main-side" id="main">
@@ -491,7 +495,7 @@ const Roomvideo = (props) => {
                 <img src={logo} alt="logo" />
               </div>
               <div className="title">
-                <h4>{roomId.split("+")[1]|| "Unnamed"}</h4>
+                <h4>{roomId.split('+')[1] || 'Unnamed'}</h4>
               </div>
               <div className="grid-show">
                 <ul>
@@ -518,13 +522,15 @@ const Roomvideo = (props) => {
               <div className="vid-stream">
                 <div className="opts">
                   <img src={groupicon} alt="group" />
-                  <select className="nump" >
-                    <option defaultValue hidden>{peers.length + 1}</option>
+                  <select className="nump">
+                    <option defaultValue hidden>
+                      {peers.length + 1}
+                    </option>
                     <option disabled>{user.name}</option>
                     {peers &&
                       peers.map((peer, index, arr) => {
-                        console.log()
-                        return  createUseroption(peer, index, arr);
+                        console.log();
+                        return createUseroption(peer, index, arr);
                       })}
                   </select>
                   <div className="invite">
