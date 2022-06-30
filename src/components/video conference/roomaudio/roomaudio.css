@@ -67,6 +67,16 @@ cursor: pointer;
     left: 2px;
     object-fit: cover;
 }
+.roomaudio  .video-conference .main-side .navbar .grid-show #imgpa{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    position: relative;
+    bottom: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+    object-fit: cover; 
+}
 .roomaudio  .video-conference .main-side .navbar .grid-show #grid4 i{
     font-size: 26px;
     position: relative;
@@ -778,7 +788,7 @@ width: 47px;
             top: 27px;
             right: -9px;
         }
-        .roomaudio  .video-conference .main-side .navbar .grid-show #imgp{
+        .roomaudio  .video-conference .main-side .navbar .grid-show #imgpa{
             height: 35px;
             width: 35px;
             border-radius: 50%;
@@ -786,7 +796,7 @@ width: 47px;
             bottom: 5px;
             margin-left: 10px;
             cursor: pointer;
-            object-fit: cover;
+            object-fit: cover; 
         }
         .roomaudio  .video-conference .main-side .navbar .grid-show #grid6 img{
             width: 30px;

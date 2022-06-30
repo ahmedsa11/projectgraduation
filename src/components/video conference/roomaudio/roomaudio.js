@@ -435,7 +435,7 @@ const Roomaudio = (props) => {
                     <i className='fas fa-comment-dots' onClick={openchat}></i>
                   </li>
                   <li>
-                    <img id='imgp' src={user.image} alt='a' />
+                    <img id='imgpa' src={user.image} alt='a' />
                   </li>
                 </ul>
               </div>
