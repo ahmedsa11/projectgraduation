@@ -40,12 +40,10 @@
     margin-left: 10px;
     margin-bottom: 10px;
 }
- /* .dailymeeting span{
+ .dailymeeting span{
     color: #585661;
-    display: flex;
-    justify-content: end;
-    padding: 0px 10px;
-} */
+    padding: 10px;
+}
 .dailymeeting .rejoin{
     color: white;
     font-weight: 400;

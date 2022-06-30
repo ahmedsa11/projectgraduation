@@ -1,79 +1,79 @@
-import react, { useEffect, useState } from "react";
-import "./history.css";
-import { useHistory } from "react-router";
-import socket from "../socket";
-const Dailymeeting=()=>{
-  const tempuser = localStorage.getItem("user");
+import react, { useEffect, useState } from 'react';
+import './history.css';
+import { useHistory } from 'react-router';
+import socket from '../socket';
+const Dailymeeting = () => {
+  const tempuser = localStorage.getItem('user');
   const user = JSON.parse(tempuser);
 
-  const [meets,setMeets]=useState([]);
-  let history=useHistory()
-  function reJoin(id,typeMeet) {
-    
+  const [meets, setMeets] = useState([]);
+  let history = useHistory();
+  function reJoin(id, typeMeet) {
     history.push(`/room${typeMeet}/${id}`);
   }
   // function remove (id){
-  //   let item = meets; 
+  //   let item = meets;
   //   item=item.filter(id!==item.roomId)
   //   setMeets(item)
   //   console.log("as")
-    
+
   // }
-  useEffect(()=>{
-    socket.emit("get-rooms-user", {mobile:user.mobile});
-    socket.on("get-rooms-user", ({userRooms})=>{
-      console.log("asdad");
-      userRooms.slice(-3).forEach(roomId => {
+  useEffect(() => {
+    socket.emit('get-rooms-user', { mobile: user.mobile });
+    socket.on('get-rooms-user', ({ userRooms }) => {
+      console.log('asdad');
+      userRooms.slice(-3).forEach((roomId) => {
         socket.emit('get-all-users', { roomId });
-         });
-         
+      });
+
       console.log(userRooms);
     });
-    socket.on('get-all-users', ({users,roomId,typeMeet}) => {
-      setMeets(prev=>[...prev,{
-        users:users.slice(-3),
-        typeMeet,
-        roomId,
-        roomName:roomId.split("+")[1]|| "Unnamed"
-         }]);
-       
-       console.log(roomId.split("+")[1]);
-       console.log(roomId.split("+"));
-    }); 
+    socket.on('get-all-users', ({ users, roomId, typeMeet }) => {
+      setMeets((prev) => [
+        ...prev,
+        {
+          users: users.slice(-3),
+          userLength: users.length-users.slice(-3).length,
+          typeMeet,
+          roomId,
+          roomName: roomId.split('+')[1] || 'Unnamed',
+        },
+      ]);
+console.log( users.length-users.slice(-3).length)
+      console.log(roomId.split('+')[1]);
+      console.log(roomId.split('+'));
+    });
     // eslint-disable-next-line
-  },[])
+  }, []);
 
-    return (
-      <react.Fragment>
-        {meets.map((meet) => (
-          <div key={meet.roomId} className="dailymeeting">
-            {/* <i className="fas fa-times" onClick={()=>remove(meet.roomId)}></i> */}
-            <h4>{meet.roomName}</h4>
-       
-              
-                
-                  <react.Fragment>
-              <ul>
+  return (
+    <react.Fragment>
+      {meets.map((meet) => (
+        <div key={meet.roomId} className="dailymeeting">
+          {/* <i className="fas fa-times" onClick={()=>remove(meet.roomId)}></i> */}
+          <h4>{meet.roomName}</h4>
+          <react.Fragment>
+            <ul>
               {meet.users.map((user) => (
-                  <li key={user.mobile}>
-                   
-                 {user.name}
-                  </li> ))}
-                  </ul>
-                    <div className="im" >
-                    {meet.users.map((user) => (
-                       <img key={user.mobile} src={user.image} alt="a" />
-                       ))}
-                     </div>
-                   
-                     </react.Fragment>
-                
-{/*             
-             <span>click to rejoin</span>  */}
-             <button className="rejoin" onClick={()=>reJoin(meet.roomId,meet.typeMeet)}>rejoin</button>
-          </div>
-        ))}
-      </react.Fragment>
-    );
-  }
+                <li key={user.mobile}>{user.name}</li>
+              ))}
+            </ul>
+            <div className="im">
+              {meet.users.map((user) => (
+                <img key={user.mobile} src={user.image} alt="a" />
+              ))}
+            </div>
+          </react.Fragment>
+          {meet.userLength===0?'':<span>{meet.userLength}</span>}
+          <button
+            className="rejoin"
+            onClick={() => reJoin(meet.roomId, meet.typeMeet)}
+          >
+            rejoin
+          </button>
+        </div>
+      ))}
+    </react.Fragment>
+  );
+};
 export default Dailymeeting;
