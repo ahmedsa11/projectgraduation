@@ -11,10 +11,13 @@ const SignToText = ({
   roomId,
   signToTextCaption,
 }) => {
+  const startSend=useRef(true);
+  // const[frames,setFrames]=useState([]);
   let word = '';
   let sentence = '';
   const videoref = useRef();
   const canvasRef = useRef(null);
+  // let startSending=true;
   const drawConnectors = window.drawConnectors;
   const drawLandmarks = window.drawLandmarks;
   // eslint-disable-next-line
@@ -43,14 +46,20 @@ const SignToText = ({
       for (const landmarks of results.multiHandLandmarks) {
         // console.log(landmarks)
         count++;
+      // console.log(count,"count");
+        if(startSend.current){
         frames.push(landmarks);
+        // console.log(frames.length);
+      }
         // console.log(count);
-        if (frames.length === 15) {
+        if (frames.length === 25) {
           socket.emit('stream_sign', {
             landmarks: frames,
             name: user.name,
             roomId,
           });
+        startSend.current=false;
+        console.log(startSend,"start false")
           console.log(frames.length);
           count = 0;
           frames = [];
@@ -99,7 +108,11 @@ const SignToText = ({
       // recive data from the server
       socket.on('stream_sign', ({ text }) => {
         // eslint-disable-next-line
+     startSend.current=true
+      console.log(startSend,"start truee")
+        // eslint-disable-next-line
         frames = [];
+       
         console.log('receive done ', text);
         console.log(text);
         if (text === 'space') {
@@ -110,9 +123,15 @@ const SignToText = ({
         } else {
           word += text;
         }
-
+        
         if (textsign.current) {
-          textsign.current.textContent = sentence.slice(20) + ': ' + word;
+          if(sentence.length>20){
+            
+          textsign.current.textContent = sentence.slice(20) + ': ' + word;}
+          else{
+            textsign.current.textContent = sentence + ': ' + word;
+          }
+
         }
       });
     }
