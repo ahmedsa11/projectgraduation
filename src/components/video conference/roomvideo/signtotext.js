@@ -45,14 +45,10 @@ const SignToText = ({
     );
     if (results.multiHandLandmarks) {
       for (const landmarks of results.multiHandLandmarks) {
-        // console.log(landmarks)
         count++;
-      // console.log(count,"count");
         if(startSend.current){
         frames.push(landmarks);
-        // console.log(frames.length);
       }
-        // console.log(count);
         if (frames.length === 25) {
           socket.emit('stream_sign', {
             landmarks: frames,
@@ -60,8 +56,6 @@ const SignToText = ({
             roomId,
           });
         startSend.current=false;
-        console.log(startSend,"start false")
-          console.log(frames.length);
           count = 0;
           frames = [];
         }
@@ -97,10 +91,8 @@ const SignToText = ({
     });
     if (signToText && userVideoAudio.video) {
       camera.start();
-      console.log('startCameMediapipe');
     }else{
       camera.stop();
-      console.log('stopCameMediapipe');
     }
     // eslint-disable-next-line
   }, [signToText,userVideoAudio.video]);
@@ -111,12 +103,8 @@ const SignToText = ({
       socket.on('stream_sign', ({ text }) => {
         // eslint-disable-next-line
      startSend.current=true
-      console.log(startSend,"start truee")
         // eslint-disable-next-line
         frames = [];
-       
-        console.log('receive done ', text);
-        console.log(text);
         if (text === 'space') {
           // eslint-disable-next-line
           sentence += ' ' + word;

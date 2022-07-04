@@ -27,7 +27,6 @@ const Copy = () => {
   document.execCommand('Copy');
 };
 const grid = () => {
-  console.log('grid');
   const grid6 = document.getElementById('grid6');
   const grid4 = document.getElementById('grid4');
   const grid1 = document.getElementById('grid1');
@@ -260,8 +259,6 @@ const Roomvideo = (props) => {
         } else {
           audio = !audio;
           peerIdx.audio = audio;
-          // audio ? speechRecognition.start() : speechRecognition.stop();
-          console.log(audio);
         }
 
         return {
@@ -349,7 +346,6 @@ const Roomvideo = (props) => {
     );
   }
   function createUseroption(peer, index, arr) {
-    console.log(peer);
 
     return (
       <option disabled key={index}>
@@ -366,7 +362,6 @@ const Roomvideo = (props) => {
   const toggleCameraAudio = (e) => {
     const target = e.target.getAttribute('data-switch');
     setUserVideoAudio((preList) => {
-      console.log(userVideoRef);
       let videoSwitch = preList['localUser'].video;
       let audioSwitch = preList['localUser'].audio;
 
@@ -525,7 +520,6 @@ const Roomvideo = (props) => {
                     <option disabled>{user.name}</option>
                     {peers &&
                       peers.map((peer, index, arr) => {
-                        console.log();
                         return createUseroption(peer, index, arr);
                       })}
                   </select>
