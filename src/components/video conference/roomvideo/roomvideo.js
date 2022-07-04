@@ -335,10 +335,10 @@ const Roomvideo = (props) => {
     return (
       <div
         className={`width-peer${peers.length > 8 ? '' : peers.length} vid-item`}
-        onClick={expandScreen}
+      
         key={index}
       >
-        <i className="fas fa-expand"></i>
+        <i className="fas fa-expand"  onClick={expandScreen}></i>
         <VideoCard key={index} peer={peer} number={arr.length} />
 
         <div className="icon">
@@ -545,8 +545,8 @@ const Roomvideo = (props) => {
                           <i className="fas fa-times"></i>
                         </button>
                         <div className="copy">
-                          <button onClick={Copy}>Copy Link</button>
                           <input type="text" id="paste-box" />
+                          <button onClick={Copy}>Copy Link</button>
                         </div>
                       </div>
                     </div>
@@ -575,7 +575,7 @@ const Roomvideo = (props) => {
                         peers.length > 8 ? '' : peers.length
                       }`}
                     >
-                      <i className="fas fa-expand" />
+                      <i className="fas fa-expand" ></i>
                       <video
                         onClick={expandScreen}
                         ref={userVideoRef}
