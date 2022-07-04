@@ -386,6 +386,11 @@ position: relative;
     top: 0px;
     left: 0px;
     transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    
 }
 .roomvideo .video-conference .main-side .vi .vid-stream .vids canvas{
     border-radius: 20px;
@@ -393,13 +398,17 @@ position: relative;
     top: 0px;
     left: 0px;
     width: 100%;
-    display: none;
-    z-index: 0;
+    display: block;
+    z-index: 1000;
 }
-.showmediapipe{
+/* .showmediapipe{
     display: block !important;
     z-index: 1000 !important;
 }
+.hidemediapipe{
+    display: none !important;
+    z-index: -1 !important;
+} */
 .roomvideo .video-conference .main-side .sendnameStext,.sendnameVtext{
     font-size: 16px;
     font-weight: 400;

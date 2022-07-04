@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import styled from 'styled-components';
 import phonealt from '../../../img/index 1.png';
 import tool from '../../../img/MicrosoftTeams-image8) 1.png';
@@ -14,12 +14,12 @@ const BottomBar = ({
   screenShare,
   toggleRecording,
   text,
-  signToText,
   textsign,
   toSign,
   settoSign,
   senderName,
   setsignToText,
+  signToText,
   textcaption,
   roomId,
   setsignToTextCaption,
@@ -62,10 +62,9 @@ const BottomBar = ({
         setsignToTextCaption((signcheck) => !signcheck);
       };
       tool[3].onclick = () => {
-        const signmedia = document.getElementById('canvas');
+        // const signmedia = document.getElementById('canvas');
         tool[3].classList.toggle('activetool');
-
-        signmedia.classList.toggle('showmediapipe');
+        // signmedia.classList.toggle('showmediapipe');
         setsignToText((signcheck) => !signcheck);
       };
     }

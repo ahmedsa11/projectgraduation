@@ -10,6 +10,7 @@ const SignToText = ({
   user,
   roomId,
   signToTextCaption,
+  userVideoAudio
 }) => {
   const startSend=useRef(true);
   // const[frames,setFrames]=useState([]);
@@ -94,14 +95,15 @@ const SignToText = ({
         await hands.send({ image: videoref.current });
       },
     });
-    camera.stop();
-    console.log('closeCameMediapipe');
-    if (signToText) {
+    if (signToText && userVideoAudio.video) {
       camera.start();
       console.log('startCameMediapipe');
+    }else{
+      camera.stop();
+      console.log('stopCameMediapipe');
     }
     // eslint-disable-next-line
-  }, [signToText]);
+  }, [signToText,userVideoAudio.video]);
 
   useEffect(() => {
     if (signToTextCaption) {
@@ -139,14 +141,15 @@ const SignToText = ({
   }, [signToTextCaption]);
   return (
     <react.Fragment>
-      <video
+       {userVideoAudio.video && signToText && 
+        <react.Fragment>
+     <video 
         ref={videoref}
         muted
         autoPlay
         playsInline
-        style={{ display: 'none' }}
       ></video>
-      <canvas muted id="canvas" ref={canvasRef} className="canvas"></canvas>
+<canvas muted id="canvas" ref={canvasRef} className="canvas"></canvas></react.Fragment>}
     </react.Fragment>
   );
 };

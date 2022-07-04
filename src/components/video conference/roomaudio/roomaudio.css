@@ -135,14 +135,6 @@ margin: 14px 3px
     margin: 0px 16px;
     align-items: center;
 }
-.fa-expand{
-    position: absolute;
-    background: rgba(0,0,0,0.5);
-    padding: 10px;
-    right: 0;
-    color: white;
-    cursor: pointer !important;
-}
 .roomaudio  .video-conference .main-side .vi .icon-opts ul i{
     font-size: 20px;
     color: white;
