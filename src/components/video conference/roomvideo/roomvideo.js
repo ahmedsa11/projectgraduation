@@ -3,7 +3,7 @@ import react from 'react';
 import { useReactMediaRecorder } from 'react-media-recorder';
 import Peer from 'simple-peer';
 import socket from '../socket';
-import './room.css';
+import './roomvideo.css';
 import Navbar from '../navbar/navbar';
 import Chat from '../chat/chat';
 import logo from '../../../img/MicrosoftTeams-image4) 1.png';

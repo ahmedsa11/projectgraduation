@@ -102,8 +102,8 @@ margin: 14px 3px
     top: -3px;
 }
 .roomaudio .video-conference .main-side .sendnameVtext{
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 18px;
+    font-weight: 300;
     color: white;
     display: none;
 }
@@ -475,11 +475,11 @@ position: relative;
 }
  
 .roomaudio .caption .pcap{
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 300;
     color: white;
     position: relative;
-    top: 8px;
+    top: 7px;
 }
 
 /* for Firefox */
@@ -513,14 +513,7 @@ position: relative;
     position: relative;
     height: fit-content;
 }
-/* .dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-  } */
+
   .dropbtn img{
       width: 37px;
   }
