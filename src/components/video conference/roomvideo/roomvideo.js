@@ -330,8 +330,8 @@ const Roomvideo = (props) => {
   }
   function createUserVideo(peer, index, arr) {
     return (
-      <div className="vid-item" key={index}>
-        <i className="fas fa-expand" onClick={expandScreen}></i>
+      <div className="vid-item" key={index} onClick={expandScreen}>
+        <i className="fas fa-expand" ></i>
         <VideoCard key={index} peer={peer} number={arr.length} />
 
         <div className="icon">
@@ -427,8 +427,8 @@ const Roomvideo = (props) => {
       screenTrackRef.current.onended();
     }
   };
-  const expandScreen = () => {
-    const watchvid =document.querySelector('.vid-item video');
+  const expandScreen = (e) => {
+    const watchvid =e.target
     if (watchvid.requestFullscreen) {
       watchvid.requestFullscreen();
     } else if (watchvid.mozRequestFullScreen) {
@@ -560,8 +560,9 @@ const Roomvideo = (props) => {
                   </div>
                   <div className="vid-item">
                     <div>
-                      <i className="fas fa-expand" onClick={expandScreen}></i>
+                      <i className="fas fa-expand"></i>
                       <video
+                        onClick={expandScreen}
                         ref={userVideoRef}
                         muted
                         autoPlay
