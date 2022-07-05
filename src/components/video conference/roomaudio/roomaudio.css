@@ -482,28 +482,6 @@ position: relative;
     top: 7px;
 }
 
-/* for Firefox */
-@-moz-keyframes my-animation {
- from { -moz-transform: translateY(100%); }
- to { -moz-transform: translateY(-100%); }
-}
-/* for Chrome */
-@-webkit-keyframes my-animation {
- from { -webkit-transform: translateY(100%); }
- to { -webkit-transform: translateY(-100%); }
-}
-@keyframes my-animation {
- from {
-   -moz-transform: translateY(100%);
-   -webkit-transform: translateY(100%);
-   transform: translateY(100%);
- }
- to {
-   -moz-transform: translateY(-100%);
-   -webkit-transform: translateY(-100%);
-   transform: translateY(-100%);
- }
-}
 .footer .tools{
     padding: 0;
     margin: 0;
@@ -517,14 +495,11 @@ position: relative;
   .dropbtn img{
       width: 37px;
   }
-  /* The container <div> - needed to position the dropdown content */
   .dropdown {
     position: relative;
     display: inline-block;
     bottom: 0px;
   }
-  
-  /* Dropdown Content (Hidden by Default) */
   .dropdown-content {
     display: none;
     position: absolute;
