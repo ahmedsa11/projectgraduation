@@ -331,7 +331,7 @@ const Roomvideo = (props) => {
   function createUserVideo(peer, index, arr) {
     return (
       <div className="vid-item" key={index} onClick={expandScreen}>
-        <i className="fas fa-expand" ></i>
+        {/* <i className="fas fa-expand" ></i> */}
         <VideoCard key={index} peer={peer} number={arr.length} />
 
         <div className="icon">
@@ -430,16 +430,16 @@ const Roomvideo = (props) => {
   const expandScreen = (e) => {
     const watchvid =e.target
     if (watchvid.requestFullscreen) {
-      watchvid.requestFullscreen();
+      watchvid.requestFullscreen({navigationUI: 'hide'});
     } else if (watchvid.mozRequestFullScreen) {
       /* Firefox */
-      watchvid.mozRequestFullScreen();
+      watchvid.mozRequestFullScreen({navigationUI: 'hide'});
     } else if (watchvid.webkitRequestFullscreen) {
       /* Chrome, Safari & Opera */
-      watchvid.webkitRequestFullscreen();
+      watchvid.webkitRequestFullscreen({navigationUI: 'hide'});
     } else if (watchvid.msRequestFullscreen) {
       /* IE/Edge */
-      watchvid.msRequestFullscreen();
+      watchvid.msRequestFullscreen({navigationUI: 'hide'});
     }
   };
   const toggleRecording = () => {
@@ -560,13 +560,12 @@ const Roomvideo = (props) => {
                   </div>
                   <div className="vid-item">
                     <div>
-                      <i className="fas fa-expand"></i>
+                      {/* <i className="fas fa-expand"></i> */}
                       <video
                         onClick={expandScreen}
                         ref={userVideoRef}
                         muted
                         autoPlay
-                        mplayer="video"
                         playsInline
                       ></video>
                       <SignToText
