@@ -49,7 +49,7 @@ const SignToText = ({
         if(startSend.current){
         frames.push(landmarks);
       }
-        if (frames.length === 25) {
+        if (frames.length === 15) {
           socket.emit('stream_sign', {
             landmarks: frames,
             name: user.name,
