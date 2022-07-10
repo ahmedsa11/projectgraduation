@@ -19,7 +19,7 @@ import member5 from '../../img/tabarani.jpg';
 import member6 from '../../img/hassib.jpg';
 import member7 from '../../img/heba.jpg';
 import member8 from '../../img/menna.jpg';
-import landimg from '../../img/la1.jpg';
+import landimg from '../../img/la.png';
 import l1 from '../../img/l1.jpg';
 import l2 from '../../img/l2.jpg';
 import l3 from '../../img/l3.jpg';
