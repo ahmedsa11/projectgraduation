@@ -312,6 +312,7 @@ const Setting = (props) => {
                         type="file"
                         accept="image/*"
                         id="imginput"
+                        
                         onChange={fileUpload}
                       />
                     </div>

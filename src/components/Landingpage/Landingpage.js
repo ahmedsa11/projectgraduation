@@ -44,7 +44,7 @@ const LandingPage = () => {
     });
   };
   useEffect(() => {
-    activeLink();
+    activeLink(); 
       new WOW.WOW({
         live: false
       }).init();
