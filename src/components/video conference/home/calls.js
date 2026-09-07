@@ -81,7 +81,7 @@ const Calls = () => {
         <div className="container">
           <div className="row">
             <div className="col-sm-6">
-              <div className="callaudio">
+              <div className="callaudio"> 
                 <i
                   className="fas fa-phone-alt popup-open"
                   onClick={joinaudio}
